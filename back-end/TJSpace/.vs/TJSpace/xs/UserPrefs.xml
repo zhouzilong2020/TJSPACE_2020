@@ -1,21 +1,9 @@
 ﻿<Properties StartupConfiguration="{BCA4B615-DBD8-49D7-A536-17BBA5622A2F}|Default">
   <MonoDevelop.Ide.ItemProperties.TJSpace PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/DBModel/Account.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/DBModel/Credibility.cs">
     <Files>
-      <File FileName="TJSpace/Startup.cs" Line="44" Column="20" />
-      <File FileName="TJSpace/appsettings.json" Line="8" Column="2" />
-      <File FileName="TJSpace/Properties/launchSettings.json" Line="28" Column="6" />
-      <File FileName="TJSpace/Controllers/ValuesController.cs" />
-      <File FileName="TJSpace/Program.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/appsettings.Development.json" Line="7" Column="6" />
-      <File FileName="TJSpace/DBModel/Account.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/User.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Major.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/CourseCode.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Course.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Teacher.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Comment.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Credibility.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/DBModel/Comment.cs" Line="33" Column="43" />
+      <File FileName="TJSpace/DBModel/Credibility.cs" Line="11" Column="47" />
       <File FileName="TJSpace/DBModel/Post.cs" Line="1" Column="1" />
       <File FileName="TJSpace/DBModel/Reply.cs" Line="1" Column="1" />
       <File FileName="TJSpace/DBModel/Mark.cs" Line="1" Column="1" />
@@ -32,7 +20,7 @@
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
               <Node name="DBModel" expanded="True">
-                <Node name="Account.cs" selected="True" />
+                <Node name="Credibility.cs" selected="True" />
               </Node>
               <Node name="appsettings.json" expanded="True" />
             </Node>
