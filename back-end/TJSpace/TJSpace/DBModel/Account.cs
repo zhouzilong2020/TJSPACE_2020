@@ -37,7 +37,7 @@ namespace TJSpace.DBModel
         [Column("type", TypeName = "int(11)")]
         public int Type { get; set; }
 
-        //标识码
+        //用户编号
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
