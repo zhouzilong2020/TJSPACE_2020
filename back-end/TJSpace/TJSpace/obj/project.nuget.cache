@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YUHO6fudbnwEAF4HneQqJPT4M5mLQzouYZnWUzr4AAWJx+RZzfLj7msGTRJ36WVKBaZcRhJGnVrMZf4RklsUZg==",
+  "dgSpecHash": "TJjweQrudtxcDoGz3SwJV8ilWbWqTeKTgVIHTEYUaMj3YaZvecZtCKJuL/Q4LwhIUK68G8NvmPDwhiZDer7tzQ==",
   "success": true,
-  "projectFilePath": "/Users/lutianyi/Projects/TJSpace/TJSpace/TJSpace.csproj",
+  "projectFilePath": "/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/TJSpace.csproj",
   "expectedPackageFiles": [
     "/Users/lutianyi/.nuget/packages/bouncycastle.netcore/1.8.3/bouncycastle.netcore.1.8.3.nupkg.sha512",
     "/Users/lutianyi/.nuget/packages/google.protobuf/3.6.1/google.protobuf.3.6.1.nupkg.sha512",

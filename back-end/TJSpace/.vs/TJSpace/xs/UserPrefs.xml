@@ -1,15 +1,25 @@
 ﻿<Properties StartupConfiguration="{BCA4B615-DBD8-49D7-A536-17BBA5622A2F}|Default">
   <MonoDevelop.Ide.ItemProperties.TJSpace PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/DBModel/Credibility.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/DBModel/User.cs">
     <Files>
-      <File FileName="TJSpace/DBModel/Comment.cs" Line="33" Column="43" />
+      <File FileName="TJSpace/DBModel/Comment.cs" Line="35" Column="17" />
       <File FileName="TJSpace/DBModel/Credibility.cs" Line="11" Column="47" />
-      <File FileName="TJSpace/DBModel/Post.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Reply.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Mark.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Teaches.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Takes.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/SendMessage.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/DBModel/Post.cs" Line="20" Column="43" />
+      <File FileName="TJSpace/DBModel/Reply.cs" Line="34" Column="43" />
+      <File FileName="TJSpace/DBModel/Mark.cs" Line="26" Column="41" />
+      <File FileName="TJSpace/DBModel/Teaches.cs" Line="11" Column="43" />
+      <File FileName="TJSpace/DBModel/Takes.cs" Line="40" Column="1" />
+      <File FileName="TJSpace/DBModel/SendMessage.cs" Line="12" Column="1" />
+      <File FileName="TJSpace/DBModel/Major.cs" Line="11" Column="41" />
+      <File FileName="TJSpace/DBModel/CourseCode.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/DBModel/Course.cs" Line="21" Column="45" />
+      <File FileName="TJSpace/DBModel/Account.cs" Line="45" Column="43" />
+      <File FileName="TJSpace/appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="TJSpace/Program.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/Startup.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="TJSpace/DBModel/Teacher.cs" Line="20" Column="46" />
+      <File FileName="TJSpace/DBModel/User.cs" Line="7" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,10 +28,12 @@
             <Node name="TJSpace" expanded="True">
               <Node name="Dependencies" expanded="True">
                 <Node name="PackageDependencies" expanded="True" />
+                <Node name="SdkDependencies" expanded="True" />
               </Node>
               <Node name="DBModel" expanded="True">
-                <Node name="Credibility.cs" selected="True" />
+                <Node name="User.cs" selected="True" />
               </Node>
+              <Node name="Properties" expanded="True" />
               <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>

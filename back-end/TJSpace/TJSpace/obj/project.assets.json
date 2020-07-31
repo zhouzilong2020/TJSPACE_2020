@@ -13058,11 +13058,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/lutianyi/Projects/TJSpace/TJSpace/TJSpace.csproj",
+      "projectUniqueName": "/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/TJSpace.csproj",
       "projectName": "TJSpace",
-      "projectPath": "/Users/lutianyi/Projects/TJSpace/TJSpace/TJSpace.csproj",
+      "projectPath": "/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/TJSpace.csproj",
       "packagesPath": "/Users/lutianyi/.nuget/packages/",
-      "outputPath": "/Users/lutianyi/Projects/TJSpace/TJSpace/obj/",
+      "outputPath": "/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
