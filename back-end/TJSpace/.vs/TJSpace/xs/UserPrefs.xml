@@ -3,7 +3,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/Controllers/ValuesController.cs">
     <Files>
       <File FileName="TJSpace/DataDBContext.cs" Line="17" Column="37" />
-      <File FileName="TJSpace/Controllers/ValuesController.cs" Line="22" Column="1" />
+      <File FileName="TJSpace/Controllers/ValuesController.cs" Line="34" Column="10" />
       <File FileName="TJSpace/Properties/launchSettings.json" />
       <File FileName="TJSpace/appsettings.Development.json" />
       <File FileName="TJSpace/DBModel/User.cs" />
@@ -17,9 +17,7 @@
                 <Node name="PackageDependencies" expanded="True" />
                 <Node name="SdkDependencies" expanded="True" />
               </Node>
-              <Node name="Controllers" expanded="True">
-                <Node name="ValuesController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="DBModel" expanded="True" />
               <Node name="Properties" expanded="True" />
               <Node name="appsettings.json" expanded="True" />
