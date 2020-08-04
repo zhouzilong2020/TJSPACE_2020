@@ -35,3 +35,4 @@
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.dll
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.pdb
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.genruntimeconfig.cache
+/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.csprojAssemblyReference.cache
