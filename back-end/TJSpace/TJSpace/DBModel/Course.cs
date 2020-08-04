@@ -14,6 +14,7 @@ namespace TJSpace.DBModel
     public class Course
     {
         //课程编号
+        [Key]
         [JsonProperty("courseid")]
         [Required]
         [Column("course_id")]
@@ -21,6 +22,7 @@ namespace TJSpace.DBModel
         public string CourseId { get; set; }
 
         //开课学院
+        [Key]
         [JsonProperty("deptname")]
         [Required]
         [Column("dept_name")]
@@ -30,7 +32,7 @@ namespace TJSpace.DBModel
         //课程学分
         [JsonProperty("credits")]
         [Required]
-        [Column("credits",TypeName="int(11")]
+        [Column("credits",TypeName="int(11)")]
         public int Credits { get; set; }
     }
 }

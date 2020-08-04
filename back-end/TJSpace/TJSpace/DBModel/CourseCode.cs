@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class CourseCode
     {
         //课程编号
+        [Key]
         [JsonProperty("courseid")]
         [Required]
         [Column("course_id")]

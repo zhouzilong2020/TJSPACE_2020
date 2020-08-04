@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class Takes
     {
         //用户编号
+        [Key]
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
@@ -20,6 +21,7 @@ namespace TJSpace.DBModel
         public string UserId { get; set; }
 
         //课程编号
+        [Key]
         [JsonProperty("courseid")]
         [Required]
         [Column("course_id")]
@@ -27,21 +29,23 @@ namespace TJSpace.DBModel
         public string CourseId { get; set; }
 
         //开课学期
+        [Key]
         [JsonProperty("semester")]
         [Required]
         [Column("semester",TypeName ="int(11)")]
-        public string Semester { get; set; }
+        public int Semester { get; set; }
 
         //开课年份
+        [Key]
         [JsonProperty("year")]
         [Required]
         [Column("year", TypeName = "int(11)")]
-        public string Year { get; set; }
+        public int Year { get; set; }
 
         //对课程给分情况的评价
         [JsonProperty("gpa")]
         [Required]
         [Column("gpa", TypeName = "int(11)")]
-        public string Gpa { get; set; }
+        public int Gpa { get; set; }
     }
 }

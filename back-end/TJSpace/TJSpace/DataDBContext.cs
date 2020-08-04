@@ -25,6 +25,23 @@ namespace TJSpace
        public DbSet<Teacher> Teachers { get; set; }
        public DbSet<Teaches> Teaches { get; set; }
        public DbSet<User> Users { get; set; }
-       
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Course>().HasKey(t => new { t.CourseId, t.DeptName });
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Credibility>().HasKey(t => new { t.CommentId, t.UserId });
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Mark>().HasKey(t => new { t.UserId, t.ReplyId,t.PostId });
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Takes>().HasKey(t => new { t.UserId, t.Year,t.Semester,t.CourseId });
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Teaches>().HasKey(t => new { t.CourseId, t.Semester,t.TeacherId });
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

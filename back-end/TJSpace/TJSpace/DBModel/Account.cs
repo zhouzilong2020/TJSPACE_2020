@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class Account
     {
         //邮箱
+        [Key]
         [JsonProperty("email")]
         [Required]
         [Column("email")]

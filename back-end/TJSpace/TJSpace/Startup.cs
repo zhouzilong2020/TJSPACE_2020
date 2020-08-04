@@ -61,8 +61,8 @@ namespace TJSpace
             });
             #endregion
 
-            string path = Configuration.GetConnectionString("SqlServerConnection");
-            services.AddDbContext<DbContext>(options => options.UseSqlServer(path));
+            string path = Configuration.GetConnectionString("MysqlConnectionString");
+            services.AddDbContext<DataDBContext>(options => options.UseMySQL(path));
 
 
         }

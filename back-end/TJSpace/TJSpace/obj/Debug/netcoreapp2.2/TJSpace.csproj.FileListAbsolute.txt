@@ -18,15 +18,14 @@
 /Users/lutianyi/Projects/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.genruntimeconfig.cache
 /Users/lutianyi/Projects/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/TJSpace.xml
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/appsettings.Development.json
-/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/appsettings.json
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/Properties/launchSettings.json
+/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/appsettings.json
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/TJSpace.xml
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/TJSpace.deps.json
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/TJSpace.runtimeconfig.json
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/TJSpace.runtimeconfig.dev.json
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/TJSpace.dll
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/bin/Debug/netcoreapp2.2/TJSpace.pdb
-/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.csprojAssemblyReference.cache
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.AssemblyInfoInputs.cache
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.AssemblyInfo.cs
 /Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/obj/Debug/netcoreapp2.2/TJSpace.csproj.CoreCompileInputs.cache

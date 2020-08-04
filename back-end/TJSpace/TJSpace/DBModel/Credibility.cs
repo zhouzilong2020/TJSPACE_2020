@@ -8,11 +8,12 @@ namespace TJSpace.DBModel
 {
     [MySqlCharset("utf8mb4")] //字符集
     [MySqlCollation("utf8mb4_general_ci")] //排序规则
-    [Table("course_code", Schema = "tjspace")]
+    [Table("credibility", Schema = "tjspace")]
 
     public class Credibility
     {
         //用户编号
+        [Key]
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
@@ -20,6 +21,7 @@ namespace TJSpace.DBModel
         public string UserId { get; set; }
 
         //评价编号
+        [Key]
         [JsonProperty("commentid")]
         [Required]
         [Column("comment_id")]

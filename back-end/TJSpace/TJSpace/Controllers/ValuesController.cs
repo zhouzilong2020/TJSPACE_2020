@@ -12,7 +12,7 @@ namespace TJSpace.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly DataDBContext dbContext;
+       private readonly DataDBContext dbContext;
 
         public ValuesController(DataDBContext context)
         {
@@ -25,19 +25,26 @@ namespace TJSpace.Controllers
             }
         }
 
-
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
             return await dbContext.Teachers.ToListAsync();
+            //return null;
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("{Teacherid}")]
+        public async Task<ActionResult<Teacher>> Get(int Teacherid)
         {
-            return "value";
+            var teacher = await dbContext.Teachers.FindAsync(Teacherid);
+            if (teacher == null)
+            {
+                return NotFound();
+            }
+
+            return teacher;
+            //return null;
         }
 
         // POST api/values

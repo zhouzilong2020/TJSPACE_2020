@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class Mark
     {
         //用户编号
+        [Key]
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
@@ -20,6 +21,7 @@ namespace TJSpace.DBModel
         public string UserId { get; set; }
 
         //回复编号
+        [Key]
         [JsonProperty("replyid")]
         [Required]
         [Column("reply_id")]
@@ -27,6 +29,7 @@ namespace TJSpace.DBModel
         public string ReplyId { get; set; }
 
         //贴子编号
+        [Key]
         [JsonProperty("postid")]
         [Required]
         [Column("post_id",TypeName ="int(11)")]

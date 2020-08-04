@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class Teacher
     {
         //教师编号
+        [Key]
         [JsonProperty("teacherid")]
         [Required]
         [Column("teacher_id")]

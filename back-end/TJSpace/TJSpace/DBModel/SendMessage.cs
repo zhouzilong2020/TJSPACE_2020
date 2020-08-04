@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class SendMessage
     {
         //消息编号
+        [Key]
         [JsonProperty("messageid")]
         [Required]
         [Column("message_id")]

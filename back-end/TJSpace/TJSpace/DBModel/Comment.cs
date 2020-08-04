@@ -14,6 +14,7 @@ namespace TJSpace.DBModel
     {
 
         //评论id
+        [Key]
         [JsonProperty("commentid")]
         [Required]
         [Column("comment_id", TypeName = "int(11)")]

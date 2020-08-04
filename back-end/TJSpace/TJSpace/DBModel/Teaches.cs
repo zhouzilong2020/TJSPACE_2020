@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class Teaches
     {
         //教师编号
+        [Key]
         [JsonProperty("teacherid")]
         [Required]
         [Column("teacher_id")]
@@ -20,6 +21,7 @@ namespace TJSpace.DBModel
         public string TeacherId { get; set; }
 
         //课程编号
+        [Key]
         [JsonProperty("courseid")]
         [Required]
         [Column("course_id")]
@@ -27,16 +29,17 @@ namespace TJSpace.DBModel
         public string CourseId { get; set; }
 
         //开课学期
+        [Key]
         [JsonProperty("semester")]
         [Required]
         [Column("semester", TypeName = "int(11)")]
-        public string Semester { get; set; }
+        public int Semester { get; set; }
 
         //开课年份
         [JsonProperty("year")]
         [Required]
         [Column("year", TypeName = "int(11)")]
-        public string Year { get; set; }
+        public int Year { get; set; }
 
     }
 }

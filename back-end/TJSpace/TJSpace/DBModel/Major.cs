@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class Major
     {
         //专业编号
+        [Key]
         [JsonProperty("majorid")]
         [Required]
         [Column("major_id")]

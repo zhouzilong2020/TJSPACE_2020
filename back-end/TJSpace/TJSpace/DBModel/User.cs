@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class User
     {
         //用户编号
+        [Key]
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
@@ -50,13 +51,13 @@ namespace TJSpace.DBModel
         [JsonProperty("year")]
         [Required]
         [Column("year", TypeName = "int(11)")]
-        public string Year { get; set; }
+        public int Year { get; set; }
 
         //用户学历
         [JsonProperty("degree")]
         [Required]
         [Column("degree", TypeName = "int(11)")]
-        public string Degree { get; set; }
+        public int Degree { get; set; }
 
 
 

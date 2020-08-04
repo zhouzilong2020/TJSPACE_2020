@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class Reply
     {
         //贴子编号
+        [Key]
         [JsonProperty("replyid")]
         [Required]
         [Column("reply_id")]

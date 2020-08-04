@@ -13,6 +13,7 @@ namespace TJSpace.DBModel
     public class Post
     {
         //贴子编号
+        [Key]
         [JsonProperty("postid")]
         [Required]
         [Column("post_id")]
