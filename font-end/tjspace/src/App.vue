@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          TJSPACE·同济大学社群
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>TJSPACE v1.0</div>
       </q-toolbar>
     </q-header>
 
