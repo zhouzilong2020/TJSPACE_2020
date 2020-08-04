@@ -22,13 +22,6 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint enabled="false" file="/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/Controllers/ValuesController.cs" relfile="TJSpace/Controllers/ValuesController.cs" line="19" column="1" />
-      <Breakpoint enabled="false" file="/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/Controllers/ValuesController.cs" relfile="TJSpace/Controllers/ValuesController.cs" line="40" column="1" />
-      <Breakpoint enabled="false" file="/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/Startup.cs" relfile="TJSpace/Startup.cs" line="65" column="1" />
-      <Breakpoint enabled="false" file="/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/DataDBContext.cs" relfile="TJSpace/DataDBContext.cs" line="9" column="1" />
-      <Breakpoint enabled="false" file="/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/Controllers/ValuesController.cs" relfile="TJSpace/Controllers/ValuesController.cs" line="15" column="1" />
-      <Breakpoint file="/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/Controllers/ValuesController.cs" relfile="TJSpace/Controllers/ValuesController.cs" line="32" column="1" />
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
