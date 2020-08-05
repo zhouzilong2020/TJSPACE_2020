@@ -2,13 +2,11 @@
   <div class="course-review-statistics">
 		<p>{{courseStatistic.reveiwCnt}} Reviews</p>
 		<ul class="rating-container">
-			<li><strong>课程内容</strong><span class="rating rating-1">{{courseStatistic.content}}</span></li>
-			<li><strong>教学</strong><span class="rating rating-3">{{courseStatistic.teaching}}</span></li>
-			<li><strong>评分</strong><span class="rating rating-3">{{courseStatistic.grading}}</span></li>
-			<li><strong>课程工作量</strong><span class="rating rating-4">{{courseStatistic.workload}}</span></li>
+			<li><strong>课程质量</strong><span class="rating" :class="getRate(courseStatistic.content)">{{courseStatistic.content}}</span></li>
+			<li><strong>教学水平</strong><span class="rating" :class="getRate(courseStatistic.teaching)">{{courseStatistic.teaching}}</span></li>
+			<li><strong>评分情况</strong><span class="rating" :class="getRate(courseStatistic.grading)">{{courseStatistic.grading}}</span></li>
+			<li><strong>课程作业</strong><span class="rating" :class="getRate(courseStatistic.workload)">{{courseStatistic.workload}}</span></li>
 		</ul>
-		
-
 	</div>
 </template>
 
@@ -18,11 +16,10 @@ export default {
     props:{
         courseStatistic:{
             type: Object,
-
             default: function(){
                 return{
                     reveiwCnt:100,
-                    content:"A",
+                    content:"B",
                     teaching:"A",
                     grading:"A",
                     workload:"A",
@@ -30,20 +27,38 @@ export default {
             }
         }
     },
+    computed: {
+        getRate(){
+            return (grade) =>{
+                switch(grade){
+                    case "A": return "rating-4";
+                    case "B": return "rating-3";
+                    case "C": return "rating-2";
+                    case "D": return "rating-1";
+                }
+            }
+        },
 
-
+    }
 }
 </script>
 
 <style>
 
+.course-review-statistics{
+    width:250px;
+    height:350px;
+}
+
 .course-review-statistics .rating-container li .rating {
     width: 50px;
     font-size: 22px;
     line-height: 35px;
-    margin-top: 30px;
     border-radius: 6px;
+    margin: 0 10px;
 }
+
+
 
 .rating-container li .rating {
     display: inline-block;
@@ -79,25 +94,21 @@ export default {
     text-align: center;
 }
 
+.course-review-statistics .rating-container li {
+    position: relative;
+    width: 100%; 
+    height: 70px;
+}
+
 .rating-container {
     padding: 0;
     overflow: hidden;
 }
 
-.rating-1 {
-    background: #fb1420;
-}
-.rating-2 {
-    background: #ff7800;
-}
-
-.rating-3 {
-    background: #ffba00;
-}
-
-.rating-4 {
-    background: #afc732;
-}
+.rating-1 {background: #fb1420;}
+.rating-2 {background: #ff7800;}
+.rating-3 {background: #ffba00;}
+.rating-4 {background: #afc732;}
 
 
 </style>
