@@ -3,42 +3,24 @@
 
     <q-header reveal bordered class="bg-primary text-white" height-hint="98">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="left = !left" />
-        
+        <q-btn dense flat round icon="menu" @click="drawer = !drawer" />
         <q-toolbar-title>
           <q-avatar>
             <img :src="logoPath">
           </q-avatar>
-          TJSPACE·同济大学社群
+          TJSPACE·同济大学社群{{drawer == false}}
         </q-toolbar-title>
-
       </q-toolbar>
-
-      <!-- <q-tabs align="left">
-        <q-route-tab to="/page1" label="Page One" />
-        <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
-      </q-tabs> -->
     </q-header>
-
-    <q-drawer show-if-above v-model="left" side="left" bordered>
-      <!-- drawer content -->
-      some content
-    </q-drawer>
-
+    
+    <LeftDrawer :drawer="drawer"/>
 
     <q-page-container>
-       <div>
+      <div>
             <q-btn @click="doSomething" label="Do something" />
-        </div>
-      <div class="row">
-        <div>First column</div>
-        <div>Second column</div>
-        <div>Third column</div>
       </div>
 
-
-
+      <CourseStatistic />
     </q-page-container>
 
     <q-footer reveal elevated class="bg-grey-8 text-white">
@@ -56,11 +38,18 @@
 </template>
 
 <script>
+import LeftDrawer from "./LeftDrawer"
+import CourseStatistic from "./CourseStatistic"
 export default {
+  components:{
+    LeftDrawer,
+    CourseStatistic,
+  },
+
   data () {
     return {
         logoPath : require("../assets/TJU.png"),
-        left : false,
+        drawer : false,
     }
   }
 }
