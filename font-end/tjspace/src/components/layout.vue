@@ -8,7 +8,7 @@
           <q-avatar>
             <img :src="logoPath">
           </q-avatar>
-          TJSPACE·同济大学社群{{drawer == true}}
+          TJSPACE · 同济大学社群
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -16,7 +16,7 @@
     <q-drawer
     v-model="drawer"
     show-if-above
-    :width="250"
+    :width="200"
     :breakpoint="400"
     >
     <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
@@ -74,9 +74,14 @@
     </q-img>
   </q-drawer>
   
+
+
     <q-page-container>
-      <course-statistic/>
+      <course-statistic :CourseStatistic="courseInfo.statistic"/>
+      <course-info />
     </q-page-container>
+
+
 
     <q-footer reveal elevated class="bg-grey-8 text-white">
       <q-toolbar>
@@ -94,9 +99,11 @@
 
 <script>
 import CourseStatistic from "./CourseStatistic"
+import CourseInfo from './CourseInfo'
 export default {
   components:{
     CourseStatistic,
+    CourseInfo,
   },
 
   data () {
@@ -104,6 +111,9 @@ export default {
       logoPath : require("../assets/TJU.png"),
       drawer : false,
       active : -1,
+      courseInfo:{
+
+      },
       userInfo:{
         nickName: "a name",
         eMail:"a eMail"
