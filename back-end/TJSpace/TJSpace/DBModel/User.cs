@@ -28,34 +28,29 @@ namespace TJSpace.DBModel
         public string NickName { get; set; }
 
         //用户性别
-        [JsonProperty("gentle")]
-        [Required]
-        [Column("gentle",TypeName ="int(11)")]
-        public int Gentle { get; set; }
+        [JsonProperty("gender")]
+        [Column("gender",TypeName ="int(11)")]
+        public int Gender { get; set; }
 
-        //用户昵称
+        //用户手机号
         [JsonProperty("phonenumber")]
-        [Required]
-        [Column("phonenumber")]
+        [Column("phone_number")]
         [StringLength(maximumLength: 20)]
         public string PhoneNumber { get; set; }
 
         //所在专业
         [JsonProperty("majorid")]
-        [Required]
         [Column("major_id")]
         [StringLength(maximumLength: 10)]
         public string MajorId { get; set; }
 
         //入学年份
         [JsonProperty("year")]
-        [Required]
         [Column("year", TypeName = "int(11)")]
         public int Year { get; set; }
 
         //用户学历
         [JsonProperty("degree")]
-        [Required]
         [Column("degree", TypeName = "int(11)")]
         public int Degree { get; set; }
 

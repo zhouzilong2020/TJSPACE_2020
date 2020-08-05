@@ -16,7 +16,7 @@ namespace TJSpace.DBModel
         [Key]
         [JsonProperty("email")]
         [Required]
-        [Column("email")]
+        [Column("e_mail")]
         public string Email { get; set; }
 
         //密码
@@ -40,9 +40,8 @@ namespace TJSpace.DBModel
 
         //用户编号
         [JsonProperty("userid")]
-        [Required]
         [Column("user_id")]
-        [StringLength(maximumLength: 20)]
+        [StringLength(maximumLength: 50)]
         public string UserId { get; set; }
 
  

@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="DBModel\" />
+    <Folder Include="Tools\" />
   </ItemGroup>
   <ItemGroup>
     <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="appsettings.json">
