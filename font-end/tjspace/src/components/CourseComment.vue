@@ -108,12 +108,12 @@
 
         <q-separator />
 
-        <q-card-section class="footer">
-            <q-label class="data">评论于 {{reviewInfro.commentDetail.data}}</q-label>
+        <q-card-section class="footer row justify-between">
+            <q-label class="data">评论于 {{reviewInfro.commentDetail.date}}</q-label>
             <q-label class="detail"> {{reviewInfro.commentDetail.useful}}/{{reviewInfro.commentDetail.useless+reviewInfro.commentDetail.useful}}  人觉得有用</q-label>
             <div class="option">
-                <span class="zan iconfont icon-dianzan"></span>
-                <span class="cai iconfont icon-cai"></span>
+                <q-btn flat round icon="iconfont icon-dianzan"></q-btn>
+                <q-btn flat round icon="iconfont icon-cai"></q-btn>
             </div>
         </q-card-section>
 
@@ -169,7 +169,7 @@ export default {
                         teaching:"袁时金老师的教学水平真的太强啦，上课的时候风趣幽默，讲解知识到位，理论体系完善丰富，极大的开阔了学生们的视野，让我们领会到了世界一流大学一流老师的教学水平，早在高考的时候就袁时金老师的大名就留有耳闻，这是我来同济大学的重要原因之一，不然我就去清华了",
                         grading:"这门课太容易了，导致我随随便便就拿了个优",
                         workload:"这门课的作业一点也不多，我一下子就能写完",
-                        data:"2020.08.06",
+                        date:"2020.08.06",
                         useful:230,
                         useless:0
                     }
@@ -243,10 +243,9 @@ export default {
 .course-requirement ul .active{color:green;}
 .course-requirement ul .iconfont{margin-right:5px;}
 
-.footer{margin: 0 auto; padding: 0; line-height: 0px;}
-.footer q-label{font-size: 5px; color:grey; font-weight: 800;}
-.footer .detail{position: absolute; right: 80px;}
-.footer .option{line-height:0px; height:15px; color:grey; position: absolute; right: 10px}
-.footer .option .iconfont{font-size: 14px;}
-.footer .option .zan{margin-right: 10px}
+.footer{margin: 0 auto; padding: 0; line-height: 10px;}
+.footer q-label{font-size: 5px; color:grey; font-weight: 800; }
+.footer .detail{position: absolute; right: 120px;}
+.footer .option{ line-height:0px; height:0px; color:grey; position: absolute; top:0px; right:5px;}
+.footer .option .iconfont{font-size: 15px;}
 </style>
