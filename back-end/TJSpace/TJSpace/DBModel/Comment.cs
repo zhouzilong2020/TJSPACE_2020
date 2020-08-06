@@ -94,9 +94,77 @@ namespace TJSpace.DBModel
         [StringLength(maximumLength:10)]
         public string TeacherId { get; set; }
 
+        //对教学水平的文字评价
+        [JsonProperty("teaching")]
+        [Column("teaching")]
+        [StringLength(maximumLength:200)]
+        public string Teaching { get; set; }
 
+        //对给分情况的文字评价
+        [JsonProperty("grade")]
+        [Column("grade")]
+        [StringLength(maximumLength: 200)]
+        public string Grade { get; set; }
 
+        //对课程作业的文字评价
+        [JsonProperty("homework")]
+        [Column("homework")]
+        [StringLength(maximumLength: 200)]
+        public string Homework { get; set; }
 
+        //有无期中考试
+        [JsonProperty("midterm")]
+        [Required]
+        [Column("midterm", TypeName = "int(11)")]
+        public int Midterm { get; set; }
+
+        //有无期末考试
+        [JsonProperty("final")]
+        [Required]
+        [Column("final", TypeName = "int(11)")]
+        public int Final { get; set; }
+
+        //有无小测验
+        [JsonProperty("quiz")]
+        [Required]
+        [Column("quiz", TypeName = "int(11)")]
+        public int Quiz { get; set; }
+
+        //有无课后作业
+        [JsonProperty("assignment")]
+        [Required]
+        [Column("assignment", TypeName = "int(11)")]
+        public int Assignment { get; set; }
+
+        //有无课程论文
+        [JsonProperty("essay")]
+        [Required]
+        [Column("essay", TypeName = "int(11)")]
+        public int Essay { get; set; }
+
+        //有无课程项目
+        [JsonProperty("project")]
+        [Required]
+        [Column("project", TypeName = "int(11)")]
+        public int Project { get; set; }
+
+        //有无考勤
+        [JsonProperty("attendence")]
+        [Required]
+        [Column("attendencr", TypeName = "int(11)")]
+        public int Attendence { get; set; }
+
+        //有无阅读材料
+        [JsonProperty("reading")]
+        [Required]
+        [Column("reading", TypeName = "int(11)")]
+        public int Reading { get; set; }
+
+        //有无个人展示
+        [JsonProperty("presentation")]
+        [Required]
+        [Column("presentation", TypeName = "int(11)")]
+        public int Presentation { get; set; }
 
     }
 }

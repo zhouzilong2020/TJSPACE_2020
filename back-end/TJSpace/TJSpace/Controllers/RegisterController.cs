@@ -25,7 +25,7 @@ namespace TJSpace.Controllers
         }
     
         //注册（包含对密码、昵称格式的检验）
-        //POST api/user/register
+        //POST 
         [HttpPost]
         [Route("register")]
         public ActionResult<string> Register(string email, string password, string nickname,string uuid)
@@ -37,16 +37,25 @@ namespace TJSpace.Controllers
                 return Ok(new
                 {
                     status = false,
-                    msg = "密码不合法"
+                    msg = "密码长度不合法"
                 });
             }
 
-            if (Check.CheckNickname(nickname).Equals(0))
-            {
+            var info = dbContext.Users.Where(n => n.NickName.Equals(nickname)).ToList().FirstOrDefault();
+            if (info != null)
                 return Ok(new
                 {
                     status = false,
-                    msg = "昵称不合法"
+                    msg = "昵称重复"
+                });
+
+            if (Check.CheckNickname(nickname).Equals(0))
+            {
+
+                return Ok(new
+                {
+                    status = false,
+                    msg = "昵称长度不合法"
                 });
             }
 
@@ -75,7 +84,7 @@ namespace TJSpace.Controllers
         }
 
         //发送验证邮件
-        //GET api/user/email
+        //GET 
         [HttpGet]
         [Route("email")]
         public ActionResult<string> SendEmail(string email,string code)
@@ -132,7 +141,7 @@ namespace TJSpace.Controllers
         }
 
         //检查验证码
-        //POST api/user/Verification
+        //POST 
         [HttpPost]
         [Route("verify")]
         public ActionResult<string> Verify(string VerificationCode,string code)
