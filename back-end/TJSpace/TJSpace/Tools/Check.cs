@@ -40,17 +40,6 @@ namespace TJSpace.Tools
 
         }
 
-        //验证用户密码合法性
-        public static bool CheckPassword(string Password)
-        {
-            return Regex.Replace(Password, @"[\一-\龥/g]", "aa").Length <= 20;
-        }
-
-        //验证用户昵称合法性
-        public static bool CheckNickname(string Nickname)
-        {
-            return Regex.Replace(Nickname, @"[\一-\龥/g]", "aa").Length <= 20;
-        }
 
 
     }

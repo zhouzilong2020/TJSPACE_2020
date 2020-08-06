@@ -17,8 +17,9 @@ namespace TJSpace.DBModel
         [Key]
         [JsonProperty("commentid")]
         [Required]
-        [Column("comment_id", TypeName = "int(11)")]
-        public int CommentId { get; set; }
+        [Column("comment_id")]
+        [StringLength(maximumLength: 20)]
+        public string CommentId { get; set; }
 
         //内容
         [JsonProperty("content")]
@@ -46,10 +47,10 @@ namespace TJSpace.DBModel
         public int Instructor { get; set; }
 
         //课程的难易程度量化评分
-        [JsonProperty("difficulty")]
+        [JsonProperty("grading")]
         [Required]
-        [Column("difficulty", TypeName = "int(11)")]
-        public int Difficulty { get; set; }
+        [Column("grading", TypeName = "int(11)")]
+        public int Grading { get; set; }
 
         //工作量量化评分
         [JsonProperty("workload")]
@@ -59,12 +60,12 @@ namespace TJSpace.DBModel
 
         //点赞数
         [JsonProperty("usefulnum")]
-        [Column("useful",TypeName ="int(11)")]
+        [Column("useful_num",TypeName ="int(11)")]
         public int UsefulNum { get; set; }
 
         //点踩数
         [JsonProperty("uselessnum")]
-        [Column("useless", TypeName = "int(11)")]
+        [Column("useless_num", TypeName = "int(11)")]
         public int UselessNum { get; set; }
 
         //用户id
@@ -151,7 +152,7 @@ namespace TJSpace.DBModel
         //有无考勤
         [JsonProperty("attendence")]
         [Required]
-        [Column("attendencr", TypeName = "int(11)")]
+        [Column("attendence", TypeName = "int(11)")]
         public int Attendence { get; set; }
 
         //有无阅读材料

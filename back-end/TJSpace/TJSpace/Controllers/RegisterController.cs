@@ -28,19 +28,9 @@ namespace TJSpace.Controllers
         //POST 
         [HttpPost]
         [Route("register")]
-        public ActionResult<string> Register(string email, string password, string nickname,string uuid)
+        public ActionResult<string> Register(string email, string password, string nickname)
         {
-            //var uuid = Guid.NewGuid().ToString();
-
-            if (Check.CheckPassword(password).Equals(0))
-            {
-                return Ok(new
-                {
-                    status = false,
-                    msg = "密码长度不合法"
-                });
-            }
-
+            var uuid = Guid.NewGuid().ToString();
             var info = dbContext.Users.Where(n => n.NickName.Equals(nickname)).ToList().FirstOrDefault();
             if (info != null)
                 return Ok(new
@@ -48,16 +38,6 @@ namespace TJSpace.Controllers
                     status = false,
                     msg = "昵称重复"
                 });
-
-            if (Check.CheckNickname(nickname).Equals(0))
-            {
-
-                return Ok(new
-                {
-                    status = false,
-                    msg = "昵称长度不合法"
-                });
-            }
 
             dbContext.Users.Add(new DBModel.User { UserId = uuid,NickName = nickname});
             dbContext.SaveChanges();
@@ -69,7 +49,7 @@ namespace TJSpace.Controllers
                 return Ok(new
                 {
                     status = true,
-                    msg = "获取数据成功"
+                    msg = "注册成功"
                 });
             }
             else
