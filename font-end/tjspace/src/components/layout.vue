@@ -5,9 +5,6 @@
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="drawer = !drawer" />
         <q-toolbar-title>
-          <q-avatar>
-            <img :src="logoPath">
-          </q-avatar>
           TJSPACE · 同济大学社群
         </q-toolbar-title>
       </q-toolbar>
@@ -72,14 +69,17 @@
         <div>{{userInfo.eMail}}</div>
       </div>
     </q-img>
-  </q-drawer>
+    </q-drawer>
   
 
 
-    <q-page-container class="body row">
+    <q-page-container class="body row justify-evenly">
 
-      <course-detail />
-      <q-page-container class="col-10 comment">
+      <q-page-container class="detail">
+        <course-detail />
+      </q-page-container>
+
+      <q-page-container class="comment">
         <course-comment />
         <course-comment />
         <course-comment />
@@ -132,9 +132,17 @@ export default {
 </script>
 
 <style>
+.header{background-color:#0025abcc}
 .body{width: 100%;}
-.body .comment{ margin-left: 20px;}
-/* .body .statistic{ margin: 0 auto;} */
+
+.body .comment{margin-right:20px; position: absolute; left:280px}
+.body .detail{position: fixed; left:20px}
+
+.body .statistic{ margin: 0 auto;}
 
 </style>
 
+
+// <style lang="scss">
+// .header{color: $blue-10;}
+// </style>

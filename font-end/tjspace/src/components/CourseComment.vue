@@ -109,9 +109,9 @@
         <q-separator />
 
         <q-card-section class="footer row justify-between">
-            <q-label class="data">评论于 {{reviewInfro.commentDetail.date}}</q-label>
-            <q-label class="detail"> {{reviewInfro.commentDetail.useful}}/{{reviewInfro.commentDetail.useless+reviewInfro.commentDetail.useful}}  人觉得有用</q-label>
-            <div class="option">
+            <q-label class="course-review-date">评论于 {{reviewInfro.commentDetail.date}}</q-label>
+            <q-label class="course-review-detail"> {{reviewInfro.commentDetail.useful}}/{{reviewInfro.commentDetail.useless+reviewInfro.commentDetail.useful}}  人觉得有用</q-label>
+            <div class="course-review-option">
                 <q-btn flat round icon="iconfont icon-dianzan"></q-btn>
                 <q-btn flat round icon="iconfont icon-cai"></q-btn>
             </div>
@@ -165,8 +165,8 @@ export default {
                         presentation: false,
                     },
                     commentDetail:{
-                        content:"这是我上过的最好的一门课，上课内容有趣，生动丰富，不知道为什么我们学校竟然有这么好的一门课，我收获良多，无论是理论还是应用都让我获益匪浅",
-                        teaching:"袁时金老师的教学水平真的太强啦，上课的时候风趣幽默，讲解知识到位，理论体系完善丰富，极大的开阔了学生们的视野，让我们领会到了世界一流大学一流老师的教学水平，早在高考的时候就袁时金老师的大名就留有耳闻，这是我来同济大学的重要原因之一，不然我就去清华了",
+                        content:"这是我上过的最好的一门课，上课内容有趣，生动丰富，不知道为什么我们学校竟然有这么好的一门课，我收获良多，无论是理论还是应用都让我获益匪浅;",
+                        teaching:"袁时金老师的教学水平真的太强啦，上课的时候风趣幽默，讲解知识到位，理论体系完善丰富，极大的开阔了学生们的视野，让我们领会到了世界一流大学一流老师的教学水平，早在高考的时候就久闻袁时金老师的大名，这是我来同济大学的重要原因之一，不然我就去清华了",
                         grading:"这门课太容易了，导致我随随便便就拿了个优",
                         workload:"这门课的作业一点也不多，我一下子就能写完",
                         date:"2020.08.06",
@@ -243,9 +243,10 @@ export default {
 .course-requirement ul .active{color:green;}
 .course-requirement ul .iconfont{margin-right:5px;}
 
-.footer{margin: 0 auto; padding: 0; line-height: 10px;}
+
+.footer{margin: 0 auto; padding: 0; line-height: 25px;}
 .footer q-label{font-size: 5px; color:grey; font-weight: 800; }
-.footer .detail{position: absolute; right: 120px;}
-.footer .option{ line-height:0px; height:0px; color:grey; position: absolute; top:0px; right:5px;}
-.footer .option .iconfont{font-size: 15px;}
+.footer .course-review-detail{position: absolute; right: 120px;}
+.footer .course-review-option{ line-height:0px; height:0px; color:grey; position: absolute; top: -9px; right:5px;}
+.footer .course-review-option .iconfont{font-size: 15px;}
 </style>
