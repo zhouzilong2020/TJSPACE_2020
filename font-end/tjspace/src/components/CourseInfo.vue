@@ -1,6 +1,6 @@
 <template>
   <div class="course-info">
-	<q-card dark bordered class="bg-grey-9 my-card">
+	  <q-card dark bordered class="bg-grey-9 my-card">
       <q-card-section>
         <div class="text-h6">课程内容</div>
         <div class="text-subtitle2">by {{author}}</div>

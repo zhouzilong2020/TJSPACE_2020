@@ -2,7 +2,7 @@
   <div class="course-review-statistics">
 		<p>{{courseStatistic.reveiwCnt}} Reviews</p>
 		<ul class="rating-container">
-			<li><strong>课程质量</strong><span class="rating" :class="getRate(courseStatistic.content)">{{courseStatistic.content}}</span></li>
+			<li><strong>课程内容</strong><span class="rating" :class="getRate(courseStatistic.content)">{{courseStatistic.content}}</span></li>
 			<li><strong>教学水平</strong><span class="rating" :class="getRate(courseStatistic.teaching)">{{courseStatistic.teaching}}</span></li>
 			<li><strong>评分情况</strong><span class="rating" :class="getRate(courseStatistic.grading)">{{courseStatistic.grading}}</span></li>
 			<li><strong>课程作业</strong><span class="rating" :class="getRate(courseStatistic.workload)">{{courseStatistic.workload}}</span></li>

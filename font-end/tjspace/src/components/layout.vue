@@ -77,8 +77,9 @@
 
 
     <q-page-container>
-      <course-statistic :CourseStatistic="courseInfo.statistic"/>
-      <course-info />
+      <!-- <course-statistic :CourseStatistic="courseInfo.statistic"/>
+      <course-info /> -->
+      <course-comment />
     </q-page-container>
 
 
@@ -98,12 +99,14 @@
 </template>
 
 <script>
-import CourseStatistic from "./CourseStatistic"
-import CourseInfo from './CourseInfo'
+// import CourseStatistic from "./CourseStatistic"
+// import CourseInfo from './CourseInfo'
+import CourseComment from './CourseComment'
 export default {
   components:{
-    CourseStatistic,
-    CourseInfo,
+    // CourseStatistic,
+    // CourseInfo,
+    CourseComment,
   },
 
   data () {
@@ -112,7 +115,7 @@ export default {
       drawer : false,
       active : -1,
       courseInfo:{
-
+        
       },
       userInfo:{
         nickName: "a name",
