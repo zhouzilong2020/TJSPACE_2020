@@ -199,6 +199,7 @@ export default {
 
 <style>
 
+.course-review{margin-bottom: 20px;}
 
 .body{ padding:0px; margin : 0px; border:0px;}
 .nickname{ margin-top:10px}

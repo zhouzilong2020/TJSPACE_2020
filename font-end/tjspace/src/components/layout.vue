@@ -76,15 +76,22 @@
   
 
 
-    <q-page-container>
-      <!-- <course-statistic :CourseStatistic="courseInfo.statistic"/>
-      <course-info /> -->
-      <course-comment />
+    <q-page-container class="body row">
+      <q-page-container class="col-10 comment">
+        <course-comment />
+        <course-comment />
+        <course-comment />
+      </q-page-container>
+      
+      <q-page-container class="col-2 statistic">
+        <course-statistic :CourseStatistic="courseInfo.statistic"/>
+      </q-page-container>
+
     </q-page-container>
 
 
 
-    <q-footer reveal elevated class="bg-grey-8 text-white">
+    <q-footer reveal bordered class="bg-grey-8 text-white">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
@@ -99,12 +106,12 @@
 </template>
 
 <script>
-// import CourseStatistic from "./CourseStatistic"
+import CourseStatistic from "./CourseStatistic"
 // import CourseInfo from './CourseInfo'
 import CourseComment from './CourseComment'
 export default {
   components:{
-    // CourseStatistic,
+    CourseStatistic,
     // CourseInfo,
     CourseComment,
   },
@@ -125,4 +132,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.body{width: 100%;}
+.body .comment{ margin-left: 20px;}
+/* .body .statistic{ margin: 0 auto;} */
+
+</style>
 

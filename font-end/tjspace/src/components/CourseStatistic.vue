@@ -1,11 +1,31 @@
 <template>
-  <div class="course-review-statistics">
+    <div class="course-review-statistics">
 		<p>{{courseStatistic.reveiwCnt}} Reviews</p>
-		<ul class="rating-container">
-			<li><strong>课程内容</strong><span class="rating" :class="getRate(courseStatistic.content)">{{courseStatistic.content}}</span></li>
-			<li><strong>教学水平</strong><span class="rating" :class="getRate(courseStatistic.teaching)">{{courseStatistic.teaching}}</span></li>
-			<li><strong>评分情况</strong><span class="rating" :class="getRate(courseStatistic.grading)">{{courseStatistic.grading}}</span></li>
-			<li><strong>课程作业</strong><span class="rating" :class="getRate(courseStatistic.workload)">{{courseStatistic.workload}}</span></li>
+		<ul class="rating-container row">
+			<li>
+                <div class="column">
+                    <strong>课程内容</strong>
+                    <span class="rating" :class="getRate(courseStatistic.content)">{{courseStatistic.content}}</span>
+                </div>
+            </li>
+			<li>
+                <div class="column">
+                    <strong>教学水平</strong>
+                    <span class="rating" :class="getRate(courseStatistic.teaching)">{{courseStatistic.teaching}}</span>
+                </div>    
+            </li>
+			<li>
+                <div class="column">
+                    <strong>评分情况</strong>
+                    <span class="rating" :class="getRate(courseStatistic.grading)">{{courseStatistic.grading}}</span>
+                </div>
+            </li>
+			<li>
+                <div class="column">
+                    <strong>课程作业</strong>
+                    <span class="rating" :class="getRate(courseStatistic.workload)">{{courseStatistic.workload}}</span>
+                </div>
+            </li>
 		</ul>
 	</div>
 </template>
@@ -19,10 +39,10 @@ export default {
             default: function(){
                 return{
                     reveiwCnt:100,
-                    content:"B",
-                    teaching:"A",
-                    grading:"A",
-                    workload:"A",
+                    content:"A+",
+                    teaching:"A+",
+                    grading:"A+",
+                    workload:"A+",
                 }
             }
         }
@@ -30,11 +50,12 @@ export default {
     computed: {
         getRate(){
             return (grade) =>{
-                switch(grade){
-                    case "A": return "rating-4";
-                    case "B": return "rating-3";
-                    case "C": return "rating-2";
-                    case "D": return "rating-1";
+                switch(grade[0]){
+                    case "A": return "rating-5";
+                    case "B": return "rating-4";
+                    case "C": return "rating-3";
+                    case "D": return "rating-2";
+                    case "F": return "rating-1";
                 }
             }
         },
@@ -46,16 +67,18 @@ export default {
 <style>
 
 .course-review-statistics{
-    width:250px;
-    height:350px;
+    width:180px;
+    height:400px;
 }
+
+.course-review-statistics .rating-container li { margin-bottom:10px}
 
 .course-review-statistics .rating-container li .rating {
     width: 50px;
     font-size: 22px;
     line-height: 35px;
     border-radius: 6px;
-    margin: 0 10px;
+    margin: 0 auto;
 }
 
 
@@ -109,6 +132,7 @@ export default {
 .rating-2 {background: #ff7800;}
 .rating-3 {background: #ffba00;}
 .rating-4 {background: #afc732;}
+.rating-5 {background: #5a5;}
 
 
 </style>
