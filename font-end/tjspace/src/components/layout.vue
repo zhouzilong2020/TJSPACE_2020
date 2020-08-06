@@ -77,15 +77,15 @@
 
 
     <q-page-container class="body row">
+
+      <course-detail />
       <q-page-container class="col-10 comment">
         <course-comment />
         <course-comment />
         <course-comment />
       </q-page-container>
       
-      <q-page-container class="col-2 statistic">
-        <course-statistic :CourseStatistic="courseInfo.statistic"/>
-      </q-page-container>
+
 
     </q-page-container>
 
@@ -106,13 +106,11 @@
 </template>
 
 <script>
-import CourseStatistic from "./CourseStatistic"
-// import CourseInfo from './CourseInfo'
+import CourseDetail from './CourseDetail'
 import CourseComment from './CourseComment'
 export default {
   components:{
-    CourseStatistic,
-    // CourseInfo,
+    CourseDetail,
     CourseComment,
   },
 
