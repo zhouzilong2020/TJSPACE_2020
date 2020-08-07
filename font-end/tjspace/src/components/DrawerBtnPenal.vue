@@ -1,5 +1,5 @@
 <template>
-        <div class="drwaer-option q-gutter-y-md" style="max-width: 330px">
+        <div class="drwaer-option q-gutter-y-md" style="max-width: 300px">
             <q-tabs
                 v-model="tab"
                 indicator-color="primary"
@@ -81,5 +81,5 @@ export default {
 <style>
 .drwaer-option ul{list-style-type: none;}
 .drwaer-option q-tab{width:10px}
-
+.drwaer-option-list{padding-left:0;}
 </style>

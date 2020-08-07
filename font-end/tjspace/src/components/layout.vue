@@ -25,7 +25,7 @@
     show-if-above
     flat
     v-model="drawer"
-    :width="200"
+    :width="225"
     :breakpoint="1000"
     >
     <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
@@ -58,9 +58,9 @@
           </q-item-section>
         </q-item>
 
-        <q-item class="drawer-btn-penal">
+        <div class="drawer-btn-penal">
           <drawer-btn-penal />
-        </q-item>
+        </div>
         
 
       </q-list>
@@ -170,6 +170,8 @@ export default {
 <style>
 .header{background-color:#0025abcc}
 .body{width: 100%;}
+
+.drawer-btn-penal{position:absolute; left:-40px;}
 
 .header .header-search{color: aliceblue;}
 .body .body-left{position: fixed; left:15px; top:15px;}
