@@ -82,7 +82,7 @@
         <q-separator />
 
         <!-- 具体内容 -->
-        <q-item class="body" horizontal>
+        <q-item class="course-review-body" horizontal>
             <div class="col-6">
                 <q-card-section>
                     <q-label class="text-h6">课程内容</q-label>
@@ -172,7 +172,7 @@ export default {
                         workload:"这门课的作业一点也不多，我一下子就能写完",
                         date:"2020.08.06",
                         useful:230,
-                        useless:0
+                        useless:7
                     }
                 }
             }
@@ -202,7 +202,7 @@ export default {
 
 .course-review{margin-bottom: 20px;}
 
-.body{ padding:0px; margin : 0px; border:0px;}
+.course-review-body{ padding:0px; margin : 0px; border:0px;}
 .nickname{ margin-top:10px}
 .user-infro-detail{ margin-right: 10px;}
 
