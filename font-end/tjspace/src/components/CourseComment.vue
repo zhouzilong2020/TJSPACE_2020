@@ -4,9 +4,9 @@
             <div class="user-infro col-auto row inline justify-evenly">
                 <q-item-section class="avatar" avatar>
                     <q-avatar>
-                        <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        <img :src="reviewInfro.userInfro.photoPath">
                     </q-avatar>
-                    <q-item-label class="nickname" horizontal>黎力神</q-item-label>
+                    <q-item-label class="nickname" horizontal>{{reviewInfro.userInfro.nickname}}</q-item-label>
                 </q-item-section>
                 <q-item-section class="user-infro-detail">
                     <q-item-label class="grade" caption>
@@ -82,7 +82,7 @@
         <q-separator />
 
         <!-- 具体内容 -->
-        <q-item class="body" horizontal>
+        <q-item class="course-review-body" horizontal>
             <div class="col-6">
                 <q-card-section>
                     <q-label class="text-h6">课程内容</q-label>
@@ -147,7 +147,8 @@ export default {
                         workload:"A+",
                     },
                     userInfro:{
-                        nickname:"黎力神",
+                        nickname:"lutianyi",
+                        photoPath:require("../assets/touxiang.jpg"),
                         grade:"2018级",
                         major:"软件工程",
                     },
@@ -171,7 +172,7 @@ export default {
                         workload:"这门课的作业一点也不多，我一下子就能写完",
                         date:"2020.08.06",
                         useful:230,
-                        useless:0
+                        useless:7
                     }
                 }
             }
@@ -201,7 +202,7 @@ export default {
 
 .course-review{margin-bottom: 20px;}
 
-.body{ padding:0px; margin : 0px; border:0px;}
+.course-review-body{ padding:0px; margin : 0px; border:0px;}
 .nickname{ margin-top:10px}
 .user-infro-detail{ margin-right: 10px;}
 
@@ -244,9 +245,9 @@ export default {
 .course-requirement ul .iconfont{margin-right:5px;}
 
 
-.footer{margin: 0 auto; padding: 0; line-height: 25px;}
+.footer{margin: 0 auto; padding: 0; line-height: 0px;}
 .footer q-label{font-size: 5px; color:grey; font-weight: 800; }
 .footer .course-review-detail{position: absolute; right: 120px;}
-.footer .course-review-option{ line-height:0px; height:0px; color:grey; position: absolute; top: -9px; right:5px;}
-.footer .course-review-option .iconfont{font-size: 15px;}
+.footer .course-review-option{ line-height:0px; height:0px; color:grey; position: relative; bottom: 21px; right:5px;}
+.footer .course-review-option .iconfont{font-size: 14px;}
 </style>
