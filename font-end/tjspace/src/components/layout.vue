@@ -8,8 +8,7 @@
           TJSPACE · 同济大学社群
         </q-toolbar-title>
       </q-toolbar>
-    </q-header>
-    
+    </q-header>    
     <q-drawer
     v-model="drawer"
     show-if-above
@@ -73,7 +72,13 @@
   
 
 
+
+
     <q-page-container class="body row justify-evenly">
+
+      <q-page-container class="course-head">
+        <course-head />
+      </q-page-container>
 
       <q-page-container class="detail">
         <course-detail />
@@ -106,12 +111,14 @@
 </template>
 
 <script>
+import CourseHead from './CourseHead'
 import CourseDetail from './CourseDetail'
 import CourseComment from './CourseComment'
 export default {
   components:{
     CourseDetail,
     CourseComment,
+    CourseHead,
   },
 
   data () {

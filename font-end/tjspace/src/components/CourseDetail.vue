@@ -1,6 +1,6 @@
 <template>
     <q-card elevated class="course-detail">
-      <img :src="path" style="width:50px">
+      <img :src="path" class="course-detail-img">
 
       <q-card-section horizontal>
         <q-list>
@@ -52,8 +52,8 @@
                 <q-icon color="grey" name="place" />
             </q-item-section>
             <q-item-section>
-                <q-item-label>上课地点</q-item-label>
-                <q-item-label caption>{{courseInfo.building}}</q-item-label>
+                <q-item-label>开设学院</q-item-label>
+                <q-item-label caption>{{courseInfo.department}}</q-item-label>
             </q-item-section>
             </q-item>
         </q-list>
@@ -85,8 +85,8 @@ export default {
                     title:"数据库原理与应用",
                     teacher:"袁时金",
                     id:"420244",
-                    section:"周一 1-2节 周三 1-2节",
-                    building:"嘉定 B101",
+                    section:"2020 春",
+                    department:"软件学院",
                 }
             }
         }
@@ -101,5 +101,9 @@ export default {
 </script>
 
 <style>
-
+.course-detail .course-detail-img{
+    width:80px;
+    padding: 10px;
+    margin: 0 auto;;
+}
 </style>

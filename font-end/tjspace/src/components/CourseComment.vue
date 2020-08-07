@@ -4,9 +4,9 @@
             <div class="user-infro col-auto row inline justify-evenly">
                 <q-item-section class="avatar" avatar>
                     <q-avatar>
-                        <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        <img :src="reviewInfro.userInfro.photoPath">
                     </q-avatar>
-                    <q-item-label class="nickname" horizontal>黎力神</q-item-label>
+                    <q-item-label class="nickname" horizontal>{{reviewInfro.userInfro.nickname}}</q-item-label>
                 </q-item-section>
                 <q-item-section class="user-infro-detail">
                     <q-item-label class="grade" caption>
@@ -147,7 +147,8 @@ export default {
                         workload:"A+",
                     },
                     userInfro:{
-                        nickname:"黎力神",
+                        nickname:"lutianyi",
+                        photoPath:require("../assets/touxiang.jpg"),
                         grade:"2018级",
                         major:"软件工程",
                     },
@@ -244,9 +245,9 @@ export default {
 .course-requirement ul .iconfont{margin-right:5px;}
 
 
-.footer{margin: 0 auto; padding: 0; line-height: 25px;}
+.footer{margin: 0 auto; padding: 0; line-height: 0px;}
 .footer q-label{font-size: 5px; color:grey; font-weight: 800; }
 .footer .course-review-detail{position: absolute; right: 120px;}
-.footer .course-review-option{ line-height:0px; height:0px; color:grey; position: absolute; top: -9px; right:5px;}
-.footer .course-review-option .iconfont{font-size: 15px;}
+.footer .course-review-option{ line-height:0px; height:0px; color:grey; position: relative; bottom: 21px; right:5px;}
+.footer .course-review-option .iconfont{font-size: 14px;}
 </style>
