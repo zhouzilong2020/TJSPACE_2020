@@ -19,23 +19,24 @@
       </q-toolbar>
     </q-header>  
 
+    <!-- 侧边栏 -->
     <q-drawer
     class="drawer"
     show-if-above
     flat
     v-model="drawer"
     :width="200"
-    :breakpoint="200"
+    :breakpoint="1000"
     >
     <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
       <q-list padding>
 
         <q-item :active="active == 0" @click="active=0" clickable v-ripple>
           <q-item-section avatar>
-            <q-icon name="inbox" />
+            <q-icon name="home" />
           </q-item-section>
           <q-item-section>
-            Inbox
+            个人主页
           </q-item-section>
         </q-item>
 
@@ -43,40 +44,31 @@
           <q-item-section avatar>
             <q-icon name="star" />
           </q-item-section>
-
           <q-item-section>
-            Star
+            我的收藏
           </q-item-section>
         </q-item>
 
         <q-item :active="active == 2" @click="active=2" clickable v-ripple>
           <q-item-section avatar>
-            <q-icon name="send" />
-          </q-item-section>
-
-          <q-item-section>
-            Send
-          </q-item-section>
-        </q-item>
-
-        <q-item :active="active == 3" @click="active=3" clickable v-ripple>
-          <q-item-section avatar>
             <q-icon name="drafts" />
           </q-item-section>
-
           <q-item-section>
-            Drafts
+            我的消息
           </q-item-section>
         </q-item>
+
+        
+
       </q-list>
     </q-scroll-area>
-
-    <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
+    <!-- 头部的背景图片和用户信息、头像 -->
+    <q-img class="absolute-top" :src="avatarBGPath" style="height: 160px">
       <div class="absolute-bottom bg-transparent">
         <q-avatar size="56px" class="q-mb-sm">
-          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+          <img :src="avatarPath">
         </q-avatar>
-        <div class="text-weight-bold">{{userInfo.nickName}}</div>
+        <div class="text-weight-bold">  欢迎你！  {{userInfo.nickName}}</div>
         <div>{{userInfo.eMail}}</div>
       </div>
     </q-img>
@@ -124,8 +116,6 @@
 
     </q-page-container>
 
-
-
     <q-footer reveal bordered class="bg-grey-8 text-white">
       <q-toolbar>
         <q-toolbar-title>
@@ -155,14 +145,16 @@ export default {
     return {
       inputSearch:'',
       logoPath : require("../assets/TJU.png"),
+      avatarPath: require("../assets/boy-avatar.png"),
+      avatarBGPath: require("../assets/material.png"),
       drawer : false,
       active : -1,
       courseInfo:{
         
       },
       userInfo:{
-        nickName: "a name",
-        eMail:"a eMail"
+        nickName: "lili",
+        eMail:"1888888@tongji.edu.cn",
       },
       
     }
