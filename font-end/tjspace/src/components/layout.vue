@@ -58,6 +58,9 @@
           </q-item-section>
         </q-item>
 
+        <q-item class="drawer-btn-penal">
+          <drawer-btn-penal />
+        </q-item>
         
 
       </q-list>
@@ -132,6 +135,7 @@
 
 <script>
 import CourseHead from './CourseHead'
+import DrawerBtnPenal from './DrawerBtnPenal'
 import CourseDetail from './CourseDetail'
 import CourseComment from './CourseComment'
 export default {
@@ -139,6 +143,7 @@ export default {
     CourseDetail,
     CourseComment,
     CourseHead,
+    DrawerBtnPenal,
   },
 
   data () {
