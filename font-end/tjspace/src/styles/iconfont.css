@@ -1,0 +1,37 @@
+@font-face {font-family: "iconfont";
+    src: url('//at.alicdn.com/t/font_1990209_jtg82ej423.eot?t=1596691013830'); /* IE9 */
+    src: url('//at.alicdn.com/t/font_1990209_jtg82ej423.eot?t=1596691013830#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAO8AAsAAAAACAwAAANuAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDMgqDJIJ1ATYCJAMUCwwABCAFhG0HTRsGBxEVnBXJfhzYjT6s18VfS54ZWcIi6T8HEea0WUmGOi07PWLAFwAHwP5v68RLWkhYpJ51rei+w3hjnBlwOf1pL/CNs7ec1qSxlq2NAcYBZeGeGAUScIEEqDn3ARu6n9sQwCMxGZGSpSvWxMVgLhJAOrZr0ww3Y8E0FAsugl2x0yBTsXDVOHURmBJ8Xl6TXVxQWBpzZdXWpVpS9Fnosyl66P+hNPQIVNO5AH4faCAjYEC6V3o6oqNMRjSeOt5QFPBwUaipRqV7VvTZlP//E+2BzJ71hweCxqBAbMzCUACKUtbAs1BHgMCzdAI0PCtqoNk0BbMo4Ll2ggc4QB9gFSaXkhfUKASJHy1e/KT2AO/ObX/nUv/mTV8tOhcIW3NH7tzxF5/2JdxbOTdYb96qOIE1C2L1/NW+iNZLjqQJmJqrD/e7XfsWN2+WPn07hdxOfqJvRey6lqjespslZw5YeTp97Zprx18flqFO7fXDbkxIV6vOhlvXbqWtWWvWorhzN7apXbNVn9p5qt17l+dr+75nr091vSHzVy2/m/xPLM5KXtEu8jD+hugChbPRb0qxuZLoQXBe5IBkXXka71fkDJoeZP+HS61SfNifd+qguczBr1BASjVqdSpugkohJaR4vcZFnaW16i/9/Kt5sGvOit4ycmZ11rXP8fABhivOq3go0B/i5Fjz8MH5CoylfHHFu5s64R+GJ5w1q2MHpa11HTrQF4D/R/VOXY5E04yt28//q4dpAdBj1M4/+R1u3e/YrUlEwa9uwADwoNqOUqgZpvwdJjqr/luLAf7/MragMa2WUTodpVJokQkN9636RW1/KxDN42nMwc6FILgEEygcEkHjkpI0bEZYBMgJG5ci8MhAmf0BYuiORkwIkJ5RACGSLVCEcwSaSC6Rhn0Ei1jewiZSNDxqS8yJAVILod3hyFgJtlD/wDbUK9suh7D4hnoKFac1Af9CHm0c0ijJ56/YI0+xZnzrTESBYurgAvdhCAQDk8NGIiMy5HGsqp4UNdTNDpRgrARbqH9gG+qV118OhfffUE+h4oauquwLebTDQxolHcirse/UdSuPjG+diShQTB1cwIXByhAM1dMcNhKZAakhj6mX6mqMljd373gA8DBPsESJFiOW2DgtbdX/7ciyqexzbSo+TL3etJPVNM1mAAA=') format('woff2'),
+    url('//at.alicdn.com/t/font_1990209_jtg82ej423.woff?t=1596691013830') format('woff'),
+    url('//at.alicdn.com/t/font_1990209_jtg82ej423.ttf?t=1596691013830') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url('//at.alicdn.com/t/font_1990209_jtg82ej423.svg?t=1596691013830#iconfont') format('svg'); /* iOS 4.1- */
+  }
+  
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon-icon_wrong:before {
+    content: "\e629";
+    font-weight:200;
+    color: gray;
+  }
+  
+  .icon-duigou:before {
+    content: "\e640";
+    font-weight:900;
+    color:green;
+  }
+  
+
+  .icon-dianzan:before {
+    content: "\e60c";
+  }
+  
+  .icon-cai:before {
+    content: "\e68f";
+  }

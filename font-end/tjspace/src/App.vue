@@ -1,7 +1,7 @@
 <template>
+
   <div>
     <layout />
-    
   </div>
 </template>
 
@@ -17,7 +17,6 @@ export default {
 
   data () {
     return {
-      leftDrawerOpen: false
     }
   }
 }
