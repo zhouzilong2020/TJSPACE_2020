@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MySql.Data.EntityFrameworkCore.DataAnnotations;
@@ -32,8 +32,9 @@ namespace TJSpace.DBModel
         [Key]
         [JsonProperty("postid")]
         [Required]
-        [Column("post_id",TypeName ="int(11)")]
-        public int PostId { get; set; }
+        [Column("post_id")]
+        [StringLength(maximumLength: 50)]
+        public string PostId { get; set; }
 
         //评价种类
         [JsonProperty("type")]
