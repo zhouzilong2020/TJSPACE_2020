@@ -17,7 +17,7 @@ namespace TJSpace.DBModel
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
-        [StringLength(maximumLength: 20)]
+        [StringLength(maximumLength: 50)]
         public string UserId { get; set; }
 
         //回复编号
@@ -25,7 +25,7 @@ namespace TJSpace.DBModel
         [JsonProperty("replyid")]
         [Required]
         [Column("reply_id")]
-        [StringLength(maximumLength:20)]
+        [StringLength(maximumLength:50)]
         public string ReplyId { get; set; }
 
         //贴子编号
