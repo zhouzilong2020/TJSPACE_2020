@@ -18,7 +18,7 @@ namespace TJSpace.DBModel
         [JsonProperty("courseid")]
         [Required]
         [Column("course_id")]
-        [StringLength(maximumLength: 10)]
+        [StringLength(maximumLength: 50)]
         public string CourseId { get; set; }
 
         //开课学院
