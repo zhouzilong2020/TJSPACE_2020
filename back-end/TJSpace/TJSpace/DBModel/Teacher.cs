@@ -17,7 +17,7 @@ namespace TJSpace.DBModel
         [JsonProperty("teacherid")]
         [Required]
         [Column("teacher_id")]
-        [StringLength(maximumLength: 16)]
+        [StringLength(maximumLength: 50)]
         public string TeacherId { get; set; }
 
         //教师姓名
