@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MySql.Data.EntityFrameworkCore.DataAnnotations;
@@ -17,7 +17,7 @@ namespace TJSpace.DBModel
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
-        [StringLength(maximumLength: 20)]
+        [StringLength(maximumLength: 50)]
         public string UserId { get; set; }
 
         //用户昵称
