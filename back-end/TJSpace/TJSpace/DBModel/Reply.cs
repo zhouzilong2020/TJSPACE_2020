@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MySql.Data.EntityFrameworkCore.DataAnnotations;
@@ -17,7 +17,7 @@ namespace TJSpace.DBModel
         [JsonProperty("replyid")]
         [Required]
         [Column("reply_id")]
-        [StringLength(maximumLength: 10)]
+        [StringLength(maximumLength: 50)]
         public string ReplyId { get; set; }
 
         //贴子内容
@@ -31,14 +31,20 @@ namespace TJSpace.DBModel
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
-        [StringLength(maximumLength: 20)]
+        [StringLength(maximumLength: 50)]
         public string UserId { get; set; }
 
         //贴子编号
         [JsonProperty("postid")]
         [Required]
         [Column("post_id")]
-        [StringLength(maximumLength: 20)]
+        [StringLength(maximumLength: 50)]
         public string PostId { get; set; }
+
+        //回帖时间
+        [JsonProperty("date")]
+        [Required]
+        [Column("date", TypeName = "date")]
+        public DateTime Date { get; set; }
     }
 }
