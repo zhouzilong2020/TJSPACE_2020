@@ -32,6 +32,13 @@ namespace TJSpace
 
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
 
+            services.AddAuthentication("Bearer").AddIdentityServerAuthentication(options =>
+            {
+                options.Authority = "http://175.24.115.240:5000";
+                options.RequireHttpsMetadata = false;
+                options.ApiName = "api1";
+            });
+
             #region Swagger
             services.AddSwaggerGen(c =>
             {

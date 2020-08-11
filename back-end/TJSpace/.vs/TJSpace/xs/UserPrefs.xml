@@ -1,41 +1,28 @@
 ﻿<Properties StartupConfiguration="{BCA4B615-DBD8-49D7-A536-17BBA5622A2F}|Default">
   <MonoDevelop.Ide.ItemProperties.TJSpace PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/DBModel/Account.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/Startup.cs">
     <Files>
-      <File FileName="TJSpace/Controllers/ShowControllers.cs" Line="42" Column="1" />
-      <File FileName="TJSpace/Controllers/SearchControllers.cs" Line="66" Column="1" />
-      <File FileName="TJSpace/DBModel/Teacher.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Teaches.cs" Line="14" Column="6" />
-      <File FileName="TJSpace/Controllers/RegisterController.cs" Line="35" Column="30" />
-      <File FileName="TJSpace/Controllers/LoginControllers.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Course.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Comment.cs" Line="68" Column="29" />
-      <File FileName="TJSpace/DBModel/CourseCode.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/Tools/Check.cs" Line="42" Column="1" />
-      <File FileName="TJSpace/DBModel/Account.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/Controllers/ShowControllers.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/Controllers/SearchControllers.cs" />
+      <File FileName="TJSpace/Controllers/TeacherController.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/DBModel/SendMessage.cs" />
+      <File FileName="TJSpace/Controllers/LoginControllers.cs" Line="67" Column="1" />
+      <File FileName="TJSpace/Startup.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="TJSpace" expanded="True">
             <Node name="TJSpace" expanded="True">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True" />
-              <Node name="DBModel" expanded="True">
-                <Node name="Account.cs" selected="True" />
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
               </Node>
+              <Node name="DBModel" expanded="True" />
               <Node name="Properties" expanded="True" />
               <Node name="Tools" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
             </Node>
           </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State>
-          <Value>Configuration</Value>
-          <Value>path</Value>
-          <Value>Configuration</Value>
-          <Value>dbContext.Teachers</Value>
         </State>
       </Pad>
     </Pads>

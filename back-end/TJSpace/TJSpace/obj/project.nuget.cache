@@ -1,11 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "TJjweQrudtxcDoGz3SwJV8ilWbWqTeKTgVIHTEYUaMj3YaZvecZtCKJuL/Q4LwhIUK68G8NvmPDwhiZDer7tzQ==",
+  "dgSpecHash": "84UKdaeqogF0ZnpLNNVh13W4WBW/2RmcCXIKQONdZtBygBW14tMHt7l0el5BqrAbjsx+FlM0Ua0U1iwgjCHBxg==",
   "success": true,
   "projectFilePath": "/Users/lutianyi/Documents/GitHub/TJSPACE_2020/back-end/TJSpace/TJSpace/TJSpace.csproj",
   "expectedPackageFiles": [
     "/Users/lutianyi/.nuget/packages/bouncycastle.netcore/1.8.3/bouncycastle.netcore.1.8.3.nupkg.sha512",
     "/Users/lutianyi/.nuget/packages/google.protobuf/3.6.1/google.protobuf.3.6.1.nupkg.sha512",
+    "/Users/lutianyi/.nuget/packages/identitymodel/3.10.3/identitymodel.3.10.3.nupkg.sha512",
+    "/Users/lutianyi/.nuget/packages/identitymodel.aspnetcore.oauth2introspection/3.5.0/identitymodel.aspnetcore.oauth2introspection.3.5.0.nupkg.sha512",
+    "/Users/lutianyi/.nuget/packages/identityserver4/2.3.2/identityserver4.2.3.2.nupkg.sha512",
+    "/Users/lutianyi/.nuget/packages/identityserver4.accesstokenvalidation/2.7.0/identityserver4.accesstokenvalidation.2.7.0.nupkg.sha512",
+    "/Users/lutianyi/.nuget/packages/identityserver4.storage/2.3.1/identityserver4.storage.2.3.1.nupkg.sha512",
     "/Users/lutianyi/.nuget/packages/k4os.compression.lz4/1.1.11/k4os.compression.lz4.1.1.11.nupkg.sha512",
     "/Users/lutianyi/.nuget/packages/k4os.compression.lz4.streams/1.1.11/k4os.compression.lz4.streams.1.1.11.nupkg.sha512",
     "/Users/lutianyi/.nuget/packages/k4os.hash.xxhash/1.0.6/k4os.hash.xxhash.1.0.6.nupkg.sha512",

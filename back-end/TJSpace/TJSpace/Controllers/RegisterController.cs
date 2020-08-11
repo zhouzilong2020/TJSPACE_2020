@@ -107,7 +107,7 @@ namespace TJSpace.Controllers
                     msg = "验证邮件发送成功"
                 });
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return Ok(new
                 {
@@ -143,10 +143,6 @@ namespace TJSpace.Controllers
                 });
             }
         }
-
-
-
-
 
     }
 }
