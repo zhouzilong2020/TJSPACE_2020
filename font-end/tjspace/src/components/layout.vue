@@ -1,4 +1,5 @@
 <template>
+
   <q-layout view="hHh lpR fFf">
 
     <q-header reveal bordered class="bg-primary text-white" height-hint="98">
@@ -26,7 +27,7 @@
     flat
     v-model="drawer"
     :width="225"
-    :breakpoint="1000"
+    :breakpoint="99999"
     >
     <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
       <q-list padding>
@@ -133,6 +134,7 @@
   </q-layout>
 </template>
 
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 <script>
 import CourseHead from './CourseHead'
 import DrawerBtnPenal from './DrawerBtnPenal'
@@ -163,6 +165,17 @@ export default {
       },
       
     }
+  },
+
+  mounted () {
+    axios
+      .get('http://tjspace.com/api/Comment/PostComment')
+      .then(response => {
+        console.log(response);
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
   }
 }
 </script>
