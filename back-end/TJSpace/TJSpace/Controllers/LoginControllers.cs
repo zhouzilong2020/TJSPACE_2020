@@ -31,7 +31,7 @@ namespace TJSpace.Controllers
         [Route("login")]
         public async Task<ActionResult<string>> LoginAsync(string email, string password)
         {
-            var info = dbContext.Accounts.Where(n => n.Email.Equals(email) && n.Password.Equals(password)).ToList().FirstOrDefault();
+            var info = dbContext.Accounts.Where(n => n.Email.Equals(email) && n.Password.Equals(password)&& n.Type==0).ToList().FirstOrDefault();
             if (info == null)
             {
                 return Ok(new
