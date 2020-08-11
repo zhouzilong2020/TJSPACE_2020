@@ -20,10 +20,10 @@ namespace TJSpace.Controllers
 
         //管理员登陆
         [HttpGet]
-        public ActionResult<string> Login(string email,string pwd)
+        public ActionResult<string> Login(string email, string pwd)
         {
-            var info = dbContext.Accounts.Where(u => u.Email == email && u.Password == pwd && u.Type == 1).ToList().FirstOrDefault();
-            if(info!=null)
+            var info = dbContext.Accounts.Where(u => u.Email.Equals(email) && u.Password.Equals(pwd) && u.Type == 1).ToList().FirstOrDefault();
+            if (info != null)
             {
                 return Ok(new
                 {
@@ -43,7 +43,7 @@ namespace TJSpace.Controllers
 
         //封禁用户
         [HttpPut]
-        public ActionResult<string> SuspendUser([FromBody]string UserId)
+        public ActionResult<string> SuspendUser(string UserId)
         {
             var user = dbContext.Accounts.Where(u => u.UserId == UserId).ToList().FirstOrDefault();
             if(user==null)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language.Extensions;
@@ -14,6 +15,7 @@ namespace TJSpace.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class SearchController : ControllerBase
     {
         private readonly DataDBContext dbContext;
@@ -170,7 +172,7 @@ namespace TJSpace.Controllers
 
             return Ok(new
             {
-                Post=list,
+                Post = list,
                 status = true,
                 msg = "查找帖子成功"
             });

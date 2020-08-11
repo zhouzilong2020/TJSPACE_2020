@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TJSpace.DBModel;
 
@@ -9,6 +10,7 @@ namespace TJSpace.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShowController : ControllerBase
     {
         private readonly DataDBContext dbContext;
@@ -52,7 +54,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("post")]
-        public ActionResult<string> showPost([FromBody]string postid)
+        public ActionResult<string> showPost([FromBody] string postid)
         {
             List<Post> list = dbContext.Posts.Where(n => n.PostId.Equals(postid)).ToList();
             return Ok(new
@@ -112,7 +114,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("personalpost")]
-        public ActionResult<string> showPersonalPost([FromBody]string userid)
+        public ActionResult<string> showPersonalPost([FromBody] string userid)
         {
             List<Post> list = dbContext.Posts.Where(n => n.UserId.Equals(userid)).ToList();
             return Ok(new

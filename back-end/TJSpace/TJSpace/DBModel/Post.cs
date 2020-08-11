@@ -8,25 +8,16 @@ namespace TJSpace.DBModel
 {
     [MySqlCharset("utf8mb4")] //字符集
     [MySqlCollation("utf8mb4_general_ci")] //排序规则
-    [Table("mark", Schema = "tjspace")]
+    [Table("post", Schema = "tjspace")]
 
-    public class Mark
+    public class Post
     {
         //用户编号
-        [Key]
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
         [StringLength(maximumLength: 50)]
         public string UserId { get; set; }
-
-        //回复编号
-        [Key]
-        [JsonProperty("replyid")]
-        [Required]
-        [Column("reply_id")]
-        [StringLength(maximumLength:50)]
-        public string ReplyId { get; set; }
 
         //贴子编号
         [Key]
@@ -36,17 +27,25 @@ namespace TJSpace.DBModel
         [StringLength(maximumLength: 50)]
         public string PostId { get; set; }
 
-        //评价种类
-        [JsonProperty("type")]
-        [Required]
-        [Column("type",TypeName ="int(11)")]
-        public int Type { get; set; }
-
         //发布时间
         [JsonProperty("date")]
         [Required]
         [Column("date", TypeName = "date")]
         public DateTime Date { get; set; }
+
+        //贴子名
+        [JsonProperty("title")]
+        [Required]
+        [Column("title")]
+        [StringLength(maximumLength: 40)]
+        public string Title { get; set; }
+
+        //贴子内容
+        [JsonProperty("content")]
+        [Required]
+        [Column("content")]
+        [StringLength(maximumLength: 200)]
+        public string Content { get; set; }
 
     }
 }
