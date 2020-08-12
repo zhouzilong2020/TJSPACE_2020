@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using TJSpace.DBModel;
 
 namespace TJSpace.Controllers
@@ -22,10 +23,16 @@ namespace TJSpace.Controllers
 
         //发帖
         [HttpPost]
-        public ActionResult<string> post(Post p)
+        public ActionResult<string> post(string title, string content, string userId)
         {
+            Post p = new Post();
+
             p.PostId = Guid.NewGuid().ToString();
+            p.Title = title;
+            p.Content = content;
+            p.UserId = userId;
             p.Date = DateTime.Now;
+
             dbContext.Posts.Add(p);
             if (dbContext.SaveChanges() == 1)
             {
@@ -47,9 +54,12 @@ namespace TJSpace.Controllers
 
         //回帖
         [HttpPost]
-        public ActionResult<string> reply(Reply p)
+        public ActionResult<string> reply(string content, string userId, string postId, int floor,int type)
         {
-            p.Date = DateTime.Now;
+            Reply p = new Reply();
+
+            p.PostId = postId;
+
             var post = dbContext.Posts.Where(u => u.PostId == p.PostId).ToList().FirstOrDefault();
             if (post == null)
             {
@@ -61,6 +71,15 @@ namespace TJSpace.Controllers
             }
 
             p.ReplyId = Guid.NewGuid().ToString();
+            p.Content = content;
+            p.UserId = userId;
+            p.Date = DateTime.Now;
+            if (type == 0)//正常楼层
+            {
+                post.Floor += 1;
+            }
+            p.Floor = floor;
+            p.Type = type;
 
             dbContext.Replies.Add(p);
 
@@ -82,8 +101,62 @@ namespace TJSpace.Controllers
             }
         }
 
-        //对帖子或回复进行评价，暂定，未加属性
-        
+        //对帖子进行评价
+        public ActionResult<string> evaluate(string postID,string userID, int type)
+        {
+            var post = dbContext.Posts.Where(u => u.PostId == postID).ToList().FirstOrDefault();
+            if (post == null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "评价失败,帖子不存在"
+                });
+            }
+            
+            if (type == 1)
+            {
+                post.UsefulNum += 1;
+            }
+            else if (type == 0)
+            {
+                post.UselessNum += 1;
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "评价失败"
+                });
+            }
+
+            Mark m = new Mark();
+            m.UserId = userID;
+            m.PostId = postID;
+            m.Type = type;
+            m.Date= DateTime.Now;
+
+            dbContext.marks.Add(m);
+
+            if (dbContext.SaveChanges() == 2)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    msg = "评价成功"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "评价失败"
+                });
+            }
+        }
+
 
     }
 }
