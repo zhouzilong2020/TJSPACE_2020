@@ -109,14 +109,14 @@
         <q-separator />
 
         <q-card-section class="footer row justify-between">
-            <q-label class="course-review-date">评论于 {{reviewInfro.commentDetail.date}}</q-label>
+            <q-label name="a" class="course-review-date">评论于 {{reviewInfro.commentDetail.date}}</q-label>
             <q-label class="course-review-detail"> {{reviewInfro.commentDetail.useful}}/{{reviewInfro.commentDetail.useless+reviewInfro.commentDetail.useful}}  人觉得有用</q-label>
             <div class="course-review-option">
                 <q-btn flat round icon="iconfont icon-dianzan"></q-btn>
                 <q-btn flat round icon="iconfont icon-cai"></q-btn>
+                         
             </div>
         </q-card-section>
-
     </q-card>
 </template>
 
@@ -132,6 +132,8 @@ export default {
             zanFocus:require('../assets/zan-focus.png'),
             cai:require('../assets/cai.png'),
             caiFocus:require('../assets/cai-focus.png'),
+            inputText:'请在此输入对该评价的看法',
+            expanded:false
         }
     },
     props:{
@@ -193,6 +195,9 @@ export default {
                 }
             }
         },
+    },
+    methods: {
+        
     }
 
 }
@@ -200,7 +205,7 @@ export default {
 
 <style>
 
-.course-review{margin-bottom: 20px;}
+.course-review{margin-bottom: 20px; }
 
 .course-review-body{ padding:0px; margin : 0px; border:0px;}
 .nickname{ margin-top:10px}
@@ -247,7 +252,10 @@ export default {
 
 .footer{margin: 0 auto; padding: 0; line-height: 0px;}
 .footer q-label{font-size: 5px; color:grey; font-weight: 800; }
-.footer .course-review-detail{position: absolute; right: 120px;}
-.footer .course-review-option{ line-height:0px; height:0px; color:grey; position: relative; bottom: 21px; right:5px;}
+.footer .course-review-detail{position: absolute; right: 140px;}
+.footer .course-review-option{ line-height:0px; height:0px; color:grey; position: relative; bottom: 21px; right:-10px;}
 .footer .course-review-option .iconfont{font-size: 14px;}
+
+
+.review-for-comment q-editor{background-color: wight;}
 </style>

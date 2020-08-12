@@ -2,16 +2,16 @@
 <template>
 
   <div>
-      <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
-      <!-- <drawer-btn-penal /> -->
-      {{info}}
+       <course-comment />
   </div>
 </template>
 
 <script>
 // import DrawerBtnPenal from "./DrawerBtnPenal"
+import CourseComment from "./CourseComment"
 export default {
     components:{
+        CourseComment
         // DrawerBtnPenal,
     },
     data (){

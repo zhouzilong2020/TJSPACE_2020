@@ -102,7 +102,7 @@ export default {
 
 <style>
 .course-detail .course-detail-img{
-    width:80px;
+    max-width:80px;
     padding: 10px;
     margin: 0 auto;;
 }

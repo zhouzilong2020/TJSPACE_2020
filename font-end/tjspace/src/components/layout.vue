@@ -78,7 +78,7 @@
     </q-img>
     </q-drawer>
   
-
+  
     <q-page-container class="body row justify-evenly">
       
       
@@ -110,6 +110,7 @@
           </div>
       
         <div class="course-comment">
+          
           <course-comment />
           <course-comment />
           <course-comment />
@@ -120,19 +121,20 @@
 
     </q-page-container>
 
-    <q-footer reveal bordered class="bg-grey-8 text-white">
+
+ <q-footer reveal bordered class="bg-grey-8 text-white page-footer">
       <q-toolbar>
         <q-toolbar-title>
-          <q-avatar>
-            <img :src="logoPath">
-          </q-avatar>
-          TJSPACE·同济大学社群 2020
+          <span class="footer-name">TJSPACE·同济大学社群</span>
+          <span class="footer-id">津ICP备20006438号</span>
         </q-toolbar-title>
       </q-toolbar>
-    </q-footer>
+  </q-footer>
+   
 
   </q-layout>
 </template>
+
 
 <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 <script>
@@ -168,14 +170,7 @@ export default {
   },
 
   mounted () {
-    axios
-      .get('http://tjspace.com/api/Comment/PostComment')
-      .then(response => {
-        console.log(response);
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
+
   }
 }
 </script>
@@ -195,9 +190,7 @@ export default {
 .body .body-right .option-group{margin-top:15px}
 
 
+.page-footer .footer-name{margin-left: 10px; font-size: 16px;}
+.page-footer .footer-id{position:absolute; right: 10px; font-size: 16px;}
 </style>
 
-
-// <style lang="scss">
-// .header{color: $blue-10;}
-// </style>

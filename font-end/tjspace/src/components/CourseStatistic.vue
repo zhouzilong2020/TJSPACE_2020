@@ -67,7 +67,7 @@ export default {
 <style>
 
 .course-review-statistics{
-    width:180px;
+    max-width:180px;
     height:400px;
 }
 
