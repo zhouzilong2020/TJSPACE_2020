@@ -46,5 +46,17 @@ namespace TJSpace.DBModel
         [Required]
         [Column("date", TypeName = "date")]
         public DateTime Date { get; set; }
+
+        //回帖的楼层
+        [JsonProperty("floor")]
+        [Required]
+        [Column("floor", TypeName = "int(11)")]
+        public int Floor { get; set; }
+
+        //回帖的种类
+        [JsonProperty("type")]
+        [Required]
+        [Column("type", TypeName = "int(11)")]
+        public int Type { get; set; }
     }
 }

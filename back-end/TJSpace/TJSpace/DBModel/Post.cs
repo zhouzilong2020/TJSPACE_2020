@@ -46,5 +46,24 @@ namespace TJSpace.DBModel
         [Required]
         [Column("date", TypeName = "date")]
         public DateTime Date{get; set;}
+
+        //当前帖子最大楼层数
+        [JsonProperty("floor")]
+        [Required]
+        [Column("floor", TypeName = "int(11)")]
+        public int Floor { get; set; }
+
+        //评价的种类
+        [JsonProperty("usefulnum")]
+        [Required]
+        [Column("useful_num", TypeName = "int(11)")]
+        public int UsefulNum { get; set; }
+
+        //评价的种类
+        [JsonProperty("uselessnum")]
+        [Required]
+        [Column("useless_num", TypeName = "int(11)")]
+        public int UselessNum { get; set; }
+
     }
 }
