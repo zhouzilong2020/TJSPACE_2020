@@ -12,6 +12,16 @@ namespace TJSpace.DBModel
 
     public class Post
     {
+<<<<<<< HEAD
+=======
+        //用户编号
+        [JsonProperty("userid")]
+        [Required]
+        [Column("user_id")]
+        [StringLength(maximumLength: 50)]
+        public string UserId { get; set; }
+
+>>>>>>> ead372706cae77d7ef8fbe1c7f76fa0e57bde34e
         //贴子编号
         [Key]
         [JsonProperty("postid")]
@@ -20,6 +30,7 @@ namespace TJSpace.DBModel
         [StringLength(maximumLength: 50)]
         public string PostId { get; set; }
 
+<<<<<<< HEAD
         //贴子标题
         [JsonProperty("title")]
         [Required]
@@ -42,9 +53,30 @@ namespace TJSpace.DBModel
         public string UserId { get; set; }
 
         //发帖时间
+=======
+        //发布时间
+>>>>>>> ead372706cae77d7ef8fbe1c7f76fa0e57bde34e
         [JsonProperty("date")]
         [Required]
         [Column("date", TypeName = "date")]
         public DateTime Date { get; set; }
+<<<<<<< HEAD
+=======
+
+        //贴子名
+        [JsonProperty("title")]
+        [Required]
+        [Column("title")]
+        [StringLength(maximumLength: 40)]
+        public string Title { get; set; }
+
+        //贴子内容
+        [JsonProperty("content")]
+        [Required]
+        [Column("content")]
+        [StringLength(maximumLength: 200)]
+        public string Content { get; set; }
+
+>>>>>>> ead372706cae77d7ef8fbe1c7f76fa0e57bde34e
     }
 }

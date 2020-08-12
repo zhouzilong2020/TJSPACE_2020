@@ -86,6 +86,8 @@ namespace TJSpace
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
+
             #region Swagger
             app.UseSwagger();
             app.UseSwaggerUI(c =>
