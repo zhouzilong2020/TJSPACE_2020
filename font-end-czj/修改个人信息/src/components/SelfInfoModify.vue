@@ -1,53 +1,63 @@
 <template>
-  <div class="card" style="width:800pt">
-    <div class="text-h5">个人信息</div>
+  <div class="card" style="width:600pt; margin:0 auto; margin-top:50pt">
 
-    <q-card class="my-card">
+    <q-card class="my-card" >
+
+      <q-card-section>
+        <div class="text-h6">个人信息</div>
+      </q-card-section>
+
+      <q-separator />
+
       <q-card-section>
         
         <div class="text-subtitle2">
-          <div class='row'>
-            <div class="col-4 items-center">昵称</div>
-            <div class="col-4 items-center"><q-input rounded outlined v-model="Nickname" label="Nickname" value="name" style="width:150pt"/></div>
+          <div class='row items-center'>
+            <div class="col-6 justify-evenly" style="text-align: center">昵称</div>
+            <div class="col-6 justify-evenly" style="text-align: center"><q-input rounded outlined v-model="Nickname" label="Nickname" value="name" style="width:150pt"/></div>
           </div>
         </div>
         
         <div class="text-subtitle2" >
-          <div class='row'>
-            <div class="col-4 items-center">姓名</div>
-            <div class="col-4 items-center"><q-input rounded outlined v-model="Name" :options="Name" label="Name" style="width:150pt"/></div>
+          <div class='row items-center'>
+            <div class="col-6 justify-evenly" style="text-align: center">姓名</div>
+            <div class="col-6 justify-evenly" style="text-align: center"><q-input rounded outlined v-model="Name" :options="Name" label="Name" style="width:150pt"/></div>
           </div>
         </div>
 
         <div class="text-subtitle2" >
-          <div class='row'>
-            <div class="col-4 items-center">学号</div>
-            <div class="col-4 items-center"><q-input rounded outlined v-model="ID" :options="ID" label="ID" style="width:150pt"/></div>
+          <div class='row items-center'>
+            <div class="col-6 justify-evenly" style="text-align: center">学号</div>
+            <div class="col-6 justify-evenly" style="text-align: center"><q-input rounded outlined v-model="ID" :options="ID" label="ID" style="width:150pt"/></div>
           </div>
         </div>
 
         <div class="text-subtitle2" >
-          <div class='row'>
-            <div class="col-4 items-center">年级</div>
-            <div class="col-4 items-center"><q-select rounded outlined v-model="Grade" :options="OptionGrade" label="Grade" style="width:150pt"/></div>
+          <div class='row items-center'>
+            <div class="col-6 justify-evenly" style="text-align: center">年级</div>
+            <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Grade" :options="OptionGrade" label="Grade" style="width:150pt"/></div>
           </div>
         </div>
 
         <div class="text-subtitle2" >
-          <div class='row'>
-            <div class="col-4 items-center">主修专业</div>
-            <div class="col-4 items-center"><q-select rounded outlined v-model="Major" :options="OptionMajor" label="Major" style="width:150pt"/></div>
+          <div class='row items-center'>
+            <div class="col-6 justify-evenly" style="text-align: center">主修专业</div>
+            <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Major" :options="OptionMajor" label="Major" style="width:150pt" value="OptionMajor"/></div>
           </div>
         </div>
 
         <div class="text-subtitle2" >
-          <div class='row'>
-            <div class="col-4 items-center">辅修专业</div>
-            <div class="col-4 items-center"><q-select rounded outlined v-model="Minor" :options="OptionMinor" label="Minor" style="width:150pt"/></div>
+          <div class='row items-center'>
+            <div class="col-6 justify-evenly" style="text-align: center">辅修专业</div>
+            <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Minor" :options="OptionMinor" label="Minor" style="width:150pt"/></div>
           </div>
         </div>
       
       </q-card-section>
+      <q-card-section>
+        {{ lorem }}
+      </q-card-section>
+
 
       <q-separator />
 
@@ -55,6 +65,7 @@
         <q-btn label="Submit" type="submit" color="primary" class='col-6' />
         <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm col-5" />
       </div>
+      
     </q-card>
     <br>
     <br>
@@ -96,17 +107,9 @@ export default {
 </script>
 
 <style>
-.card{
-  margin-top: 50pt;
-  margin-left: 200pt;
-  height: 400pt;
-}
 .text-subtitle2{
   margin-top: 40pt;
-  margin-left: 200pt;
 }
-.Information{
-  display: inline-block;
-}
+
 
 </style>
