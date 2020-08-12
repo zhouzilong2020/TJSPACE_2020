@@ -1,25 +1,26 @@
 ﻿<Properties StartupConfiguration="{BCA4B615-DBD8-49D7-A536-17BBA5622A2F}|Default">
   <MonoDevelop.Ide.ItemProperties.TJSpace PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/Controllers/ModifyControllers.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/Controllers/ShowControllers.cs">
     <Files>
-      <File FileName="TJSpace/Controllers/ShowControllers.cs" Line="64" Column="12" />
-      <File FileName="TJSpace/Controllers/SearchControllers.cs" />
-      <File FileName="TJSpace/Controllers/TeacherController.cs" />
+      <File FileName="TJSpace/Controllers/ShowControllers.cs" Line="81" Column="29" />
+      <File FileName="TJSpace/Controllers/SearchControllers.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/Controllers/TeacherController.cs" Line="1" Column="1" />
       <File FileName="TJSpace/DBModel/SendMessage.cs" />
-      <File FileName="TJSpace/Controllers/LoginControllers.cs" Line="39" Column="36" />
-      <File FileName="TJSpace/Startup.cs" Line="75" Column="1" />
-      <File FileName="TJSpace/Controllers/AdminController.cs" Line="46" Column="49" />
-      <File FileName="TJSpace/Controllers/CommentController.cs" Line="16" Column="16" />
+      <File FileName="TJSpace/Controllers/LoginControllers.cs" />
+      <File FileName="TJSpace/Startup.cs" />
+      <File FileName="TJSpace/Controllers/AdminController.cs" />
+      <File FileName="TJSpace/Controllers/CommentController.cs" />
       <File FileName="TJSpace/Controllers/CourseController.cs" Line="14" Column="16" />
-      <File FileName="TJSpace/Controllers/PostController.cs" Line="40" Column="25" />
-      <File FileName="TJSpace/Controllers/RegisterController.cs" />
-      <File FileName="TJSpace/DBModel/Post.cs" Line="43" Column="15" />
-      <File FileName="TJSpace/Program.cs" Line="17" Column="1" />
-      <File FileName="TJSpace/DBModel/Mark.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Major.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Comment.cs" Line="1" Column="1" />
-      <File FileName="TJSpace/DBModel/Account.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/Controllers/PostController.cs" Line="111" Column="19" />
+      <File FileName="TJSpace/Controllers/RegisterController.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/DBModel/Post.cs" Line="66" Column="20" />
+      <File FileName="TJSpace/Program.cs" />
+      <File FileName="TJSpace/DBModel/Mark.cs" />
+      <File FileName="TJSpace/DBModel/Major.cs" />
+      <File FileName="TJSpace/DBModel/Comment.cs" />
+      <File FileName="TJSpace/DBModel/Account.cs" />
       <File FileName="TJSpace/Controllers/ModifyControllers.cs" Line="10" Column="16" />
+      <File FileName="TJSpace/DBModel/Reply.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -30,7 +31,7 @@
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
               <Node name="Controllers" expanded="True">
-                <Node name="ModifyControllers.cs" selected="True" />
+                <Node name="ShowControllers.cs" selected="True" />
               </Node>
               <Node name="DBModel" expanded="True" />
               <Node name="Properties" expanded="True" />
@@ -38,9 +39,6 @@
             </Node>
           </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

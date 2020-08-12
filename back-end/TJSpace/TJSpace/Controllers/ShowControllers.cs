@@ -57,12 +57,30 @@ namespace TJSpace.Controllers
         public ActionResult<string> showPost(string postid)
         {
             List<Post> list = dbContext.Posts.Where(n => n.PostId.Equals(postid)).ToList();
+
+            var info = dbContext.Replies.Where(n => n.PostId.Equals(postid)).ToList();
+            if (info == null)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    data = list,
+                    msg = "查看数据成功,该帖不存在回复"
+                });
+            }
+            //List<string> replyid = new List<string>();
+            //foreach(var r in info)
+            //{
+            //    var reply = dbContext.Replies.Where(n => n.PostId.Equals(postid)).ToList().FirstOrDefault();
+            //    replyid.Add(reply.ReplyId);
+            //}
             return Ok(new
             {
                 status = true,
-                data = list,
+                data1 = list,
+                data2 = info,
                 msg = "查看数据成功"
-            });
+            }); 
         }
 
         //查看贴子回复
@@ -124,6 +142,7 @@ namespace TJSpace.Controllers
                 msg = "查看数据成功"
             });
         }
+
     }
 }
 

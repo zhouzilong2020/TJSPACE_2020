@@ -102,6 +102,7 @@ namespace TJSpace.Controllers
         }
 
         //对帖子进行评价
+        [HttpPut]
         public ActionResult<string> evaluate(string postID,string userID, int type)
         {
             var post = dbContext.Posts.Where(u => u.PostId == postID).ToList().FirstOrDefault();
