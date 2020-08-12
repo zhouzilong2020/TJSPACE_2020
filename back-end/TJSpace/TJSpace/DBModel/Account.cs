@@ -23,7 +23,7 @@ namespace TJSpace.DBModel
         [JsonProperty("password")]
         [Required]
         [Column("password")]
-        [StringLength(maximumLength:20)]
+        [StringLength(maximumLength: 20)]
         public string Password { get; set; }
 
         //状态
@@ -43,8 +43,6 @@ namespace TJSpace.DBModel
         [Column("user_id")]
         [StringLength(maximumLength: 50)]
         public string UserId { get; set; }
-
- 
 
     }
 }
