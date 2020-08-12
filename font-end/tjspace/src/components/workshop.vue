@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 <template>
 
   <div>
@@ -20,12 +21,6 @@ export default {
     },
 
     mounted(){
-        axois
-            .post('http://tjspace.com/api/Comment/PostComment')
-            .then(res => (this.info = res))
-            .catch(function(error){
-                console.log(error);
-            });
     }
 
 }
