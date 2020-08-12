@@ -24,7 +24,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("user")]
-        public ActionResult<string> ShowUser([FromBody]string userID)
+        public ActionResult<string> ShowUser(string userID)
         {
             List<User> list = dbContext.Users.Where(n => n.UserId.Equals(userID)).ToList();
             return Ok(new
@@ -39,7 +39,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("comment")]
-        public ActionResult<string> showComment([FromBody]string courseID)
+        public ActionResult<string> showComment(string courseID)
         {
             List<Comment> list = dbContext.Comments.Where(n => n.CourseId.Equals(courseID)).ToList();
             return Ok(new
@@ -54,7 +54,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("post")]
-        public ActionResult<string> showPost([FromBody] string postid)
+        public ActionResult<string> showPost(string postid)
         {
             List<Post> list = dbContext.Posts.Where(n => n.PostId.Equals(postid)).ToList();
             return Ok(new
@@ -69,7 +69,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("reply")]
-        public ActionResult<string> showReply([FromBody]string replyid)
+        public ActionResult<string> showReply(string replyid)
         {
             List<Reply> list = dbContext.Replies.Where(n => n.ReplyId.Equals(replyid)).ToList();
             return Ok(new
@@ -84,7 +84,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("personalcomment")]
-        public ActionResult<string> showPersonalComment([FromBody]string userid)
+        public ActionResult<string> showPersonalComment(string userid)
         {
             List<Comment> list = dbContext.Comments.Where(n => n.UserId.Equals(userid)).ToList();
             return Ok(new
@@ -99,7 +99,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("personalreply")]
-        public ActionResult<string> showPersonalReply([FromBody]string userid)
+        public ActionResult<string> showPersonalReply(string userid)
         {
             List<Reply> list = dbContext.Replies.Where(n => n.UserId.Equals(userid)).ToList();
             return Ok(new
@@ -114,7 +114,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("personalpost")]
-        public ActionResult<string> showPersonalPost([FromBody] string userid)
+        public ActionResult<string> showPersonalPost(string userid)
         {
             List<Post> list = dbContext.Posts.Where(n => n.UserId.Equals(userid)).ToList();
             return Ok(new

@@ -45,7 +45,6 @@ namespace TJSpace.DBModel
         [JsonProperty("date")]
         [Required]
         [Column("date", TypeName = "date")]
-        public DateTime Date { get; set; }
-
+        public DateTime Date{get; set;}
     }
 }

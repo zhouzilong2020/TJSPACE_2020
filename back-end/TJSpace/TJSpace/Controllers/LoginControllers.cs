@@ -60,7 +60,6 @@ namespace TJSpace.Controllers
                     data = tokenResponse.AccessToken
                 });
             }
-
         }
     }
 }

@@ -83,7 +83,7 @@ namespace TJSpace.Controllers
 
         //删除课程
         [HttpDelete]
-        public ActionResult<string> DeleteCourse ([FromBody]string CourseId)
+        public ActionResult<string> DeleteCourse (string CourseId)
         {
             var temp = dbContext.Courses.Where(u => u.CourseId == CourseId).ToList().FirstOrDefault();
             if (temp == null)

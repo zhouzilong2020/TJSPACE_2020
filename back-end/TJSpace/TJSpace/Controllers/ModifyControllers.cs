@@ -35,7 +35,6 @@ namespace TJSpace.Controllers
                 status = true,
                 msg = "修改信息成功"
             });
-
         }
     }
 }

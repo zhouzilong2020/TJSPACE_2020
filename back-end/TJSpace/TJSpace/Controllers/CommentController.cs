@@ -123,7 +123,7 @@ namespace TJSpace.Controllers
 
         //管理员删除评价
         [HttpDelete]
-        public ActionResult<string> DeleteComment([FromBody]string commentID)
+        public ActionResult<string> DeleteComment(string commentID)
         {
             var comment = dbContext.Comments.Where(u => u.CommentId == commentID).ToList().FirstOrDefault();
             if(comment==null)

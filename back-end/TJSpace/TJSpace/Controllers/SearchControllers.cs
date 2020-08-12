@@ -28,7 +28,7 @@ namespace TJSpace.Controllers
         //检索教师信息
         //GET
         [HttpGet]
-        public ActionResult<string> SearchTeacher([FromBody]string name)
+        public ActionResult<string> SearchTeacher(string name)
         {
             List<Teacher> list = dbContext.Teachers.Where(n => n.Name.Equals(name)).ToList();
             var info = dbContext.Teachers.Where(n => n.Name.Equals(name)).ToList().FirstOrDefault();
@@ -52,7 +52,7 @@ namespace TJSpace.Controllers
         //检索教师开设课程
         //GET
         [HttpGet]
-        public ActionResult<string> SearchTeaches([FromBody]string name)
+        public ActionResult<string> SearchTeaches(string name)
         {
 
             var info1 = dbContext.Teachers.Where(n => n.Name.Equals(name)).ToList().FirstOrDefault();
@@ -93,7 +93,7 @@ namespace TJSpace.Controllers
 
         //查找课程
         [HttpGet]
-        public ActionResult<string> SearchCourse([FromBody] string keywords)
+        public ActionResult<string> SearchCourse(string keywords)
         {
             var info1 = dbContext.CourseCodes.Where(u => u.Title == keywords).ToList().FirstOrDefault();
             if (info1 == null)
@@ -149,7 +149,7 @@ namespace TJSpace.Controllers
 
         //查找帖子，目前是只能查找指定字符，待修改为查找范围字符
         [HttpGet]
-        public ActionResult<string> SearchPost([FromBody] string keywords)
+        public ActionResult<string> SearchPost(string keywords)
         {
             var info = dbContext.Posts.Where(u => u.Title == keywords).ToList();
 
