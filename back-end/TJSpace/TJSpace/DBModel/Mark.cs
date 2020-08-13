@@ -20,14 +20,6 @@ namespace TJSpace.DBModel
         [StringLength(maximumLength: 50)]
         public string UserId { get; set; }
 
-        //回复编号
-        [Key]
-        [JsonProperty("replyid")]
-        [Required]
-        [Column("reply_id")]
-        [StringLength(maximumLength:50)]
-        public string ReplyId { get; set; }
-
         //贴子编号
         [Key]
         [JsonProperty("postid")]

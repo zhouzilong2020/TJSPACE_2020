@@ -31,7 +31,7 @@ namespace TJSpace
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
-
+            
             services.AddAuthentication("Bearer").AddIdentityServerAuthentication(options =>
             {
                 options.Authority = "http://175.24.115.240:5000";
