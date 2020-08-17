@@ -80,6 +80,9 @@
 
 
 <script>
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+Vue.use(VueResource);
 export default {
     name:"SelfInfoModify",
     props:{
@@ -101,15 +104,19 @@ export default {
         Name:'黎力',
         ID:'1853549',
     }
-  }
+  },
+
+
+
+
 
 }
 </script>
 
-<style>
+
+<style >
 .text-subtitle2{
   margin-top: 40pt;
 }
-
 
 </style>
