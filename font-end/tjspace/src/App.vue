@@ -1,21 +1,16 @@
 <template>
-
   <div>
-    <layout />
-    <!-- <workshop /> -->
+    <course-info />
   </div>
-
 </template>
 
 <script>
-import layout from './components/layout'
-// import workshop from './components/workshop'
-
+import CourseInfo from './page/CourseInfo'
 export default {
-  name: 'LayoutDefault',
+  name: 'APP',
 
   components: {
-    layout,
+    CourseInfo,
     // workshop,
   },
 

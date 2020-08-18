@@ -60,7 +60,7 @@
       </q-card-section>
 
       <q-card-section>
-        <course-statistic />
+        <course-statistic :reviewStatistic="reviewStatistic"/>
       </q-card-section>
 
 
@@ -74,6 +74,7 @@
 <script>
 import CourseStatistic from './CourseStatistic'
 export default {
+    name:"CourseDetail",
     components:{
         CourseStatistic,
     },
@@ -89,11 +90,14 @@ export default {
                     department:"软件学院",
                 }
             }
+        },
+        reviewStatistic:{
+            type: Object,
         }
     },
     data(){
         return {
-            path: require("../assets/TJU.png")
+            path: require("../../assets/TJU.png")
         }
     }
 

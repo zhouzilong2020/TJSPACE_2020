@@ -1,24 +1,23 @@
 <template>
-        <div class="drwaer-option q-gutter-y-md" style="max-width: 300px">
-            <q-tabs
-                v-model="tab"
-                indicator-color="primary"
-                active-bg-color="primary"
-                horizontal
-                dense
-            >
-                <ul class="drawer-option-list">
-                    <li v-for="(dept, i) in depts" :key="i">
-                        <div  v-if="i%3==0 " class="row">
-                            <q-tab  v-if="i < depts.length" :icon="depts[i].icon" :label="depts[i].abbr" />
-                            <q-tab  v-if="i+1 < depts.length" :icon="depts[i+1].icon" :label="depts[i+1].abbr" />
-                            <q-tab  v-if="i+2 < depts.length" :icon="depts[i+2].icon" :label="depts[i+2].abbr" />
-                        </div>
-                    </li>
-                </ul>
-            </q-tabs>
-        </div>
-
+    <div class="drwaer-option q-gutter-y-md" style="max-width: 300px">
+        <q-tabs
+            v-model="tab"
+            indicator-color="primary"
+            active-bg-color="primary"
+            horizontal
+            dense
+        >
+            <ul class="drawer-option-list">
+                <li v-for="(dept, i) in depts" :key="i">
+                    <div  v-if="i%3==0 " class="row">
+                        <q-tab  v-if="i < depts.length" :icon="depts[i].icon" :label="depts[i].abbr" />
+                        <q-tab  v-if="i+1 < depts.length" :icon="depts[i+1].icon" :label="depts[i+1].abbr" />
+                        <q-tab  v-if="i+2 < depts.length" :icon="depts[i+2].icon" :label="depts[i+2].abbr" />
+                    </div>
+                </li>
+            </ul>
+        </q-tabs>
+    </div>
 </template>
 
 <script>

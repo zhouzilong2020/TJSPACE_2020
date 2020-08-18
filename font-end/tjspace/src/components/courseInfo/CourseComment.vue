@@ -4,16 +4,16 @@
             <div class="user-infro col-auto row inline justify-evenly">
                 <q-item-section class="avatar" avatar>
                     <q-avatar>
-                        <img :src="reviewInfro.userInfro.photoPath">
+                        <img :src="reviewInfo.userInfro.photoPath">
                     </q-avatar>
-                    <q-item-label class="nickname" horizontal>{{reviewInfro.userInfro.nickname}}</q-item-label>
+                    <q-item-label class="nickname" horizontal>{{reviewInfo.userInfro.nickname}}</q-item-label>
                 </q-item-section>
                 <q-item-section class="user-infro-detail">
                     <q-item-label class="grade" caption>
-                        {{reviewInfro.userInfro.grade}}
+                        {{reviewInfo.userInfro.grade}}
                     </q-item-label>
                     <q-item-label class="major" caption>
-                        {{reviewInfro.userInfro.major}}
+                        {{reviewInfo.userInfro.major}}
                     </q-item-label>
                 </q-item-section>
             </div>
@@ -21,10 +21,10 @@
             <!-- 课程开设时间 -->
             <q-item-section class="course-detail col-auto">
                 <q-item-label class="course-year">
-                    {{reviewInfro.courseDetail.year}}
+                    {{reviewInfo.courseDetail.year}}
                 </q-item-label>
                 <q-item-label class="course-semester">
-                    {{reviewInfro.courseDetail.semester}}
+                    {{reviewInfo.courseDetail.semester}}
                 </q-item-label>
             </q-item-section>
             <q-separator vertical/>
@@ -34,25 +34,25 @@
                     <li>
                         <div class="column">
                             <strong>课程内容</strong>
-                            <span class="rating" :class="getRate(reviewInfro.courseStatistic.content)">{{reviewInfro.courseStatistic.content}}</span>
+                            <span class="rating" :class="getRate(reviewInfo.courseStatistic.content)">{{reviewInfo.courseStatistic.content}}</span>
                         </div>
                     </li>
                     <li>
                         <div class="column">
                             <strong>教学水平</strong>
-                            <span class="rating" :class="getRate(reviewInfro.courseStatistic.teaching)">{{reviewInfro.courseStatistic.teaching}}</span>
+                            <span class="rating" :class="getRate(reviewInfo.courseStatistic.teaching)">{{reviewInfo.courseStatistic.teaching}}</span>
                         </div>
                     </li>
                     <li>
                         <div class="column">
                             <strong>评分情况</strong>
-                            <span class="rating" :class="getRate(reviewInfro.courseStatistic.grading)">{{reviewInfro.courseStatistic.grading}}</span>
+                            <span class="rating" :class="getRate(reviewInfo.courseStatistic.grading)">{{reviewInfo.courseStatistic.grading}}</span>
                         </div>
                     </li>
                     <li>
                         <div class="column">
                             <strong>课程作业</strong>
-                            <span class="rating" :class="getRate(reviewInfro.courseStatistic.workload)">{{reviewInfro.courseStatistic.workload}}</span>
+                            <span class="rating" :class="getRate(reviewInfo.courseStatistic.workload)">{{reviewInfo.courseStatistic.workload}}</span>
                         </div>
                     </li>
                 </ul>
@@ -63,19 +63,19 @@
         <!-- 课程的一些作业情况 -->
         <q-item class="course-requirement">
             <ul class="col-4">
-                <li :class="[reviewInfro.courseDetail.midTerm==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.midTerm==true ? 'icon-duigou':'icon-icon_wrong']"></span>期中考试</li>
-                <li :class="[reviewInfro.courseDetail.final==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.final==true ? 'icon-duigou':'icon-icon_wrong']"></span>期末考试</li>
-                <li :class="[reviewInfro.courseDetail.quiz==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.quiz==true ? 'icon-duigou':'icon-icon_wrong']"></span>课堂小测</li>
+                <li :class="[reviewInfo.courseDetail.midTerm==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.midTerm==true ? 'icon-duigou':'icon-icon_wrong']"></span>期中考试</li>
+                <li :class="[reviewInfo.courseDetail.final==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.final==true ? 'icon-duigou':'icon-icon_wrong']"></span>期末考试</li>
+                <li :class="[reviewInfo.courseDetail.quiz==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.quiz==true ? 'icon-duigou':'icon-icon_wrong']"></span>课堂小测</li>
             </ul>
             <ul class="col-4">
-                <li :class="[reviewInfro.courseDetail.assignment==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.assignment==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程作业</li>
-                <li :class="[reviewInfro.courseDetail.essay==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.essay==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程论文</li>
-                <li :class="[reviewInfro.courseDetail.project==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.project==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程项目</li>
+                <li :class="[reviewInfo.courseDetail.assignment==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.assignment==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程作业</li>
+                <li :class="[reviewInfo.courseDetail.essay==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.essay==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程论文</li>
+                <li :class="[reviewInfo.courseDetail.project==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.project==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程项目</li>
             </ul>
             <ul class="col-4">
-                <li :class="[reviewInfro.courseDetail.attendance==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.attendance==true ? 'icon-duigou':'icon-icon_wrong']"></span>课堂考勤</li>
-                <li :class="[reviewInfro.courseDetail.reading==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.reading==true ? 'icon-duigou':'icon-icon_wrong']"></span>阅读材料</li>
-                <li :class="[reviewInfro.courseDetail.presentation==true ? 'active':'']"><span class="iconfont" :class="[reviewInfro.courseDetail.presentation==true ? 'icon-duigou':'icon-icon_wrong']"></span>个人展示</li>
+                <li :class="[reviewInfo.courseDetail.attendance==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.attendance==true ? 'icon-duigou':'icon-icon_wrong']"></span>课堂考勤</li>
+                <li :class="[reviewInfo.courseDetail.reading==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.reading==true ? 'icon-duigou':'icon-icon_wrong']"></span>阅读材料</li>
+                <li :class="[reviewInfo.courseDetail.presentation==true ? 'active':'']"><span class="iconfont" :class="[reviewInfo.courseDetail.presentation==true ? 'icon-duigou':'icon-icon_wrong']"></span>个人展示</li>
             </ul>
         </q-item>
 
@@ -85,72 +85,70 @@
         <q-item class="course-review-body" horizontal>
             <div class="col-6">
                 <q-card-section>
-                    <q-label class="text-h6">课程内容</q-label>
-                    <p class="tetx-body2">{{reviewInfro.commentDetail.content}}</p>
+                    <div class="text-h6">课程内容</div>
+                    <p class="tetx-body2">{{reviewInfo.commentDetail.content}}</p>
                 </q-card-section>
 
                 <q-card-section>
-                    <q-label class="text-h6">教学水平</q-label>
-                    <p class="tetx-body2">{{reviewInfro.commentDetail.teaching}}</p>
+                    <div class="text-h6">教学水平</div>
+                    <p class="tetx-body2">{{reviewInfo.commentDetail.teaching}}</p>
                 </q-card-section>
             </div>
             <div class="col-6">
                 <q-card-section>
-                    <q-label class="text-h6"> 评分情况</q-label>
-                    <p class="tetx-body2">{{reviewInfro.commentDetail.grading}}</p>
+                    <div class="text-h6"> 评分情况</div>
+                    <p class="tetx-body2">{{reviewInfo.commentDetail.grading}}</p>
                 </q-card-section>
                 <q-card-section>
-                    <q-label class="text-h6">课程作业</q-label>
-                    <p class="tetx-body2">{{reviewInfro.commentDetail.workload}}</p>
+                    <div class="text-h6">课程作业</div>
+                    <p class="tetx-body2">{{reviewInfo.commentDetail.workload}}</p>
                 </q-card-section>
             </div>
         </q-item>
 
         <q-separator />
-
+        <!-- footer -->
         <q-card-section class="footer row justify-between">
-            <q-label name="a" class="course-review-date">评论于 {{reviewInfro.commentDetail.date}}</q-label>
-            <q-label class="course-review-detail"> {{reviewInfro.commentDetail.useful}}/{{reviewInfro.commentDetail.useless+reviewInfro.commentDetail.useful}}  人觉得有用</q-label>
-            <div class="course-review-option">
+            <span name="a" class="course-review-date">评论于 {{reviewInfo.commentDetail.date}}</span>
+            <span class="course-review-detail"> {{reviewInfo.commentDetail.useful}}/{{reviewInfo.commentDetail.useless+reviewInfo.commentDetail.useful}}  人觉得有用</span>
+            <span class="course-review-option">
                 <q-btn flat round icon="iconfont icon-dianzan"></q-btn>
                 <q-btn flat round icon="iconfont icon-cai"></q-btn>
                          
-            </div>
+            </span>
         </q-card-section>
     </q-card>
 </template>
 
 <script>
-// import CourseStatistic from "./CourseStatistic"
 export default {
+    name:"CourseComment",
     components:{
-        // CourseStatistic,
     },
     data:()=>{
         return {
-            zan:require('../assets/zan.png'),
-            zanFocus:require('../assets/zan-focus.png'),
-            cai:require('../assets/cai.png'),
-            caiFocus:require('../assets/cai-focus.png'),
+            zan:require('../../assets/zan.png'),
+            zanFocus:require('../../assets/zan-focus.png'),
+            cai:require('../../assets/cai.png'),
+            caiFocus:require('../../assets/cai-focus.png'),
             inputText:'请在此输入对该评价的看法',
             expanded:false
         }
     },
     props:{
-        reviewInfro:{
+        reviewInfo:{
             type: Object,
             default: ()=>{
                 return {
                     courseStatistic:{
-                        reveiwCnt:100,
-                        content:"A+",
-                        teaching:"A+",
-                        grading:"A+",
-                        workload:"A+",
+                        content:"10",
+                        teaching:"10",
+                        grading:"10",
+                        workload:"10",
                     },
                     userInfro:{
                         nickname:"lutianyi",
-                        photoPath:require("../assets/touxiang.jpg"),
+                        photoPath:require("../../assets/touxiang.jpg"),
                         grade:"2018级",
                         major:"软件工程",
                     },
@@ -182,17 +180,27 @@ export default {
     },
     computed: {
         topColor(){
-          return "top-rating-5";  
+            let total = 0;
+            total += Number(this.reviewInfo.courseStatistic.content)
+            total += Number(this.reviewInfo.courseStatistic.teaching)
+            total += Number(this.reviewInfo.courseStatistic.grading)
+            total += Number(this.reviewInfo.courseStatistic.workload)
+            total /= 4;
+            console.log(total);
+            if(8 <= total && total <= 10){return "top-rating-5";}
+            if(6 <= total && total < 8){return "top-rating-4";}
+            if(4 <= total && total  < 6){return "top-rating-3";}
+            if(2 <= total && total  < 4){return "top-rating-2";}
+            else{return "top-rating-1";}
         },
         getRate(){
             return (grade) =>{
-                switch(grade[0]){
-                    case "A": return "rating-5";
-                    case "B": return "rating-4";
-                    case "C": return "rating-3";
-                    case "D": return "rating-2";
-                    case "F": return "rating-1";
-                }
+                grade = Number(grade)
+                if(8 <= grade && grade <= 10){return "rating-5";}
+                if(6 <= grade && grade < 8){return "rating-4";}
+                if(4 <= grade && grade  < 6){return "rating-3";}
+                if(2 <= grade && grade  < 4){return "rating-2";}
+                if(0 <= grade && grade < 2){return "rating-1";}
             }
         },
     },
@@ -217,7 +225,7 @@ export default {
 
 .rating-container {padding: 0; overflow: hidden; list-style: none;}
 .rating-container strong {margin-bottom: 5px;}
-.rating-container li .rating {
+.rating-container li div .rating {
     display: inline-block;
     width: 40px;
     line-height: 30px;
@@ -229,12 +237,12 @@ export default {
     overflow: hidden;
     text-align: center;
 }
+
 .rating-1 {background: #fb1420;}
 .rating-2 {background: #ff7800;}
 .rating-3 {background: #ffba00;}
 .rating-4 {background: #afc732;}
 .rating-5 {background: #5a5;}
-
 
 .top-rating-5{background: #f1f8f1;}
 .top-rating-4{background: #f7faea;}
@@ -250,11 +258,10 @@ export default {
 .course-requirement ul .iconfont{margin-right:5px;}
 
 
-.footer{margin: 0 auto; padding: 0; line-height: 0px;}
-.footer q-label{font-size: 5px; color:grey; font-weight: 800; }
+.footer{margin: 0 auto; padding: 0; line-height: 10px;}
+.footer span{font-size: 10px; color:grey; font-weight: 800; }
 .footer .course-review-detail{position: absolute; right: 140px;}
-.footer .course-review-option{ line-height:0px; height:0px; color:grey; position: relative; bottom: 21px; right:-10px;}
-.footer .course-review-option .iconfont{font-size: 14px;}
+.footer .course-review-option{line-height:0px; height:0px; color:grey; position: relative; bottom: 10px; right:-10px;}
 
 
 .review-for-comment q-editor{background-color: wight;}

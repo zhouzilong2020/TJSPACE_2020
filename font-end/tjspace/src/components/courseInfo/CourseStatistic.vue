@@ -1,29 +1,29 @@
 <template>
     <div class="course-review-statistics">
-		<p>{{courseStatistic.reveiwCnt}} Reviews</p>
+		<p>{{reviewStatistic.reveiwCnt}} Reviews</p>
 		<ul class="rating-container row">
 			<li>
                 <div class="column">
                     <strong>课程内容</strong>
-                    <span class="rating" :class="getRate(courseStatistic.content)">{{courseStatistic.content}}</span>
+                    <span class="rating" :class="getRate(reviewStatistic.content)">{{reviewStatistic.content}}</span>
                 </div>
             </li>
 			<li>
                 <div class="column">
                     <strong>教学水平</strong>
-                    <span class="rating" :class="getRate(courseStatistic.teaching)">{{courseStatistic.teaching}}</span>
+                    <span class="rating" :class="getRate(reviewStatistic.teaching)">{{reviewStatistic.teaching}}</span>
                 </div>    
             </li>
 			<li>
                 <div class="column">
                     <strong>评分情况</strong>
-                    <span class="rating" :class="getRate(courseStatistic.grading)">{{courseStatistic.grading}}</span>
+                    <span class="rating" :class="getRate(reviewStatistic.grading)">{{reviewStatistic.grading}}</span>
                 </div>
             </li>
 			<li>
                 <div class="column">
                     <strong>课程作业</strong>
-                    <span class="rating" :class="getRate(courseStatistic.workload)">{{courseStatistic.workload}}</span>
+                    <span class="rating" :class="getRate(reviewStatistic.workload)">{{reviewStatistic.workload}}</span>
                 </div>
             </li>
 		</ul>
@@ -34,7 +34,7 @@
 export default {
     name:"CourseStatistic",
     props:{
-        courseStatistic:{
+        reviewStatistic:{
             type: Object,
             default: function(){
                 return{
@@ -50,16 +50,14 @@ export default {
     computed: {
         getRate(){
             return (grade) =>{
-                switch(grade[0]){
-                    case "A": return "rating-5";
-                    case "B": return "rating-4";
-                    case "C": return "rating-3";
-                    case "D": return "rating-2";
-                    case "F": return "rating-1";
-                }
+                grade = Number(grade)
+                if(8 <= grade && grade <= 10){return "rating-5";}
+                if(6 <= grade && grade < 8){return "rating-4";}
+                if(4 <= grade && grade  < 6){return "rating-3";}
+                if(2 <= grade && grade  < 4){return "rating-2";}
+                if(0 <= grade && grade < 2){return "rating-1";}
             }
         },
-
     }
 }
 </script>
