@@ -5,8 +5,6 @@ import config from "./config"
 // 安装vuerouter
 Vue.use(VueRouter)
 // 路由对象
-var router = new VueRouter(config)
+var router = new VueRouter(config);
 
-export default{
-    router,
-}
+export default router;

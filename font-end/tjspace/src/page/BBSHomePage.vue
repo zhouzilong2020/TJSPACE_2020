@@ -1,87 +1,82 @@
 <template>
-  <layout>
-    <template v-slot:main>
-      <q-page>
-        <!-- title -->
-        <div class="row justify-center" id="bbsTitle">
-          <div class="col-12">
-            <q-img src="../assets/bbsBackground.png" style="width: 100%">
-              <div class="absolute-bottom-left">
-                <p>
-                  <q-img src="../assets/TJU.png" style="width:100%" />
-                  TJSPACE-BBS
-                </p>
-              </div>
-            </q-img>
+  <q-page>
+    <!-- title -->
+    <div class="row justify-center" id="bbsTitle">
+      <div class="col-12">
+        <q-img src="../assets/bbsBackground.png" style="width: 100%">
+          <div class="absolute-bottom-left">
+            <p>
+              <q-img src="../assets/TJU.png" style="width:100%" />
+              TJSPACE-BBS
+            </p>
           </div>
-        </div>
-        <!-- 发布主题贴 -->
-        <div v-show="isMakingPost">
-          <q-input
-            v-model="postContent"
-            label="输入你的想法"
-            type="textarea"
-            filled
+        </q-img>
+      </div>
+    </div>
+    <!-- 发布主题贴 -->
+    <div v-show="isMakingPost">
+      <q-input
+        v-model="postContent"
+        label="输入你的想法"
+        type="textarea"
+        filled
+      />
+      <q-btn color="primary" label="取消" @click="cancelPost"/>
+      <q-btn color="primary" label="确定" @click="submitPost"/>
+    </div>
+    <!-- 交互控件 -->
+    <div style="height:3rem">
+      <div style="float:right">
+        <q-btn-group>
+          <q-btn color="primary" label="按主题发布时间排序" />
+          <q-btn color="primary" label="按最新评论时间排序" />
+          <q-btn
+            color="primary"
+            icon="add_comment"
+            label="发布"
+            @click="makeNewPost"
           />
-          <q-btn color="primary" label="取消" @click="cancelPost"/>
-          <q-btn color="primary" label="确定" @click="submitPost"/>
-        </div>
-        <!-- 交互控件 -->
-        <div style="height:3rem">
-          <div style="float:right">
-            <q-btn-group>
-              <q-btn color="primary" label="按主题发布时间排序" />
-              <q-btn color="primary" label="按最新评论时间排序" />
-              <q-btn
-                color="primary"
-                icon="add_comment"
-                label="发布"
-                @click="makeNewPost"
-              />
-            </q-btn-group>
-          </div>
-        </div>
-        <!-- 帖子  放在list中显示-->
-        <div>
-          <q-list separator bordered>
-            <q-item v-for="(post,index) in postInfo" :key="post.id">
-              <!-- 主要内容 -->
-              <q-item-section clickable @click="jumpToPost(index)">
-                <q-item-label>
-                  {{ post.postContent }}
-                </q-item-label>
-                <q-item-label caption>
-                  <q-icon name="person" />
-                  {{ post.posterName }}
-                </q-item-label>
-                <q-item-label caption>
-                  最新评论于{{ post.latestCommentTime }}
-                  <br />
-                  {{ post.commentAccount }}评论
-                </q-item-label>
-              </q-item-section>
-              <!-- 交互 -->
-              <q-item-section side top>
-                <q-item-label>
-                  <q-btn flat color="black" icon="thumb_up" @click="thumbUp(index)" />
-                  {{ post.agreeAccount }}
-                  <q-btn flat color="black" icon="thumb_down" />
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </div>
-      </q-page>
-    </template>
-  </layout>
+        </q-btn-group>
+      </div>
+    </div>
+    <!-- 帖子  放在list中显示-->
+    <div>
+      <q-list separator bordered>
+        <q-item v-for="(post,index) in postInfo" :key="post.id">
+          <!-- 主要内容 -->
+          <q-item-section clickable @click="jumpToPost(index)">
+            <q-item-label>
+              {{ post.postContent }}
+            </q-item-label>
+            <q-item-label caption>
+              <q-icon name="person" />
+              {{ post.posterName }}
+            </q-item-label>
+            <q-item-label caption>
+              最新评论于{{ post.latestCommentTime }}
+              <br />
+              {{ post.commentAccount }}评论
+            </q-item-label>
+          </q-item-section>
+          <!-- 交互 -->
+          <q-item-section side top>
+            <q-item-label>
+              <q-btn flat color="black" icon="thumb_up" @click="thumbUp(index)" />
+              {{ post.agreeAccount }}
+              <q-btn flat color="black" icon="thumb_down" />
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
+  </q-page>
 </template>
 
 <script>
 import axios from "axios";
-import layout from '../components/layout'
 export default {
   components:{
-    layout,
+
   },
   data() {
     return {

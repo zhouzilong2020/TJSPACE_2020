@@ -1,83 +1,79 @@
 <template>
-  <layout>
-    <template v-slot:main>
-      <q-page-container class="body-right row"  style="display:flex;">
-        <div class="left">
-          <div class="q-pa-md" style="max-width: 780px">
-            <div class="q-gutter-md">
-              <div>
-                <q-badge color="teal">发现更多课程</q-badge>
-              </div>
-              <q-input v-model="search" debounce="500" filled placeholder="请输入希望搜索的课程名称">
-                 <template v-slot:append>
-                    <q-icon name="search" ></q-icon>
-                 </template>
-              </q-input>
-            </div>
+
+  <q-page-container class="body-right row"  style="display:flex;">
+    <div class="left">
+      <div class="q-pa-md" style="max-width: 780px">
+        <div class="q-gutter-md">
+          <div>
+            <q-badge color="teal">发现更多课程</q-badge>
           </div>
-
-          <div class="choose">
-            <q-select standout="bg-teal text-white" v-model="model" :options="department" label="学院" ></q-select>
-          </div>
-      
-          <div class="content" v-for="item in courseInfo" :key="item.label" :value="item.value">
-            <q-card class="my-card bg-secondary text-white">  
-              <q-card-section>
-                <div class="text-h6">{{item.name}}</div>
-                <div class="text-subtitle2">{{item.teacher}}</div>
-              </q-card-section>
-            
-              <q-card-section>
-                {{ item.intro }}
-              </q-card-section>
-
-              <q-separator dark ></q-separator>
-
-              <q-card-actions>
-                <q-btn flat>详情</q-btn>
-                <q-btn flat style="margin-left:100px;">打分</q-btn>
-              </q-card-actions>
-            </q-card>
-          </div>
-        </div>
-        
-        <div class="right">
-
-         <div class="q-pa-md" style="width:292px;margin-top:213px;">
-           <q-parallax :height="1160">
-              <template v-slot:media>
-              <!-- 这里的链接需要使用webpack的require -->
-               <img :src="path">
+          <q-input v-model="search" debounce="500" filled placeholder="请输入希望搜索的课程名称">
+              <template v-slot:append>
+                <q-icon name="search" ></q-icon>
               </template>
-
-            <template v-slot:content="scope">
-              <div
-                class="absolute column items-center"
-                :style="{
-                opacity: 0.45 + (1 - scope.percentScrolled) * 0.55,
-                top: (scope.percentScrolled * 60) + '%',
-                left: 0,
-                right: 0
-                }"
-              >
-              <!-- 这里的链接需要使用webpack的require -->
-              <img :src="path" style="width: 150px; height: 150px">
-              <div class="text-h3 text-white text-center">TJspace</div>
-              </div>
-            </template>
-           </q-parallax>
-         </div>
+          </q-input>
         </div>
-      </q-page-container>
-    </template>
-  </layout>
+      </div>
+
+      <div class="choose">
+        <q-select standout="bg-teal text-white" v-model="model" :options="department" label="学院" ></q-select>
+      </div>
+  
+      <div class="content" v-for="item in courseInfo" :key="item.label" :value="item.value">
+        <q-card class="my-card bg-secondary text-white">  
+          <q-card-section>
+            <div class="text-h6">{{item.name}}</div>
+            <div class="text-subtitle2">{{item.teacher}}</div>
+          </q-card-section>
+        
+          <q-card-section>
+            {{ item.intro }}
+          </q-card-section>
+
+          <q-separator dark ></q-separator>
+
+          <q-card-actions>
+            <q-btn flat>详情</q-btn>
+            <q-btn flat style="margin-left:100px;">打分</q-btn>
+          </q-card-actions>
+        </q-card>
+      </div>
+    </div>
+    
+    <div class="right">
+
+      <div class="q-pa-md" style="width:292px;margin-top:213px;">
+        <q-parallax :height="1160">
+          <template v-slot:media>
+          <!-- 这里的链接需要使用webpack的require -->
+            <img :src="path">
+          </template>
+
+        <template v-slot:content="scope">
+          <div
+            class="absolute column items-center"
+            :style="{
+            opacity: 0.45 + (1 - scope.percentScrolled) * 0.55,
+            top: (scope.percentScrolled * 60) + '%',
+            left: 0,
+            right: 0
+            }"
+          >
+          <!-- 这里的链接需要使用webpack的require -->
+          <img :src="path" style="width: 150px; height: 150px">
+          <div class="text-h3 text-white text-center">TJspace</div>
+          </div>
+        </template>
+        </q-parallax>
+      </div>
+    </div>
+  </q-page-container>
+
 </template>
 
 <script>
-import layout from '../components/layout'
 export default {
   components:{
-    layout,
   },
 
   data () {

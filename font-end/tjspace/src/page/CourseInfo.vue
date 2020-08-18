@@ -1,55 +1,50 @@
 <template>
-    <layout>
-        <template v-slot:main>
-            <q-page-container class="detail body-left">
-                <course-detail   :courseInfo="courseInfo" :reviewStatistic="reviewStatistic"/>
-            </q-page-container>
+    <div>
+        <q-page-container class="detail body-left">
+            <course-detail   :courseInfo="courseInfo" :reviewStatistic="reviewStatistic"/>
+        </q-page-container>
 
-            <q-page-container class="body-right">
-                <div class="course-head" >
-                    <course-head :courseInfo="courseInfo" />
-                </div>
+        <q-page-container class="body-right">
+            <div class="course-head" >
+                <course-head :courseInfo="courseInfo" />
+            </div>
 
-                <!-- 搜索栏 -->
-                <div class="option-group row justify-between">
-                    <q-select
-                    v-model="order"
-                    label="选择排序方式"
-                    :options="stringOptions"
-                    style="width: 250px"
-                    behavior="menu"
-                    />
-                    <q-select
-                    v-model="model"
-                    label="选择其他学院"
-                    :options="stringOptions"
-                    style="width: 250px"
-                    behavior="menu"
-                    />
-                    <q-btn color="primary" icon-right="comment" label="撰写评论" unelevated />
-                </div>
-        
-                <div class="course-comment">
-                    <course-comment v-for="(review, i) in reviews" :key="i" :reviewInfo="review"/>
-                    
-                </div>
+            <!-- 搜索栏 -->
+            <div class="option-group row justify-between">
+                <q-select
+                v-model="order"
+                label="选择排序方式"
+                :options="orderOptions"
+                style="width: 250px"
+                behavior="menu"
+                />
+                <q-select
+                v-model="depts"
+                label="选择其他学院"
+                :options="deptsOptions"
+                style="width: 250px"
+                behavior="menu"
+                />
+                <q-btn color="primary" icon-right="comment" label="撰写评论" unelevated />
+            </div>
+    
+            <div class="course-comment">
+                <course-comment v-for="(review, i) in reviews" :key="i" :reviewInfo="review"/>
                 
-            </q-page-container>
-        </template>
-    </layout>
-  
+            </div>
+        </q-page-container>
+    </div>
 </template>
 
 <script>
-import layout from '../components/layout'
 import CourseComment from '../components/courseInfo/CourseComment'
 import CourseDetail from '../components/courseInfo/CourseDetail'
 import CourseHead from '../components/courseInfo/CourseHead'
 
 export default {
-    name:"courseInfoPage",
+    name:"CourseInfo",
     components:{
-        layout,
+        // layout,
         CourseComment,
         CourseDetail,
         CourseHead,
@@ -168,6 +163,9 @@ export default {
             }],
         }
     },
+    created(){
+        console.log(this.$route);
+    }
 }
 </script>
 

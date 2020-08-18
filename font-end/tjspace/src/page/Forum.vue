@@ -1,8 +1,5 @@
 <template>
-  <layout>
-    <template v-slot:main>
-
-      <div class="row justify-center">
+  <div class="row justify-center">
       <div class="col-auto">
         <q-card class="row q-mb-xs z-top" style="width:750px" id='title' v-scroll="Follow">
           <q-banner class="col white">
@@ -35,16 +32,11 @@
            </q-btn>
         </q-card>
       </div>
-      </div>
-
-    </template>
-    
-  </layout>
+  </div>
 </template>
 
 <script>
 import Post from '../components/forum/Post'
-import layout from '../components/layout'
 var postData = [
   {
     nickName: 'AiAi'
@@ -110,7 +102,6 @@ export default {
   name: 'MainLayout',
   components: {
     Post,
-    layout,
   },
   data () {
     return {
