@@ -21,11 +21,20 @@ namespace TJSpace.Controllers
             dbContext = context;
         }
 
-        //添加课程
+        //添加课程信息
         [HttpPost]
         public ActionResult<string> AddCourse(Course course)
         {
-            course.CourseId = Guid.NewGuid().ToString();
+            var c = dbContext.CourseCodes.Where(u => u.CourseId == course.CourseId).ToList().FirstOrDefault();
+            if(c==null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "添加课程失败,课程不存在"
+                });
+            }
+
             dbContext.Courses.Add(course);
 
             if (dbContext.SaveChanges() == 1)
@@ -81,7 +90,7 @@ namespace TJSpace.Controllers
             }
         }
 
-        //删除课程
+        //删除课程信息
         [HttpDelete]
         public ActionResult<string> DeleteCourse (string CourseId)
         {
@@ -94,6 +103,7 @@ namespace TJSpace.Controllers
                     msg = "删除课程失败,该课程不存在"
                 });
             }
+
             dbContext.Courses.Remove(temp);
 
             if (dbContext.SaveChanges() == 1)

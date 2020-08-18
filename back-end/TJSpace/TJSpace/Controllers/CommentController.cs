@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators.Internal;
 using TJSpace.DBModel;
 
 namespace TJSpace.Controllers
@@ -61,7 +62,12 @@ namespace TJSpace.Controllers
             }
 
             comment.CommentId = Guid.NewGuid().ToString();
+            comment.Date = DateTime.Now;
+            comment.UsefulNum = 0;
+            comment.UselessNum = 0;
+            
             dbContext.Comments.Add(comment);
+
             if(dbContext.SaveChanges()==1)
             {
                 return Ok(new
@@ -82,9 +88,9 @@ namespace TJSpace.Controllers
 
         //对评价进行评价
         [HttpPost]
-        public ActionResult<string> EvaluateComment(Credibility cre)
+        public ActionResult<string> EvaluateComment(string commentID,string userID,int type)
         {
-            var comment = dbContext.Comments.Where(u => u.CommentId == cre.CommentId).ToList().FirstOrDefault();
+            var comment = dbContext.Comments.Where(u => u.CommentId == commentID).ToList().FirstOrDefault();
             if(comment==null)
             {
                 return Ok(new
@@ -93,7 +99,7 @@ namespace TJSpace.Controllers
                     msg = "评价失败，评价不存在"
                 });
             }
-            if(cre.Type==1)
+            if(type==1)
             {
                 comment.UsefulNum++;
             }
@@ -101,7 +107,13 @@ namespace TJSpace.Controllers
             {
                 comment.UselessNum++;
             }
+            Credibility cre = new Credibility();
+
+            cre.CommentId = commentID;
+            cre.UserId = userID;
+            cre.Type = type;
             cre.Date = DateTime.Now;
+
             dbContext.Credibilities.Add(cre);           
             if (dbContext.SaveChanges() == 2)
             {

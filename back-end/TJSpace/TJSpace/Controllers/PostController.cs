@@ -54,7 +54,7 @@ namespace TJSpace.Controllers
 
         //回帖
         [HttpPost]
-        public ActionResult<string> reply(string content, string userId, string postId, int floor,int type)
+        public ActionResult<string> reply(string content, string userId, string postId, int floor, int type)
         {
             Reply p = new Reply();
 
@@ -74,16 +74,25 @@ namespace TJSpace.Controllers
             p.Content = content;
             p.UserId = userId;
             p.Date = DateTime.Now;
+
             if (type == 0)//正常楼层
             {
-                post.Floor += 1;
+                if(post.Floor + 1 != floor)
+                {
+                    return Ok(new
+                    {
+                        status = false,
+                        msg = "回帖失败，回帖楼层错误"
+                    });
+                }
+                post.Floor++;
             }
             p.Floor = floor;
             p.Type = type;
 
             dbContext.Replies.Add(p);
-
-            if (dbContext.SaveChanges() == 1)
+            
+            if ((type==0 && dbContext.SaveChanges()==2)||(type==1&&dbContext.SaveChanges()==1))
             {
                 return Ok(new
                 {
@@ -157,7 +166,6 @@ namespace TJSpace.Controllers
                 });
             }
         }
-
 
     }
 }

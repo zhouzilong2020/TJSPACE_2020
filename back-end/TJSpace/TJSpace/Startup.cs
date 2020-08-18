@@ -31,7 +31,7 @@ namespace TJSpace
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
-
+            
             services.AddAuthentication("Bearer").AddIdentityServerAuthentication(options =>
             {
                 options.Authority = "http://175.24.115.240:5000";
@@ -101,12 +101,14 @@ namespace TJSpace
 
             app.UseCors("allow_all");
 
+
             #region Swagger
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiHelp V1");
             });
+
             #endregion
 
             app.UseHttpsRedirection();
