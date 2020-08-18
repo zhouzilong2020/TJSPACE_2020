@@ -29,7 +29,6 @@ export default {
     CourseComment,
     CourseHead,
   },
-
   data () {
     return {
       inputSearch:'',
