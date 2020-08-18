@@ -138,7 +138,7 @@ namespace TJSpace.Controllers
             m.Type = type;
             m.Date= DateTime.Now;
 
-            dbContext.marks.Add(m);
+            dbContext.Marks.Add(m);
 
             if (dbContext.SaveChanges() == 2)
             {

@@ -16,8 +16,8 @@ namespace TJSpace
        public DbSet<Course> Courses { get; set; }
        public DbSet<CourseCode> CourseCodes { get; set; }
        public DbSet<Credibility> Credibilities { get; set; }
-       public DbSet<Major> majors { get; set; }
-       public DbSet<Mark> marks { get; set; }
+       public DbSet<Major> Majors { get; set; }
+       public DbSet<Mark> Marks { get; set; }
        public DbSet<Post> Posts { get; set; }
        public DbSet<Reply> Replies { get; set; }
        public DbSet<SendMessage> SendMessages { get; set; }

@@ -54,7 +54,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("post")]
-        public ActionResult<string> showPost(string postid)
+        public ActionResult<string> showPost(string postid,string userid)
         {
             List<Post> list = dbContext.Posts.Where(n => n.PostId.Equals(postid)).ToList();
 
@@ -68,17 +68,34 @@ namespace TJSpace.Controllers
                     msg = "查看数据成功,该帖不存在回复"
                 });
             }
-            //List<string> replyid = new List<string>();
-            //foreach(var r in info)
-            //{
-            //    var reply = dbContext.Replies.Where(n => n.PostId.Equals(postid)).ToList().FirstOrDefault();
-            //    replyid.Add(reply.ReplyId);
-            //}
+
+            List<ShowPostReturn> replyid = new List<ShowPostReturn>();
+            foreach(var r in info)
+            {
+                var reply = dbContext.Replies.Where(n => n.PostId.Equals(postid)).ToList().FirstOrDefault();
+                replyid.Add(new ShowPostReturn { ReplyId = reply.ReplyId, type = reply.Type, floor = reply.Floor });
+            }
+
+            var x = dbContext.Marks.Where(n => n.UserId.Equals(userid)).ToList().FirstOrDefault();
+            if (x == null)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    data1 = list,
+                    data2 = replyid,
+                    data3=0,
+                    msg = "查看数据成功"
+                });
+            }
+
+            int attitude = x.Type;
             return Ok(new
             {
                 status = true,
                 data1 = list,
                 data2 = info,
+                data3=attitude,
                 msg = "查看数据成功"
             }); 
         }
