@@ -7,6 +7,13 @@
           TJSPACE · 同济大学社群
         </q-toolbar-title>
 
+
+        <!-- 登录|注册 -->
+        <!-- 三种情况！ -->
+        <!-- 1.正在登录中 加载 -->
+        <!-- 2.登录成功 -->
+        
+
         <!-- 搜索栏 -->
         <q-input dark dense standout v-model="text" input-class="text-left" class="q-ml-md" placeholder="发现更多课程">
           <template v-slot:append>

@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- 搜索栏 -->
-                <!-- <div class="option-group row justify-between">
+                <div class="option-group row justify-between">
                     <q-select
                     v-model="order"
                     label="选择排序方式"
@@ -27,7 +27,7 @@
                     behavior="menu"
                     />
                     <q-btn color="primary" icon-right="comment" label="撰写评论" unelevated />
-                </div> -->
+                </div>
         
                 <div class="course-comment">
                     <course-comment v-for="(review, i) in reviews" :key="i" :reviewInfo="review"/>
