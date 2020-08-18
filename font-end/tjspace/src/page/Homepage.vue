@@ -47,10 +47,8 @@
 import TeacherInfo from '../components/homepage/TeacherInfo';
 import CourseInfo from '../components/homepage/CourseInfo';
 import CommentInfo from '../components/homepage/CommentInfo';
-import layout from '../components/layout'
 export default {
   components:{
-    layout,
     TeacherInfo,
     CommentInfo,
     CourseInfo,
