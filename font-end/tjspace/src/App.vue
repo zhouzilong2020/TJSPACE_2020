@@ -21,7 +21,8 @@
           <br>
           {{courseID}}
           <br>
-          get a comments:{{comments[0]}}
+          get a comment:{{comments[0]}}
+          
         </div>
       </template>
     </layout>

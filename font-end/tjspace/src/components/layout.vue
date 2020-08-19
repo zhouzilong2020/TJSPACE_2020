@@ -130,7 +130,9 @@ export default {
         }
       }
     },
-
+  },
+  computed:{
+    
   }
 }
 </script>
