@@ -13,6 +13,7 @@ export async function getComment(payload) {
                 courseID: payload.courseID,
             },
     });
+    console.log(resp);
     return resp.data;
 }
 

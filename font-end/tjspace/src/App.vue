@@ -7,6 +7,8 @@
       <!-- abstract：路径来自于内存，不体现在地址中 -->
       <template v-slot:main>
         <!-- <router-view></router-view> -->
+
+
         <div style="width:300px">
           in data: {{dataToken}}
           <br>
@@ -22,7 +24,6 @@
           {{courseID}}
           <br>
           get a comment:{{comments[0]}}
-          
         </div>
       </template>
     </layout>
@@ -49,9 +50,11 @@ export default {
   name: 'APP',
   computed:{
     //ES6 展开运算符
+    // 比如 A = { a: 1, b: 2};
+    // C = { ...A , c:3}
+    // 那么 C = { a: 1, b: 2, c:3}
     ...mapState("userInfo", ["token", "isLoading"]),
     ...mapState("comments", ["comments"])
-    
   },
   components: {
     layout,

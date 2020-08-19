@@ -42,7 +42,9 @@
               <q-icon name="home" />
             </q-item-section>
             <q-item-section>
-              <router-link :to="{ name: 'Homepage', params:{userid: 'lili'} }">个人主页</router-link>
+              <!-- 如何写路由！！！ -->
+              
+              <router-link :to="{ name: 'Homepage', params:{userid: 'lutianyi'} }">个人主页</router-link>
             </q-item-section>
           </q-item>
 

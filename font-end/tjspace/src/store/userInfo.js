@@ -36,13 +36,15 @@ export default{
         async loginUser(context){
             //isloading为treu
             // 不能呢直接改动数据，仍然需要提交commit一个mutation
-            context.commit("setIsLoading", true);      
+            context.commit("setIsLoading", true);     
+
             var data = await loginUser();
             console.log(data);
             if(data.status){
                 let token = "Bearer " + data.data;
                 context.commit("setToken", token);      
             }
+            
             context.commit("setIsLoading", false);
         }
     },
