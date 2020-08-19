@@ -103,6 +103,8 @@
 </template>
 
 <script>
+//使用数据仓库来管理数据！
+
 import DrawerBtnPenal from './DrawerBtnPenal'
 export default {
   components:{
