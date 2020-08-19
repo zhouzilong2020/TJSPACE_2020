@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="row justify-evenly">
         <q-page-container class="detail body-left">
             <course-detail   :courseInfo="courseInfo" :reviewStatistic="reviewStatistic"/>
         </q-page-container>

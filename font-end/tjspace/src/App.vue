@@ -15,32 +15,33 @@
           in mapState: {{token}}
           <br>
           isLoading: {{isLoading? "true" : "false"}}
+          <br>
+          <input type="text" v-model="courseID">
+          <q-btn @click="getComment()" color="primary">search</q-btn>
+          <br>
+          {{courseID}}
+          <br>
+          get a comments:{{comments[0]}}
         </div>
       </template>
-     
     </layout>
   </div>
 </template>
 
 <script>
-
-
-
 import layout from "./components/layout"
 
 // 配置到service中
-import axios from 'axios'
+// import axios from 'axios'
 
 // 使用仓库数据！
 // mapState辅助函数
 import { mapState } from "vuex";
-
 export default {
 
   // 在这里修改数据！
   // 可以使得vuex 检测到所有的数据改动
   created(){
-    this.$store.commit('userInfo/setToken', "asdasd");
     this.$store.dispatch("userInfo/loginUser");
   },
 
@@ -48,27 +49,26 @@ export default {
   computed:{
     //ES6 展开运算符
     ...mapState("userInfo", ["token", "isLoading"]),
-
+    ...mapState("comments", ["comments"])
+    
   },
   components: {
     layout,
   },
-  methods:{
-
-  },
   data () {
     return {
       myData:'None',
-      dataToken:"haha"
+      dataToken:"haha",
+      courseID:''
     }
   },
-
-  async mounted(){
-    let res = await axios.get("http://175.24.115.240:8080/api/Login/login?email=111&password=111");
-    console.log(res);
-    this.myData = res.data.data;
-    this.dataToken  = 'Bearer ' + res.data.data
-  },
+  methods:{
+    getComment(){
+      var payload = {"token":this.token, "courseID": this.courseID};
+      console.log(payload);
+      this.$store.dispatch("comments/getComment", payload);
+    }
+  }
 }
 </script>
 

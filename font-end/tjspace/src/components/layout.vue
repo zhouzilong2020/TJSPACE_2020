@@ -84,7 +84,7 @@
     </q-drawer>
   
   
-    <q-page-container class="body row justify-evenly">
+    <q-page-container class="body">
     <!-- 你的内容将会被插入在这里 -->
       <slot name="main"></slot>
 
@@ -137,7 +137,7 @@ export default {
 
 <style>
 .header{background-color:#0025abcc}
-.body{width: 100%;}
+.body{width: 100%; margin:0 auto;}
 .drawer-btn-penal{position:absolute; left:-40px;}
 .header .header-search{color: aliceblue;}
 .page-footer .footer-name{margin-left: 10px; font-size: 16px;}
