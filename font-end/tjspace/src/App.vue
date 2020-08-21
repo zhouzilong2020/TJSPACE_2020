@@ -6,7 +6,7 @@
       <!-- history：路径来自于真实的路径地址；就浏览器兼容不好 -->
       <!-- abstract：路径来自于内存，不体现在地址中 -->
       <template v-slot:main>
-        <!-- <router-view></router-view> -->
+        <router-view></router-view>
 
 
         <div style="width:300px">

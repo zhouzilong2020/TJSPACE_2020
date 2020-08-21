@@ -26,6 +26,9 @@ export default {
             path: "/makecomment/:userid/:courseid",
             component: ()=> import("@/page/MakeComment"),
         },{
+            path: "/",  //表示匹配所有路径
+            component: ()=> import("@/components/index"),
+        },{
             path: "*",  //表示匹配所有路径
             component: ()=> import("@/page/Error404"),
         }
