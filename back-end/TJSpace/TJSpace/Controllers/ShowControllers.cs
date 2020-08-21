@@ -159,13 +159,6 @@ namespace TJSpace.Controllers
                 msg = "查看数据成功"
             });
         }
-
-        public class ShowPostReturn
-        {
-            public string ReplyId { get; set; }
-            public int type { get; set; }
-            public int floor { get; set; }
-        }
     }
 }
 
