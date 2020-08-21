@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{BCA4B615-DBD8-49D7-A536-17BBA5622A2F}|Default">
   <MonoDevelop.Ide.ItemProperties.TJSpace PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/DBModel/Entity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TJSpace/Controllers/ShowControllers.cs">
     <Files>
       <File FileName="TJSpace/Controllers/ShowControllers.cs" Line="124" Column="25" />
       <File FileName="TJSpace/Controllers/SearchControllers.cs" />
@@ -21,7 +21,7 @@
       <File FileName="TJSpace/DBModel/Account.cs" />
       <File FileName="TJSpace/Controllers/ModifyControllers.cs" />
       <File FileName="TJSpace/DBModel/Reply.cs" />
-      <File FileName="TJSpace/DBModel/Entity.cs" Line="1" Column="1" />
+      <File FileName="TJSpace/DBModel/Entity.cs" />
       <File FileName="TJSpace/DataDBContext.cs" />
     </Files>
     <Pads>
@@ -32,10 +32,10 @@
               <Node name="Dependencies" expanded="True">
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
-              <Node name="Controllers" expanded="True" />
-              <Node name="DBModel" expanded="True">
-                <Node name="Entity.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="ShowControllers.cs" selected="True" />
               </Node>
+              <Node name="DBModel" expanded="True" />
               <Node name="Properties" expanded="True" />
               <Node name="Tools" expanded="True" />
             </Node>
