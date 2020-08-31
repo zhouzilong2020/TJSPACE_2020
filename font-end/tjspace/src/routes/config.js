@@ -1,36 +1,44 @@
 export default {
     routes: [
         {
-            path: "/courseInfo/:courseid",
-            component: ()=> import("@/page/CourseInfo"),
+            path: "/",
+            component: ()=> import("@/pages/CourseInfo"),
+        },{
+            path: "/login",
+            name: "login",
+            component: ()=> import("@/pages/Login"),
+        },{
+            path: "/register",
+            name: "register",
+            component: ()=> import("@/pages/Reg"),
         },{
             path: "/BBSHomepage",
             name:"BBSHomepage",
-            component: ()=> import("@/page/BBSHomePage"),
+            component: ()=> import("@/pages/BBSHomePage"),
         },{
             path: "/Forum",
             name: "Forum",
-            component: ()=> import("@/page/Forum"),
+            component: ()=> import("@/pages/Forum"),
         },{
             path: "/SearchCourse",
             name: "SearchCourse",
-            component: ()=> import("@/page/SearchCourse"),
+            component: ()=> import("@/pages/SearchCourse"),
         },{
             path: "/Homepage/:userid",
             name: "Homepage",
-            component: ()=> import("@/page/Homepage"),
+            component: ()=> import("@/pages/Homepage"),
         },{
             path: "/Homepage/:userid/edit",
-            component: ()=> import("@/page/SelfInfoModify"),
+            component: ()=> import("@/pages/SelfInfoModify"),
         },{
             path: "/makecomment/:userid/:courseid",
-            component: ()=> import("@/page/MakeComment"),
+            component: ()=> import("@/pages/MakeComment"),
         },{
             path: "/",  //表示匹配所有路径
             component: ()=> import("@/components/index"),
         },{
             path: "*",  //表示匹配所有路径
-            component: ()=> import("@/page/Error404"),
+            component: ()=> import("@/pages/Error404"),
         }
     ],
     mode:"history",

@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-center">
-    <q-card class="col-md-4 col-xs-12">
+    <q-card class="col-md-4 col-xs-6">
       <q-card-section>
         <h5 id="title">注册TJSPACE账号</h5>
         <q-form

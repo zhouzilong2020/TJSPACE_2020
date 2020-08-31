@@ -12,15 +12,22 @@
         <!-- 三种情况！ -->
         <!-- 1.正在登录中 加载 -->
         <!-- 2.登录成功 -->
+        <template v-if="userInfo">
+          <div class="text-caption">欢迎您！{{userinfo.nickName}}</div>
+          <q-input  dark dense standout v-model="text" input-class="text-left" class="q-ml-md" placeholder="发现更多课程">
+            <template v-slot:append>
+              <q-icon v-if="text === ''" name="search" />
+              <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
+            </template>
+          </q-input>
+        </template>
         
-
-        <!-- 搜索栏 -->
-        <q-input dark dense standout v-model="text" input-class="text-left" class="q-ml-md" placeholder="发现更多课程">
-          <template v-slot:append>
-            <q-icon v-if="text === ''" name="search" />
-            <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
-          </template>
-        </q-input>
+        <template v-else>
+          <q-btn-group  class="top-option"  rounded flat>
+            <q-btn rounded color="light-blue-8" label="现在登录" :to="{name:'login'}"/>
+            <q-btn rounded color="light-blue-8" label="马上注册" :to="{name:'register'}"/>
+          </q-btn-group>
+        </template>
 
       </q-toolbar>
     </q-header>  
@@ -74,22 +81,27 @@
         </q-list>
       </q-scroll-area>
       <!-- 头部的背景图片和用户信息、头像 -->
-      <q-img class="absolute-top" :src="avatarBGPath" style="height: 160px">
+      <q-img  class="absolute-top" :src="avatarBGPath" style="height: 160px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
             <img :src="avatarPath">
           </q-avatar>
-          <div class="text-weight-bold">  欢迎你！  {{userInfo.nickName}}</div>
-          <div>{{userInfo.eMail}}</div>
+          <template v-if="userInfo">
+            <div class="text-weight-bold">  欢迎你！  {{userInfo.nickName}}</div>
+            <div>{{userInfo.eMail}}</div>
+          </template>
+          <template v-else>
+            <div class="text-weight-bold">请先登录</div>
+          </template>
         </div>
       </q-img>
+
     </q-drawer>
   
   
     <q-page-container class="body">
     <!-- 你的内容将会被插入在这里 -->
       <slot name="main"></slot>
-
     </q-page-container>
 
     <!-- footer -->
@@ -105,9 +117,8 @@
 </template>
 
 <script>
-//使用数据仓库来管理数据！
-
 import DrawerBtnPenal from './DrawerBtnPenal'
+import {mapState} from 'vuex'
 export default {
   components:{
     DrawerBtnPenal,
@@ -123,15 +134,7 @@ export default {
     }
   },
   props:{
-    userInfo:{
-      type:Object,
-      default:() => {
-        return {
-          eMail:'18888@tongji.edu.cn',
-          nickName:'lili',
-        }
-      }
-    },
+    ...mapState('userInfo', ['isLoading', 'userInfo'])
   },
   computed:{
     
@@ -139,9 +142,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .header{background-color:#0025abcc}
 .body{width: 100%; margin:0 auto;}
+
 .drawer-btn-penal{position:absolute; left:-40px;}
 .header .header-search{color: aliceblue;}
 .page-footer .footer-name{margin-left: 10px; font-size: 16px;}

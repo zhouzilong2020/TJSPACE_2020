@@ -24,6 +24,7 @@
 export default {
     data:()=> {
         return{
+            tab:"",
             depts:[
                 {title:	"软件学院",	abbr:"	软件	",icon:"	android	"},
                 {title:	"联合国环境署_同济大学环境与可持续发展学院",abbr:"环境",icon:"img:"+require('../assets/dept_icon/un.png')},

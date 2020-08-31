@@ -1,28 +1,27 @@
 <template>
   <div class="row justify-center">
-    <q-card class="col-md-3 col-xs-12">
+    <q-card class="col-md-4 col-xs-6">
       <q-card-section>
-        <div id="title">
+        <div class="title">
           <h5>欢迎使用</h5>
-          <h5 id="title-name"> TJSPACE· 同济大学社群</h5>
+          <h5 class="title-name"> TJSPACE· 同济大学社群</h5>
         </div>
         <q-form
-          @submit="onSubmit"
+          
           class="q-gutter-md"
         >
           <q-input 
-            id="email"
+            class="email"
             clearable
             clear-icon="close"
-            v-model="model.username" 
+            v-model="userInfo.email" 
             label="邮箱:"
-            type="email" 
             suffix="@tongji.edu.cn"
             hint="请输入注册时使用的同济邮箱" 
           />
            
           <q-input 
-            v-model="model.password" 
+            v-model="userInfo.password" 
             label="密码:"
             :type="isPwd ? 'password' : 'text'" 
           >
@@ -38,11 +37,11 @@
           <q-toggle v-model="remember" label="记住邮箱" />
 
           <div>
-            <q-btn id="queren-btn" label="登录" type="submit" color="primary"/>
+            <q-btn class="queren-btn" label="登录" color="primary" @click="handleLogin()"/>
           </div>
           <div>
-            <a id=“forget”>忘记密码</a>
-            <a id="register">马上注册</a>
+            <a class=“forget”>忘记密码</a>
+            <a class="register">马上注册</a>
           </div>
         </q-form>
       </q-card-section>
@@ -58,59 +57,43 @@ export default {
     return {
       isPwd: true,
       remember: false,
-      model:{
-        username: '',
+      userInfo:{
+        email: '',
         password: '',
       }
     }
   },
 
   methods: {    
-    onSubmit () {
-      if (this.accept !== true) {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'warning',
-          message: 'You need to accept the license and terms first'
-        })
-      }
-      else {
-        this.$q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'cloud_done',
-          message: 'Submitted'
-        })
-      }
+    async handleLogin(){
+      console.log(this.userInfo)
+      this.$store.dispatch('userInfo/loginUser', this.userInfo);
     },
+
+   
   }
 }
 </script>
 
 
-<style>
-#title{
+<style scoped>
+.title{
   text-align: center;
 }
 
-#title-name{
+.title-name{
   font-weight: bold;
   font-size: 27px;
   line-height: -2;
 }
 
-#queren-btn{
+.queren-btn{
   width: 100%;
 }
 
-#register{
+.register{
   float: right;
 }
 
-/* #email{
-  width: 90%;
-
-} */
 
 </style>

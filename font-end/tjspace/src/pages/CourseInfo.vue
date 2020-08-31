@@ -19,7 +19,7 @@
                 behavior="menu"
                 />
                 <q-select
-                v-model="depts"
+                v-model="dept"
                 label="选择其他学院"
                 :options="deptsOptions"
                 style="width: 250px"
@@ -69,12 +69,16 @@ export default {
             statistic.teaching /= statistic.reveiwCnt;
             statistic.grading /= statistic.reveiwCnt;
             statistic.workload /= statistic.reveiwCnt;
-            console.log(statistic);
+            // console.log(statistic);
             return statistic;
         },
     },
     data () {
         return {
+            order:'',
+            dept:'',
+            orderOptions:[],
+            deptsOptions:[],
             text:'',
             logoPath : require("../assets/TJU.png"),
             avatarPath: require("../assets/boy-avatar.png"),
@@ -130,10 +134,10 @@ export default {
                 }
             },{
                 courseStatistic:{
-                    content:"2",
-                    teaching:"0",
-                    grading:"0",
-                    workload:"2",
+                    content:"10",
+                    teaching:"10",
+                    grading:"10",
+                    workload:"10",
                 },userInfro:{
                     nickname:"lutianyi",
                     photoPath:require("../assets/touxiang.jpg"),
@@ -164,7 +168,7 @@ export default {
         }
     },
     created(){
-        console.log(this.$route);
+        // console.log(this.$route);
     }
 }
 </script>
