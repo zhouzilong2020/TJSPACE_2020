@@ -4,7 +4,6 @@
       <q-card-section>
         <h5 id="title">注册TJSPACE账号</h5>
         <q-form
-          @submit="onSubmit"
           @reset="onReset"
           class="q-gutter-md"
         > 
@@ -34,8 +33,9 @@
                   flat
                   color="primary"
                   icon="send" 
-                  label="发送验证码" 
-                  @click="onClick" 
+                  :label="sentAuthCodeText"
+                  :disable="authCodeTextisDisabled"
+                  @click="handleAuthCode" 
                 />
             </template>
          </q-input>
@@ -86,7 +86,7 @@
          </q-input>
 
          <div>
-            <q-btn id="queren-btn" label="注册" type="submit" color="primary"/>
+            <q-btn id="queren-btn" label="注册"  color="primary"/>
          </div>
         </q-form>
       </q-card-section>
@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import {sentAuthCode} from '../../services/userService'
 export default {
     data () {
     return {
@@ -107,36 +108,21 @@ export default {
         authCode: null,
         password: null,
       },
-
-      accept: false
+      accept: false,
+      sentAuthCodeText : "发送验证码",
+      authCodeTextisDisabled : false,
     }
   },
 
   methods: {
-
-    onSubmit () {
-      if (this.accept !== true) {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'warning',
-          message: 'You need to accept the license and terms first'
-        })
-      }
-      else {
-        this.$q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'cloud_done',
-          message: 'Submitted'
-        })
-      }
-    },
-
     onReset () {
       this.name = null
       this.age = null
       this.accept = false
+    },
+    handleAuthCode(){
+      sentAuthCode()
+      
     }
   }
 

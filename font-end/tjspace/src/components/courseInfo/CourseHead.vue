@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .course-detail-head .option{padding:0px; margin:auto auto; width:42px; }
 .course-detail-head .syllabus{margin:0 auto;}
 .course-detail-head .course-detail-head-overall{width:90%}

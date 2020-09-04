@@ -1,4 +1,4 @@
-import {loginUser, logoutUser} from "../services/userService"
+import {loginUser, logoutUser, registerUser} from "../services/userService"
 
 /**
  * 用户登录的数据仓库
@@ -27,7 +27,7 @@ export default{
             state.isLoading = payload;
         },
     },
- 
+
     actions: {
         /**
          * 登录用户
@@ -35,7 +35,7 @@ export default{
          * @param {Object} payload payload传入email，password
          */
         async loginUser(context, payload){
-            context.commit("setIsLoading", true);     
+            context.commit("setIsLoading", true);
             var resp = await loginUser(payload);
             console.log(resp);
             if(resp.status){
@@ -46,7 +46,7 @@ export default{
             context.commit("setIsLoading", false);
         },
         /**
-         * 推出登录，将数据仓库中的用户信息置空
+         * 退出登录，将数据仓库中的用户信息置空
          * @param {*} context 
          */
         async logoutUser(context){
@@ -54,6 +54,17 @@ export default{
             var resp = await logoutUser()
             if(resp)
             context.commit("setIsLoading", false);
+        },
+        /**
+         * 注册用户
+         * @param {*} context 
+         * @param {Object} payload 传入邮箱，密码。用户名，昵称
+         */
+        async registerUser(context, payload){
+            context.commit("setIsLoading", true);
+            var resp = await registerUser(payload)
+            context.commit("setIsLoading", false);   
+            return resp
         }
     },
 }

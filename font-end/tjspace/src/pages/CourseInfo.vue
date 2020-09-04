@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-evenly">
         <q-page-container class="detail body-left">
-            <course-detail   :courseInfo="courseInfo" :reviewStatistic="reviewStatistic"/>
+            <course-detail   :courseInfo="courseInfo" :commentstatistic="commentstatistic"/>
         </q-page-container>
 
         <q-page-container class="body-right">
@@ -25,11 +25,11 @@
                 style="width: 250px"
                 behavior="menu"
                 />
-                <q-btn color="primary" icon-right="comment" label="撰写评论" unelevated />
+                <q-btn class="btn" color="primary" icon-right="comment" label="撰写评论" unelevated />
             </div>
     
             <div class="course-comment">
-                <course-comment v-for="(review, i) in reviews" :key="i" :reviewInfo="review"/>
+                <course-comment v-for="(comment, i) in comments" :key="i" :apiData="comment"/>
                 
             </div>
         </q-page-container>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import {getComment} from '../services/getComment'
 import CourseComment from '../components/courseInfo/CourseComment'
 import CourseDetail from '../components/courseInfo/CourseDetail'
 import CourseHead from '../components/courseInfo/CourseHead'
@@ -44,13 +45,12 @@ import CourseHead from '../components/courseInfo/CourseHead'
 export default {
     name:"CourseInfo",
     components:{
-        // layout,
         CourseComment,
         CourseDetail,
         CourseHead,
     },
     computed:{
-        reviewStatistic(){
+        commentstatistic(){
             let statistic = {   
                     reveiwCnt:0,
                     content:0,
@@ -58,23 +58,23 @@ export default {
                     grading:0,
                     workload:0
                 };
-            statistic.reveiwCnt = this.reviews.length;
+            statistic.reveiwCnt = this.comments.length;
             for(let i = 0; i < statistic.reveiwCnt; i++){
-                statistic.content += +this.reviews[i].courseStatistic.content;
-                statistic.teaching += +this.reviews[i].courseStatistic.teaching;
-                statistic.grading += +this.reviews[i].courseStatistic.grading;
-                statistic.workload += +this.reviews[i].courseStatistic.content;
+                statistic.content += +this.comments[i].courseStatistic.content;
+                statistic.teaching += +this.comments[i].courseStatistic.teaching;
+                statistic.grading += +this.comments[i].courseStatistic.grading;
+                statistic.workload += +this.comments[i].courseStatistic.content;
             }
             statistic.content /= statistic.reveiwCnt;
             statistic.teaching /= statistic.reveiwCnt;
             statistic.grading /= statistic.reveiwCnt;
             statistic.workload /= statistic.reveiwCnt;
-            // console.log(statistic);
             return statistic;
         },
     },
     data () {
         return {
+            ID: 420244,
             order:'',
             dept:'',
             orderOptions:[],
@@ -85,6 +85,8 @@ export default {
             avatarBGPath: require("../assets/material.png"),
             drawer : false,
             active : -1,
+
+            
             courseInfo:{
                 title:"数据库原理与应用",
                 teacher:"袁时金",
@@ -99,7 +101,7 @@ export default {
                 nickName: "lili",
                 eMail:"1888888@tongji.edu.cn",
             },
-            reviews:[
+            comments:[
             {
                 courseStatistic:{
                     content:"10",
@@ -167,13 +169,14 @@ export default {
             }],
         }
     },
-    created(){
-        // console.log(this.$route);
+    async created(){
+        var comments = await getComment({courseID:this.ID});
+        console.log("comment",comments)
     }
 }
 </script>
 
-<style>
+<style scoped>
 .course-head{margin-top:15px;}
 .body-left{position: fixed; left:15px; top:15px;}
 .body-right{position: absolute; right:15px; top:0; padding:0; left:245px; }

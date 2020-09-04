@@ -66,7 +66,6 @@ export default {
 
   methods: {    
     async handleLogin(){
-      console.log(this.userInfo)
       this.$store.dispatch('userInfo/loginUser', this.userInfo);
     },
 

@@ -104,7 +104,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .course-detail .course-detail-img{
     max-width:80px;
     padding: 10px;

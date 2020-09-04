@@ -62,7 +62,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .course-review-statistics{
     max-width:180px;

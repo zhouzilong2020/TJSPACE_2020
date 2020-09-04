@@ -15,7 +15,7 @@ export async function loginUser(payload) {
             },
     });
     console.log(resp)
-    // localStorage.setItem("token", resp.token);
+    localStorage.setItem("token", resp.token);
     return resp.data;
 }
 
@@ -23,14 +23,17 @@ export async function loginUser(payload) {
  * 使用浏览器保存的userID和token来获取我是谁，如果token过期则清除本地保存的信息
  */
 export async function whoAmI(){
-
+    var token = localStorage.getItem("token");
+    if(token != null)
+        return token;
+    return null
 }
 
 /**
  * 退出登录，删除本地保存的token和userID信息
  */
 export async function logoutUser(){
-
+    localStorage.removeItem("token");
 }
 
 /**
@@ -38,5 +41,25 @@ export async function logoutUser(){
  * @param {Object} payload payload需要传入 email，password，nickname，以及邮箱的相关验证码
  */
 export async function registerUser(payload){
+    console.log(payload)
+
     
+}
+
+/**
+ * 生成一个验证码
+ */
+function getCode(digit){
+    let min = Math.pow(10, digit)
+    let max = min*10
+    return Math.floor(Math.random() * (max-min-1)) + min
+}
+/**
+ * 验证用户的邮箱信息
+ * @param {Object} payload 
+ */
+export async function sentAuthCode(payload){
+    console.log("in userSevice", payload)
+    let code = 'TJSPACE-' + getCode(3).toString() + '-' + getCode(3).toString() + '-' + getCode(3).toString();
+    return code
 }
