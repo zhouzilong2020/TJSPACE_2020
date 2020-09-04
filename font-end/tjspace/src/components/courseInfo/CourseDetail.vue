@@ -60,7 +60,7 @@
       </q-card-section>
 
       <q-card-section>
-        <course-statistic :reviewStatistic="reviewStatistic"/>
+        <course-statistic :commentStatistic="commentStatistic"/>
       </q-card-section>
 
 
@@ -91,7 +91,7 @@ export default {
                 }
             }
         },
-        reviewStatistic:{
+        commentStatistic:{
             type: Object,
         }
     },

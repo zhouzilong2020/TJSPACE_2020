@@ -1,6 +1,6 @@
 // 远程登录用户！哈哈
 import axios from "axios";
-import {URL} from './config'
+import {URL, token} from './config'
 
 /**
  * 登录用户的API接口，如果成功返回token以及userID，并将token，userid保存在浏览器的localstorage中；
@@ -62,4 +62,17 @@ export async function sentAuthCode(payload){
     console.log("in userSevice", payload)
     let code = 'TJSPACE-' + getCode(3).toString() + '-' + getCode(3).toString() + '-' + getCode(3).toString();
     return code
+}
+
+
+export async function getUserInfo(payload){
+    var resp = await axios.get(`${URL}Show/user`, {
+        headers:{
+            Authorization: token,
+        },
+        params:{
+            userID : payload.userID,
+        }
+    })
+    return resp.data.data[0]
 }

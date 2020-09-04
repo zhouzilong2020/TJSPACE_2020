@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-evenly">
         <q-page-container class="detail body-left">
-            <course-detail   :courseInfo="courseInfo" :commentstatistic="commentstatistic"/>
+            <course-detail   :courseInfo="courseInfo" :commentStatistic="commentStatistic"/>
         </q-page-container>
 
         <q-page-container class="body-right">
@@ -50,20 +50,21 @@ export default {
         CourseHead,
     },
     computed:{
-        commentstatistic(){
+        commentStatistic(){
             let statistic = {   
                     reveiwCnt:0,
                     content:0,
                     teaching:0,
                     grading:0,
                     workload:0
-                };
+            };
             statistic.reveiwCnt = this.comments.length;
+            console.log("asdsadas",this.comments.length)
             for(let i = 0; i < statistic.reveiwCnt; i++){
-                statistic.content += +this.comments[i].courseStatistic.content;
-                statistic.teaching += +this.comments[i].courseStatistic.teaching;
-                statistic.grading += +this.comments[i].courseStatistic.grading;
-                statistic.workload += +this.comments[i].courseStatistic.content;
+                statistic.content += +this.comments[i].overall;
+                statistic.teaching += +this.comments[i].instructor;
+                statistic.grading += +this.comments[i].grading;
+                statistic.workload += +this.comments[i].workload;
             }
             statistic.content /= statistic.reveiwCnt;
             statistic.teaching /= statistic.reveiwCnt;
@@ -101,77 +102,12 @@ export default {
                 nickName: "lili",
                 eMail:"1888888@tongji.edu.cn",
             },
-            comments:[
-            {
-                courseStatistic:{
-                    content:"10",
-                    teaching:"10",
-                    grading:"10",
-                    workload:"10",
-                },userInfro:{
-                    nickname:"lutianyi",
-                    photoPath:require("../assets/touxiang.jpg"),
-                    grade:"2018级",
-                    major:"软件工程",
-                },courseDetail:{
-                    year:"2020-2021",
-                    semester:"春",
-                    midTerm: false,
-                    final: true,
-                    quiz: false,
-                    assignment:true,
-                    essay: false,
-                    project: false,
-                    attendance: true,
-                    reading: false,
-                    presentation: false,
-                },commentDetail:{
-                    content:"这是我上过的最好的一门课，上课内容有趣，生动丰富，不知道为什么我们学校竟然有这么好的一门课，我收获良多，无论是理论还是应用都让我获益匪浅;",
-                    teaching:"袁时金老师的教学水平真的太强啦，上课的时候风趣幽默，讲解知识到位，理论体系完善丰富，极大的开阔了学生们的视野，让我们领会到了世界一流大学一流老师的教学水平，早在高考的时候就久闻袁时金老师的大名，这是我来同济大学的重要原因之一，不然我就去清华了",
-                    grading:"这门课太容易了，导致我随随便便就拿了个优",
-                    workload:"这门课的作业一点也不多，我一下子就能写完",
-                    date:"2020.08.06",
-                    useful:230,
-                    useless:7
-                }
-            },{
-                courseStatistic:{
-                    content:"10",
-                    teaching:"10",
-                    grading:"10",
-                    workload:"10",
-                },userInfro:{
-                    nickname:"lutianyi",
-                    photoPath:require("../assets/touxiang.jpg"),
-                    grade:"2018级",
-                    major:"软件工程",
-                },courseDetail:{
-                    year:"2020-2021",
-                    semester:"春",
-                    midTerm: false,
-                    final: true,
-                    quiz: false,
-                    assignment:true,
-                    essay: false,
-                    project: false,
-                    attendance: true,
-                    reading: false,
-                    presentation: false,
-                },commentDetail:{
-                    content:"这是我上过的最好的一门课，上课内容有趣，生动丰富，不知道为什么我们学校竟然有这么好的一门课，我收获良多，无论是理论还是应用都让我获益匪浅;",
-                    teaching:"袁时金老师的教学水平真的太强啦，上课的时候风趣幽默，讲解知识到位，理论体系完善丰富，极大的开阔了学生们的视野，让我们领会到了世界一流大学一流老师的教学水平，早在高考的时候就久闻袁时金老师的大名，这是我来同济大学的重要原因之一，不然我就去清华了",
-                    grading:"这门课太容易了，导致我随随便便就拿了个优",
-                    workload:"这门课的作业一点也不多，我一下子就能写完",
-                    date:"2020.08.06",
-                    useful:0,
-                    useless:237
-                }
-            }],
+            comments:[],
         }
     },
     async created(){
-        var comments = await getComment({courseID:this.ID});
-        console.log("comment",comments)
+        var resp1 = await getComment({courseID:this.ID})
+        this.comments = resp1.data
     }
 }
 </script>

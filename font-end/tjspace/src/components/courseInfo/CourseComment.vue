@@ -121,6 +121,7 @@
 </template>
 
 <script>
+import {getUserInfo} from '../../services/userService'
 export default {
     name:"CourseComment",
     components:{
@@ -132,67 +133,30 @@ export default {
             cai:require('../../assets/cai.png'),
             caiFocus:require('../../assets/cai-focus.png'),
             inputText:'请在此输入对该评价的看法',
-            expanded:false
+            expanded:false,
+            commentInfo:null,
         }
     },
     props:{
         apiData:null,
-        commentInfo:{
-            type: Object,
-            default: ()=>{
-                return {
-                    courseStatistic:{
-                        content:"10",
-                        teaching:"10",
-                        grading:"10",
-                        workload:"10",
-                    },
-                    userInfro:{
-                        nickname:"lutianyi",
-                        photoPath:require("../../assets/touxiang.jpg"),
-                        grade:"2018级",
-                        major:"软件工程",
-                    },
-                    courseDetail:{
-                        year:"2020-2021",
-                        semester:"春",
-                        midTerm: false,
-                        final: true,
-                        quiz: false,
-                        assignment:true,
-                        essay: false,
-                        project: false,
-                        attendance: true,
-                        reading: false,
-                        presentation: false,
-                    },
-                    commentDetail:{
-                        content:"这是我上过的最好的一门课，上课内容有趣，生动丰富，不知道为什么我们学校竟然有这么好的一门课，我收获良多，无论是理论还是应用都让我获益匪浅;",
-                        teaching:"袁时金老师的教学水平真的太强啦，上课的时候风趣幽默，讲解知识到位，理论体系完善丰富，极大的开阔了学生们的视野，让我们领会到了世界一流大学一流老师的教学水平，早在高考的时候就久闻袁时金老师的大名，这是我来同济大学的重要原因之一，不然我就去清华了",
-                        grading:"这门课太容易了，导致我随随便便就拿了个优",
-                        workload:"这门课的作业一点也不多，我一下子就能写完",
-                        date:"2020.08.06",
-                        useful:230,
-                        useless:7
-                    }
-                }
-            }
-        }
     },
     computed: {
         topColor(){
-            let total = 0;
-            total += Number(this.commentInfo.courseStatistic.content)
-            total += Number(this.commentInfo.courseStatistic.teaching)
-            total += Number(this.commentInfo.courseStatistic.grading)
-            total += Number(this.commentInfo.courseStatistic.workload)
-            total /= 4;
-            console.log(total);
-            if(8 <= total && total <= 10){return "top-rating-5";}
-            if(6 <= total && total < 8){return "top-rating-4";}
-            if(4 <= total && total  < 6){return "top-rating-3";}
-            if(2 <= total && total  < 4){return "top-rating-2";}
-            else{return "top-rating-1";}
+            if(this.commentInfo){
+                let total = 0;
+                total += Number(this.commentInfo.courseStatistic.content)
+                total += Number(this.commentInfo.courseStatistic.teaching)
+                total += Number(this.commentInfo.courseStatistic.grading)
+                total += Number(this.commentInfo.courseStatistic.workload)
+                total /= 4;
+                if(8 <= total && total <= 10){return "top-rating-5";}
+                if(6 <= total && total < 8){return "top-rating-4";}
+                if(4 <= total && total  < 6){return "top-rating-3";}
+                if(2 <= total && total  < 4){return "top-rating-2";}
+                else{return "top-rating-1";}
+            }
+            return 0;
+            
         },
         getRate(){
             return (grade) =>{
@@ -204,11 +168,53 @@ export default {
                 if(0 <= grade && grade < 2){return "rating-1";}
             }
         },
+        
     },
     methods: {
         
-    }
+    },
 
+    async created(){
+        console.log(this.apiData)
+        var resp = await getUserInfo({userID:this.apiData.userid})
+        console.log(resp)
+        this.commentInfo = {
+                    courseStatistic:{
+                        content : this.apiData.overall,
+                        teaching : this.apiData.instructor,
+                        grading : this.apiData.grading,
+                        workload : this.apiData.workload,
+                    },
+                    userInfro:{
+                        nickname: resp.nickname,
+                        photoPath:require("../../assets/touxiang.jpg"),
+                        grade:"2018级",
+                        major:"软件工程",
+                    },
+                    courseDetail:{
+                        year:"2020-2021",
+                        semester:"春",
+                        midTerm: this.apiData.midTerm,
+                        final: this.apiData.final,
+                        quiz: this.apiData.quiz,
+                        assignment: this.apiData.assignment,
+                        essay: this.apiData.essay,
+                        project: this.apiData.project,
+                        attendance: this.apiData.attendance,
+                        reading: this.apiData.reading,
+                        presentation: this.apiData.presentation,
+                    },
+                    commentDetail:{
+                        content : this.apiData.content,
+                        teaching : this.apiData.teaching,
+                        grading : this.apiData.grade,
+                        workload : this.apiData.homework,
+                        date: this.apiData.date,
+                        useful : 230,
+                        useless : 7
+                    }
+                }
+    }
 }
 </script>
 

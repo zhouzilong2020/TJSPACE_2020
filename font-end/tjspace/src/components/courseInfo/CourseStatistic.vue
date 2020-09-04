@@ -1,29 +1,29 @@
 <template>
-    <div class="course-review-statistics">
-		<p>{{reviewStatistic.reveiwCnt}} Reviews</p>
+    <div class="course-comment-statistics">
+		<p>{{commentStatistic.reveiwCnt}} Comments</p>
 		<ul class="rating-container row">
 			<li>
                 <div class="column">
                     <strong>课程内容</strong>
-                    <span class="rating" :class="getRate(reviewStatistic.content)">{{reviewStatistic.content}}</span>
+                    <span class="rating" :class="getRate(commentStatistic.content)">{{commentStatistic.content}}</span>
                 </div>
             </li>
 			<li>
                 <div class="column">
                     <strong>教学水平</strong>
-                    <span class="rating" :class="getRate(reviewStatistic.teaching)">{{reviewStatistic.teaching}}</span>
+                    <span class="rating" :class="getRate(commentStatistic.teaching)">{{commentStatistic.teaching}}</span>
                 </div>    
             </li>
 			<li>
                 <div class="column">
                     <strong>评分情况</strong>
-                    <span class="rating" :class="getRate(reviewStatistic.grading)">{{reviewStatistic.grading}}</span>
+                    <span class="rating" :class="getRate(commentStatistic.grading)">{{commentStatistic.grading}}</span>
                 </div>
             </li>
 			<li>
                 <div class="column">
                     <strong>课程作业</strong>
-                    <span class="rating" :class="getRate(reviewStatistic.workload)">{{reviewStatistic.workload}}</span>
+                    <span class="rating" :class="getRate(commentStatistic.workload)">{{commentStatistic.workload}}</span>
                 </div>
             </li>
 		</ul>
@@ -34,15 +34,15 @@
 export default {
     name:"CourseStatistic",
     props:{
-        reviewStatistic:{
+        commentStatistic:{
             type: Object,
             default: function(){
                 return{
-                    reveiwCnt:100,
-                    content:"10",
-                    teaching:"10",
-                    grading:"10",
-                    workload:"10",
+                    reveiwCnt:0,
+                    content:"0",
+                    teaching:"0",
+                    grading:"0",
+                    workload:"0",
                 }
             }
         }
@@ -64,19 +64,18 @@ export default {
 
 <style scoped>
 
-.course-review-statistics{
+.course-comment-statistics{
     max-width:180px;
     height:400px;
 }
 
-.course-review-statistics .rating-container li { margin-bottom:10px}
+.course-comment-statistics .rating-container li { margin-bottom:10px}
 
-.course-review-statistics .rating-container li .rating {
+.course-comment-statistics .rating-container li .rating {
     width: 50px;
     font-size: 22px;
     line-height: 35px;
     border-radius: 6px;
-    margin: 0 auto;
 }
 
 
@@ -88,11 +87,11 @@ export default {
     color: #fff;
     font-weight: 700;
     font-size: 12px;
-    margin: 0;
+    margin: 7px auto;
     border-radius: 4px;
 }
 
-.course-review-statistics {
+.course-comment-statistics {
     padding: 14px 10px 8px;
     margin-bottom: 12px;
     border: 1px solid #ddd;
@@ -101,7 +100,7 @@ export default {
     background: #fafafa;
 }
 
-.course-review-statistics > p {
+.course-comment-statistics > p {
     text-align: center;
     font-size: 24px;
     font-weight: 700;
@@ -110,12 +109,12 @@ export default {
     line-height: 34px;
 }
 
-.course-review-statistics .rating-container {
+.course-comment-statistics .rating-container {
     width: 100%;
     text-align: center;
 }
 
-.course-review-statistics .rating-container li {
+.course-comment-statistics .rating-container li {
     position: relative;
     width: 100%; 
     height: 70px;
