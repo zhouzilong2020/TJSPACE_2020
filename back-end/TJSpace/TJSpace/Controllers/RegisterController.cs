@@ -86,7 +86,7 @@ namespace TJSpace.Controllers
             MailMessage _mailMessage = new MailMessage();
 
             //发件人，发件人名 
-            _mailMessage.From = new MailAddress("1227678132@qq.com", "智儒");
+            _mailMessage.From = new MailAddress("1227678132@qq.com", "TJSpace");
 
             //收件人 
             _mailMessage.To.Add(email);

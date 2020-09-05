@@ -57,7 +57,8 @@ namespace TJSpace.Controllers
                 {
                     status = true,
                     msg = "登录成功",
-                    data = tokenResponse.AccessToken
+                    data1 = tokenResponse.AccessToken,
+                    data2=info.UserId
                 });
             }
         }

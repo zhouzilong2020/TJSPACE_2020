@@ -42,12 +42,22 @@ namespace TJSpace.Controllers
         public ActionResult<string> showComment(string courseID)
         {
             List<Comment> list = dbContext.Comments.Where(n => n.CourseId.Equals(courseID)).ToList();
+            List<ShowCommentReturn> info = new List<ShowCommentReturn>();
+            foreach(var r in list)
+            {
+                //var x= dbContext.Comments.Where(n => n.CourseId.Equals(courseID)).ToList().FirstOrDefault();
+                var user = dbContext.Users.Where(n => n.UserId.Equals(r.UserId)).ToList().FirstOrDefault();
+                var dept= dbContext.Majors.Where(n => n.MajorId.Equals(user.MajorId)).ToList().FirstOrDefault();
+                info.Add(new ShowCommentReturn { grade = user.Year, major = dept.MajorName, nickname = user.NickName });
+
+            }
             return Ok(new
             {
                 status = true,
-                data = list,
+                data1 = list,
+                data2 = info,
                 msg = "查看数据成功"
-            });
+            }); ;
         }
 
         //查看贴子
