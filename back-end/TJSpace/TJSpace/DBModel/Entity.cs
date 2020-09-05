@@ -22,4 +22,11 @@ namespace TJSpace.DBModel
         public int floor { get; set; }
         public int type { get; set; }
     }
+
+    public class ShowCommentReturn
+    {
+        public string nickname { get; set; }
+        public int grade { get; set; }
+        public string major { get; set; }
+    }
 }
