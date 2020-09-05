@@ -12,8 +12,8 @@
         <!-- 三种情况！ -->
         <!-- 1.正在登录中 加载 -->
         <!-- 2.登录成功 -->
-        <template v-if="userInfo">
-          <div class="text-caption">欢迎您！{{userinfo.nickName}}</div>
+        <template v-if="token">
+          <div class="text-caption">欢迎您！{{userInfo.nickname}}</div>
           <q-input  dark dense standout v-model="text" input-class="text-left" class="q-ml-md" placeholder="发现更多课程">
             <template v-slot:append>
               <q-icon v-if="text === ''" name="search" />
@@ -87,7 +87,7 @@
             <img :src="avatarPath">
           </q-avatar>
           <template v-if="userInfo">
-            <div class="text-weight-bold">  欢迎你！  {{userInfo.nickName}}</div>
+            <div class="text-weight-bold">  欢迎你！  {{userInfo.nickname}}</div>
             <div>{{userInfo.eMail}}</div>
           </template>
           <template v-else>
@@ -123,7 +123,7 @@ export default {
   components:{
     DrawerBtnPenal,
   },
-  data:() =>{
+  data(){
     return{
       text:'',
       active:-1,
@@ -131,13 +131,17 @@ export default {
       logoPath : require("../assets/TJU.png"),
       avatarPath: require("../assets/boy-avatar.png"),
       avatarBGPath: require("../assets/material.png"),
+      userInfo:{
+        email:'1',
+        nickname:'1',
+      }
     }
   },
   props:{
-    ...mapState('userInfo', ['isLoading', 'userInfo'])
+    
   },
   computed:{
-    
+    ...mapState('userInfo', ['isLoading', 'token'])
   }
 }
 </script>
