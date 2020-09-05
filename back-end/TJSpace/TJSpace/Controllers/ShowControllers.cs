@@ -30,8 +30,8 @@ namespace TJSpace.Controllers
             return Ok(new
             {
                 status = true,
-                data=list,
-                msg="查看数据成功"
+                data = list,
+                msg = "查看数据成功"
             });
         }
 
@@ -64,7 +64,7 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("post")]
-        public ActionResult<string> showPost(string postid,string userid)
+        public ActionResult<string> showPost(string postid, string userid)
         {
             List<Post> list = dbContext.Posts.Where(n => n.PostId.Equals(postid)).ToList();
 
@@ -80,7 +80,7 @@ namespace TJSpace.Controllers
             }
 
             List<ShowPostReturn> replyid = new List<ShowPostReturn>();
-            foreach(var r in info)
+            foreach (var r in info)
             {
                 var reply = dbContext.Replies.Where(n => n.PostId.Equals(postid)).ToList().FirstOrDefault();
                 replyid.Add(new ShowPostReturn { ReplyId = reply.ReplyId, type = reply.Type, floor = reply.Floor });
@@ -94,7 +94,7 @@ namespace TJSpace.Controllers
                     status = true,
                     data1 = list,
                     data2 = replyid,
-                    data3=0,
+                    data3 = 0,
                     msg = "查看数据成功"
                 });
             }
@@ -105,9 +105,9 @@ namespace TJSpace.Controllers
                 status = true,
                 data1 = list,
                 data2 = info,
-                data3=attitude,
+                data3 = attitude,
                 msg = "查看数据成功"
-            }); 
+            });
         }
 
         //查看贴子回复
@@ -169,7 +169,6 @@ namespace TJSpace.Controllers
                 msg = "查看数据成功"
             });
         }
-
     }
 }
 
