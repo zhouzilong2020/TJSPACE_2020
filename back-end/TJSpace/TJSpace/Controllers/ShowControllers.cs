@@ -24,9 +24,9 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("user")]
-        public ActionResult<string> ShowUser(string userID)
+        public ActionResult<string> ShowUser(string userId)
         {
-            List<User> list = dbContext.Users.Where(n => n.UserId.Equals(userID)).ToList();
+            List<User> list = dbContext.Users.Where(n => n.UserId.Equals(userId)).ToList();
             return Ok(new
             {
                 status = true,
@@ -39,9 +39,9 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("comment")]
-        public ActionResult<string> showComment(string courseID)
+        public ActionResult<string> showComment(string courseId)
         {
-            List<Comment> list = dbContext.Comments.Where(n => n.CourseId.Equals(courseID)).ToList();
+            List<Comment> list = dbContext.Comments.Where(n => n.CourseId.Equals(courseId)).ToList();
             List<ShowCommentReturn> info = new List<ShowCommentReturn>();
             foreach(var r in list)
             {
@@ -64,11 +64,11 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("post")]
-        public ActionResult<string> showPost(string postid, string userid)
+        public ActionResult<string> showPost(string postId, string userId)
         {
-            List<Post> list = dbContext.Posts.Where(n => n.PostId.Equals(postid)).ToList();
+            List<Post> list = dbContext.Posts.Where(n => n.PostId.Equals(postId)).ToList();
 
-            var info = dbContext.Replies.Where(n => n.PostId.Equals(postid)).ToList();
+            var info = dbContext.Replies.Where(n => n.PostId.Equals(postId)).ToList();
             if (info == null)
             {
                 return Ok(new
@@ -82,11 +82,11 @@ namespace TJSpace.Controllers
             List<ShowPostReturn> replyid = new List<ShowPostReturn>();
             foreach (var r in info)
             {
-                var reply = dbContext.Replies.Where(n => n.PostId.Equals(postid)).ToList().FirstOrDefault();
+                var reply = dbContext.Replies.Where(n => n.PostId.Equals(postId)).ToList().FirstOrDefault();
                 replyid.Add(new ShowPostReturn { ReplyId = reply.ReplyId, type = reply.Type, floor = reply.Floor });
             }
 
-            var x = dbContext.Marks.Where(n => n.UserId.Equals(userid)).ToList().FirstOrDefault();
+            var x = dbContext.Marks.Where(n => n.UserId.Equals(userId)).ToList().FirstOrDefault();
             if (x == null)
             {
                 return Ok(new
@@ -114,9 +114,9 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("reply")]
-        public ActionResult<string> showReply(string replyid)
+        public ActionResult<string> showReply(string replyId)
         {
-            List<Reply> list = dbContext.Replies.Where(n => n.ReplyId.Equals(replyid)).ToList();
+            List<Reply> list = dbContext.Replies.Where(n => n.ReplyId.Equals(replyId)).ToList();
             return Ok(new
             {
                 status = true,
@@ -129,9 +129,9 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("personalcomment")]
-        public ActionResult<string> showPersonalComment(string userid)
+        public ActionResult<string> showPersonalComment(string userId)
         {
-            List<Comment> list = dbContext.Comments.Where(n => n.UserId.Equals(userid)).ToList();
+            List<Comment> list = dbContext.Comments.Where(n => n.UserId.Equals(userId)).ToList();
             return Ok(new
             {
                 status = true,
@@ -144,9 +144,9 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("personalreply")]
-        public ActionResult<string> showPersonalReply(string userid)
+        public ActionResult<string> showPersonalReply(string userId)
         {
-            List<Reply> list = dbContext.Replies.Where(n => n.UserId.Equals(userid)).ToList();
+            List<Reply> list = dbContext.Replies.Where(n => n.UserId.Equals(userId)).ToList();
             return Ok(new
             {
                 status = true,
@@ -159,15 +159,103 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("personalpost")]
-        public ActionResult<string> showPersonalPost(string userid)
+        public ActionResult<string> showPersonalPost(string userId)
         {
-            List<Post> list = dbContext.Posts.Where(n => n.UserId.Equals(userid)).ToList();
+            List<Post> list = dbContext.Posts.Where(n => n.UserId.Equals(userId)).ToList();
             return Ok(new
             {
                 status = true,
                 data = list,
                 msg = "查看数据成功"
             });
+        }
+
+        //获取主页显示的帖子
+        [HttpGet]
+        [Route("getPosts")]
+        public ActionResult<string> getPost(int orderType,int startPosition,string userId)
+        {
+            List<Post> info = dbContext.Posts.ToList();
+            List<GetPostReturn> info2 = new List<GetPostReturn>();
+            switch(orderType)
+            {
+                case 0:
+                    info = info.OrderByDescending(u => u.LatestReply).ThenBy(u => u.Title).ToList();
+                    break;
+                case 1:
+                    info = info.OrderBy(u => u.LatestReply).ThenBy(u => u.Title).ToList();
+                    break;
+                case 2:
+                    info = info.OrderBy(u => u.Date).ThenBy(u => u.Title).ToList();
+                    break;
+                case 3:
+                    info = info.OrderByDescending(u => u.Date).ThenBy(u => u.Title).ToList();
+                    break;
+
+            }
+            
+
+            int count = 0;
+            int cnt = 0;
+            
+            foreach(var k in info)
+            {
+                if(++cnt<=startPosition)
+                {
+                    continue;
+                }
+                GetPostReturn t = new GetPostReturn();
+                var user = dbContext.Marks.Where(u => (u.UserId == userId && u.PostId==k.PostId)).FirstOrDefault();
+                t.nickname = dbContext.Users.Where(u => u.UserId == k.UserId).FirstOrDefault().NickName;
+                
+                t.date = k.Date;
+                t.numOfReply = k.Floor;
+                t.LatestReply = k.LatestReply;
+                t.usefulNum = k.UsefulNum;
+                t.uselessNum = k.UselessNum;
+                t.title = k.Title;
+                t.content = k.Content;
+                t.postId = k.PostId;
+                t.canThumb = 1;
+                t.canStep = 1;
+
+                if(user!=null)
+                {
+                    if (user.Type == 1)//已经赞过不能赞
+                    {
+                        t.canThumb = 0;
+
+                    }
+                    else if(user.Type==0)
+                    {
+                        t.canStep = 0;
+                    }
+                }
+
+                info2.Add(t);
+
+                if(++count>=12)//一页只能返回12个
+                {
+                    break;
+                }
+            }
+            if(info2!=null)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    posts = info2,
+                    msg = "查看帖子成功"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "查看帖子失败"
+                });
+            }
         }
     }
 }

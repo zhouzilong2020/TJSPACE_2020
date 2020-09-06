@@ -31,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DBModel\" />
     <Folder Include="Tools\" />
   </ItemGroup>
   <ItemGroup>

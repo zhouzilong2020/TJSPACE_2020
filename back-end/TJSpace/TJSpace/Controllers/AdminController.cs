@@ -43,9 +43,9 @@ namespace TJSpace.Controllers
 
         //封禁用户
         [HttpPut]
-        public ActionResult<string> SuspendUser(string UserId)
+        public ActionResult<string> SuspendUser(string userId)
         {
-            var user = dbContext.Accounts.Where(u => u.UserId == UserId).ToList().FirstOrDefault();
+            var user = dbContext.Accounts.Where(u => u.UserId == userId).ToList().FirstOrDefault();
             if(user==null)
             {
                 return Ok(new

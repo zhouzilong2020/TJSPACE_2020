@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+
 namespace TJSpace.DBModel
 {
     public class SearchCourseReturn
@@ -28,5 +30,20 @@ namespace TJSpace.DBModel
         public string nickname { get; set; }
         public int grade { get; set; }
         public string major { get; set; }
+    }
+
+    public class GetPostReturn
+    {
+        public string nickname { get; set; }
+        public DateTime date { get; set; }
+        public int numOfReply { get; set; }
+        public DateTime LatestReply { get; set; }
+        public int usefulNum { get; set; }
+        public int uselessNum { get; set; }
+        public string title { get; set; }//帖子标题
+        public string content { get; set; }//帖子内容
+        public string postId { get; set; }//帖子id
+        public int canThumb { get; set; }//可以点赞，0不可，1可
+        public int canStep { get; set; }//可以点踩，0不可，1可
     }
 }

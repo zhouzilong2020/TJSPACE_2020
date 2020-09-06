@@ -32,6 +32,7 @@ namespace TJSpace.Controllers
             p.Content = content;
             p.UserId = userId;
             p.Date = DateTime.Now;
+            p.LatestReply = DateTime.Now;
 
             dbContext.Posts.Add(p);
             if (dbContext.SaveChanges() == 1)
@@ -74,7 +75,7 @@ namespace TJSpace.Controllers
             p.Content = content;
             p.UserId = userId;
             p.Date = DateTime.Now;
-
+            
             if (type == 0)//正常楼层
             {
                 if(post.Floor + 1 != floor)
@@ -94,6 +95,7 @@ namespace TJSpace.Controllers
             
             if ((type==0 && dbContext.SaveChanges()==2)||(type==1&&dbContext.SaveChanges()==1))
             {
+                post.LatestReply = DateTime.Now;
                 return Ok(new
                 {
                     status = true,
@@ -112,9 +114,9 @@ namespace TJSpace.Controllers
 
         //对帖子进行评价
         [HttpPut]
-        public ActionResult<string> evaluate(string postID,string userID, int type)
+        public ActionResult<string> evaluate(string postId,string userId, int type)
         {
-            var post = dbContext.Posts.Where(u => u.PostId == postID).ToList().FirstOrDefault();
+            var post = dbContext.Posts.Where(u => u.PostId == postId).ToList().FirstOrDefault();
             if (post == null)
             {
                 return Ok(new
@@ -142,8 +144,8 @@ namespace TJSpace.Controllers
             }
 
             Mark m = new Mark();
-            m.UserId = userID;
-            m.PostId = postID;
+            m.UserId = userId;
+            m.PostId = postId;
             m.Type = type;
             m.Date= DateTime.Now;
 

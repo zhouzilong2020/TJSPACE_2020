@@ -65,5 +65,11 @@ namespace TJSpace.DBModel
         [Column("useless_num", TypeName = "int(11)")]
         public int UselessNum { get; set; }
 
+        //最新回复时间
+        [JsonProperty("latestreply")]
+        [Required]
+        [Column("latest_reply", TypeName = "date")]
+        public DateTime LatestReply { get; set; }
+
     }
 }

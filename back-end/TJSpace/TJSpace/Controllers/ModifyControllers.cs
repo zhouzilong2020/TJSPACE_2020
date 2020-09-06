@@ -22,13 +22,13 @@ namespace TJSpace.Controllers
         //PUT
         [HttpPut]
         [Route("Info")]
-        public ActionResult<string> ModifyInfo(string id, string nickname, int gender, string phoneNumber, string majorID, int year, int degree)
+        public ActionResult<string> ModifyInfo(string userId, string nickname, int gender, string phoneNumber, string majorId, int year, int degree)
         {
-            var info = dbContext.Users.Where(n => n.UserId.Equals(id)).ToList().FirstOrDefault();
+            var info = dbContext.Users.Where(n => n.UserId.Equals(userId)).ToList().FirstOrDefault();
             info.NickName = nickname;
             info.Gender = gender;
             info.PhoneNumber = phoneNumber;
-            info.MajorId = majorID;
+            info.MajorId = majorId;
             dbContext.SaveChanges();
             return Ok(new
             {

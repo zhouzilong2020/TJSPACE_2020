@@ -88,9 +88,9 @@ namespace TJSpace.Controllers
 
         //对评价进行评价
         [HttpPost]
-        public ActionResult<string> EvaluateComment(string commentID,string userID,int type)
+        public ActionResult<string> EvaluateComment(string commentId,string userId,int type)
         {
-            var comment = dbContext.Comments.Where(u => u.CommentId == commentID).ToList().FirstOrDefault();
+            var comment = dbContext.Comments.Where(u => u.CommentId == commentId).ToList().FirstOrDefault();
             if(comment==null)
             {
                 return Ok(new
@@ -109,8 +109,8 @@ namespace TJSpace.Controllers
             }
             Credibility cre = new Credibility();
 
-            cre.CommentId = commentID;
-            cre.UserId = userID;
+            cre.CommentId = commentId;
+            cre.UserId = userId;
             cre.Type = type;
             cre.Date = DateTime.Now;
 
@@ -135,9 +135,9 @@ namespace TJSpace.Controllers
 
         //管理员删除评价
         [HttpDelete]
-        public ActionResult<string> DeleteComment(string commentID)
+        public ActionResult<string> DeleteComment(string commentId)
         {
-            var comment = dbContext.Comments.Where(u => u.CommentId == commentID).ToList().FirstOrDefault();
+            var comment = dbContext.Comments.Where(u => u.CommentId == commentId).ToList().FirstOrDefault();
             if(comment==null)
             {
                 return Ok(new
