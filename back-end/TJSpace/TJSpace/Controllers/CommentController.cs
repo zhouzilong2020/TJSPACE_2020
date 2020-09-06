@@ -90,6 +90,15 @@ namespace TJSpace.Controllers
         [HttpPost]
         public ActionResult<string> EvaluateComment(string commentId,string userId,int type)
         {
+            var t = dbContext.Credibilities.Where(u => u.UserId == userId && u.CommentId == commentId).FirstOrDefault();
+            if(t!=null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "评价失败，已经存在评价"
+                });
+            }
             var comment = dbContext.Comments.Where(u => u.CommentId == commentId).ToList().FirstOrDefault();
             if(comment==null)
             {
@@ -133,6 +142,55 @@ namespace TJSpace.Controllers
             }
         }
 
+        [HttpPut]
+        public ActionResult<string> CancelEvaluation(string commentId,string userId)
+        {
+            var evaluation = dbContext.Credibilities.Where(u => (u.CommentId == commentId && u.UserId == userId)).FirstOrDefault();
+            if (evaluation == null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "取消评价失败，评价不存在"
+                });
+            }
+            var comment = dbContext.Comments.Where(u => u.CommentId == commentId).ToList().FirstOrDefault();
+            if (comment == null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "取消评价失败，评价不存在"
+                });
+            }
+            if (evaluation.Type == 1)
+            {
+                comment.UsefulNum--;
+            }
+            else
+            {
+                comment.UselessNum--;
+            }
+            
+            dbContext.Credibilities.Remove(evaluation);
+            if (dbContext.SaveChanges() == 2)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    msg = "取消评价成功"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "取消评价失败"
+                });
+            }
+        }
+
         //管理员删除评价
         [HttpDelete]
         public ActionResult<string> DeleteComment(string commentId)
@@ -161,6 +219,33 @@ namespace TJSpace.Controllers
                 {
                     status = false,
                     msg = "删除失败"
+                });
+            }
+        }
+
+        //查询是否可以对评价进行评价
+        [HttpGet]
+        public ActionResult<string> CanEvaluate(string commentId,string userId)
+        {
+            var evaluation = dbContext.Credibilities.Where(u => (u.CommentId == commentId && u.UserId == userId)).FirstOrDefault();
+            
+            if(evaluation==null)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    canEvaluate=true,
+                    msg = "查询成功，不存在评价，可以评价"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = true,
+                    canEvaluate=false,
+                    type=evaluation.Type,
+                    msg = "查询成功，存在评价，不可以评价"
                 });
             }
         }

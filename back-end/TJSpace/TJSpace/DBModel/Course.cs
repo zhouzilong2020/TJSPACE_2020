@@ -34,5 +34,12 @@ namespace TJSpace.DBModel
         [Required]
         [Column("credits",TypeName="int(11)")]
         public int Credits { get; set; }
+
+        //课程简介
+        [JsonProperty("intro")]
+        [Required]
+        [Column("intro")]
+        [StringLength(maximumLength: 200)]
+        public string Intro { get; set; }
     }
 }

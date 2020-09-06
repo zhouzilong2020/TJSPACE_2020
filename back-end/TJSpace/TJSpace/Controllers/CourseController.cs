@@ -71,6 +71,7 @@ namespace TJSpace.Controllers
 
             temp.Credits = course.Credits;
             temp.DeptName = course.DeptName;
+            temp.Intro = course.Intro;
 
             if (dbContext.SaveChanges() == 1)
             {
