@@ -1,25 +1,29 @@
 <template>
-    <q-card class="course-review" flat bordered>
+    <!-- 添加v-if 当没有获取完数据前 不渲染该组件 -->
+    <q-card class="course-review" flat bordered v-if="commentInfo">
         <q-item :class="topColor">
             <div class="user-infro col-auto row inline justify-evenly">
-                <q-item-section class="avatar" avatar>
+                <!-- <q-item-section class="avatar" avatar>
                     <q-avatar>
                         <img :src="commentInfo.userInfro.photoPath">
                     </q-avatar>
-                    <q-item-label class="nickname" horizontal>{{commentInfo.userInfro.nickname}}</q-item-label>
-                </q-item-section>
+                </q-item-section> -->
                 <q-item-section class="user-infro-detail">
-                    <q-item-label class="grade" caption>
-                        {{commentInfo.userInfro.grade}}
+                    <q-item-label class="nickname text-center text-h6">
+                        {{commentInfo.userInfo.nickname}}
                     </q-item-label>
-                    <q-item-label class="major" caption>
-                        {{commentInfo.userInfro.major}}
+                    
+                    <q-item-label class="grade text-center" caption>
+                        {{commentInfo.userInfo.grade}}
+                    </q-item-label>
+                    <q-item-label class="major text-center" caption>
+                        {{commentInfo.userInfo.major}}
                     </q-item-label>
                 </q-item-section>
             </div>
             <q-separator vertical />
             <!-- 课程开设时间 -->
-            <q-item-section class="course-detail col-auto">
+            <!-- <q-item-section class="course-detail col-auto">
                 <q-item-label class="course-year">
                     {{commentInfo.courseDetail.year}}
                 </q-item-label>
@@ -27,7 +31,7 @@
                     {{commentInfo.courseDetail.semester}}
                 </q-item-label>
             </q-item-section>
-            <q-separator vertical/>
+            <q-separator vertical/> -->
             <!-- 课程评分情况 -->
             <q-item-section class="course-review-statistic">    
                 <ul class="rating-container row justify-evenly">
@@ -112,9 +116,8 @@
             <span class="course-review-date">评论于 {{commentInfo.commentDetail.date}}</span>
             <span class="course-review-detail"> {{commentInfo.commentDetail.useful}}/{{commentInfo.commentDetail.useless+commentInfo.commentDetail.useful}}  人觉得有用</span>
             <span class="course-review-option">
-                <q-btn flat round icon="iconfont icon-dianzan"></q-btn>
-                <q-btn flat round icon="iconfont icon-cai"></q-btn>
-                         
+                <q-btn @click="handleEvaluate(0)" size="10px" flat round icon="iconfont icon-dianzan"></q-btn>
+                <q-btn @click="handleEvaluate(1)" size="10px" flat round icon="iconfont icon-cai"></q-btn>
             </span>
         </q-card-section>
     </q-card>
@@ -122,6 +125,8 @@
 
 <script>
 import {getUserInfo} from '../../services/userService'
+import {evaluateComment} from '../../services/commentService'
+import {mapState} from 'vuex'
 export default {
     name:"CourseComment",
     components:{
@@ -132,7 +137,6 @@ export default {
             zanFocus:require('../../assets/zan-focus.png'),
             cai:require('../../assets/cai.png'),
             caiFocus:require('../../assets/cai-focus.png'),
-            inputText:'请在此输入对该评价的看法',
             expanded:false,
             commentInfo:null,
         }
@@ -141,6 +145,7 @@ export default {
         apiData:null,
     },
     computed: {
+        ...mapState('userInfo', ['userInfo']),
         topColor(){
             if(this.commentInfo){
                 let total = 0;
@@ -171,29 +176,37 @@ export default {
         
     },
     methods: {
-        
+        async handleEvaluate(type){
+            console.log(type)
+            var resp = await evaluateComment({
+                userid : this.userInfo.userID,
+                commentid : this.commentInfo.commentid,
+                type : type
+            })
+            console.log(resp)
+        },
     },
 
     async created(){
-        console.log(this.apiData)
+        // console.log(this.apiData)
         var resp = await getUserInfo({userID:this.apiData.userid})
         console.log(resp)
         this.commentInfo = {
+                    commentID : this.apiData.commentid,
                     courseStatistic:{
                         content : this.apiData.overall,
                         teaching : this.apiData.instructor,
                         grading : this.apiData.grading,
                         workload : this.apiData.workload,
                     },
-                    userInfro:{
+                    userInfo:{
                         nickname: resp.nickname,
-                        photoPath:require("../../assets/touxiang.jpg"),
                         grade:"2018级",
                         major:"软件工程",
                     },
                     courseDetail:{
-                        year:"2020-2021",
-                        semester:"春",
+                        // year:"2020-2021",
+                        // semester:"春",
                         midTerm: this.apiData.midTerm,
                         final: this.apiData.final,
                         quiz: this.apiData.quiz,
@@ -209,9 +222,9 @@ export default {
                         teaching : this.apiData.teaching,
                         grading : this.apiData.grade,
                         workload : this.apiData.homework,
-                        date: this.apiData.date,
-                        useful : 230,
-                        useless : 7
+                        date: this.apiData.date.slice(0,10),
+                        useful : this.apiData.usefulnum,
+                        useless : this.apiData.uselessnum
                     }
                 }
     }
@@ -224,7 +237,7 @@ export default {
 
 .course-review-body{ padding:0px; margin : 0px; border:0px;}
 .nickname{ margin-top:10px}
-.user-infro-detail{ margin-right: 10px;}
+.user-infro-detail{ margin-right: 10px; display: inline;}
 
 .course-detail{margin:0 auto; }
 .course-detail .course-year{text-align: center; margin: 0 auto; padding:8px}
@@ -265,13 +278,13 @@ export default {
 .course-requirement ul .iconfont{margin-right:5px;}
 
 
-.footer{margin: 0 auto; padding: 0; line-height: 25px; position: relative;}
-.footer span{font-size: 10px; color:grey; font-weight: 800; }
-.footer .course-review-detail{position: absolute; right: 140px;}
+.footer{margin: 0 auto; padding: 0; line-height: 25px; position: relative; width:90%}
+.footer span{font-size: 3px; color:grey; font-weight: 800; }
 
-.footer .course-review-option{font-size: 5px; line-height:0px; height:0px; color:grey; position: relative; bottom: 10px; right:0px;}
+.footer .course-review-detail{position: relative;}
 
-.footer .course-review-data{margin-left: 10px;}
+.footer .course-review-option{position: relative; font-size: 2px; line-height:0px; height:0px; color:grey; position: relative; bottom:2px}
 
-.review-for-comment q-editor{background-color: wight;}
+
+.review-for-comment q-editor{background-color: white;}
 </style>

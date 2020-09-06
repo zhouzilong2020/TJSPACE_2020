@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 <template>
-  <div>data:{{myData}}</div>
+  <div>data:{{ myData }}</div>
 </template>
 
 <script>

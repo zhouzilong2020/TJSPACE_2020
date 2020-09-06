@@ -1,5 +1,5 @@
 // comment的仓库数据
-import {getComment} from "../services/getComment"
+import {getComment} from "../services/commentService"
 
 export default{
     namespaced: true, 
