@@ -60,10 +60,16 @@ export default {
          * @param {*} context 
          */
         async logoutUser(context) {
+            console.log("in store logoutUser")
             context.commit("setIsLoading", true);
             var resp = await logoutUser()
-            if (resp)
+            console.log(resp)
+            if (resp){
+                context.commit('setToken', null)
+                context.commit('userInfo', null)
                 context.commit("setIsLoading", false);
+            }
+            return resp
         },
         /**
          * 注册用户

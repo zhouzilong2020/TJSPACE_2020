@@ -84,7 +84,7 @@ export default {
       await this.$store.dispatch("userInfo/loginUser", this.userInfo);
       if (this.token) {
         // 成功获取token 表示成功登录
-        console.log("asdsa")
+        // console.log("get user token")
         this.$router.push({
           name: "Homepage",
           params: {

@@ -2,8 +2,8 @@
     <div class="drwaer-option q-gutter-y-md" style="max-width: 300px">
         <q-tabs
             v-model="tab"
-            indicator-color="primary"
-            active-bg-color="primary"
+            indicator-color="blue"
+            active-bg-color="grey"
             horizontal
             dense
         >
@@ -42,7 +42,7 @@ export default {
                 {title:	"人文学院",	abbr:"	人文	",icon:"	psychology	"},
                 {title:	"外国语学院",	abbr:"	外语	",icon:"	g_translate	"},
                 {title:	"法学院",	abbr:"	法律	",icon:"gavel"},
-                {title:	"马克思主义学院",	abbr:"	马院	",icon:"	local_library	"},
+                {title:	"马克思主义学院",	abbr:"马院",icon:"	local_library	"},
                 {title:	"政治与国际关系学院",	abbr:"	国关	",icon:"	public	"},
                 {title:	"理学部",	abbr:"	理学	",icon:"	bar_chart	"},
                 {title:	"海洋与地球科学学院",	abbr:"	海科	",icon:"	waves	"},

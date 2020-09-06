@@ -30,19 +30,21 @@
               />
             </template>
           </q-input>
+          <q-btn
+              class="logout-btn"
+              flat
+              @click="handleLogout()"
+              label="退出登录"
+            />
         </template>
 
         <template v-else>
-          <q-btn-group class="top-option" rounded flat>
+          <q-btn-group class="top-option"  flat>
             <q-btn
-              rounded
-              color="light-blue-8"
               label="现在登录"
               :to="{ name: 'login' }"
             />
             <q-btn
-              rounded
-              color="light-blue-8"
               label="马上注册"
               :to="{ name: 'register' }"
             />
@@ -160,6 +162,19 @@ export default {
   computed: {
     ...mapState("userInfo", ["isLoading", "token"]),
   },
+  methods:{
+    async handleLogout(){
+      console.log("click logout btn")
+      await this.$store.dispatch('userInfo/logoutUser')
+      // 成功退出
+      if(this.token == null){
+        console.log("logout user successfully")
+        this.$router.push({
+          name: "index",
+        });
+      }
+    }
+  }
 };
 </script>
 
@@ -172,6 +187,9 @@ export default {
   margin: 0 auto;
 }
 
+.logout-btn{
+  margin-left:10px
+}
 .drawer-btn-penal {
   position: absolute;
   left: -40px;

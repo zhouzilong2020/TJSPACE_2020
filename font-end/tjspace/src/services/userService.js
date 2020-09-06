@@ -33,6 +33,7 @@ export async function whoAmI() {
  */
 export async function logoutUser() {
     localStorage.removeItem("token");
+    return true
 }
 
 /**
