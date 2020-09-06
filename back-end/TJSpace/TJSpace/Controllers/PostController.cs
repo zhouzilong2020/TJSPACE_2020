@@ -113,7 +113,7 @@ namespace TJSpace.Controllers
         }
 
         //对帖子进行评价
-        [HttpPut]
+        [HttpPost]
         public ActionResult<string> evaluate(string postId,string userId, int type)
         {
             var evaluation = dbContext.Marks.Where(u => u.PostId == postId && u.UserId == userId).FirstOrDefault();
@@ -178,7 +178,7 @@ namespace TJSpace.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public ActionResult<string> CancelEvaluation(string postId,string userId)
         {
             var evaluation = dbContext.Marks.Where(u => (u.UserId == userId && u.PostId == postId)).FirstOrDefault();

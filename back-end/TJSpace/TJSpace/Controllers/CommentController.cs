@@ -142,7 +142,7 @@ namespace TJSpace.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public ActionResult<string> CancelEvaluation(string commentId,string userId)
         {
             var evaluation = dbContext.Credibilities.Where(u => (u.CommentId == commentId && u.UserId == userId)).FirstOrDefault();
