@@ -1,6 +1,6 @@
 // 获取评论 ！哈哈
 import axios from "axios";
-import Qs from  'qs'
+// import Qs from  'qs'
 import { token, URL } from './config'
 /**
  * 获取用户评论评论
@@ -25,16 +25,16 @@ export async function getComment(payload) {
  */
 export async function evaluateComment(payload) {
     console.log("in evaluate comment", payload)
-    var resp = await axios.post(`${URL}Comment/EvaluateComment`,
-        Qs.stringify({
-            "commentId": payload.commentId,
-            "userId": payload.userId,
-            "type": payload.type
-        }),
+    var resp = await axios.post(`${URL}Comment/EvaluateComment`,{},
         {
             headers: { 
                 Authorization: token,
                 // 'Content-Type':'application/x-www-form-urlencoded'
+            },
+            params:{
+                commentId: payload.commentId,
+                userId: payload.userId,
+                type: payload.type
             }
         },
     );
@@ -69,13 +69,16 @@ export async function getEvaluate(payload) {
  */
 export async function cancelEvaluation(payload) {
     console.log("in cancel Evaluation ", payload)
-    var resp = await axios.post(`${URL}Comment/CancelEvaluation`,
-            `'commentId' = ${payload.commentId}'&'userId' = ${payload.userId}`,
+    var resp = await axios.post(`${URL}Comment/CancelEvaluation`,{},
         {
             headers: { 
                 Authorization: token,
-                // 'Content-Type':'application/x-www-form-urlencoded' 
-            }
+                'Content-Type':'application/json' 
+            },
+            params:{
+                commentId : payload.commentId, 
+                userId : payload.userId,
+            },
         }
     );
     console.log("in cancel Evaluate response", resp);

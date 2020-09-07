@@ -203,7 +203,11 @@ export default {
                     commentId : this.commentInfo.commentId,
                     type : type
                 })
-                console.log(resp)
+                console.log('in vue page handel rvaluate',resp)
+                if(resp.status){
+                    this.isEvaluated.canEvaluate = false
+                    this.isEvaluated.type = type
+                }
             }
             // 如果已经评价则取消评价
             else if(this.isEvaluated.type == type){
@@ -211,7 +215,12 @@ export default {
                     userId : 'u1001',
                     commentId : this.commentInfo.commentId,
                 })
-                console.log(resp)
+
+                console.log('in vue page handel rvaluate',resp)
+                if(resp.status){
+                    this.isEvaluated.canEvaluate = true
+                    this.isEvaluated.type = null
+                }
             }
         },
     },
