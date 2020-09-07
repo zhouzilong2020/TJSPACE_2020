@@ -82,6 +82,7 @@ export default {
   methods: {
     async handleLogin() {
       await this.$store.dispatch("userInfo/loginUser", this.account);
+
       if (this.token) {
         // 成功获取token 表示成功登录
         // console.log("get user token")
@@ -89,7 +90,7 @@ export default {
         this.$router.push({
           name: "Homepage",
           params: {
-            userid: this.userInfo.userId,
+            userId: this.userInfo.userid,
           },
         });
       }

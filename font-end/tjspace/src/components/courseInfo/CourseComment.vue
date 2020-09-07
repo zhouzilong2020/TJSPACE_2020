@@ -124,7 +124,6 @@
 </template>
 
 <script>
-import {getUserInfo} from '../../services/userService'
 import {evaluateComment} from '../../services/commentService'
 import {mapState} from 'vuex'
 export default {
@@ -143,6 +142,7 @@ export default {
     },
     props:{
         apiData:null,
+        taker:null,
     },
     computed: {
         ...mapState('userInfo', ['userInfo']),
@@ -189,8 +189,8 @@ export default {
 
     async created(){
         // console.log(this.apiData)
-        var resp = await getUserInfo({userID:this.apiData.userid})
-        console.log(resp)
+        // var resp = await getUserInfo({userID:this.apiData.userId})
+        // console.log(resp)
         this.commentInfo = {
                     commentID : this.apiData.commentid,
                     courseStatistic:{
@@ -200,7 +200,7 @@ export default {
                         workload : this.apiData.workload,
                     },
                     userInfo:{
-                        nickname: resp.nickname,
+                        nickname: this.taker,
                         grade:"2018级",
                         major:"软件工程",
                     },

@@ -9,7 +9,7 @@
 
       <q-card-section style="margin-top: 20pt">
         <div class="row" style="font-size: 20px">
-          <div class="col-6">昵称: {{ Nickname }}</div>
+          <div class="col-6">昵称: {{ userInfo.nickname }}</div>
           <div class="col-6" style="text-align: center">姓名: {{ Name }}</div>
         </div>
       </q-card-section>
@@ -49,6 +49,8 @@
 import TeacherInfo from "../components/homepage/TeacherInfo";
 import CourseInfo from "../components/homepage/CourseInfo";
 import CommentInfo from "../components/homepage/CommentInfo";
+import {mapState} from 'vuex'
+
 export default {
   components: {
     TeacherInfo,
@@ -70,12 +72,18 @@ export default {
       Minor: "无",
       Name: "黎力",
       ID: "1853549",
-      userInfo: {
+      userInfo1: {
         nickName: "lili",
         eMail: "1888888@tongji.edu.cn",
       },
     };
   },
+
+  computed:mapState('userInfo', ['userInfo']),
+  created(){
+    console.log('in homepage created', this.userInfo)
+  }
+
 };
 </script>
 

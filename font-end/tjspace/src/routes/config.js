@@ -24,7 +24,7 @@ export default {
             name: "SearchCourse",
             component: () => import("@/pages/SearchCourse"),
         }, {
-            path: "/Homepage/:userid",
+            path: "/Homepage/:userId",
             name: "Homepage",
             component: () => import("@/pages/Homepage"),
         }, {
