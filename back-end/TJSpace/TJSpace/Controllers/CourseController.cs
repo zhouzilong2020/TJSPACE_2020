@@ -124,5 +124,89 @@ namespace TJSpace.Controllers
                 });
             }
         }
+
+        //收藏课程
+        [HttpPost]
+        public ActionResult<string> CollectCourse(string userId, string courseId,string teacherId)
+        {
+            var course = dbContext.Teaches.Where(u => (u.CourseId == courseId&&u.TeacherId==teacherId)).FirstOrDefault();
+            if (course == null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "收藏课程失败，课程不存在。"
+                });
+            }
+
+            var user = dbContext.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user == null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "收藏课程失败，用户不存在。"
+                });
+            }
+
+            CourseCollect cc = new CourseCollect();
+
+            cc.UserId = userId;
+            cc.CourseId = courseId;
+            cc.TeacherId = teacherId;
+
+            dbContext.CourseCollect.Add(cc);
+
+            if (dbContext.SaveChanges() == 1)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    msg = "收藏课程成功"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "收藏课程失败"
+                });
+            }
+        }
+
+        //删除收藏课程
+        [HttpDelete]
+        public ActionResult<string> CancelCollectCourse(string userId, string courseId,string teacherId)
+        {
+            var cc = dbContext.CourseCollect.Where(u => (u.UserId == userId && u.CourseId == courseId&&u.TeacherId==teacherId)).FirstOrDefault();
+            if(cc==null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "取消收藏课程失败"
+                });
+            }
+
+            dbContext.CourseCollect.Remove(cc);
+
+            if (dbContext.SaveChanges() == 1)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    msg = "取消收藏课程成功"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "取消收藏课程失败"
+                });
+            }
+        }
     }
 }

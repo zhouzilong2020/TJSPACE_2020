@@ -15,6 +15,7 @@ namespace TJSpace
        public DbSet<Comment> Comments { get; set; }
        public DbSet<Course> Courses { get; set; }
        public DbSet<CourseCode> CourseCodes { get; set; }
+       public DbSet<CourseCollect> CourseCollect { get; set; }
        public DbSet<Credibility> Credibilities { get; set; }
        public DbSet<Major> Majors { get; set; }
        public DbSet<Mark> Marks { get; set; }
@@ -29,6 +30,9 @@ namespace TJSpace
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>().HasKey(t => new { t.CourseId, t.DeptName });
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<CourseCollect>().HasKey(t => new { t.CourseId, t.UserId,t.TeacherId });
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Credibility>().HasKey(t => new { t.CommentId, t.UserId });

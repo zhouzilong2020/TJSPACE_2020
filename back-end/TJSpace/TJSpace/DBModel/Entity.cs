@@ -46,4 +46,13 @@ namespace TJSpace.DBModel
         public int canThumb { get; set; }//可以点赞，0不可，1可
         public int canStep { get; set; }//可以点踩，0不可，1可
     }
+
+    public class getCollectedCourseReturn
+    {
+        public string CourseName { get; set; }
+        public string CourseNumber { get; set; }
+        public string DeptName { get; set; }
+        public int Credit { get; set; }
+        public string TeacherName { get; set; }
+    }
 }

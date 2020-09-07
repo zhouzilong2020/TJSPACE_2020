@@ -29,8 +29,8 @@ namespace TJSpace.Controllers
         public ActionResult<string>PostComment(Comment comment)
         {
             //检查教师id是否存在
-            List<Teacher> list1 = dbContext.Teachers.Where(u => u.TeacherId == comment.TeacherId).ToList();
-            if(list1.Count()==0)
+            var list1 = dbContext.Teachers.Where(u => u.TeacherId == comment.TeacherId).FirstOrDefault();
+            if(list1 == null)
             {
                 return Ok(new
                 {
@@ -40,8 +40,8 @@ namespace TJSpace.Controllers
             }
 
             //检查课程id是否存在
-            List<Course> list2 = dbContext.Courses.Where(u => u.CourseId == comment.CourseId).ToList();
-            if (list2.Count() == 0)
+            var list2 = dbContext.Courses.Where(u => u.CourseId == comment.CourseId).FirstOrDefault();
+            if (list2 == null)
             {
                 return Ok(new
                 {
@@ -51,8 +51,8 @@ namespace TJSpace.Controllers
             }
 
             //检查用户id是否存在
-            List<User> list3 = dbContext.Users.Where(u => u.UserId == comment.UserId).ToList();
-            if (list2.Count() == 0)
+            var list3 = dbContext.Users.Where(u => u.UserId == comment.UserId).FirstOrDefault();
+            if (list3  == null)
             {
                 return Ok(new
                 {
@@ -88,6 +88,7 @@ namespace TJSpace.Controllers
 
         //对评价进行评价
         [HttpPost]
+        
         public ActionResult<string> EvaluateComment(string commentId,string userId,int type)
         {
             var t = dbContext.Credibilities.Where(u => u.UserId == userId && u.CommentId == commentId).FirstOrDefault();
@@ -143,7 +144,7 @@ namespace TJSpace.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> CancelEvaluation(string commentId,string userId)
+        public ActionResult<string> CancelEvaluation(string commentId ,string userId)
         {
             var evaluation = dbContext.Credibilities.Where(u => (u.CommentId == commentId && u.UserId == userId)).FirstOrDefault();
             if (evaluation == null)

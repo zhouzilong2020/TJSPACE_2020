@@ -257,6 +257,54 @@ namespace TJSpace.Controllers
                 });
             }
         }
+
+        //显示收藏课程
+        [HttpGet]
+        [Route("getCollectedCourse")]
+        public ActionResult<string> getCollectedCourse(string userId)
+        {
+            var info1 = dbContext.CourseCollect.Where(u => (u.UserId == userId)).ToList();
+            List<getCollectedCourseReturn> info = new List<getCollectedCourseReturn>();
+
+            if (info == null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "该用户没有收藏任何课程"
+                });
+            }
+
+            foreach (var k in info1)
+            {
+                getCollectedCourseReturn temp = new getCollectedCourseReturn();
+                temp.CourseName = dbContext.CourseCodes.Where(u => u.CourseId == k.CourseId).FirstOrDefault().Title;
+                var course = dbContext.Courses.Where(u => u.CourseId == k.UserId).FirstOrDefault();
+                temp.Credit = course.Credits;
+                temp.DeptName = course.DeptName;
+                temp.CourseNumber = k.CourseId;
+                temp.TeacherName = dbContext.Teachers.Where(u => u.TeacherId == k.TeacherId).FirstOrDefault().Name;
+                info.Add(temp);
+            }
+
+            if (info != null)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    collectedcourse = info,
+                    msg = "查看用户收藏课程成功"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "查看用户收藏课程失败"
+                });
+            }
+        }
     }
 }
 
