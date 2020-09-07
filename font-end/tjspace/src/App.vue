@@ -27,4 +27,7 @@ export default {
 
 <style>
   @import '~@/styles/global.css';
+  body{
+    background-color: rgb(245, 246, 247);
+  }
 </style>
