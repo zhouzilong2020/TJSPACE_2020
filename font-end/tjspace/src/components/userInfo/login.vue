@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-center">
-    <q-card class="col-md-4 col-xs-6">
+    <q-card class="my-card col-md-4 col-xs-6">
       <q-card-section>
         <div class="title">
           <h5>欢迎使用</h5>
@@ -100,6 +100,9 @@ export default {
 </script>
 
 <style scoped>
+.my-card{
+  max-width: 350px;
+}
 .title {
   text-align: center;
 }

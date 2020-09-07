@@ -116,15 +116,15 @@
             <span class="course-review-date">评论于 {{commentInfo.commentDetail.date}}</span>
             <span class="course-review-detail"> {{commentInfo.commentDetail.useful}}/{{commentInfo.commentDetail.useless+commentInfo.commentDetail.useful}}  人觉得有用</span>
             <span class="course-review-option">
-                <q-btn @click="handleEvaluate(0)" size="10px" flat round icon="iconfont icon-dianzan"></q-btn>
-                <q-btn @click="handleEvaluate(1)" size="10px" flat round icon="iconfont icon-cai"></q-btn>
+                <q-btn :color='userfulColor'  @click="handleEvaluate(1)" size="10px" flat round icon="iconfont icon-dianzan"></q-btn>
+                <q-btn :color='userlessColor' @click="handleEvaluate(0)" size="10px" flat round icon="iconfont icon-cai"></q-btn>
             </span>
         </q-card-section>
     </q-card>
 </template>
 
 <script>
-import {evaluateComment} from '../../services/commentService'
+import {evaluateComment, getEvaluate, cancelEvaluation} from '../../services/commentService'
 import {mapState} from 'vuex'
 export default {
     name:"CourseComment",
@@ -133,9 +133,8 @@ export default {
     data:()=>{
         return {
             zan:require('../../assets/zan.png'),
-            zanFocus:require('../../assets/zan-focus.png'),
             cai:require('../../assets/cai.png'),
-            caiFocus:require('../../assets/cai-focus.png'),
+            isEvaluated:null,
             expanded:false,
             commentInfo:null,
         }
@@ -173,17 +172,47 @@ export default {
                 if(0 <= grade && grade < 2){return "rating-1";}
             }
         },
-        
+        userfulColor(){
+            if(this.isEvaluated && this.isEvaluated.canEvaluate){
+                return 'grey'
+            }
+            if(this.isEvaluated && this.isEvaluated.type == 1){
+                return 'positive'
+            }
+            return 'grey'
+        },
+        userlessColor(){
+            if(this.isEvaluated && this.isEvaluated.canEvaluate){
+                return 'grey'
+            }
+            if( this.isEvaluated && this.isEvaluated.type == 0){
+                return 'negative'
+            }
+            return 'grey'
+        },
+
     },
     methods: {
         async handleEvaluate(type){
             console.log(type)
-            var resp = await evaluateComment({
-                userid : this.userInfo.userID,
-                commentid : this.commentInfo.commentid,
-                type : type
-            })
-            console.log(resp)
+            var resp;
+            // 如果没有评价则开始评价
+            if(this.isEvaluated.canEvaluate){
+                resp = await evaluateComment({
+                    userId : 'u1001',
+                    commentId : this.commentInfo.commentId,
+                    type : type
+                })
+                console.log(resp)
+            }
+            // 如果已经评价则取消评价
+            else if(this.isEvaluated.type == type){
+                resp = await cancelEvaluation({
+                    userId : 'u1001',
+                    commentId : this.commentInfo.commentId,
+                })
+                console.log(resp)
+            }
         },
     },
 
@@ -192,7 +221,7 @@ export default {
         // var resp = await getUserInfo({userID:this.apiData.userId})
         // console.log(resp)
         this.commentInfo = {
-                    commentID : this.apiData.commentid,
+                    commentId : this.apiData.commentid,
                     courseStatistic:{
                         content : this.apiData.overall,
                         teaching : this.apiData.instructor,
@@ -200,9 +229,9 @@ export default {
                         workload : this.apiData.workload,
                     },
                     userInfo:{
-                        nickname: this.taker,
-                        grade:"2018级",
-                        major:"软件工程",
+                        nickname: this.taker.nickname,
+                        grade: this.taker.grade,
+                        major: this.taker.major,
                     },
                     courseDetail:{
                         // year:"2020-2021",
@@ -227,6 +256,12 @@ export default {
                         useless : this.apiData.uselessnum
                     }
                 }
+        this.isEvaluated = await getEvaluate({
+            // TODO:记得修改
+            userId: 'u1001', 
+            commentId : this.commentInfo.commentId
+        })
+        // console.log(this.isEvaluated)
     }
 }
 </script>

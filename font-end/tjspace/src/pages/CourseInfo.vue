@@ -39,10 +39,10 @@
 
       <div class="course-comment">
         <course-comment
-          v-for="comment in comments"
+          v-for="(comment,i) in comments"
           :key="comment.commentid"
           :apiData="comment"
-          :taker="commentor"
+          :taker="commentor[i]"
         />
       </div>
     </q-page-container>
@@ -128,7 +128,7 @@ export default {
     };
   },
   async created() {
-    var resp = await getComment({ courseID: this.ID });
+    var resp = await getComment({ courseId: this.ID });
     this.comments = resp.data1;
     this.commentor = resp.data2;
   },
