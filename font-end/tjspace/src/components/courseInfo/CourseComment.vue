@@ -65,18 +65,18 @@
 
         <q-separator />
         <!-- 课程的一些作业情况 -->
-        <q-item class="course-requirement">
-            <ul class="col-4">
+        <q-item class="course-requirement ">
+            <ul class="col-3">
                 <li :class="[commentInfo.courseDetail.midTerm==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.midTerm==true ? 'icon-duigou':'icon-icon_wrong']"></span>期中考试</li>
                 <li :class="[commentInfo.courseDetail.final==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.final==true ? 'icon-duigou':'icon-icon_wrong']"></span>期末考试</li>
                 <li :class="[commentInfo.courseDetail.quiz==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.quiz==true ? 'icon-duigou':'icon-icon_wrong']"></span>课堂小测</li>
             </ul>
-            <ul class="col-4">
+            <ul class="col-3">
                 <li :class="[commentInfo.courseDetail.assignment==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.assignment==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程作业</li>
                 <li :class="[commentInfo.courseDetail.essay==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.essay==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程论文</li>
                 <li :class="[commentInfo.courseDetail.project==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.project==true ? 'icon-duigou':'icon-icon_wrong']"></span>课程项目</li>
             </ul>
-            <ul class="col-4">
+            <ul class="col-3">
                 <li :class="[commentInfo.courseDetail.attendance==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.attendance==true ? 'icon-duigou':'icon-icon_wrong']"></span>课堂考勤</li>
                 <li :class="[commentInfo.courseDetail.reading==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.reading==true ? 'icon-duigou':'icon-icon_wrong']"></span>阅读材料</li>
                 <li :class="[commentInfo.courseDetail.presentation==true ? 'active':'']"><span class="iconfont" :class="[commentInfo.courseDetail.presentation==true ? 'icon-duigou':'icon-icon_wrong']"></span>个人展示</li>
@@ -268,7 +268,7 @@ export default {
 
 <style scoped>
 
-.course-review{margin-bottom: 20px; }
+.course-review{margin-bottom: 20px; max-width:800px;}
 
 .course-review-body{ padding:0px; margin : 0px; border:0px;}
 .nickname{ margin-top:10px}

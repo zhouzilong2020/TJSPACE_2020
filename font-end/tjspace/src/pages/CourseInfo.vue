@@ -139,6 +139,7 @@ export default {
 .course-head {
   margin-top: 15px;
 }
+
 .body-left {
   position: fixed;
   left: 15px;
@@ -161,6 +162,7 @@ export default {
 }
 .body-right .option-group {
   margin-top: 15px;
+  max-width: 800px;
 }
 
 .body-right .option-group .btn{

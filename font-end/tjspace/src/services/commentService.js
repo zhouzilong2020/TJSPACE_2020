@@ -70,18 +70,15 @@ export async function getEvaluate(payload) {
 export async function cancelEvaluation(payload) {
     console.log("in cancel Evaluation ", payload)
     var resp = await axios.post(`${URL}Comment/CancelEvaluation`,
-        {
-            commentId: payload.commentId,
-            userId: payload.userId,
-        },
+            `'commentId' = ${payload.commentId}'&'userId' = ${payload.userId}`,
         {
             headers: { 
                 Authorization: token,
-                'Content-Type':'application/x-www-form-urlencoded' 
+                // 'Content-Type':'application/x-www-form-urlencoded' 
             }
         }
     );
-    console.log("in getEvaluate response", resp);
+    console.log("in cancel Evaluate response", resp);
     return resp.data;
 
 }

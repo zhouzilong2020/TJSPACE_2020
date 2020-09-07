@@ -78,6 +78,9 @@ export default {
 </script>
 
 <style scoped>
+.course-detail-head{
+  max-width: 800px;
+}
 .course-detail-head .option {
   padding: 0px;
   margin: auto auto;
