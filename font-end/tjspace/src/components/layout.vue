@@ -111,7 +111,9 @@
           </q-avatar>
           <template v-if="userInfo">
             <div class="text-weight-bold">欢迎你！ {{ userInfo.nickname }}</div>
-            <div>{{ userInfo.eMail }}</div>
+            <!-- 这个没存user的Email啊 -->
+            <!-- <div>{{ userInfo.eMail }}</div> -->
+            <div> 这里我觉得要有邮箱？</div>
           </template>
           <template v-else>
             <div class="text-weight-bold">请先登录</div>
@@ -152,15 +154,12 @@ export default {
       logoPath: require("../assets/TJU.png"),
       avatarPath: require("../assets/boy-avatar.png"),
       avatarBGPath: require("../assets/material.png"),
-      userInfo: {
-        email: "1",
-        nickname: "1",
-      },
     };
   },
   props: {},
   computed: {
-    ...mapState("userInfo", ["isLoading", "token"]),
+    ...mapState("userInfo", ["isLoading", "token", 'userInfo']),
+
   },
   methods:{
     async handleLogout(){

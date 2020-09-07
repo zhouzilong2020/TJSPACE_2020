@@ -11,14 +11,14 @@
             class="email"
             clearable
             clear-icon="close"
-            v-model="userInfo.email"
+            v-model="account.email"
             label="邮箱:"
             suffix="@tongji.edu.cn"
             hint="请输入注册时使用的同济邮箱"
           />
 
           <q-input
-            v-model="userInfo.password"
+            v-model="account.password"
             label="密码:"
             :type="isPwd ? 'password' : 'text'"
           >
@@ -65,30 +65,31 @@ export default {
     return {
       isPwd: true,
       remember: false,
-      userInfo: {
+      account: {
         email: "",
         password: "",
       },
     };
   },
   computed: {
-    ...mapState("userInfo", ["isLoading", "token"]),
+    ...mapState("userInfo", ["isLoading", "token", "userInfo"]),
     isDisabled() {
-      if (this.userInfo.email && this.userInfo.password) return false;
+      if (this.account.email && this.account.password) return false;
       return true;
     },
   },
 
   methods: {
     async handleLogin() {
-      await this.$store.dispatch("userInfo/loginUser", this.userInfo);
+      await this.$store.dispatch("userInfo/loginUser", this.account);
       if (this.token) {
         // 成功获取token 表示成功登录
         // console.log("get user token")
+        console.log(this.userInfo)
         this.$router.push({
           name: "Homepage",
           params: {
-            userid: this.token,
+            userid: this.userInfo.userId,
           },
         });
       }

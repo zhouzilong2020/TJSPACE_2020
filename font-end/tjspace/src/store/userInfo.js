@@ -1,4 +1,4 @@
-import { loginUser, logoutUser, registerUser } from "../services/userService"
+import { loginUser, logoutUser, registerUser, getUserInfo } from "../services/userService"
 
 /**
  * 用户登录的数据仓库
@@ -48,10 +48,18 @@ export default {
             var resp = await loginUser(payload);
             console.log(resp);
             if (resp.status) {
-                // context.commit("setUserInfo", {
-                //     email : payload.email,
-                // });
-                context.commit('setToken', "Bearer " + resp.data)
+                // 登录成功，记录其token
+                context.commit('setToken', "Bearer " + resp.data1)
+                // 使用token获取用户个人信息
+                if (resp.data1) {
+                    var resp2 = await getUserInfo({
+                        userId: resp.data2,
+                        token: 'Bearer ' + resp.data1
+                    })
+                }
+                if(resp2){
+                    context.commit("setUserInfo", resp2)
+                }
             }
             context.commit("setIsLoading", false);
         },
@@ -64,7 +72,7 @@ export default {
             context.commit("setIsLoading", true);
             var resp = await logoutUser()
             console.log(resp)
-            if (resp){
+            if (resp) {
                 context.commit('setToken', null)
                 context.commit('userInfo', null)
                 context.commit("setIsLoading", false);
