@@ -79,7 +79,7 @@ export default {
 
 <style scoped>
 .course-detail-head{
-  max-width: 800px;
+  max-width: 1000px;
 }
 .course-detail-head .option {
   padding: 0px;

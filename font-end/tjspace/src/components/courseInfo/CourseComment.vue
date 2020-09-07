@@ -268,7 +268,7 @@ export default {
 
 <style scoped>
 
-.course-review{margin-bottom: 20px; max-width:800px;}
+.course-review{margin-bottom: 20px; max-width:1000px;}
 
 .course-review-body{ padding:0px; margin : 0px; border:0px;}
 .nickname{ margin-top:10px}

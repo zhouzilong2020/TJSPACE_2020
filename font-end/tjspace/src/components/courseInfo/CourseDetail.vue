@@ -98,7 +98,11 @@ export default {
 </script>
 
 <style scoped>
+.course-detail{
+  max-width: 200px;
+}
 .course-detail .course-detail-img {
+
   max-width: 80px;
   padding: 10px;
   margin: 0 auto;

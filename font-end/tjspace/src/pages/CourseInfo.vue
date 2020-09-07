@@ -1,17 +1,16 @@
 <template>
-  <div class="row justify-evenly">
-    <q-page-container class="detail body-left">
+  <div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 detail body-left">
       <course-detail
         :courseInfo="courseInfo"
         :commentStatistic="commentStatistic"
       />
-    </q-page-container>
+    </div>
 
-    <q-page-container class="body-right">
+    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8 body-right">
       <div class="course-head">
         <course-head :courseInfo="courseInfo" />
       </div>
-
       <!-- 搜索栏 -->
       <div class="option-group row justify-between">
         <q-select
@@ -45,7 +44,7 @@
           :taker="commentor[i]"
         />
       </div>
-    </q-page-container>
+    </div>
   </div>
 </template>
 
@@ -140,29 +139,22 @@ export default {
   margin-top: 15px;
 }
 
+
 .body-left {
-  position: fixed;
-  left: 15px;
-  top: 15px;
+  margin-left: 5%;
+  margin-top: 20px;
 }
 
 .body-right {
-  position: absolute;
-  right: 15px;
-  top: 0;
-  padding: 0;
-  left: 245px;
+  margin-top: 5px;
 }
 
-.body-right .course-head {
-  margin-top: 15px;
-}
 .body-right .course-comment {
   margin-top: 15px;
 }
 .body-right .option-group {
   margin-top: 15px;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 .body-right .option-group .btn{
