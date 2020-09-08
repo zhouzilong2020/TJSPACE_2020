@@ -266,7 +266,7 @@ namespace TJSpace.Controllers
             var info1 = dbContext.CourseCollect.Where(u => (u.UserId == userId)).ToList();
             List<getCollectedCourseReturn> info = new List<getCollectedCourseReturn>();
 
-            if (info == null)
+            if (info1.Count()==0)
             {
                 return Ok(new
                 {
@@ -279,7 +279,7 @@ namespace TJSpace.Controllers
             {
                 getCollectedCourseReturn temp = new getCollectedCourseReturn();
                 temp.CourseName = dbContext.CourseCodes.Where(u => u.CourseId == k.CourseId).FirstOrDefault().Title;
-                var course = dbContext.Courses.Where(u => u.CourseId == k.UserId).FirstOrDefault();
+                var course = dbContext.Courses.Where(u => u.CourseId == k.CourseId).FirstOrDefault();
                 temp.Credit = course.Credits;
                 temp.DeptName = course.DeptName;
                 temp.CourseNumber = k.CourseId;
