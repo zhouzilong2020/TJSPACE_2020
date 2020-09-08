@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container row justify-center">
       <img :src="bgPath" alt="">
       <register/>
     </div>

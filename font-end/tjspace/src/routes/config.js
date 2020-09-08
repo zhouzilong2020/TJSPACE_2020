@@ -1,7 +1,7 @@
 export default {
     routes: [
         {
-            path: "/",
+            path: "/CourseInfo",
             component: () => import("@/pages/CourseInfo"),
         }, {
             path: "/login",
@@ -28,7 +28,8 @@ export default {
             name: "Homepage",
             component: () => import("@/pages/Homepage"),
         }, {
-            path: "/Homepage/:userid/edit",
+            path: "/SelfInfoModify/:userid",
+            name:'SelfInfoModify',
             component: () => import("@/pages/SelfInfoModify"),
         }, {
             path: "/makecomment/:userid/:courseid",
@@ -36,7 +37,7 @@ export default {
         }, {
             path: "/",  //表示匹配所有路径
             name: 'index',
-            component: () => import("@/components/index"),
+            component: () => import("@/pages/index"),
         }, {
             path: "*",  //表示匹配所有路径
             component: () => import("@/pages/Error404"),
