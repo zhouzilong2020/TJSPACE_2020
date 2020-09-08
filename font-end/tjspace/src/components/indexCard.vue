@@ -64,16 +64,12 @@ export default {
 .list_left {
   max-width: 320px;
   height: 250px;
-  margin-top: 8%;
-  margin-left: 5%;
   float: left;
   list-style: none;
 }
 .list_right {
   max-width: 320px;
   height: 250px;
-  margin-top: 8%;
-  margin-right: 5%;
   float: right;
   /* border: 1px solid black; */
   list-style: none;

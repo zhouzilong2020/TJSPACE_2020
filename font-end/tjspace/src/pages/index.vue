@@ -2,8 +2,8 @@
   <div>
     <img :src="bgPath" alt="" />
     <div class="container justify-center row">
-      <indexCard class="index-card col-8" />
-      <login class="login-card col-4" />
+      <indexCard class="index-card col-md-8" />
+      <login class="login-card col-md-4" />
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ img {
 .index-card {
   max-width: 800px;
   height: 520px;
-  margin-left: -40px;
+  /* margin-left: px; */
 }
 .login-card {
   height: 520px;
