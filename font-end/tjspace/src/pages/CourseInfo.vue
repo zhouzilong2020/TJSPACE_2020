@@ -1,18 +1,20 @@
 <template>
-  <div class="row">
-    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 detail body-left">
+  <div class="row q-gutter-sm q-pa-md flex-center no-wrap items-stretch">
+    <!-- <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 detail body-left"> -->
+    <div class=" detail body-left q-gutter-sm">
       <course-detail
         :courseInfo="courseInfo"
         :commentStatistic="commentStatistic"
       />
     </div>
 
-    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8 body-right">
+    <!-- <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8 body-right"> -->
+    <div class=" body-right  q-gutter-sm">
       <div class="course-head">
         <course-head :courseInfo="courseInfo" />
       </div>
       <!-- 搜索栏 -->
-      <div class="option-group row justify-between">
+      <div class="option-group row justify-start q-gutter-sm ">
         <q-select
           v-model="order"
           label="选择排序方式"
@@ -27,24 +29,18 @@
           style="width: 250px"
           behavior="menu"
         />
-        <q-btn
-          class="btn"
-          color="primary"
-          icon-right="comment"
-          label="撰写评论"
-          unelevated
-        />
       </div>
 
       <div class="course-comment">
         <course-comment
-          v-for="(comment,i) in comments"
+          v-for="(comment, i) in comments"
           :key="comment.commentid"
           :apiData="comment"
           :taker="commentor[i]"
         />
       </div>
     </div>
+
   </div>
 </template>
 
@@ -135,30 +131,18 @@ export default {
 </script>
 
 <style scoped>
-.course-head {
-  margin-top: 15px;
-}
 
-
-.body-left {
-  margin-left: 5%;
-  margin-top: 20px;
-}
-
-.body-right {
-  margin-top: 5px;
-}
 
 .body-right .course-comment {
   margin-top: 15px;
 }
+
 .body-right .option-group {
   margin-top: 15px;
-  max-width: 1000px;
+  max-width: 800px;
 }
 
-.body-right .option-group .btn{
-    margin-top: 10px;
+.body-right .option-group .btn {
+  margin-top: 10px;
 }
-
 </style>

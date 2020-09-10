@@ -1,7 +1,7 @@
 export default {
     routes: [
         {
-            path: "/CourseInfo",
+            path: "/",
             component: () => import("@/pages/CourseInfo"),
         }, {
             path: "/login",

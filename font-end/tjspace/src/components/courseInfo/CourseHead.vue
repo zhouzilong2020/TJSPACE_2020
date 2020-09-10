@@ -28,10 +28,10 @@
     <q-separator vertical />
 
     <!-- 按钮组 收藏，喜欢，分享等功能 -->
-    <q-card-actions q-card-actions vertical class="option justify-start">
-      <q-btn class="btn" flat round color="red" icon="favorite" />
-      <q-btn class="btn" flat round color="accent" icon="bookmark" />
-      <q-btn class="btn" flat round color="primary" icon="share" />
+    <q-card-actions q-card-actions vertical class="option justify-evenly">
+      <q-btn class="btn full-width" flat round color="red" icon="favorite" />
+      <q-btn class="btn full-width" flat round color="accent" icon="bookmark" />
+      <q-btn class="btn full-width" flat round color="primary" icon="share" />
     </q-card-actions>
 
     <q-separator />
@@ -79,7 +79,7 @@ export default {
 
 <style scoped>
 .course-detail-head{
-  max-width: 1000px;
+  max-width: 800px;
 }
 .course-detail-head .option {
   padding: 0px;
@@ -88,7 +88,7 @@ export default {
 }
 
 .btn{
-  font-size: 12px;
+  font-size: 1em;
 }
 .course-detail-head .syllabus {
   margin: 0 auto;

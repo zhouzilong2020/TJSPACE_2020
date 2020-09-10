@@ -3,7 +3,7 @@
     <img :src="bgPath" alt="" />
     <div class="container justify-center row">
       <index-rotate-card class="index-card col-7" />
-      <login class="login-card " />
+      <login class="login-card" />
     </div>
   </div>
 </template>
@@ -40,11 +40,12 @@ img {
   margin-top: 100px;
 }
 .index-card {
-
+  opacity: 0.9;
   /* height: 520px; */
   /* margin-left: px; */
 }
 .login-card {
+  opacity: 0.9;
   /* height: 520px; */
 }
 </style>
