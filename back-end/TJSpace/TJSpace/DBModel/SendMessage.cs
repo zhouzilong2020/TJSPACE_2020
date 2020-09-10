@@ -24,7 +24,11 @@ namespace TJSpace.DBModel
         [JsonProperty("from")]
         [Required]
         [Column("from")]
+<<<<<<< HEAD
         [StringLength(maximumLength:16)]
+=======
+        [StringLength(maximumLength:50)]
+>>>>>>> tmp
         public string From { get; set; }
 
         //消息内容
@@ -38,7 +42,11 @@ namespace TJSpace.DBModel
         [JsonProperty("to")]
         [Required]
         [Column("to")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 16)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string To { get; set; }
 
     }

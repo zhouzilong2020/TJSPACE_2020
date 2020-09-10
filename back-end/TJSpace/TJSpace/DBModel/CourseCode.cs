@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+﻿
+using System;
+>>>>>>> tmp
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MySql.Data.EntityFrameworkCore.DataAnnotations;
@@ -17,7 +22,11 @@ namespace TJSpace.DBModel
         [JsonProperty("courseid")]
         [Required]
         [Column("course_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 10)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string CourseId { get; set; }
 
         //课程名

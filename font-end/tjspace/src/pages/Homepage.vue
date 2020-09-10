@@ -1,6 +1,6 @@
 <template>
-  <div class="card" style="width: 800pt">
-    <q-card class="my-card" style="width: 600pt; margin-left: 100pt">
+  <div class="card" style="margin:0 auto; max-width:800pt">
+    <q-card class="my-card" style="margin:0 auto; max-width: 600pt">
       <q-card-section>
         <div class="text-h6">个人信息</div>
       </q-card-section>
@@ -10,13 +10,13 @@
       <q-card-section style="margin-top: 20pt">
         <div class="row" style="font-size: 20px">
           <div class="col-6">昵称: {{ userInfo.nickname }}</div>
-          <div class="col-6" style="text-align: center">姓名: {{ Name }}</div>
+          <div class="col-6" style="text-align: center">性别: {{ Gender }}</div>
         </div>
       </q-card-section>
 
       <q-card-section style="margin-top: 20pt">
         <div class="row" style="font-size: 20px">
-          <div class="col-6">学号: {{ ID }}</div>
+          <div class="col-6">手机号: {{ userInfo.phonenumber }}</div>
           <div class="col-6" style="text-align: center">年级: {{ Grade }}</div>
         </div>
       </q-card-section>
@@ -24,7 +24,7 @@
         <div class="row" style="font-size: 20px">
           <div class="col-6">主修专业: {{ Major }}</div>
           <div class="col-6" style="text-align: center">
-            辅修专业: {{ Minor }}
+            学历: {{ Degree }}
           </div>
         </div>
       </q-card-section>
@@ -32,7 +32,11 @@
       <q-separator />
 
       <q-card-actions>
-        <q-btn style="margin: 0 auto">修改个人信息</q-btn>
+        <q-btn style="margin: 0 auto">
+          <router-link :to="{ name: 'SelfInfoModify', params: { userid: userInfo.userid } }">
+            修改个人信息
+          </router-link> 
+        </q-btn>
       </q-card-actions>
     </q-card>
     <CourseInfo />
@@ -57,6 +61,7 @@ export default {
     CommentInfo,
     CourseInfo,
   },
+  
 
   data() {
     return {
@@ -66,23 +71,73 @@ export default {
       avatarBGPath: require("../assets/material.png"),
       drawer: false,
       active: -1,
-      Nickname: "lili",
-      Grade: "大二",
-      Major: "软件工程",
-      Minor: "无",
-      Name: "黎力",
-      ID: "1853549",
-      userInfo1: {
-        nickName: "lili",
-        eMail: "1888888@tongji.edu.cn",
-      },
+      Grade: '',
+      Major: '',
+      Gender:'',
+      Degree:''
     };
   },
 
   computed:mapState('userInfo', ['userInfo']),
   created(){
     console.log('in homepage created', this.userInfo)
-  }
+
+    switch(this.userInfo.gender)
+    {
+      case 0: 
+        this.Gender='男';
+        break;
+      case 1: 
+        this.Gender='女';
+        break;
+    }
+    switch(this.userInfo.majorid)
+    {
+      case '1': 
+        this.Major='软件工程';
+        break;
+      case '2': 
+        this.Major='土木工程';
+        break;
+      case '3': 
+        this.Major='经济与管理';
+        break;
+    }
+    switch(this.userInfo.year)
+    {
+      case 1: 
+        this.Grade='大一';
+        break;
+      case 2: 
+        this.Grade='大二';
+        break;
+      case 3: 
+        this.Grade='大三';
+        break;
+      case 4: 
+        this.Grade='大四';
+        break;
+    }
+    switch(this.userInfo.degree)
+    {
+      case 1: 
+        this.Degree='本科生';
+        break;
+      case 2: 
+        this.Degree='研究生';
+        break;
+      case 3: 
+        this.Degreer='博士生';
+        break;
+    }
+
+    
+
+  },
+
+  
+
+
 
 };
 </script>

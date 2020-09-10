@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> tmp
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MySql.Data.EntityFrameworkCore.DataAnnotations;
@@ -17,6 +21,7 @@ namespace TJSpace.DBModel
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 20)]
         public string UserId { get; set; }
 
@@ -28,12 +33,23 @@ namespace TJSpace.DBModel
         [StringLength(maximumLength:20)]
         public string ReplyId { get; set; }
 
+=======
+        [StringLength(maximumLength: 50)]
+        public string UserId { get; set; }
+
+>>>>>>> tmp
         //贴子编号
         [Key]
         [JsonProperty("postid")]
         [Required]
+<<<<<<< HEAD
         [Column("post_id",TypeName ="int(11)")]
         public int PostId { get; set; }
+=======
+        [Column("post_id")]
+        [StringLength(maximumLength: 50)]
+        public string PostId { get; set; }
+>>>>>>> tmp
 
         //评价种类
         [JsonProperty("type")]

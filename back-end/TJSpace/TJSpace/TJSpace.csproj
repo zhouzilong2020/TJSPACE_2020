@@ -3,12 +3,25 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+<<<<<<< HEAD
+=======
+    <UserSecretsId>329b5e57-7edf-4a80-a257-4fabbd029b35</UserSecretsId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+>>>>>>> tmp
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>bin\Debug\netcoreapp2.2\TJSpace.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
+<<<<<<< HEAD
+=======
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\Steve\Documents\Git\TJSPACE_2020\back-end\TJSpace\TJSpace\TJSpace.xml</DocumentationFile>
+  </PropertyGroup>
+>>>>>>> tmp
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App">
       <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
@@ -19,10 +32,19 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="MySql.Data" Version="8.0.21" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.19" />
+<<<<<<< HEAD
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DBModel\" />
+=======
+    <PackageReference Include="IdentityServer4" Version="2.3.2" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Tools\" />
+>>>>>>> tmp
   </ItemGroup>
   <ItemGroup>
     <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="appsettings.json">

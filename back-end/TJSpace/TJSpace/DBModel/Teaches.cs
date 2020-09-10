@@ -17,7 +17,11 @@ namespace TJSpace.DBModel
         [JsonProperty("teacherid")]
         [Required]
         [Column("teacher_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 16)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string TeacherId { get; set; }
 
         //课程编号
@@ -25,7 +29,11 @@ namespace TJSpace.DBModel
         [JsonProperty("courseid")]
         [Required]
         [Column("course_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 10)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string CourseId { get; set; }
 
         //开课学期

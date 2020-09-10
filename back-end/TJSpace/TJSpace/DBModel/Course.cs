@@ -18,7 +18,11 @@ namespace TJSpace.DBModel
         [JsonProperty("courseid")]
         [Required]
         [Column("course_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 10)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string CourseId { get; set; }
 
         //开课学院
@@ -34,5 +38,15 @@ namespace TJSpace.DBModel
         [Required]
         [Column("credits",TypeName="int(11)")]
         public int Credits { get; set; }
+<<<<<<< HEAD
+=======
+
+        //课程简介
+        [JsonProperty("intro")]
+        [Required]
+        [Column("intro")]
+        [StringLength(maximumLength: 200)]
+        public string Intro { get; set; }
+>>>>>>> tmp
     }
 }

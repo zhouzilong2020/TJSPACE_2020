@@ -17,7 +17,11 @@ namespace TJSpace.DBModel
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 20)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string UserId { get; set; }
 
         //用户昵称
@@ -28,6 +32,7 @@ namespace TJSpace.DBModel
         public string NickName { get; set; }
 
         //用户性别
+<<<<<<< HEAD
         [JsonProperty("gentle")]
         [Required]
         [Column("gentle",TypeName ="int(11)")]
@@ -37,25 +42,43 @@ namespace TJSpace.DBModel
         [JsonProperty("phonenumber")]
         [Required]
         [Column("phonenumber")]
+=======
+        [JsonProperty("gender")]
+        [Column("gender",TypeName ="int(11)")]
+        public int Gender { get; set; }
+
+        //用户手机号
+        [JsonProperty("phonenumber")]
+        [Column("phone_number")]
+>>>>>>> tmp
         [StringLength(maximumLength: 20)]
         public string PhoneNumber { get; set; }
 
         //所在专业
         [JsonProperty("majorid")]
+<<<<<<< HEAD
         [Required]
+=======
+>>>>>>> tmp
         [Column("major_id")]
         [StringLength(maximumLength: 10)]
         public string MajorId { get; set; }
 
         //入学年份
         [JsonProperty("year")]
+<<<<<<< HEAD
         [Required]
+=======
+>>>>>>> tmp
         [Column("year", TypeName = "int(11)")]
         public int Year { get; set; }
 
         //用户学历
         [JsonProperty("degree")]
+<<<<<<< HEAD
         [Required]
+=======
+>>>>>>> tmp
         [Column("degree", TypeName = "int(11)")]
         public int Degree { get; set; }
 

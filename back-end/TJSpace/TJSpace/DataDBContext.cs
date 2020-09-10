@@ -15,9 +15,16 @@ namespace TJSpace
        public DbSet<Comment> Comments { get; set; }
        public DbSet<Course> Courses { get; set; }
        public DbSet<CourseCode> CourseCodes { get; set; }
+<<<<<<< HEAD
        public DbSet<Credibility> Credibilities { get; set; }
        public DbSet<Major> majors { get; set; }
        public DbSet<Mark> marks { get; set; }
+=======
+       public DbSet<CourseCollect> CourseCollect { get; set; }
+       public DbSet<Credibility> Credibilities { get; set; }
+       public DbSet<Major> Majors { get; set; }
+       public DbSet<Mark> Marks { get; set; }
+>>>>>>> tmp
        public DbSet<Post> Posts { get; set; }
        public DbSet<Reply> Replies { get; set; }
        public DbSet<SendMessage> SendMessages { get; set; }
@@ -31,10 +38,20 @@ namespace TJSpace
             modelBuilder.Entity<Course>().HasKey(t => new { t.CourseId, t.DeptName });
             base.OnModelCreating(modelBuilder);
 
+<<<<<<< HEAD
             modelBuilder.Entity<Credibility>().HasKey(t => new { t.CommentId, t.UserId });
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Mark>().HasKey(t => new { t.UserId, t.ReplyId,t.PostId });
+=======
+            modelBuilder.Entity<CourseCollect>().HasKey(t => new { t.CourseId, t.UserId,t.TeacherId });
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Credibility>().HasKey(t => new { t.CommentId, t.UserId });
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Mark>().HasKey(t => new { t.UserId, t.PostId });
+>>>>>>> tmp
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Takes>().HasKey(t => new { t.UserId, t.Year,t.Semester,t.CourseId });

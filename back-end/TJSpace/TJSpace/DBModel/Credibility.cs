@@ -17,7 +17,11 @@ namespace TJSpace.DBModel
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 20)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string UserId { get; set; }
 
         //评价编号
@@ -25,7 +29,11 @@ namespace TJSpace.DBModel
         [JsonProperty("commentid")]
         [Required]
         [Column("comment_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength:20)]
+=======
+        [StringLength(maximumLength:50)]
+>>>>>>> tmp
         public string CommentId { get; set; }
 
         //评价的种类

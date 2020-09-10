@@ -1,19 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using System.IO;
+=======
+using System.IO;
+>>>>>>> tmp
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+<<<<<<< HEAD
 using Microsoft.EntityFrameworkCore;
+=======
+using Microsoft.EntityFrameworkCore;
+>>>>>>> tmp
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+<<<<<<< HEAD
 using Swashbuckle.AspNetCore.Swagger;
 
+=======
+using Swashbuckle.AspNetCore.Swagger;
+
+>>>>>>> tmp
 namespace TJSpace
 {
     public class Startup
@@ -31,6 +44,27 @@ namespace TJSpace
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
+<<<<<<< HEAD
+=======
+            
+            services.AddAuthentication("Bearer").AddIdentityServerAuthentication(options =>
+            {
+                options.Authority = "http://175.24.115.240:5000";
+                options.RequireHttpsMetadata = false;
+                options.ApiName = "api1";
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("allow_all", builder =>
+                {
+                    builder.AllowAnyOrigin() //允许任何来源的主机访问
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();//指定处理cookie
+                });
+            });
+>>>>>>> tmp
 
             #region Swagger
             services.AddSwaggerGen(c =>
@@ -79,12 +113,27 @@ namespace TJSpace
                 app.UseHsts();
             }
 
+<<<<<<< HEAD
             #region Swagger
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiHelp V1");
             });
+=======
+            app.UseAuthentication();
+
+            app.UseCors("allow_all");
+
+
+            #region Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiHelp V1");
+            });
+
+>>>>>>> tmp
             #endregion
 
             app.UseHttpsRedirection();

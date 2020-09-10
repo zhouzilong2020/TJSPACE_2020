@@ -16,14 +16,22 @@ namespace TJSpace.DBModel
         [Key]
         [JsonProperty("email")]
         [Required]
+<<<<<<< HEAD
         [Column("email")]
+=======
+        [Column("e_mail")]
+>>>>>>> tmp
         public string Email { get; set; }
 
         //密码
         [JsonProperty("password")]
         [Required]
         [Column("password")]
+<<<<<<< HEAD
         [StringLength(maximumLength:20)]
+=======
+        [StringLength(maximumLength: 20)]
+>>>>>>> tmp
         public string Password { get; set; }
 
         //状态
@@ -40,6 +48,7 @@ namespace TJSpace.DBModel
 
         //用户编号
         [JsonProperty("userid")]
+<<<<<<< HEAD
         [Required]
         [Column("user_id")]
         [StringLength(maximumLength: 20)]
@@ -49,3 +58,11 @@ namespace TJSpace.DBModel
 
     }
 }
+=======
+        [Column("user_id")]
+        [StringLength(maximumLength: 50)]
+        public string UserId { get; set; }
+
+    }
+}
+>>>>>>> tmp

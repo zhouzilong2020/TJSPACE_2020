@@ -12,14 +12,37 @@ namespace TJSpace.DBModel
 
     public class Post
     {
+<<<<<<< HEAD
+=======
+        //用户编号
+        [JsonProperty("userid")]
+        [Required]
+        [Column("user_id")]
+        [StringLength(maximumLength: 50)]
+        public string UserId { get; set; }
+
+>>>>>>> tmp
         //贴子编号
         [Key]
         [JsonProperty("postid")]
         [Required]
         [Column("post_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 20)]
         public string PostId { get; set; }
 
+=======
+        [StringLength(maximumLength: 50)]
+        public string PostId { get; set; }
+
+        //贴子标题
+        [JsonProperty("title")]
+        [Required]
+        [Column("title")]
+        [StringLength(maximumLength: 200)]
+        public string Title { get; set; }
+
+>>>>>>> tmp
         //贴子内容
         [JsonProperty("content")]
         [Required]
@@ -27,11 +50,44 @@ namespace TJSpace.DBModel
         [StringLength(maximumLength: 200)]
         public string Content { get; set; }
 
+<<<<<<< HEAD
         //用户编号
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
         [StringLength(maximumLength: 20)]
         public string UserId { get; set; }
+=======
+        //发布时间
+        [JsonProperty("date")]
+        [Required]
+        [Column("date", TypeName = "date")]
+        public DateTime Date{get; set;}
+
+        //当前帖子最大楼层数
+        [JsonProperty("floor")]
+        [Required]
+        [Column("floor", TypeName = "int(11)")]
+        public int Floor { get; set; }
+
+        //评价的种类
+        [JsonProperty("usefulnum")]
+        [Required]
+        [Column("useful_num", TypeName = "int(11)")]
+        public int UsefulNum { get; set; }
+
+        //评价的种类
+        [JsonProperty("uselessnum")]
+        [Required]
+        [Column("useless_num", TypeName = "int(11)")]
+        public int UselessNum { get; set; }
+
+        //最新回复时间
+        [JsonProperty("latestreply")]
+        [Required]
+        [Column("latest_reply", TypeName = "date")]
+        public DateTime LatestReply { get; set; }
+
+>>>>>>> tmp
     }
 }

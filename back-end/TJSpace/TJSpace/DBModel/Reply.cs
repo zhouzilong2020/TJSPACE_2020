@@ -17,7 +17,11 @@ namespace TJSpace.DBModel
         [JsonProperty("replyid")]
         [Required]
         [Column("reply_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 10)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string ReplyId { get; set; }
 
         //贴子内容
@@ -31,14 +35,41 @@ namespace TJSpace.DBModel
         [JsonProperty("userid")]
         [Required]
         [Column("user_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 20)]
+=======
+        [StringLength(maximumLength: 50)]
+>>>>>>> tmp
         public string UserId { get; set; }
 
         //贴子编号
         [JsonProperty("postid")]
         [Required]
         [Column("post_id")]
+<<<<<<< HEAD
         [StringLength(maximumLength: 20)]
         public string PostId { get; set; }
+=======
+        [StringLength(maximumLength: 50)]
+        public string PostId { get; set; }
+
+        //回帖时间
+        [JsonProperty("date")]
+        [Required]
+        [Column("date", TypeName = "date")]
+        public DateTime Date { get; set; }
+
+        //回帖的楼层
+        [JsonProperty("floor")]
+        [Required]
+        [Column("floor", TypeName = "int(11)")]
+        public int Floor { get; set; }
+
+        //回帖的种类
+        [JsonProperty("type")]
+        [Required]
+        [Column("type", TypeName = "int(11)")]
+        public int Type { get; set; }
+>>>>>>> tmp
     }
 }
