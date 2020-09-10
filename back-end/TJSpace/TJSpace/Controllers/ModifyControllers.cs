@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TJSpace.DBModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace TJSpace.Controllers
@@ -22,13 +23,13 @@ namespace TJSpace.Controllers
         //PUT
         [HttpPut]
         [Route("Info")]
-        public ActionResult<string> ModifyInfo(string userId, string nickname, int gender, string phoneNumber, string majorId, int year, int degree)
+        public ActionResult<string> ModifyInfo(User user)
         {
-            var info = dbContext.Users.Where(n => n.UserId.Equals(userId)).ToList().FirstOrDefault();
-            info.NickName = nickname;
-            info.Gender = gender;
-            info.PhoneNumber = phoneNumber;
-            info.MajorId = majorId;
+            var info = dbContext.Users.Where(n => n.UserId.Equals(user.UserId)).ToList().FirstOrDefault();
+            info.NickName = user.NickName;
+            info.Gender = user.Gender;
+            info.PhoneNumber = user.PhoneNumber;
+            info.MajorId = user.MajorId;
             dbContext.SaveChanges();
             return Ok(new
             {
