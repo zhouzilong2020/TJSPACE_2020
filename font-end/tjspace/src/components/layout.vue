@@ -31,23 +31,17 @@
             </template>
           </q-input>
           <q-btn
-              class="logout-btn"
-              flat
-              @click="handleLogout()"
-              label="退出登录"
-            />
+            class="logout-btn"
+            flat
+            @click="handleLogout()"
+            label="退出登录"
+          />
         </template>
 
         <template v-else>
-          <q-btn-group class="top-option"  flat>
-            <q-btn
-              label="现在登录"
-              :to="{ name: 'login' }"
-            />
-            <q-btn
-              label="马上注册"
-              :to="{ name: 'register' }"
-            />
+          <q-btn-group class="top-option" flat>
+            <q-btn label="现在登录" :to="{ name: 'login' }" />
+            <q-btn label="马上注册" :to="{ name: 'register' }" />
           </q-btn-group>
         </template>
       </q-toolbar>
@@ -113,7 +107,7 @@
             <div class="text-weight-bold">欢迎你！ {{ userInfo.nickname }}</div>
             <!-- 这个没存user的Email啊 -->
             <!-- <div>{{ userInfo.eMail }}</div> -->
-            <div> 这里我觉得要有邮箱？</div>
+            <div>这里我觉得要有邮箱？</div>
           </template>
           <template v-else>
             <div class="text-weight-bold">请先登录</div>
@@ -158,22 +152,21 @@ export default {
   },
   props: {},
   computed: {
-    ...mapState("userInfo", ["isLoading", "token", 'userInfo']),
-
+    ...mapState("userInfo", ["isLoading", "token", "userInfo"]),
   },
-  methods:{
-    async handleLogout(){
-      console.log("click logout btn")
-      await this.$store.dispatch('userInfo/logoutUser')
+  methods: {
+    async handleLogout() {
+      console.log("click logout btn");
+      await this.$store.dispatch("userInfo/logoutUser");
       // 成功退出
-      if(this.token == null){
-        console.log("logout user successfully")
+      if (this.token == null) {
+        console.log("logout user successfully");
         this.$router.push({
           name: "index",
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -186,8 +179,8 @@ export default {
   margin: 0 auto;
 }
 
-.logout-btn{
-  margin-left:10px
+.logout-btn {
+  margin-left: 10px;
 }
 .drawer-btn-penal {
   position: absolute;

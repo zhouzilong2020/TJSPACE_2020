@@ -1,5 +1,5 @@
 <template>
-  <q-card class="col-md-4 col-xs-5 col-lg-3">
+  <q-card class="bg-grey-2 col-md-4 col-xs-5 col-lg-3">
     <q-card-section>
       <h5 id="title">注册TJSPACE账号</h5>
       <q-form @reset="onReset" class="q-gutter-md">

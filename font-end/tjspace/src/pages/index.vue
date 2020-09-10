@@ -2,20 +2,20 @@
   <div>
     <img :src="bgPath" alt="" />
     <div class="container justify-center row">
-      <indexCard class="index-card col-md-8" />
-      <login class="login-card col-md-4" />
+      <index-rotate-card class="index-card col-7" />
+      <login class="login-card " />
     </div>
   </div>
 </template>
 
 <script>
 import login from "../components/userInfo/login";
-import indexCard from "../components/indexCard";
+import indexRotateCard from "../components/indexRotateCard";
 
 export default {
   components: {
     login,
-    indexCard,
+    indexRotateCard,
   },
 
   data() {
@@ -33,18 +33,18 @@ img {
   width: 100%;
   margin-top: -120px;
   padding: 0;
+  z-index: -1;
 }
 
 .container {
   margin-top: 100px;
 }
 .index-card {
-  max-width: 800px;
-  height: 520px;
+
+  /* height: 520px; */
   /* margin-left: px; */
 }
 .login-card {
-  height: 520px;
-  margin-left: 40px;
+  /* height: 520px; */
 }
 </style>

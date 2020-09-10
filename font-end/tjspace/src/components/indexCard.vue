@@ -8,6 +8,7 @@
     <q-card-section>
       <div class="text-subtitle2">
         <ul class="list_left">
+
           <li>
             <span class="iconfont icon-kecheng text-primary" />
             多角度、较客观的课程评价
@@ -38,6 +39,8 @@
 
 <script>
 export default {
+
+  
   components: {
   },
 };
