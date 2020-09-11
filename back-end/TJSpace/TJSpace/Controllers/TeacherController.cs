@@ -46,7 +46,7 @@ namespace TJSpace.Controllers
         }
 
         //修改教师信息
-        [HttpPut]
+        [HttpPost]
         public ActionResult<string> ModifyTeacher(Teacher teacher)
         {
             var temp = dbContext.Teachers.Where(u => u.TeacherId == teacher.TeacherId).ToList().FirstOrDefault();

@@ -56,7 +56,7 @@ namespace TJSpace.Controllers
         }
 
         //修改课程信息
-        [HttpPut]
+        [HttpPost]
         public ActionResult<string> ModifyCourse(Course course)
         {
             var temp = dbContext.Courses.Where(u => (u.CourseId == course.CourseId&&u.DeptName==course.DeptName)).ToList().FirstOrDefault();

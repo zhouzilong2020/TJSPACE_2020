@@ -21,7 +21,7 @@ namespace TJSpace.Controllers
 
         //修改个人信息
         //PUT
-        [HttpPut]
+        [HttpPost]
         [Route("Info")]
         public ActionResult<string> ModifyInfo(User user)
         {
