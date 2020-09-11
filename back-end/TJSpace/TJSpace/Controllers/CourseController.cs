@@ -59,7 +59,7 @@ namespace TJSpace.Controllers
         [HttpPut]
         public ActionResult<string> ModifyCourse(Course course)
         {
-            var temp = dbContext.Courses.Where(u => u.CourseId == course.CourseId).ToList().FirstOrDefault();
+            var temp = dbContext.Courses.Where(u => (u.CourseId == course.CourseId&&u.DeptName==course.DeptName)).ToList().FirstOrDefault();
             if (temp == null)
             {
                 return Ok(new
