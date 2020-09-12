@@ -243,6 +243,7 @@
           size="10px"
           flat
           round
+          :loading="btnLoading[1]"
           icon="iconfont icon-dianzan"
         ></q-btn>
         <q-btn
@@ -251,6 +252,7 @@
           size="10px"
           flat
           round
+          :loading="btnLoading[0]"
           icon="iconfont icon-cai"
         ></q-btn>
       </span>
@@ -270,6 +272,7 @@ export default {
   components: {},
   data: () => {
     return {
+      btnLoading: [false, false],
       zan: require("../../assets/zan.png"),
       cai: require("../../assets/cai.png"),
       isEvaluated: null,
@@ -353,6 +356,9 @@ export default {
       var resp;
       // 如果没有评价则开始评价
       if (this.isEvaluated.canEvaluate) {
+        // 按钮显示加载中
+        this.btnLoading[type] = true;
+
         resp = await evaluateComment({
           userId: "u1001",
           commentId: this.commentInfo.commentId,
@@ -364,14 +370,18 @@ export default {
           this.isEvaluated.type = type;
           // 评论总数减1
           if (type == 1) {
-            this.commentInfo.useful += 1;
+            this.commentInfo.commentDetail.useful += 1;
           } else {
-            this.commentInfo.useless += 1;
+            this.commentInfo.commentDetail.useless += 1;
           }
         }
+        // 按钮加载完成
+        this.btnLoading[type] = false;
       }
       // 如果已经评价则取消评价
       else if (this.isEvaluated.type == type) {
+        // 按钮显示加载中
+        this.btnLoading[type] = true;
         resp = await cancelEvaluation({
           userId: "u1001",
           commentId: this.commentInfo.commentId,
@@ -382,11 +392,13 @@ export default {
           this.isEvaluated.type = null;
           // 评论总数减1
           if (type == 1) {
-            this.commentInfo.useful -= 1;
+            this.commentInfo.commentDetail.useful -= 1;
           } else {
-            this.commentInfo.useless -= 1;
+            this.commentInfo.commentDetail.useless -= 1;
           }
         }
+        // 按钮显示加载中
+        this.btnLoading[type] = false;
       }
     },
   },

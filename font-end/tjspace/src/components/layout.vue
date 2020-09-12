@@ -8,9 +8,10 @@
         <!-- 登录|注册 -->
         <!-- 三种情况！ -->
         <!-- 1.正在登录中 加载 -->
-        <!-- 2.登录成功 -->
+
+        <!-- 登录成功 -->
         <template v-if="token">
-          <div class="text-caption">欢迎您！{{ userInfo.nickname }}</div>
+          <div class="gt-md text-caption">欢迎您！{{ userInfo.nickname }}</div>
           <q-input
             dark
             dense
@@ -30,14 +31,29 @@
               />
             </template>
           </q-input>
-          <q-btn
-            class="logout-btn"
-            flat
-            @click="handleLogout()"
-            label="退出登录"
-          />
+          <q-btn-group class="top-option" flat>
+            <q-btn
+              class="search-course-btn"
+              flat
+              :to="{ name: 'SearchCourse' }"
+              label="搜索课程"
+            />
+            <q-btn
+              class="BBS-btn"
+              flat
+              :to="{ name: 'BBSHomepage' }"
+              label="同济BBS"
+            />
+            <q-btn
+              class="logout-btn"
+              flat
+              @click="handleLogout()"
+              label="退出登录"
+            />
+          </q-btn-group>
         </template>
 
+        <!-- 没有登录状态 -->
         <template v-else>
           <q-btn-group class="top-option" flat>
             <q-btn label="现在登录" :to="{ name: 'login' }" />
@@ -50,11 +66,10 @@
     <!-- 侧边栏 -->
     <q-drawer
       class="drawer"
-      show-if-above
       flat
-      v-model="drawer"
-      :width="225"
+      show-if-above
       :breakpoint="99999"
+      v-model="drawer"
     >
       <q-scroll-area
         style="
@@ -85,12 +100,12 @@
             <q-item-section> 我的收藏 </q-item-section>
           </q-item>
 
-          <q-item :active="active == 2" @click="active = 2" clickable v-ripple>
+          <!-- <q-item :active="active == 2" @click="active = 2" clickable v-ripple>
             <q-item-section avatar>
               <q-icon name="drafts" />
             </q-item-section>
             <q-item-section> 我的消息 </q-item-section>
-          </q-item>
+          </q-item> -->
 
           <div class="drawer-btn-penal">
             <drawer-btn-penal />
@@ -124,10 +139,8 @@
     <!-- footer -->
     <q-footer reveal bordered class="bg-grey-8 text-white page-footer">
       <q-toolbar>
-        <q-toolbar-title>
           <span class="footer-name">TJSPACE·同济大学社群</span>
           <span class="footer-id">津ICP备20006438号</span>
-        </q-toolbar-title>
       </q-toolbar>
     </q-footer>
   </q-layout>
@@ -178,13 +191,12 @@ export default {
   width: 100%;
   margin: 0 auto;
 }
-
 .logout-btn {
   margin-left: 10px;
 }
 .drawer-btn-penal {
   position: absolute;
-  left: -40px;
+  left: -35px;
 }
 .header .header-search {
   color: aliceblue;
@@ -195,8 +207,9 @@ export default {
 }
 .page-footer .footer-id {
   position: absolute;
-  right: 10px;
+  right: 15px;
   font-size: 16px;
 }
+
 </style>
 

@@ -114,7 +114,7 @@ export default {
 </script>
 
 
-<style >
+<style scoped>
 .text-subtitle2{
   margin-top: 40pt;
 }

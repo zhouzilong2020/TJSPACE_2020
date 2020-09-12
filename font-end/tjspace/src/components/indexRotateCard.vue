@@ -1,5 +1,5 @@
 <template>
-  <div class="indexRotateCard q-pa-md">
+  <div class="indexRotateCard q-pa-md col-sm-10">
     <div class="q-gutter-md">
       <q-carousel
         v-model="activeSlide"
@@ -7,14 +7,14 @@
         transition-next="scale"
         swipeable
         infinite
-        autoplay
+        :autoplay="4000"
         animated
         arrows
         control-color="primary"
         navigation
         paddin
         height="33rem"
-        class="bg-grey-2 text-primary shadow-1 rounded-borders"
+        class="bg-grey-2 text-primary shadow-1 rounded-borders q-sm-col-4"
       >
         <q-carousel-slide
           v-for="slide in slides"

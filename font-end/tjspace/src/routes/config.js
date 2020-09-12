@@ -1,7 +1,10 @@
 export default {
     routes: [
         {
-            path: "/",
+            path: "/test",
+            component: () => import("@/components/BtnPenal"),
+        }, {
+            path: "/courseInfo/:courseId",
             component: () => import("@/pages/CourseInfo"),
         }, {
             path: "/login",
@@ -29,7 +32,7 @@ export default {
             component: () => import("@/pages/Homepage"),
         }, {
             path: "/SelfInfoModify/:userid",
-            name:'SelfInfoModify',
+            name: 'SelfInfoModify',
             component: () => import("@/pages/SelfInfoModify"),
         }, {
             path: "/makecomment/:userid/:courseid",

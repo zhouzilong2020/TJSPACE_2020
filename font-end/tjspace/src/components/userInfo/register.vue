@@ -1,7 +1,7 @@
 <template>
-  <q-card class="bg-grey-2 col-md-4 col-xs-5 col-lg-3">
+  <q-card class="q-my-md bg-grey-2 my-card col-md-4 col-xs-12">
     <q-card-section>
-      <h5 id="title">注册TJSPACE账号</h5>
+      <h5 class="title">注册TJSPACE账号</h5>
       <q-form @reset="onReset" class="q-gutter-md">
         <q-input
           v-model="model.nickname"
@@ -77,7 +77,7 @@
         </q-input>
 
         <div>
-          <q-btn id="queren-btn" label="注册" color="primary" />
+          <q-btn class="queren-btn" label="注册" color="primary" />
         </div>
       </q-form>
     </q-card-section>
@@ -117,12 +117,16 @@ export default {
 };
 </script>
 
-<style>
-#title {
+<style scoped>
+.title {
   text-align: center;
 }
 
-#queren-btn {
+.queren-btn {
   width: 100%;
+}
+
+.my-card{
+  max-width: 420px;
 }
 </style>

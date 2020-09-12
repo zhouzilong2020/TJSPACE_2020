@@ -1,5 +1,5 @@
 <template>
-  <div class="drwaer-option q-gutter-y-lg flex-center q-py-md">
+  <div class="drwaer-option q-gutter-y-lg flex-center">
     <q-tabs
       v-model="tab"
       indicator-color="blue"
@@ -27,8 +27,8 @@
             />
             <q-tab
               v-if="i + 3 < depts.length"
-              :icon="depts[i + 3].icon"
-              :label="depts[i + 3].abbr"
+              :icon="depts[i].icon"
+              :label="depts[i].abbr"
             />
           </div>
         </li>
@@ -43,7 +43,7 @@ export default {
     return {
       tab: "",
       depts: [
-        { title: "软件学院", abbr: "	软件	", icon: "android" },
+        { title: "软件学院", abbr: "软件", icon: "android" },
         {
           title: "联合国环境署_同济大学环境与可持续发展学院",
           abbr: "环境",
@@ -103,9 +103,9 @@ export default {
         { title: "设计创意学院", abbr: "	设创	", icon: "	create	" },
         { title: "口腔医学院", abbr: "	口腔	", icon: "	insert_emoticon	" },
         { title: "艺术与传媒学院", abbr: "	艺传	", icon: "	theaters	" },
-        { title: "体育教学部", abbr: "	体育	", icon: "	fitness_center	" },
+        { title: "体育教学部", abbr: "体育", icon: "	fitness_center	" },
         { title: "铁道与城市轨道交通研究院", abbr: "	轨道	", icon: "	train	" },
-        { title: "女子学院", abbr: "	女子	", icon: "iconfont icon-nv	" },
+        { title: "女子学院", abbr: "女子", icon: "iconfont icon-nv	" },
         {
           title: "职业技术教育学院",
           abbr: "	职教	",
@@ -125,7 +125,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .drwaer-option ul {
   list-style-type: none;
 }
