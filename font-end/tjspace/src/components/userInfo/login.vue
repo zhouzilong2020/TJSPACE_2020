@@ -40,7 +40,8 @@
             label="登录"
             color="primary"
             @click="handleLogin()"
-          />
+          >
+          </q-btn>
         </div>
         <q-btn-group flat spread>
           <q-btn flat color="primary" label="忘记密码" />
@@ -53,12 +54,18 @@
         </q-btn-group>
       </q-form>
     </q-card-section>
+    <pop-dialog :content="'用户名或密码错误'" :bgColor="'bg-warning'" :show="warning"/>
   </q-card>
 </template>
 
 <script>
+import popDialog from '../popDialog'
 import { mapState } from "vuex";
 export default {
+  components:{
+    popDialog,
+  },
+
   data() {
     return {
       isPwd: true,
@@ -67,6 +74,7 @@ export default {
         email: "",
         password: "",
       },
+      warning: false,
     };
   },
   computed: {
@@ -91,6 +99,12 @@ export default {
             userId: this.userInfo.userid,
           },
         });
+      } else {
+        //密码错误
+        this.warning = true;
+        setTimeout(() => {
+          this.warning = false
+        }, 2000);
       }
     },
   },

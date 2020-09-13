@@ -3,7 +3,7 @@ import Vue from "vue";
 import userInfo from "./userInfo";
 import comments from "./comments"
 import infoModify from './infoModify'
-
+import route from './route'
 Vue.use(vuex);
 
 // 一个仓库对象，存放所有的共享数据
@@ -12,6 +12,7 @@ var store = new vuex.Store({
         userInfo, //userInfo 的名字
         comments,
         infoModify,
+        route,
    },
 });
 

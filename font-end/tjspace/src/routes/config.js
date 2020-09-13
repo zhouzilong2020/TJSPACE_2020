@@ -2,7 +2,7 @@ export default {
     routes: [
         {
             path: "/",
-            component: () => import("@/components/layout/footer"),
+            component: () => import("@/components/dialog"),
         }, {
             path: "/courseInfo/:courseId",
             component: () => import("@/pages/CourseInfo"),

@@ -1,5 +1,5 @@
 <template>
-  <div class="indexRotateCard q-pa-md col-sm-10 col-lg-7">
+  <div class="indexRotateCard q-pa-md">
     <div class="q-gutter-md">
       <q-carousel
         v-model="activeSlide"
@@ -95,5 +95,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.indexRotateCard{
+  min-width:400px;
+}
 </style>

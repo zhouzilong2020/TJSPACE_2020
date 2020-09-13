@@ -23,6 +23,9 @@ export default {
       bgPath: require("../assets/school.jpeg"),
     };
   },
+  created(){
+    console.log(this.$route.name)
+  }
 };
 </script>
 

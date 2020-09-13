@@ -18,7 +18,10 @@ export default {
   components: {
     login,
   },
-
+  created(){
+    this.$store.commit('route/setRoutes', [this.$route.name])
+    console.log(this.$route.name)
+  },
   mounted() {},
   beforeDestroy() {},
 };

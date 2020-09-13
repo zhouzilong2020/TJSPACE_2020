@@ -64,23 +64,11 @@
       </q-toolbar>
 
       <!-- 路径导航 -->
-      <q-bar dense shrink class="bg-primary nav-route q-pb-sm q-pl-md">
+      <!-- <q-bar  v-show="routes" dense shrink class="bg-primary nav-route q-pl-md q-pb-md">
         <q-breadcrumbs active-color="white" style="font-size: 10pt">
-          <slot name="route">
-          </slot>
-
-          <q-breadcrumbs-el dense label="个人主页" icon="bookmarks" />
-          <q-breadcrumbs-el dense label="登录" icon="login" />
-          <q-breadcrumbs-el dense label="注册" icon="person_add" />
-
-          <q-breadcrumbs-el dense label="首页" icon="home" />
-          <q-breadcrumbs-el dense label="BBS" icon="forum" />
-          <q-breadcrumbs-el dense label="课程详情" icon="show_chart" />
-          <q-breadcrumbs-el dense label="评价课程" icon="comment" />
-          <q-breadcrumbs-el dense label="24134" />
-          <q-breadcrumbs-el dense label="420244" />
+          <q-breadcrumbs-el v-for="(route, i) in routes" :key="i" dense label="个人主页" icon="bookmarks" />
         </q-breadcrumbs>
-      </q-bar>
+      </q-bar> -->
     </q-header>
 
     <!-- 侧边栏 -->
@@ -208,7 +196,7 @@ export default {
       active: -1,
       miniState: true,
       //TODE DEBUG
-      drawer: true,
+      drawer: false,
       logoPath: require("../../assets/TJU.png"),
       avatarPath: require("../../assets/boy-avatar.png"),
       avatarBGPath: require("../../assets/material.png"),
@@ -217,6 +205,7 @@ export default {
   props: {},
   computed: {
     ...mapState("userInfo", ["isLoading", "token", "userInfo"]),
+    ...mapState("route", ["routes"]),
   },
   methods: {
     async handleLogout() {
@@ -238,9 +227,6 @@ export default {
 .body {
   width: 100%;
   margin: 0 auto;
-}
-.nav-router {
-  height: 0px;
 }
 
 .logout-btn {
