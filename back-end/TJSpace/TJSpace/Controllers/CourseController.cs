@@ -92,7 +92,7 @@ namespace TJSpace.Controllers
         }
 
         //删除课程信息
-        [HttpDelete]
+        [HttpPost]
         public ActionResult<string> DeleteCourse (string courseId)
         {
             var temp = dbContext.Courses.Where(u => u.CourseId == courseId).ToList().FirstOrDefault();
@@ -176,7 +176,7 @@ namespace TJSpace.Controllers
         }
 
         //删除收藏课程
-        [HttpDelete]
+        [HttpPost]
         public ActionResult<string> CancelCollectCourse(string userId, string courseId,string teacherId)
         {
             var cc = dbContext.CourseCollect.Where(u => (u.UserId == userId && u.CourseId == courseId&&u.TeacherId==teacherId)).FirstOrDefault();

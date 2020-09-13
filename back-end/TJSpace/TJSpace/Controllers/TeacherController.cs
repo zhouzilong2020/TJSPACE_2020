@@ -79,7 +79,7 @@ namespace TJSpace.Controllers
         }
 
         //删除教师
-        [HttpDelete]
+        [HttpPost]
         public ActionResult<string> DeleteTeacher(string teacherId)
         {
             var temp = dbContext.Teachers.Where(u => u.TeacherId == teacherId).ToList().FirstOrDefault();

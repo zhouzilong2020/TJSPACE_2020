@@ -193,7 +193,7 @@ namespace TJSpace.Controllers
         }
 
         //管理员删除评价
-        [HttpDelete]
+        [HttpPost]
         public ActionResult<string> DeleteComment(string commentId)
         {
             var comment = dbContext.Comments.Where(u => u.CommentId == commentId).ToList().FirstOrDefault();
