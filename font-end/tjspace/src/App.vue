@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <layout>
+      <template v-slot:route>
+        
+        as
+      </template>
       <template v-slot:main>
         <router-view></router-view>
       </template>
@@ -9,7 +13,7 @@
 </template>
 
 <script>
-import layout from "./components/layout"
+import layout from "./components/layout/layout"
 export default {
 
 

@@ -1,8 +1,8 @@
 export default {
     routes: [
         {
-            path: "/test",
-            component: () => import("@/components/BtnPenal"),
+            path: "/",
+            component: () => import("@/components/layout/footer"),
         }, {
             path: "/courseInfo/:courseId",
             component: () => import("@/pages/CourseInfo"),
@@ -31,11 +31,11 @@ export default {
             name: "Homepage",
             component: () => import("@/pages/Homepage"),
         }, {
-            path: "/SelfInfoModify/:userid",
+            path: "/SelfInfoModify/:userId",
             name: 'SelfInfoModify',
             component: () => import("@/pages/SelfInfoModify"),
         }, {
-            path: "/makecomment/:userid/:courseid",
+            path: "/makecomment/:userid/:courseId",
             component: () => import("@/pages/MakeComment"),
         }, {
             path: "/",  //表示匹配所有路径

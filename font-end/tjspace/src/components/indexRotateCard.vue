@@ -1,5 +1,5 @@
 <template>
-  <div class="indexRotateCard q-pa-md col-sm-10">
+  <div class="indexRotateCard q-pa-md col-sm-10 col-lg-7">
     <div class="q-gutter-md">
       <q-carousel
         v-model="activeSlide"

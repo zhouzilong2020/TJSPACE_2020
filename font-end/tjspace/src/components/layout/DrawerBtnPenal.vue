@@ -1,5 +1,5 @@
 <template>
-  <div class="drwaer-option q-gutter-y-lg flex-center q-py-md">
+  <div class="drwaer-option flex-center">
     <q-tabs
       v-model="tab"
       indicator-color="blue"
@@ -9,26 +9,24 @@
     >
       <ul class="drawer-option-list">
         <li v-for="(dept, i) in depts" :key="i">
-          <div v-if="i % 4 == 0" class="row">
+          <div v-if="i % 3 == 0" class="row">
             <q-tab
+              class="dept-icon"
               v-if="i < depts.length"
               :icon="depts[i].icon"
               :label="depts[i].abbr"
             />
             <q-tab
+            class="dept-icon"
               v-if="i + 1 < depts.length"
               :icon="depts[i + 1].icon"
               :label="depts[i + 1].abbr"
             />
             <q-tab
+            class="dept-icon"
               v-if="i + 2 < depts.length"
               :icon="depts[i + 2].icon"
               :label="depts[i + 2].abbr"
-            />
-            <q-tab
-              v-if="i + 3 < depts.length"
-              :icon="depts[i + 3].icon"
-              :label="depts[i + 3].abbr"
             />
           </div>
         </li>
@@ -47,37 +45,37 @@ export default {
         {
           title: "联合国环境署_同济大学环境与可持续发展学院",
           abbr: "环境",
-          icon: "img:" + require("../assets/dept_icon/un.png"),
+          icon: "img:" + require("../../assets/dept_icon/un.png"),
         },
         {
           title: "中德学院",
           abbr: "	中德	",
-          icon: "img:" + require("../assets/dept_icon/deguo.png"),
+          icon: "img:" + require("../../assets/dept_icon/deguo.png"),
         },
         {
           title: "中法工程和管理学院",
           abbr: "	中法	",
-          icon: "img:" + require("../assets/dept_icon/faguo.png"),
+          icon: "img:" + require("../../assets/dept_icon/faguo.png"),
         },
         {
           title: "中德工程学院",
           abbr: "	德工	",
-          icon: "img:" + require("../assets/dept_icon/deguo.png"),
+          icon: "img:" + require("../../assets/dept_icon/deguo.png"),
         },
         {
           title: "中意学院",
           abbr: "	中意	",
-          icon: "img:" + require("../assets/dept_icon/yidali.png"),
+          icon: "img:" + require("../../assets/dept_icon/yidali.png"),
         },
         {
           title: "中芬中心",
           abbr: "	中芬	",
-          icon: "img:" + require("../assets/dept_icon/fenlan.png"),
+          icon: "img:" + require("../../assets/dept_icon/fenlan.png"),
         },
         {
           title: "中西学院",
           abbr: "中西",
-          icon: "img:" + require("../assets/dept_icon/xibanya.png"),
+          icon: "img:" + require("../../assets/dept_icon/xibanya.png"),
         },
         { title: "机械与能源工程学院", abbr: "机能", icon: "build" },
         { title: "经济与管理学院", abbr: "	经管	", icon: "	work_outline	" },
@@ -128,11 +126,10 @@ export default {
 <style scoped>
 .drwaer-option ul {
   list-style-type: none;
+  padding-left:0;
+  margin-left:0;
 }
-.drwaer-option q-tab {
-  width: 10px;
-}
-.drwaer-option-list {
-  padding-left: 0;
+.drwaer-option .dept-icon {
+  width: 60px;
 }
 </style>
