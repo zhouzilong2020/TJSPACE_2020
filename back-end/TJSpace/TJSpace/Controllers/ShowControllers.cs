@@ -283,6 +283,7 @@ namespace TJSpace.Controllers
                 temp.Credit = course.Credits;
                 temp.DeptName = course.DeptName;
                 temp.CourseNumber = k.CourseId;
+                temp.TeacherId = k.TeacherId;
                 temp.TeacherName = dbContext.Teachers.Where(u => u.TeacherId == k.TeacherId).FirstOrDefault().Name;
                 info.Add(temp);
             }

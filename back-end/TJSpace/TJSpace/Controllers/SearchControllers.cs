@@ -95,7 +95,7 @@ namespace TJSpace.Controllers
         [HttpGet]
         public ActionResult<string> SearchCourse(string keywords)
         {
-            var info1 = dbContext.CourseCodes.Where(u => u.Title == keywords).ToList().FirstOrDefault();
+            var info1 = dbContext.CourseCodes.Where(u => u.Title.Contains(keywords)).ToList().FirstOrDefault();
             if (info1 == null)
             {
                 return Ok(new

@@ -54,5 +54,6 @@ namespace TJSpace.DBModel
         public string DeptName { get; set; }
         public int Credit { get; set; }
         public string TeacherName { get; set; }
+        public string TeacherId { get; set; }
     }
 }

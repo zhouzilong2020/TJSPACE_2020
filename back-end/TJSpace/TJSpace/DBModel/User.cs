@@ -54,7 +54,11 @@ namespace TJSpace.DBModel
         [Column("degree", TypeName = "int(11)")]
         public int Degree { get; set; }
 
-
+        //头像url
+        [JsonProperty("headimageurl")]
+        [Column("head_image_url")]
+        [StringLength(maximumLength: 255)]
+        public string HeadImageUrl { get; set; }
 
     }
 }
