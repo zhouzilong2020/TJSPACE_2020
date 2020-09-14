@@ -19,7 +19,7 @@ export default {
             name: "BBSHomepage",
             component: () => import("@/pages/BBSHomePage"),
         }, {
-            path: "/Forum",
+            path: "/Forum/:postId",
             name: "Forum",
             component: () => import("@/pages/Forum"),
         }, {

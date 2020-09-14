@@ -1,46 +1,65 @@
 <template>
-   <q-card class="white q-mt-xs"  >
-        <div class="row justify-end">
-            <div class="col-auto q-mx-md q-my-md">
-                <q-avatar size="50px">
-                    <img :src="headURL">
-                </q-avatar>
+  <q-card class="white q-mt-xs">
+    <div class="row justify-end">
+      <div class="col-auto q-mx-md q-my-md">
+        <q-avatar size="50px">
+          <img :src="headURL" />
+        </q-avatar>
+      </div>
+      <div class="col q-px-sm q-py-sm">
+        <div class="row">
+          <div class="word-wrap:break-word">
+            {{ nickName }}
+            <div style="display: inline-block" v-if="!/^回复@/.test(content)">
+              :
             </div>
-            <div class="col q-px-sm q-py-sm">
-                <div class="row">
-                    <div class="text-wrapper">
-                      <a text-decoration: none href="#">{{nickName}}</a> :{{content}}
-                      </div>
-                </div>
-            </div>
-            <div class="col-auto q-px-sm q-py-sm">
-                <q-btn class="q-mx-xs" color="white" @click="Reply" text-color="black" label="回复" />
-            </div>
+            {{ content }}
+          </div>
         </div>
-    </q-card>
+      </div>
+      <div class="col-auto q-px-sm q-py-sm">
+        <div class="row justify-end">
+          <q-btn
+            class="q-mx-xs"
+            color="white"
+            @click="Reply"
+            text-color="black"
+            label="回复"
+          />
+        </div>
+        <div class="row q-pt-sm">
+          {{ date }}
+        </div>
+      </div>
+    </div>
+  </q-card>
 </template>
 
 <script>
 export default {
-  name: 'Reply',
+  name: "Reply",
   props: {
     headURL: {
       type: String,
-      default: 'https://cdn.quasar.dev/img/avatar.png'
+      default: "https://cdn.quasar.dev/img/avatar.png",
     },
     nickName: {
       type: String,
-      required: true
+      required: true,
     },
     content: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
+    date: {
+      type: String,
+      require: true,
+    },
   },
   methods: {
-    Reply () {
-      this.$emit('changeReplyPrefix', this.nickName)
-    }
-  }
-}
+    Reply() {
+      this.$emit("changeReplyPrefix", this.nickName);
+    },
+  },
+};
 </script>

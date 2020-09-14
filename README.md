@@ -51,9 +51,5 @@
 5. push **本地仓库**到远程端口
 
 
-<<<<<<< HEAD
-
-=======
 ### 后端文档
 https://www.showdoc.com.cn/tjspace
->>>>>>> tmp
