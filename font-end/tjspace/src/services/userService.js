@@ -1,6 +1,6 @@
 // 远程登录用户！哈哈
 import axios from "axios";
-import { URL } from "./config";
+import { URL, setCookie, getCookie } from "./config";
 
 /**
  * 登录用户的API接口，如果成功返回token以及userId，并将token，userId保存在浏览器的localstorage中；
@@ -15,6 +15,8 @@ export async function loginUser(payload) {
         }
     });
     console.log(resp);
+    setCookie('a', 'asdasd', 100)
+    console.log(getCookie('a'))
     // localStorage.setItem("token", resp.token);
     return resp.data
 }
@@ -65,6 +67,7 @@ export async function sentAuthCode(payload) {
         getCode(3).toString() +
         "-" +
         getCode(3).toString();
+
     return code;
 }
 
