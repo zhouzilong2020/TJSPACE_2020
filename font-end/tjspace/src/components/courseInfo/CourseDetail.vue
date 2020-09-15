@@ -116,4 +116,4 @@ export default {
   padding: 10px;
   margin: 0 auto;
 }
-</style>Í
+</style>

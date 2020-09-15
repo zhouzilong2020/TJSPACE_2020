@@ -1,5 +1,5 @@
 import { loginUser, logoutUser, registerUser, getUserInfo } from "../services/userService"
-import {setCookie,getCookie} from ''
+import { setCookie, getCookie } from '../utils/utils'
 /**
  * 用户登录的数据仓库
  */
@@ -10,7 +10,6 @@ export default {
         token: null,
         isLoading: false,
     },
-
     mutations: {
         /**
          * 修改个人信息
@@ -46,29 +45,44 @@ export default {
          */
         async loginUser(context, payload) {
             context.commit("setIsLoading", true);
-            var resp = await loginUser(payload);
-            console.log(resp);
-            if (resp.status) {
-                // 登录成功，记录其token
-                context.commit('setToken', "Bearer " + resp.data1)
-                setCookie('token',  "Bearer " + resp.data1)
 
-
-                // 使用token获取用户个人信息
-                if (resp.data1) {
-                    var resp2 = await getUserInfo({
-                        userId: resp.data2,
-                        token: 'Bearer ' + resp.data1
-                    })
-                }
-                if(resp2){
-                    context.commit("setUserInfo", resp2)
-                    setCookie('userInfo',  resp2)
+            let token = getCookie('TJSPACE-token')
+            let userId = getCookie('TJSPACE-userId')
+            if (token && userId) {
+                // 如果cookie中有保存用户信息，则使用cookie登录
+                var resp = await getUserInfo({
+                    userId,
+                    token
+                })
+                console.log('after cookie resp',resp)
+                if (resp) {
+                    //成功获取到了用户信息
+                    context.commit("setUserInfo", resp)
+                    context.commit("setToken", token)
                 }
             }
 
-            console.log(getCookie('userInfo'))
-            console.log(getCookie('token'))
+            else {
+                var resp1 = await loginUser(payload);
+                console.log(resp1);
+                if (resp1.status) {
+                    // 登录成功，记录其token
+                    context.commit('setToken', "Bearer " + resp1.data1)
+                    // 使用token获取用户个人信息
+                    if (resp1.data1) {
+                        var resp2 = await getUserInfo({
+                            userId: resp1.data2,
+                            token: 'Bearer ' + resp1.data1
+                        })
+                    }
+                    if (resp2) {
+                        context.commit("setUserInfo", resp2)
+
+                        setCookie('TJSPACE-token', 'Bearer ' + resp1.data1, 2)
+                        setCookie('TJSPACE-userId', resp1.data2)
+                    }
+                }
+            }
             context.commit("setIsLoading", false);
         },
         /**
@@ -95,6 +109,26 @@ export default {
         async registerUser(context, payload) {
             context.commit("setIsLoading", true);
             var resp = await registerUser(payload)
+            console.log("reg user resp:", resp)
+            // 注册成功
+            if (resp.status) {
+                resp = await loginUser(payload);
+                console.log("login user", resp);
+                if (resp.status) {
+                    // 登录成功，记录其token
+                    context.commit('setToken', "Bearer " + resp.data1)
+                    // 使用token获取用户个人信息
+                    if (resp.data1) {
+                        var resp2 = await getUserInfo({
+                            userId: resp.data2,
+                            token: 'Bearer ' + resp.data1
+                        })
+                    }
+                    if (resp2) {
+                        context.commit("setUserInfo", resp2)
+                    }
+                }
+            }
             context.commit("setIsLoading", false);
             return resp
         }

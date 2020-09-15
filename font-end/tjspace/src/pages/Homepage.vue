@@ -54,6 +54,7 @@ import TeacherInfo from "../components/homepage/TeacherInfo";
 import CourseInfo from "../components/homepage/CourseInfo";
 import CommentInfo from "../components/homepage/CommentInfo";
 import {mapState} from 'vuex'
+import {checkCookie} from '../utils/utils'
 
 export default {
   components: {
@@ -79,8 +80,16 @@ export default {
   },
 
   computed:mapState('userInfo', ['userInfo']),
-  
-  created(){
+  async created(){
+    if(!this.userInfo){
+      //如果当前用户信息没有，先检查cookie中是否含有信息
+      if(checkCookie()){
+        await this.$store.dispatch('userInfo/loginUser')
+      }
+    }
+
+
+
     console.log('in homepage created', this.userInfo)
 
     switch(this.userInfo.gender)

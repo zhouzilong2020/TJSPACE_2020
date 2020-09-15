@@ -4,7 +4,7 @@
       <!-- 功能按钮 -->
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="drawer = !drawer" />
-        <q-toolbar-title> TJSPACE · 同济大学社群 </q-toolbar-title>
+        <q-toolbar-title class="title"> TJSPACE · 同济大学社群 </q-toolbar-title>
 
         <!-- 登录|注册 -->
         <!-- 三种情况！ -->
@@ -12,26 +12,33 @@
 
         <!-- 登录成功 -->
         <template v-if="token">
-          <div class="gt-md text-caption">欢迎您！{{ userInfo.nickname }}</div>
-          <q-input
-            dark
-            dense
-            standout
-            v-model="text"
-            input-class="text-left"
-            class="q-ml-md"
-            placeholder="发现更多课程"
-          >
-            <template v-slot:append>
-              <q-icon v-if="text === ''" name="search" />
-              <q-icon
-                v-else
-                name="clear"
-                class="cursor-pointer"
-                @click="text = ''"
-              />
-            </template>
-          </q-input>
+          <template class="flex-left">
+            <div class="text-caption">欢迎您！{{ userInfo.nickname }}</div>
+            <q-input
+              dark
+              dense
+              standout
+              v-model="text"
+              input-class="text-left"
+              class="q-ml-md"
+              placeholder="发现更多课程"
+            >
+              <template v-slot:append>
+                <q-icon v-if="text === ''" name="search" />
+                <q-icon
+                  v-else
+                  name="clear"
+                  class="cursor-pointer"
+                  @click="text = ''"
+                />
+              </template>
+            </q-input>
+            <q-space />
+
+            <q-space />
+
+            <q-space />
+          </template>
           <q-btn-group class="top-option" flat>
             <q-btn
               class="search-course-btn"

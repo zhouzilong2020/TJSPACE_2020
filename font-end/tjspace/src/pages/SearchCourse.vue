@@ -1,117 +1,270 @@
 <template>
 
-  <q-page-container class="body-right row"  style="display:flex;">
-    <div class="left">
-      <div class="q-pa-md" style="max-width: 780px">
-        <div class="q-gutter-md">
-          <div>
-            <q-badge color="teal">发现更多课程</q-badge>
+      <div class="main" style="margin-left:350px;">
+        <q-page-container class="body-right row">
+          <div class="left col-8" style>
+            <div class="q-pa-md" style="max-width: 780px">
+              <div class="q-gutter-md">
+                <div style="text-align:center;">
+                  <span class="word">开启你的</span>
+                  <img :src="path1" style="height:130px;width:130px;margin-left:25px;margin-right:25px;">
+                  <span class="word">奇妙旅程</span>
+                </div>
+                <div class="search-bar">
+                  <input
+                    type="text"
+                    value
+                    id="textId"
+                    class="textClass"
+                    placeholder="请输入希望搜索的课程名称"
+                    name="textName"
+                  />
+                  <button @click="btnclick()" style="border:none;width:70px;max-height:50px;">
+                    <q-icon name="search"></q-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div v-if="isShow">
+              <div class="choose">
+                <q-select
+                  standout="bg-teal text-white"
+                  v-model="model"
+                  :options="department"
+                  label="学院"
+                ></q-select>
+              </div>
+              <div
+                class="content"
+                v-for="item in newcourseInfo"
+                :key="item.label"
+                :value="item.value"
+              >
+                <q-card clickable v-ripple class="my-cardinfo" flat bordered @click="click(item)">
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-avatar>
+                        <img :src="path" />
+                      </q-avatar>
+                    </q-item-section>
+
+                    <q-item-section>
+                      <q-item-label>{{item.courseName}}</q-item-label>
+                      <q-item-label caption>{{item.courseCredit}}</q-item-label>
+                    </q-item-section>
+                  </q-item>
+
+                  <q-separator />
+
+                  <q-card-section horizontal>
+                    <q-card-section>{{item.courseIntro}}</q-card-section>
+
+                    <q-separator vertical />
+
+                    <q-card-section class="col-4">分数：0.0</q-card-section>
+                  </q-card-section>
+                </q-card>
+              </div>
+            </div>
+
+            <div v-else>
+              <div class="wordrec">recommendations</div>
+
+              <q-separator />
+
+              <div
+                class="content"
+                style="margin-top:5px;display:flex;"
+                v-for="item in courseInfo"
+                :key="item.label"
+                :value="item.value"
+              >
+                <div>
+                  <q-card class="my-cardrec" @click="click(item)">
+                    <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" basic>
+                      <div class="absolute-bottom text-h6">{{item.name}}</div>
+                    </q-img>
+
+                    <q-card-section>{{ item.intro }}</q-card-section>
+                  </q-card>
+                </div>
+
+              </div>
+            </div>
           </div>
-          <q-input v-model="search" debounce="500" filled placeholder="请输入希望搜索的课程名称">
-              <template v-slot:append>
-                <q-icon name="search" ></q-icon>
-              </template>
-          </q-input>
-        </div>
+        </q-page-container>
       </div>
-
-      <div class="choose">
-        <q-select standout="bg-teal text-white" v-model="model" :options="department" label="学院" ></q-select>
-      </div>
-  
-      <div class="content" v-for="item in courseInfo" :key="item.label" :value="item.value">
-        <q-card class="my-card bg-secondary text-white">  
-          <q-card-section>
-            <div class="text-h6">{{item.name}}</div>
-            <div class="text-subtitle2">{{item.teacher}}</div>
-          </q-card-section>
-        
-          <q-card-section>
-            {{ item.intro }}
-          </q-card-section>
-
-          <q-separator dark ></q-separator>
-
-          <q-card-actions>
-            <q-btn flat>详情</q-btn>
-            <q-btn flat style="margin-left:100px;">打分</q-btn>
-          </q-card-actions>
-        </q-card>
-      </div>
-    </div>
-    
-    <div class="right">
-
-      <div class="q-pa-md" style="width:292px;margin-top:213px;">
-        <q-parallax :height="1160">
-          <template v-slot:media>
-          <!-- 这里的链接需要使用webpack的require -->
-            <img :src="path">
-          </template>
-
-        <template v-slot:content="scope">
-          <div
-            class="absolute column items-center"
-            :style="{
-            opacity: 0.45 + (1 - scope.percentScrolled) * 0.55,
-            top: (scope.percentScrolled * 60) + '%',
-            left: 0,
-            right: 0
-            }"
-          >
-          <!-- 这里的链接需要使用webpack的require -->
-          <img :src="path" style="width: 150px; height: 150px">
-          <div class="text-h3 text-white text-center">TJspace</div>
-          </div>
-        </template>
-        </q-parallax>
-      </div>
-    </div>
-  </q-page-container>
-
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { search } from "../services/search";
 export default {
-  components:{
+  components: {
   },
-
-  data () {
+  data() {
     return {
-      path:require('../assets/tongji.jpeg'),
-      inputSearch:'',
-      drawer : false,
-      active : -1,
+      isShow: 0,
+      path1: require("../assets/TJU.png"),
+      path: require("../assets/zhuzi.jpeg"),
+      inputSearch: "",
       department: [
-        '软件学院', '电信学院', '汽车学院', '交运学院', '还有什么学院'
+        "软件学院",
+        "电信学院",
+        "汽车学院",
+        "交运学院",
+        "还有什么学院",
       ],
-      grade:[
-        '一年级','二年级','三年级','四年级'
+      courseInfo: [
+        {
+          name: "数据库原理与应用",
+          teacher: "袁时金",
+          intro:
+            "这是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
+          courseId: "420244",
+        },
+        {
+          name: "计算机系统结构",
+          teacher: "张晨曦",
+          intro:
+            "这是仍然是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
+        },
+        {
+          name: "操作系统",
+          teacher: "张慧娟",
+          intro:
+            "这是还是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
+        },
+        {
+          name: "系统分析与设计",
+          teacher: "孙萍",
+          intro:
+            "这是仍然是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
+        },
       ],
-      courseInfo:[
-          {name:"数据库原理与应用",teacher:"袁时金",intro:"这是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程"},
-          {name:"计算机系统结构",teacher:"张晨曦",intro:"这是仍然是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程"},
-          {name:"操作系统",teacher:"张慧娟",intro:"这是还是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程"},
-          {name:"系统分析与设计",teacher:"孙萍",intro:"这是仍然是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程"},
-          {name:"创新创业",teacher:"时东兵",intro:"这是仍然是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程"},
-      ],
-      userInfo:{
-        nickName: "lili",
-        eMail:"1888888@tongji.edu.cn",
+      newcourseInfo: [],
+      text: "",
+      active: -1,
+      drawer: false,
+      logoPath: require("../assets/TJU.png"),
+      avatarPath: require("../assets/boy-avatar.png"),
+      avatarBGPath: require("../assets/material.png"),
+      userInfo: {
+        email: "1",
+        nickname: "1",
       },
-      
-    }
-  }
-}
+    };
+  },
+  methods: {
+    click(data) {
+      this.$router.push({
+        name: "courseInfo",
+        params: {
+          courseId: data.courseId,
+        },
+      });
+    },
+    btnclick() {
+      this.$nextTick(async function () {
+        this.value = document.getElementById("textId").value;
+        console.log("search", this.value);
+        var resp1 = await search({ searchKey: this.value });
+        this.newcourseInfo = resp1;
+        this.isShow = 1;
+        console.log("result", this.newcourseInfo);
+      });
+    },
+  },
+  props: {},
+  computed: {
+    ...mapState("userInfo", ["isLoading", "token"]),
+  },
+};
 </script>
 
-<style>
-.content{margin-left:-58px;width:800px;}
+<style scoped>
+.header {
+  background-color: #0025abcc;
+}
+.body {
+  width: 100%;
+  margin: 0 auto;
+}
 
-.choose{width:200px;margin-left:14px;}
-.my-card{ width: 100%;max-width: 720px;margin-top:50px;margin-left:70px;}
+.drawer-btn-penal {
+  position: absolute;
+  left: -40px;
+}
+.header .header-search {
+  color: aliceblue;
+}
+.page-footer .footer-name {
+  margin-left: 10px;
+  font-size: 16px;
+}
+.page-footer .footer-id {
+  position: absolute;
+  right: 10px;
+  font-size: 16px;
+}
+
+.content {
+  width: 800px;
+}
+
+.choose {
+  width: 200px;
+  /* margin-left: 14px; */
+}
+.my-cardinfo {
+  width: 100%;
+  max-width: 720px;
+  margin-top: 50px;
+  background-color: rgb(245, 245, 245);
+  box-shadow: darkgrey 10px 10px 30px 5px;
+  /* margin-left: 70px; */
+}
+
+.search-bar {
+  display: flex;
+  width: 1000px;
+}
+.search-bar input {
+  width: 710px;
+  height: 50px;
+  /* margin-left: 0px; */
+  border-color: grey;
+  border-radius: 1px;
+}
 
 
 
-
+.my-cardrec {
+  max-width: 340px;
+  max-height: 340px;
+}
+@font-face {
+  font-family: maoyeye;
+  src: url("../assets/shufa.ttf");
+}
+@font-face {
+  font-family: reccom;
+  src: url("../assets/Amazing sound.ttf");
+}
+.word {
+  font-family: maoyeye;
+  font-style: oblique;
+  font-size: 50px;
+  font-weight: 900;
+  color: rgb(100,149,237);
+}
+.wordrec{
+  font-family: reccom;
+  text-align:center;
+  font-style: oblique;
+  font-size: 50px;
+  font-weight: 900;
+  color: rgb(100,149,237);
+}
 </style>

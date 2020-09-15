@@ -136,6 +136,7 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 
 const URL = "http://175.24.115.240:8080/api/";
 export default {
@@ -152,17 +153,20 @@ export default {
       currPage: 0,
       isBottom: false,
       userId: "",
-      //this.token应该由login传递过来
-      token:
-        "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjkzNTMwMzY3ZDI0OTFiMzQ0MTEzODYwZGUyN2QzNzdlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE2MDAxNTI4NzcsImV4cCI6MTYwMDE1NjQ3NywiaXNzIjoiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAiLCJhdWQiOlsiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAvcmVzb3VyY2VzIiwiYXBpMSJdLCJjbGllbnRfaWQiOiJjbGllbnQyIiwic3ViIjoiMTExIiwiYXV0aF90aW1lIjoxNjAwMTUyODc3LCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIl0sImFtciI6WyJjdXN0b20iXX0.T-bwvqS0AGRj3HGyYoIUbxqm_zuufNVB2GaDHh6GSXn2lWx_mDapDcHF_oyEIGxpMZAp5HpFLvs9UfX_mqpwnbG3wMd3wMNZ-RLKWmy41sEkGtRZ-_41kPM6WOR-IfUe0t61_zU2ULD7EMOkF_hAYLFFRZIi2-5Rmmk1A-o2-07yDO5PmIrRzeR5JBxeLA7i6IQd2BTLwKCJZC8654Riq-P83gzZGF4GJtTsNRM-lprQybNpiIgs957dDE5Uvzn3DOTlqrcYorY9JeaM-lprzePmfGdcQFTAhjmMOr9Ist5yvjX02igx_Qzk3yPtsBRjp2DhW-syzZ7BnXgs_sKqqQ",
     };
+  },
+  computed: {
+    ...mapState("userInfo", ["token", "userInfo"]),
   },
   methods: {
     initUserInfo: function() {
-      //未实现，占位
-      //等待login实现
-      this.userId = "u1001";
-      console.log("get user info");
+      this.userId = this.userInfo.userid;
+    },
+    jumpWhileNotRegister: function() {
+      if (this.userId == "") {
+        console.log("adaaasda");
+        //this.$router.push('index');
+      }
     },
     makeNewPost: function() {
       this.isMakingPost = true;
@@ -180,8 +184,8 @@ export default {
             Authorization: this.token,
           },
           params: {
-            title: this.postContent,
-            content: "null",
+            title: this.postContent.substr(0,40),
+            content: this.postContent,
             userId: this.userId,
           },
         }
@@ -329,11 +333,12 @@ export default {
         this.getPosts(this.orderType, this.currPage);
         this.currPage++;
         done();
-      }, 2000);
+      }, 1000);
     },
   },
   mounted() {
     this.initUserInfo();
+    this.jumpWhileNotRegister();
   },
 };
 </script>

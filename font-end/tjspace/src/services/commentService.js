@@ -29,6 +29,7 @@ export async function evaluateComment(payload) {
         {
             headers: { 
                 Authorization: token,
+                // 'Content-Type':'application/x-www-form-urlencoded'
             },
             params:{
                 commentId: payload.commentId,

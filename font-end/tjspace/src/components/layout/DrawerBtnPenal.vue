@@ -17,13 +17,13 @@
               :label="depts[i].abbr"
             />
             <q-tab
-              class="dept-icon"
+            class="dept-icon"
               v-if="i + 1 < depts.length"
               :icon="depts[i + 1].icon"
               :label="depts[i + 1].abbr"
             />
             <q-tab
-              class="dept-icon"
+            class="dept-icon"
               v-if="i + 2 < depts.length"
               :icon="depts[i + 2].icon"
               :label="depts[i + 2].abbr"
@@ -126,8 +126,8 @@ export default {
 <style scoped>
 .drwaer-option ul {
   list-style-type: none;
-  padding-left: 0;
-  margin-left: 0;
+  padding-left:0;
+  margin-left:0;
 }
 .drwaer-option .dept-icon {
   width: 60px;

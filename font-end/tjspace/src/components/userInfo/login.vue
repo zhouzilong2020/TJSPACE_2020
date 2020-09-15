@@ -54,15 +54,19 @@
         </q-btn-group>
       </q-form>
     </q-card-section>
-    <pop-dialog :content="'用户名或密码错误'" :bgColor="'bg-warning'" :show="warning"/>
+    <pop-dialog
+      :content="'用户名或密码错误'"
+      :bgColor="'bg-warning'"
+      :show="warning"
+    />
   </q-card>
 </template>
 
 <script>
-import popDialog from '../popDialog'
+import popDialog from "../popDialog";
 import { mapState } from "vuex";
 export default {
-  components:{
+  components: {
     popDialog,
   },
 
@@ -87,12 +91,14 @@ export default {
 
   methods: {
     async handleLogin() {
-      await this.$store.dispatch("userInfo/loginUser", this.account);
-
+      await this.$store.dispatch("userInfo/loginUser", {
+        account: this.account,
+        remember: this.remember,
+      });
       if (this.token) {
         // 成功获取token 表示成功登录
         // console.log("get user token")
-        console.log(this.userInfo);
+        console.log("in login page", this.userInfo);
         this.$router.push({
           name: "Homepage",
           params: {
@@ -103,7 +109,7 @@ export default {
         //密码错误
         this.warning = true;
         setTimeout(() => {
-          this.warning = false
+          this.warning = false;
         }, 2000);
       }
     },
