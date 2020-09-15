@@ -79,6 +79,7 @@ export default {
   },
 
   computed:mapState('userInfo', ['userInfo']),
+  
   created(){
     console.log('in homepage created', this.userInfo)
 

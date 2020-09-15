@@ -1,4 +1,5 @@
 import { loginUser, logoutUser, registerUser, getUserInfo } from "../services/userService"
+import {setCookie,getCookie} from ''
 /**
  * 用户登录的数据仓库
  */
@@ -9,6 +10,7 @@ export default {
         token: null,
         isLoading: false,
     },
+
     mutations: {
         /**
          * 修改个人信息
@@ -49,6 +51,9 @@ export default {
             if (resp.status) {
                 // 登录成功，记录其token
                 context.commit('setToken', "Bearer " + resp.data1)
+                setCookie('token',  "Bearer " + resp.data1)
+
+
                 // 使用token获取用户个人信息
                 if (resp.data1) {
                     var resp2 = await getUserInfo({
@@ -58,8 +63,12 @@ export default {
                 }
                 if(resp2){
                     context.commit("setUserInfo", resp2)
+                    setCookie('userInfo',  resp2)
                 }
             }
+
+            console.log(getCookie('userInfo'))
+            console.log(getCookie('token'))
             context.commit("setIsLoading", false);
         },
         /**

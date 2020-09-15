@@ -1,114 +1,109 @@
 <template>
-  <q-page-container>
-    <div class="row justify-center">
-      <div class="col-auto">
-        <q-card class="q-ml-xs" style="width: 230px" />
-      </div>
-      <div class="col-auto">
-        <q-card
-          class="row q-mb-xs z-top"
-          style="width: 750px"
-          id="title"
-          v-scroll="Follow"
-        >
-          <q-banner class="col white">
-            {{ title }}
-          </q-banner>
-          <div class="col-auto">
+  <div class="row justify-center">
+    <div class="col-auto">
+      <q-card class="q-ml-xs" style="width: 230px" />
+    </div>
+    <div class="col-auto">
+      <q-card
+        class="row q-mb-xs z-top"
+        style="width: 750px"
+        id="title"
+        v-scroll="Follow"
+      >
+        <q-banner class="col white">
+          {{ title }}
+        </q-banner>
+        <div class="col-auto">
+          <q-btn
+            class="column-auto q-ma-md shadow-2"
+            flat
+            dense
+            size="md"
+            color="white"
+            text-color="black"
+            :label="onlyMasterText"
+            @click="OnlyMaster()"
+          />
+        </div>
+      </q-card>
+      <div style="width: 750px">
+        <div v-for="(post, i) in displays" :key="i">
+          <Post
+            :userId="post.userId"
+            :nickName="post.nickName"
+            :thumbUpNum="thumbUpNum"
+            :thumbUp="thumbUp"
+            :thumbDown="thumbDown"
+            :date="post.date"
+            :floor="(currentPage - 1) * 10 + i + 1"
+            :content="post.content"
+            :replys="post.replys"
+            @focusBottom="ToBottom"
+            @publish="Publish"
+            @evaluate="Evaluate"
+          />
+        </div>
+        <q-card class="q-my-lg">
+          <q-editor ref="bottom" v-model="editorContent" min-height="5rem" />
+          <div class="row justify-end">
             <q-btn
-              class="column-auto q-ma-md shadow-2"
-              flat
-              dense
-              size="md"
-              color="white"
+              class="q-ma-sm"
               text-color="black"
-              :label="onlyMasterText"
-              @click="OnlyMaster()"
+              label="发表"
+              @click="Publish(editorContent, totalFloor + 1, 0)"
             />
           </div>
         </q-card>
-        <div style="width: 750px">
-          <div v-for="(post, i) in displays" :key="i">
-            <Post
-              :userId="post.userId"
-              :nickName="post.nickName"
-              :thumbUpNum="thumbUpNum"
-              :thumbUp="thumbUp"
-              :thumbDown="thumbDown"
-              :date="post.date"
-              :floor="(currentPage - 1) * 10 + i + 1"
-              :content="post.content"
-              :replys="post.replys"
-              @focusBottom="ToBottom"
-              @publish="Publish"
-              @evaluate="Evaluate"
-            />
-          </div>
-          <q-card class="q-my-lg">
-            <q-editor ref="bottom" v-model="editorContent" min-height="5rem" />
-            <div class="row justify-end">
-              <q-btn
-                class="q-ma-sm"
-                text-color="black"
-                label="发表"
-                @click="Publish(editorContent, totalFloor + 1, 0)"
-              />
-            </div>
-          </q-card>
-          <div class="row justify-start q-pb-lg">
-            <q-pagination
-              v-model="currentPage"
-              @click="ShiftPage()"
-              :max="maxPage"
-              :direction-links="true"
-            ></q-pagination>
-          </div>
+        <div class="row justify-start q-pb-lg">
+          <q-pagination
+            v-model="currentPage"
+            @click="ShiftPage()"
+            :max="maxPage"
+            :direction-links="true"
+          ></q-pagination>
         </div>
       </div>
-      <div class="col-auto">
-        <q-card class="q-ml-xs" id="toTop" style="width: 230px">
-          <q-card class="text-weight-bold q-pt-sm q-ml-md"> 热门推荐 </q-card>
-          <div v-for="(recommend, i) in recommendData" :key="i">
-            <template>
-              <div class="row items-center">
-                <q-card
-                  v-if="i < 3"
-                  class="col-auto q-ma-xs q-px-sm q-py-xs"
-                  flat
-                  style="background: orange"
-                >
-                  {{ i + 1 }}
-                </q-card>
-                <q-card v-else class="col-auto q-ma-xs q-px-sm q-py-xs" flat>
-                  {{ i + 1 }}
-                </q-card>
-                <router-link
-                  class="col-auto"
-                  style="text-decoration: none"
-                  :to="{
-                    name: 'Forum',
-                    params: { postId: recommend.posetId },
-                  }"
-                >
-                  {{ recommend.title | ellipsis }}
-                </router-link>
-              </div>
-            </template>
-          </div>
-          <q-btn
-            @click="ToTop"
-            class="q-py-sm"
-            style="width: 230px"
-            color="black"
-            icon="keyboard_arrow_up"
-            flat
-          >
-            <q-tooltip>返回顶部</q-tooltip>
-          </q-btn>
-        </q-card>
-      </div>
     </div>
-  </q-page-container>
+    <div class="col-auto">
+      <q-card class="q-ml-xs" id="toTop" style="width: 230px">
+        <q-card class="text-weight-bold q-pt-sm q-ml-md"> 热门推荐 </q-card>
+        <div v-for="(recommend, i) in recommendData" :key="i">
+          <template>
+            <div class="row items-center">
+              <q-card
+                class="col-auto q-ma-xs q-px-sm q-py-xs"
+                flat
+                :style="recommend.color"
+              >
+                {{ i + 1 }}
+              </q-card>
+              <router-link
+                class="col-auto"
+                style="text-decoration: none"
+                :to="{
+                  name: 'Forum',
+                  params: { postId: recommend.posetId },
+                }"
+                @click.native="Reload()"
+              >
+                {{ recommend.title | ellipsis }}
+              </router-link>
+            </div>
+          </template>
+        </div>
+        <q-btn
+          @click="ToTop"
+          class="q-py-sm"
+          style="width: 230px"
+          color="black"
+          icon="keyboard_arrow_up"
+          flat
+        >
+          <q-tooltip>返回顶部</q-tooltip>
+        </q-btn>
+      </q-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -118,22 +113,27 @@ const recommendData = [
   {
     title: "舒服了",
     posetId: "2abee334-495f-481d-860e-ad31be83de0d",
+    color: "background:#ffd700",
   },
   {
     title: "如何评价post终于可以调了",
     posetId: "05dfc0d8-9b42-4f4a-947e-a0ac28dfe99b",
+    color: "background: 	#F5F5F5",
   },
   {
     title: "如何评价post终于可以调了",
     posetId: "05dfc0d8-9b42-4f4a-947e-a0ac28dfe99b",
+    color: "background:	#D2691E",
   },
   {
     title: "如何评价post终于可以调了",
     posetId: "05dfc0d8-9b42-4f4a-947e-a0ac28dfe99b",
+    color: "background:	#C0C0C0",
   },
   {
     title: "如何评价post终于可以调了",
     posetId: "05dfc0d8-9b42-4f4a-947e-a0ac28dfe99b",
+    color: "background:	#C0C0C0",
   },
 ];
 export default {
@@ -158,15 +158,20 @@ export default {
       thumbUp: false,
       thumbDown: false,
       thumbUpNum: 0,
-      token:"Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjkzNTMwMzY3ZDI0OTFiMzQ0MTEzODYwZGUyN2QzNzdlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE2MDAwMDM2NjIsImV4cCI6MTYwMDAwNzI2MiwiaXNzIjoiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAiLCJhdWQiOlsiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAvcmVzb3VyY2VzIiwiYXBpMSJdLCJjbGllbnRfaWQiOiJjbGllbnQyIiwic3ViIjoiMTExIiwiYXV0aF90aW1lIjoxNjAwMDAzNjYyLCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIl0sImFtciI6WyJjdXN0b20iXX0.OpVHYPHiz_tB1IHM3M9qwUs1yHnsT6X6bnXwxVV8lTnKu3bWHud8fKkglIL2xXVYXNh1XkvAdOlN8zR4e_himLf6opNmrUEQE1e6oCslro5YKI29pJC_R9t-h24gRvAd9iXAB1LV6wHGXEPiBGZF3fiyooFKwfLqYCcGxF1qYgWO9HgQmEhpNvtEyYABGiP5Pf01rCkUTUOoFKAgeayAKHA1TbdRxtKmv3BXzmg-EJ6srLU5bOsDayaJcT5FfZdkwwZQx-y86IZDPcbcNzuLv3lbuJ-IDcRrXy9CxxzSBnjOS1U8QaSQ6g3K1C9rELcBn3S1Ho3lcEiwCbkFRe52qg",
+      token:
+        "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjkzNTMwMzY3ZDI0OTFiMzQ0MTEzODYwZGUyN2QzNzdlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE2MDAxNTQxMjUsImV4cCI6MTYwMDE1NzcyNSwiaXNzIjoiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAiLCJhdWQiOlsiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAvcmVzb3VyY2VzIiwiYXBpMSJdLCJjbGllbnRfaWQiOiJjbGllbnQyIiwic3ViIjoiMTExIiwiYXV0aF90aW1lIjoxNjAwMTU0MTI1LCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIl0sImFtciI6WyJjdXN0b20iXX0.dozkf7_F4vbgGf6s6lOoI1swQ-uj4REmoQy1r1PIKLR-M8ioWtkqrrnysadF08wnXPoczwI-s0YsbMKLVYRpMmtK37K-VECVx0B1ih97f40VvgfL1QPeYRwGqqucAckUOV6kZv6e1GWDwKdguaY0IFd22JputSVUbjgzOJ34p2ooloz2m1xcCXmd1h75xlwVX_6TqEPOuHZuTuDnExlVVTme0lqdftqeax4CslEAat2oAFv_Xi0zv-ocHEgqopDIy-zQqGBQu8vqpT85mhcppKryOv4LEE3p-MYpJ7LJtuyi_twLG3hW4TC-uTArXZlCHClOSGibSuYrs1SuZmr4ag",
       inputSearch: "",
       text: "",
       recommendData: recommendData,
       onlyMaster: false,
       onlyMasterText: "只看楼主",
+      jump: false,
     };
   },
   methods: {
+    Reload() {
+      window.location.reload();
+    },
     ShiftPage() {
       if (!this.onlyMaster) {
         this.displays = this.postData.slice(
@@ -194,30 +199,68 @@ export default {
       this.ShiftPage();
     },
     ToBottom() {
+      this.jump = true;
       document.documentElement.scrollTo(
         undefined,
         document.documentElement.offsetHeight
       );
       this.$refs.bottom.focus();
+      document.getElementById("title").style.top =
+        document.documentElement.scrollTop - 50 + "px";
+      document.getElementById("toTop").style.top =
+        document.documentElement.scrollTop +
+        document.documentElement.clientHeight -
+        document.getElementById("toTop").offsetHeight -
+        100 +
+        "px";
     },
     ToTop() {
+      this.jump = true;
       document.documentElement.scrollTo(undefined, 0);
+      document.getElementById("title").style.top = 0;
+      document.getElementById("toTop").style.top =
+        document.documentElement.clientHeight -
+        document.getElementById("toTop").offsetHeight -
+        100 +
+        "px";
     },
     Follow(position) {
-      var title = document.getElementById("title");
-      var nav = document.getElementById("nav");
-      var toTop = document.getElementById("toTop");
-      if (position > nav.offsetHeight) {
-        title.style.top = position - nav.offsetHeight + "px";
-      } else {
-        title.style.top = 0;
+      if (this.jump) {
+        this.jump = false;
+        return;
       }
-      toTop.style.top =
-        position +
-        document.documentElement.clientHeight -
-        toTop.offsetHeight -
-        nav.offsetHeight +
-        "px";
+      var title = document.getElementById("title");
+      var toTop = document.getElementById("toTop");
+      if (
+        document
+          .getElementsByTagName("header")[0]
+          .getAttribute("class")
+          .indexOf("q-header--hidden") != -1
+      ) {
+        title.style.top = position - 50 + "px";
+      } else {
+        title.style.top = position + "px";
+      }
+      if (
+        document
+          .getElementsByTagName("footer")[0]
+          .getAttribute("class")
+          .indexOf("q-footer--hidden") != -1
+      ) {
+        toTop.style.top =
+          position +
+          document.documentElement.clientHeight -
+          toTop.offsetHeight -
+          50 +
+          "px";
+      } else {
+        toTop.style.top =
+          position +
+          document.documentElement.clientHeight -
+          toTop.offsetHeight -
+          100 +
+          "px";
+      }
     },
     Publish(content, floor, type) {
       axios
@@ -346,8 +389,6 @@ export default {
       this.Follow(0);
     });
     this.postId = this.$route.params.postId;
-    console.log(this.postId)
-    // this.postId = '05dfc0d8-9b42-4f4a-947e-a0ac28dfe99b'
     axios
       .get("http://175.24.115.240:8080/api/Show/post", {
         headers: {
@@ -403,8 +444,10 @@ export default {
           }
         });
         this.maxPage = Math.ceil(this.postData.length / 10);
+        this.currentPage = 1;
         this.ShiftPage();
       });
+
     axios
       .get("http://175.24.115.240:8080/api/Post/CanEvaluate", {
         headers: {

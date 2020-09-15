@@ -5,9 +5,7 @@
     </q-item-section>
     <q-item-section>
       <!-- 如何写路由！！！ -->
-      <router-link :to="{ name: to.name }">{{
-        label
-      }}</router-link>
+      <router-link :to="{ name: to.name }">{{ label }}</router-link>
     </q-item-section>
   </q-item>
 </template>
@@ -23,7 +21,7 @@ export default {
       type: Object,
       default() {
         return {
-          name: "destination"
+          name: "destination",
         };
       },
     },
