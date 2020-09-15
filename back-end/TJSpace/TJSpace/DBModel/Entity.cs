@@ -1,9 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace TJSpace.DBModel
 {
     public class SearchCourseReturn
+    {
+        public string CourseName { get; set; }
+        public int CourseCredit { get; set; }
+        public string CourseId { get; set; }
+        public string CourseIntro { get; set; }
+        public List<SearchCourseInfo> Info { get; set; }
+    }
+
+    public class SearchCourseInfo
     {
         public string TeacherName { get; set; }
         public int Semester { get; set; }

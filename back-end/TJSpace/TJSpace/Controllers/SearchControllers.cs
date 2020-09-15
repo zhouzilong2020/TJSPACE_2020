@@ -91,74 +91,73 @@ namespace TJSpace.Controllers
             });
         }
 
-        //查找课程
+        //查找课程,包含关键字即可
         [HttpGet]
         public ActionResult<string> SearchCourse(string keywords)
         {
-            var info1 = dbContext.CourseCodes.Where(u => u.Title.Contains(keywords)).ToList().FirstOrDefault();
-            if (info1 == null)
-            {
-                return Ok(new
-                {
-                    status = false,
-                    msg = "查找课程失败,该课程不存在"
-                });
-            }
-            string courseId = info1.CourseId;
-
-            var info2 = dbContext.Courses.Where(u => u.CourseId == courseId).ToList().FirstOrDefault();
-            if (info2 == null)
-            {
-                return Ok(new
-                {
-                    status = false,
-                    msg = "查找课程失败,不存在该课程信息"
-                });
-            }
-
-            var info3 = dbContext.Teaches.Where(u => u.CourseId == courseId).ToList();
-            if (info3 == null)
-            {
-                return Ok(new
-                {
-                    status = false,
-                    msg = "查找课程失败,不存在教师教授该课程"
-                });
-            }
-
             List<SearchCourseReturn> list = new List<SearchCourseReturn>();
-            foreach (var r in info3)
+
+            var info1 = dbContext.CourseCodes.Where(u => u.Title.Contains(keywords)).ToList();
+            if (info1.Count()==0)
             {
-                var teacher_temp = dbContext.Teachers.Where(u => u.TeacherId == r.TeacherId).ToList().FirstOrDefault();
-                if (teacher_temp != null)
+                return Ok(new
                 {
-                    list.Add(new SearchCourseReturn { TeacherName = teacher_temp.Name, Semester = r.Semester, Year = r.Year });
+                    status = false,
+                    msg = "查找课程失败,无相关课程"
+                });
+            }
+
+            foreach(var r in info1)
+            {
+                SearchCourseReturn s = new SearchCourseReturn();
+                var id = r.CourseId;
+                var info2 = dbContext.Courses.Where(u => u.CourseId == r.CourseId).ToList().FirstOrDefault();
+                if(info2==null)
+                {
+                    continue;
                 }
+                s.CourseName = r.Title;
+                s.CourseCredit = info2.Credits;
+                s.CourseId = r.CourseId;
+                s.CourseIntro = info2.Intro;
+
+                var info3 = dbContext.Teaches.Where(u => u.CourseId == r.CourseId).ToList();
+                List<SearchCourseInfo> list1 = new List<SearchCourseInfo>();
+                foreach (var t in info3)
+                {
+                    SearchCourseInfo info4 = new SearchCourseInfo();
+                    var teacherId = t.TeacherId;
+                    var info5=dbContext.Teachers.Where(u => u.TeacherId == teacherId).ToList().FirstOrDefault();
+                    info4.TeacherName = info5.Name;
+                    info4.Semester = t.Semester;
+                    info4.Year = t.Year;
+                    list1.Add(info4);
+                }
+                s.Info = list1;
+                list.Add(s);
+
             }
 
             return Ok(new
             {
-                CourseName = info1.Title,//课程名
-                CourseCredit = info2.Credits,
-                CourseId = info1.CourseId,
-                TeacherInfo = list,
                 status = true,
+                result = list,
                 msg = "查找课程成功"
             });
         }
 
-        //查找帖子，目前是只能查找指定字符，待修改为查找范围字符
+        //查找帖子，包含关键字即可
         [HttpGet]
         public ActionResult<string> SearchPost(string keywords)
         {
-            var info = dbContext.Posts.Where(u => u.Title == keywords).ToList();
+            var info = dbContext.Posts.Where(u => u.Title.Contains(keywords)).ToList();
 
             if (info.Count == 0)
             {
                 return Ok(new
                 {
                     status = false,
-                    msg = "查找帖子失败,该帖子不存在"
+                    msg = "查找帖子失败,相关帖子不存在"
                 });
             }
 
