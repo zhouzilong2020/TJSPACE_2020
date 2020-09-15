@@ -92,10 +92,10 @@ namespace TJSpace.Controllers
             p.Type = type;
 
             dbContext.Replies.Add(p);
-            
+            post.LatestReply = DateTime.Now;
+
             if ((type==0 && dbContext.SaveChanges()==2)||(type==1&&dbContext.SaveChanges()==1))
             {
-                post.LatestReply = DateTime.Now;
                 return Ok(new
                 {
                     status = true,

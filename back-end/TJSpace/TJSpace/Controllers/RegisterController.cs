@@ -83,6 +83,7 @@ namespace TJSpace.Controllers
             SmtpClient _smtpClient = new SmtpClient();
             _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;//指定电子邮件发送方式
             _smtpClient.Host = smtp; //指定SMTP服务器
+            _smtpClient.Port = 587;
             _smtpClient.Credentials = new System.Net.NetworkCredential("1227678132@qq.com", "mpyyzwkycczghhgc");//设置用于验证发件人身份的凭据
             MailMessage _mailMessage = new MailMessage();
 
@@ -108,13 +109,15 @@ namespace TJSpace.Controllers
                     msg = "验证邮件发送成功"
                 });
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                //throw new Exception(e.ToString());
                 return Ok(new
                 {
                     status = false,
-                    msg = "验证邮件发送失败"
-                });
+                    msg1 = e.ToString(),
+                    msg2 = "验证邮件发送失败"
+                }); 
                 throw;
             }
 

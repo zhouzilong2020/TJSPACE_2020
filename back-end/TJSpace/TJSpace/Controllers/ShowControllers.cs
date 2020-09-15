@@ -82,8 +82,8 @@ namespace TJSpace.Controllers
             }
 
             List<ShowPostReturn> replyid = new List<ShowPostReturn>();
-            foreach (var r in info)
-            {
+            //foreach (var r in info)
+            //{
                 var replies = dbContext.Replies.Where(n => n.PostId.Equals(postId)).ToList();
                 foreach (var reply in replies)
                 {
@@ -91,7 +91,7 @@ namespace TJSpace.Controllers
                     replyid.Add(new ShowPostReturn { ReplyId = reply.ReplyId, type = reply.Type, floor = reply.Floor,
                     name=z.NickName});
                 }
-            }
+            //}
 
             //var x = dbContext.Marks.Where(n => n.UserId.Equals(userId)).ToList().FirstOrDefault();
             //if (x == null)
