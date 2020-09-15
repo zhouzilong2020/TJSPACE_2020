@@ -2,59 +2,68 @@
   <q-page>
     <!-- title -->
     <div class="row justify-center" id="bbsTitle">
-      <div class="col-12">
+      <div class="col-8">
         <q-img :src="bgPath" style="width: 100%">
           <div class="absolute-bottom-left">
             <p>
-              <q-img :src="tjuLogo" style="width: 100%" />
+              <q-img :src="tjuLogo" style="width:100%" />
               TJ SPACE-BBS
             </p>
           </div>
         </q-img>
       </div>
     </div>
-    <!-- 发布主题贴 -->
-    <div v-show="isMakingPost">
-      <q-input
-        v-model="postContent"
-        label="输入你的想法"
-        type="textarea"
-        filled
-      />
-    </div>
-    <!-- 交互控件 -->
-    <div style="height: 3rem">
-      <div style="float: right">
-        <q-btn-group v-if="isMakingPost">
-          <q-btn color="primary" label="取消" @click="cancelPost" />
-          <q-btn color="primary" label="确定" @click="submitPost" />
-        </q-btn-group>
-        <q-btn-group v-else>
-          <q-btn
-            color="primary"
-            label="按主题发布时间排序"
-            @click="
-              this.orderType = 3;
-              getPosts(this.orderType);
-            "
-          />
-          <q-btn
-            color="primary"
-            label="按最新评论时间排序"
-            @click="
-              this.orderType = 0;
-              getPosts(this.orderType);
-            "
-          />
-          <q-btn
-            color="primary"
-            icon="add_comment"
-            label="发布"
-            @click="makeNewPost"
-          />
-        </q-btn-group>
+    <div class="row justify-center">
+      <div class="col-8">
+        <!-- 发布主题贴 -->
+        <div v-show="isMakingPost">
+          <q-input
+            v-model="postContent"
+            label="输入你的想法"
+            type="textarea"
+            maxlength="100"
+            :dense="dense"
+            counter
+            filled
+          >
+          </q-input>
+        </div>
+        <!-- 交互控件 -->
+        <div style="height:3rem">
+          <div style="float:right">
+            <q-btn-group v-if="isMakingPost">
+              <q-btn color="primary" label="取消" @click="cancelPost" />
+              <q-btn color="primary" label="确定" @click="submitPost" />
+            </q-btn-group>
+            <q-btn-group v-else>
+              <q-btn
+                color="primary"
+                label="按主题发布时间排序"
+                @click="
+                  this.orderType = 3;
+                  getPosts(this.orderType);
+                "
+              />
+              <q-btn
+                color="primary"
+                label="按最新评论时间排序"
+                @click="
+                  this.orderType = 0;
+                  getPosts(this.orderType);
+                "
+              />
+              <q-btn
+                color="primary"
+                icon="add_comment"
+                label="发布"
+                @click="makeNewPost"
+              />
+            </q-btn-group>
+          </div>
+        </div>
       </div>
     </div>
+
     <!-- 帖子  放在list中显示-->
     <div class="row justify-center">
       <div class="col-8">
@@ -145,25 +154,25 @@ export default {
       userId: "",
       //this.token应该由login传递过来
       token:
-        "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjkzNTMwMzY3ZDI0OTFiMzQ0MTEzODYwZGUyN2QzNzdlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1OTk1ODk0NzYsImV4cCI6MTU5OTU5MzA3NiwiaXNzIjoiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAiLCJhdWQiOlsiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAvcmVzb3VyY2VzIiwiYXBpMSJdLCJjbGllbnRfaWQiOiJjbGllbnQyIiwic3ViIjoiMTExIiwiYXV0aF90aW1lIjoxNTk5NTg5NDc2LCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIl0sImFtciI6WyJjdXN0b20iXX0.t5gKM8P3J0tw4bKtCFMxNuQZYRfacqMSmkCWYs_aoR3SsNOba0NuCiVJdSEPErNXFxGmKUUiv4L30S1t-04JrG2oAj0mjJVGPa__gMwdqFOVr2RzA5IdgNO4IzDskz2x7mBFiuXQcbpFe6poHoLGcfdOIo3NxQ_I8m2VVycOiYOy4HJfbPW1pmXdy2zjlrVYd6JTyKa82AADzdf2q1ttkPOn7_g5tU5Kv7dkYMDPc45SjHPWNvlCoPMQMsjVJUhAyTt0ZEmNHC2hj-mJWPpSIHq6O6Cieg75Wkxu4i79pqDzKGFv45UaI-8x28A0ySSrkdHXwAf739JbwnpyMBmRLg",
+        "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjkzNTMwMzY3ZDI0OTFiMzQ0MTEzODYwZGUyN2QzNzdlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE2MDAxNTI4NzcsImV4cCI6MTYwMDE1NjQ3NywiaXNzIjoiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAiLCJhdWQiOlsiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAvcmVzb3VyY2VzIiwiYXBpMSJdLCJjbGllbnRfaWQiOiJjbGllbnQyIiwic3ViIjoiMTExIiwiYXV0aF90aW1lIjoxNjAwMTUyODc3LCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIl0sImFtciI6WyJjdXN0b20iXX0.T-bwvqS0AGRj3HGyYoIUbxqm_zuufNVB2GaDHh6GSXn2lWx_mDapDcHF_oyEIGxpMZAp5HpFLvs9UfX_mqpwnbG3wMd3wMNZ-RLKWmy41sEkGtRZ-_41kPM6WOR-IfUe0t61_zU2ULD7EMOkF_hAYLFFRZIi2-5Rmmk1A-o2-07yDO5PmIrRzeR5JBxeLA7i6IQd2BTLwKCJZC8654Riq-P83gzZGF4GJtTsNRM-lprQybNpiIgs957dDE5Uvzn3DOTlqrcYorY9JeaM-lprzePmfGdcQFTAhjmMOr9Ist5yvjX02igx_Qzk3yPtsBRjp2DhW-syzZ7BnXgs_sKqqQ",
     };
   },
   methods: {
-    initUserInfo: function () {
+    initUserInfo: function() {
       //未实现，占位
       //等待login实现
       this.userId = "u1001";
       console.log("get user info");
     },
-    makeNewPost: function () {
+    makeNewPost: function() {
       this.isMakingPost = true;
     },
-    cancelPost: function () {
+    cancelPost: function() {
       this.isMakingPost = false;
       this.postContent = "";
     },
-    submitPost: function () {
-      var resp = axios.post(
+    submitPost: async function() {
+      var resp = await axios.post(
         URL + `Post/post`,
         {},
         {
@@ -185,11 +194,13 @@ export default {
       this.getPosts(this.orderType, this.currPage);
       this.currPage++;
     },
-    jumpToPost: function (index) {
-      //未实现，占位
-      alert(this.postInfo[index].postId);
+    jumpToPost: function(index) {
+      this.$router.push({
+        name: "Forum",
+        params: { postId: this.postInfo[index].postId },
+      });
     },
-    thumbUp: async function (index) {
+    thumbUp: async function(index) {
       var evaluatable = true;
       await axios
         .get(URL + `Post/CanEvaluate`, {
@@ -228,7 +239,7 @@ export default {
       this.postInfo[index].agreeAccount++;
       this.postInfo[index].canThumb = 0;
     },
-    thumbDown: async function (index) {
+    thumbDown: async function(index) {
       var evaluatable = true;
       await axios
         .get(URL + `Post/CanEvaluate`, {
@@ -267,12 +278,12 @@ export default {
       this.postInfo[index].agreeAccount--;
       this.postInfo[index].canStep = 0;
     },
-    cleanPage: function () {
+    cleanPage: function() {
       this.postInfo.length = 0;
       this.currPage = 0;
       this.isBottom = false;
     },
-    getPosts: async function (type, page) {
+    getPosts: async function(type, page) {
       console.log(page);
       await axios
         .get(URL + `Show/getPosts`, {
