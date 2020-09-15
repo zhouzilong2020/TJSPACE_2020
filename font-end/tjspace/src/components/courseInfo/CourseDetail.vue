@@ -61,6 +61,16 @@
 
     <q-card-section>
       <course-statistic :commentStatistic="commentStatistic" />
+      <q-btn
+        stretch
+        class="full-width btn"
+        color="primary"
+        icon-right="comment"
+        label="撰写评论"
+        unelevated
+      >
+        <q-tooltip content-class="bg-accent">现在就撰写你的评论吧！</q-tooltip>
+      </q-btn>
     </q-card-section>
   </q-card>
 </template>
@@ -98,11 +108,10 @@ export default {
 </script>
 
 <style scoped>
-.course-detail{
+.course-detail {
   max-width: 200px;
 }
 .course-detail .course-detail-img {
-
   max-width: 80px;
   padding: 10px;
   margin: 0 auto;

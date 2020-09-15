@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container row justify-center">
       <img :src="bgPath" alt="">
       <register/>
     </div>
@@ -24,12 +24,13 @@ export default {
 </script>
 
 <style scoped>
-img{
-  position: absolute;
+img {
+  position: fixed;
   height: 100%;
   width: 100%;
-  margin-top: -90px;
-  padding:0;
+  margin-top: -120px;
+  padding: 0;
+  z-index: -1;
 }
 .container{
     margin-top: 90px;

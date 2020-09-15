@@ -1,6 +1,6 @@
 <template>
     <div class="course-comment-statistics">
-		<p>{{commentStatistic.reveiwCnt}} Comments</p>
+		<p>共{{commentStatistic.reveiwCnt}}条评论</p>
 		<ul class="rating-container row">
 			<li>
                 <div class="column">
@@ -77,8 +77,6 @@ export default {
     line-height: 35px;
     border-radius: 6px;
 }
-
-
 
 .rating-container li .rating {
     display: inline-block;

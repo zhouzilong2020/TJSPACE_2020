@@ -2,6 +2,9 @@ export default {
     routes: [
         {
             path: "/",
+            component: () => import("@/components/dialog"),
+        }, {
+            path: "/courseInfo/:courseId",
             component: () => import("@/pages/CourseInfo"),
         }, {
             path: "/login",
@@ -16,7 +19,7 @@ export default {
             name: "BBSHomepage",
             component: () => import("@/pages/BBSHomePage"),
         }, {
-            path: "/Forum",
+            path: "/Forum/:postId",
             name: "Forum",
             component: () => import("@/pages/Forum"),
         }, {
@@ -28,15 +31,16 @@ export default {
             name: "Homepage",
             component: () => import("@/pages/Homepage"),
         }, {
-            path: "/Homepage/:userid/edit",
+            path: "/SelfInfoModify/:userId",
+            name: 'SelfInfoModify',
             component: () => import("@/pages/SelfInfoModify"),
         }, {
-            path: "/makecomment/:userid/:courseid",
+            path: "/makecomment/:userid/:courseId",
             component: () => import("@/pages/MakeComment"),
         }, {
             path: "/",  //表示匹配所有路径
             name: 'index',
-            component: () => import("@/components/index"),
+            component: () => import("@/pages/index"),
         }, {
             path: "*",  //表示匹配所有路径
             component: () => import("@/pages/Error404"),

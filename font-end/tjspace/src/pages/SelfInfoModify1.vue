@@ -1,8 +1,6 @@
 <template>
   <div class="card" style="width:600pt; margin:0 auto; margin-top:50pt">
-
     <q-card class="my-card" >
-
       <q-card-section>
         <div class="text-h6">个人信息</div>
       </q-card-section>
@@ -54,10 +52,6 @@
         </div>
       
       </q-card-section>
-      <q-card-section>
-        {{ lorem }}
-      </q-card-section>
-
 
       <q-separator />
 
@@ -80,10 +74,9 @@
 
 
 <script>
-import Vue from 'vue'
-import VueResource from 'vue-resource'
-Vue.use(VueResource);
 export default {
+    components:{
+    },
     name:"SelfInfoModify",
     props:{
         SelfInfo:{
@@ -114,7 +107,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style >
 .text-subtitle2{
   margin-top: 40pt;
 }

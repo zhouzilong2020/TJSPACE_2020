@@ -1,29 +1,31 @@
 <template>
-  <div class="container row justify-center">
+  <div>
     <img :src="bgPath" alt="" />
-    <login />
+    <div class="container justify-center row">
+      <index-rotate-card class="index-card col-7" />
+      <login class="login-card" />
+    </div>
   </div>
 </template>
 
 <script>
 import login from "../components/userInfo/login";
+import indexRotateCard from "../components/indexRotateCard";
 
 export default {
+  components: {
+    login,
+    indexRotateCard,
+  },
+
   data() {
     return {
       bgPath: require("../assets/school.jpeg"),
     };
   },
-
-  components: {
-    login,
-  },
   created(){
-    this.$store.commit('route/setRoutes', [this.$route.name])
     console.log(this.$route.name)
-  },
-  mounted() {},
-  beforeDestroy() {},
+  }
 };
 </script>
 
@@ -36,7 +38,17 @@ img {
   padding: 0;
   z-index: -1;
 }
+
 .container {
-  margin-top: 90px;
+  margin-top: 100px;
+}
+.index-card {
+  opacity: 0.9;
+  /* height: 520px; */
+  /* margin-left: px; */
+}
+.login-card {
+  opacity: 0.9;
+  /* height: 520px; */
 }
 </style>

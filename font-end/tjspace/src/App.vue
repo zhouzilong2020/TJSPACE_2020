@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import layout from "./components/layout"
+import layout from "./components/layout/layout"
 export default {
 
 

@@ -1,5 +1,5 @@
 <template>
-  <q-card class="white q-my-md">
+  <q-card class="white q-mb-xs">
     <div class="row">
       <div class="col-auto">
         <div class="row q-mx-md q-my-md">
@@ -7,23 +7,22 @@
             <img v-bind:src="headURL" />
           </q-avatar>
         </div>
-        <div class="row justify-center h4">
+        <a class="row justify-center h4" style="text-decoration: none" href="#">
           {{ nickName }}
-        </div>
+        </a>
       </div>
       <div class="col q-mx-lg q-my-lg">
         <div class="row word-wrap:break-word">
-          {{ content }}
+          <div class="text-wrapper">{{ content }}</div>
         </div>
       </div>
     </div>
     <div class="row justify-end items-center">
       <div class="col-auto">
         <q-btn
-          v-if="floor === 1"
           :class="{ activedColor: thumbUp }"
           class="q-mx-sm"
-          @click="$emit('evaluate', 1)"
+          @click="ThumbUP"
           icon="thumb_up"
           flat
           round
@@ -31,18 +30,15 @@
           <div v-if="thumbUpNum !== 0">{{ thumbUpNum }}</div>
         </q-btn>
         <q-btn
-          v-if="floor === 1"
           class="q-mx-sm"
           :class="{ activedColor: thumbDown }"
-          @click="$emit('evaluate', 0)"
+          @click="ThumbDown"
           icon="thumb_down"
           flat
           round
         />
-        <q-btn class="q-mx-md" @click="Expand" :label="buttonText" flat round>
-          <div v-if="floor !== 1 && replys.length > 0">
-            ({{ replys.length }})
-          </div>
+        <q-btn class="q-mx-sm" @click="Expand" :label="buttonText" flat round>
+          <div v-if="floor !== 1">({{ testData.length }})</div>
         </q-btn>
       </div>
     </div>
@@ -56,48 +52,39 @@
           :label="floor + '楼 ' + date"
         >
           <div v-if="floor !== 1">
-            <div v-for="(display, i) in displays" :key="i">
+            <div v-for="(data, i) in testData" :key="i">
               <Reply
-                :nickName="display.nickName"
-                :content="display.content"
-                :date="display.date"
+                :nickName="data.nickName"
                 @changeReplyPrefix="ChangePrefix"
+                :content="tcontent"
               />
             </div>
             <q-tabs
-              v-if="replys.length > 3"
+              v-model="replyPage"
               inline-label
               class="white q-mt-xs shadow-2"
             >
-              <q-tab
-                v-for="i in Math.ceil(replys.length / 3)"
-                color="white"
-                class="q-mx-xs"
-                :key="i"
-                :name="i"
-                :label="i"
-                @click="ShiftPage(i)"
-              />
+              <div v-for="(data, i) in testData" :key="i">
+                <q-tab
+                  :name="i + 1"
+                  :label="i + 1"
+                  color="white"
+                  class="q-mx-xs"
+                />
+              </div>
             </q-tabs>
             <q-card class="white q-mt-xs justify-center">
               <div class="row justify-end">
                 <div class="col-10">
-                  <q-input
-                    outlined
-                    ref="reply"
-                    v-model="replyContent"
-                    :prefix="replyPrefix"
-                  />
+                  <q-input outlined ref="reply" :prefix="repleyPrefix" />
                 </div>
                 <div class="col-auto q-pr-sm q-pl-lg q-py-sm">
                   <q-btn
                     class="q-mx-xs"
                     color="white"
                     text-color="black"
+                    @click="Publish"
                     label="发表"
-                    @click="
-                      $emit('publish', replyPrefix + replyContent, floor - 1, 1)
-                    "
                   />
                 </div>
               </div>
@@ -110,6 +97,17 @@
 </template>
 <script>
 import Reply from "./Reply.vue";
+const testData = [
+  {
+    nickName: "DiDi",
+  },
+  {
+    nickName: "EiEi",
+  },
+  {
+    nickName: "FiFi",
+  },
+];
 export default {
   name: "Post",
   components: {
@@ -132,48 +130,32 @@ export default {
       type: Number,
       required: true,
     },
-    thumbUpNum: {
+    propThumbUpNum: {
       type: Number,
       default: 0,
     },
-    thumbUp: {
-      type: Boolean,
-      default: false,
-    },
-    thumbDown: {
-      type: Boolean,
-      default: false,
-    },
     date: {
       type: String,
-      required: true,
-    },
-    replys: {
-      type: Array,
-      required: true,
-    },
-    userId: {
-      type: String,
-      required: true,
+      default: "2020-8-11 21:42",
     },
   },
   data() {
     return {
       expanded: false,
       buttonText: "回复",
-      replyPrefix: "",
-      replyContent: "",
-      displays: [],
+      testData,
+      tcontent:
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+      replyPage: 1,
+      repleyPrefix: "",
+      thumbUp: false,
+      thumbDown: false,
+      thumbUpNum: this.propThumbUpNum,
     };
-  },
-  watch: {
-    replys() {
-      this.ShiftPage(1);
-    },
   },
   methods: {
     ChangePrefix(nickName) {
-      this.replyPrefix = "回复@" + nickName + ":";
+      this.repleyPrefix = "回复@" + nickName + ":";
       this.$refs.reply.focus();
     },
     Expand() {
@@ -192,12 +174,23 @@ export default {
         this.replyPrefix = "";
       }
     },
-    ShiftPage(index) {
-      this.displays = this.replys.slice((index - 1) * 3, index * 3);
+    ThumbUP() {
+      this.thumbUp = !this.thumbUp;
+      this.thumbDown = false;
+      if (this.thumbUp) {
+        this.thumbUpNum++;
+      } else {
+        this.thumbUpNum--;
+      }
     },
-  },
-  mounted: function () {
-    this.ShiftPage(1);
+    ThumbDown() {
+      this.thumbDown = !this.thumbDown;
+      this.thumbUp = false;
+      this.thumbUpNum--;
+    },
+    Publish() {
+      this.repleyPrefix = "";
+    },
   },
 };
 </script>

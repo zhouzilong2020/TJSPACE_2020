@@ -80,3 +80,21 @@ export async function getUserInfo(payload) {
     });
     return resp.data.data[0];
 }
+
+/**
+ * 获取用户收藏的课程信息
+ * @param {Object} payload 
+ */
+export async function getFavoriteCourse(payload) {
+    console.log(payload)
+    var resp = await axios.get(`${URL}Show/getCollectedCourse`, {
+        headers: {
+            Authorization: payload.token
+        },
+        params: {
+            userId: payload.userId
+        }
+    });
+    return resp
+}
+
