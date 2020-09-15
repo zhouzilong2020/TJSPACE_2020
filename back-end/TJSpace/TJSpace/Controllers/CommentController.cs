@@ -65,10 +65,28 @@ namespace TJSpace.Controllers
             comment.Date = DateTime.Now;
             comment.UsefulNum = 0;
             comment.UselessNum = 0;
-            
+
+            var data1 = dbContext.CourseGrades.Where(u => u.CourseId == comment.CourseId && u.TeacherId == comment.TeacherId).ToList().FirstOrDefault();
+            if(data1==null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "评价失败，课程关系不存在！"
+                });
+            }
+            if(data1.AvgScore==0)
+            {
+                data1.AvgScore = comment.Overrall*1.0;
+            }
+            else
+            {
+                data1.AvgScore = 1.0*(data1.AvgScore + comment.Overrall) / 2;
+            }
+
             dbContext.Comments.Add(comment);
 
-            if(dbContext.SaveChanges()==1)
+            if(dbContext.SaveChanges()==2)
             {
                 return Ok(new
                 {
@@ -236,7 +254,7 @@ namespace TJSpace.Controllers
                 {
                     status = true,
                     canEvaluate=true,
-                    msg = "查询成功，不存在评价，可以评价"
+                    msg = "可以评价"
                 });
             }
             else
@@ -246,7 +264,33 @@ namespace TJSpace.Controllers
                     status = true,
                     canEvaluate=false,
                     type=evaluation.Type,
-                    msg = "查询成功，存在评价，不可以评价"
+                    msg = "不可以评价"
+                });
+            }
+        }
+
+        //查询是否可以进行评价
+        [HttpGet]
+        public ActionResult<string> CanPostComment(string userId,string courseId,string teacherId)
+        {
+            var evaluation = dbContext.Comments.Where(u => u.UserId == userId && u.CourseId == courseId && u.TeacherId == teacherId).ToList().FirstOrDefault();
+            
+            if (evaluation == null)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    canPostComment = true,
+                    msg = "可以评价"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = true,
+                    canPostComment = false,
+                    msg = "不可以评价"
                 });
             }
         }

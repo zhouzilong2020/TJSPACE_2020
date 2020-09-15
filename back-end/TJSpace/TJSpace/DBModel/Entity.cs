@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Reflection;
 
 namespace TJSpace.DBModel
@@ -18,6 +19,7 @@ namespace TJSpace.DBModel
         public string TeacherName { get; set; }
         public int Semester { get; set; }
         public int Year { get; set; }
+        public double CourseGrade { get; set; }
     }
 
     public class SearchPostReturn

@@ -17,6 +17,7 @@ namespace TJSpace
        public DbSet<CourseCode> CourseCodes { get; set; }
        public DbSet<CourseCollect> CourseCollect { get; set; }
        public DbSet<Credibility> Credibilities { get; set; }
+       public DbSet<CourseGrade> CourseGrades { get; set; }
        public DbSet<Major> Majors { get; set; }
        public DbSet<Mark> Marks { get; set; }
        public DbSet<Post> Posts { get; set; }
@@ -45,6 +46,9 @@ namespace TJSpace
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Teaches>().HasKey(t => new { t.CourseId, t.Semester,t.TeacherId });
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<CourseGrade>().HasKey(t => new { t.TeacherId, t.CourseId });
             base.OnModelCreating(modelBuilder);
         }
     }

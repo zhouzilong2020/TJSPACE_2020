@@ -112,7 +112,7 @@ namespace TJSpace.Controllers
                 SearchCourseReturn s = new SearchCourseReturn();
                 var id = r.CourseId;
                 var info2 = dbContext.Courses.Where(u => u.CourseId == r.CourseId).ToList().FirstOrDefault();
-                if(info2==null)
+                if (info2 == null)
                 {
                     continue;
                 }
@@ -131,6 +131,8 @@ namespace TJSpace.Controllers
                     info4.TeacherName = info5.Name;
                     info4.Semester = t.Semester;
                     info4.Year = t.Year;
+                    var info6 = dbContext.CourseGrades.Where(u => u.CourseId == t.CourseId && u.TeacherId == t.TeacherId).ToList().FirstOrDefault();
+                    info4.CourseGrade = info6.AvgScore;
                     list1.Add(info4);
                 }
                 s.Info = list1;

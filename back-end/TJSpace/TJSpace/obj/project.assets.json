@@ -13247,20 +13247,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\58241\\.nuget\\packages\\": {}
+    "C:\\Users\\matianfang\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\58241\\Documents\\TJSPACE_2020\\back-end\\TJSpace\\TJSpace\\TJSpace.csproj",
+      "projectUniqueName": "C:\\Users\\matianfang\\Documents\\TJSPACE_2020\\back-end\\TJSpace\\TJSpace\\TJSpace.csproj",
       "projectName": "TJSpace",
-      "projectPath": "C:\\Users\\58241\\Documents\\TJSPACE_2020\\back-end\\TJSpace\\TJSpace\\TJSpace.csproj",
-      "packagesPath": "C:\\Users\\58241\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\58241\\Documents\\TJSPACE_2020\\back-end\\TJSpace\\TJSpace\\obj\\",
+      "projectPath": "C:\\Users\\matianfang\\Documents\\TJSPACE_2020\\back-end\\TJSpace\\TJSpace\\TJSpace.csproj",
+      "packagesPath": "C:\\Users\\matianfang\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\matianfang\\Documents\\TJSPACE_2020\\back-end\\TJSpace\\TJSpace\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\58241\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\matianfang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
@@ -13335,7 +13340,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
