@@ -49,6 +49,7 @@ namespace TJSpace.Controllers
                 return Ok(new
                 {
                     status = true,
+                    userId=uuid,
                     msg = "注册成功"
                 });
             }

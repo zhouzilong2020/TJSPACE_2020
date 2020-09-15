@@ -33,6 +33,7 @@ namespace TJSpace.DBModel
         public string ReplyId { get; set; }
         public int floor { get; set; }
         public int type { get; set; }
+        public string name { get; set; }
     }
 
     public class ShowCommentReturn
@@ -60,7 +61,7 @@ namespace TJSpace.DBModel
     public class getCollectedCourseReturn
     {
         public string CourseName { get; set; }
-        public string CourseNumber { get; set; }
+        public string CourseId { get; set; }
         public string DeptName { get; set; }
         public int Credit { get; set; }
         public string TeacherName { get; set; }

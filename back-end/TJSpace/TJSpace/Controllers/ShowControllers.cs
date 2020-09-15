@@ -64,10 +64,11 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("post")]
-        public ActionResult<string> showPost(string postId, string userId)
+        public ActionResult<string> showPost(string postId)
         {
             List<Post> list = dbContext.Posts.Where(n => n.PostId.Equals(postId)).ToList();
-
+            var x = dbContext.Posts.Where(n => n.PostId.Equals(postId)).ToList().FirstOrDefault();
+            var y = dbContext.Users.Where(n => n.UserId.Equals(x.UserId)).ToList().FirstOrDefault();
             var info = dbContext.Replies.Where(n => n.PostId.Equals(postId)).ToList();
             if (info == null)
             {
@@ -75,6 +76,7 @@ namespace TJSpace.Controllers
                 {
                     status = true,
                     data = list,
+                    nickname=y.NickName,
                     msg = "查看数据成功,该帖不存在回复"
                 });
             }
@@ -82,30 +84,36 @@ namespace TJSpace.Controllers
             List<ShowPostReturn> replyid = new List<ShowPostReturn>();
             foreach (var r in info)
             {
-                var reply = dbContext.Replies.Where(n => n.PostId.Equals(postId)).ToList().FirstOrDefault();
-                replyid.Add(new ShowPostReturn { ReplyId = reply.ReplyId, type = reply.Type, floor = reply.Floor });
-            }
-
-            var x = dbContext.Marks.Where(n => n.UserId.Equals(userId)).ToList().FirstOrDefault();
-            if (x == null)
-            {
-                return Ok(new
+                var replies = dbContext.Replies.Where(n => n.PostId.Equals(postId)).ToList();
+                foreach (var reply in replies)
                 {
-                    status = true,
-                    data1 = list,
-                    data2 = replyid,
-                    data3 = 0,
-                    msg = "查看数据成功"
-                });
+                    var z = dbContext.Users.Where(n => n.UserId.Equals(reply.UserId)).ToList().FirstOrDefault();
+                    replyid.Add(new ShowPostReturn { ReplyId = reply.ReplyId, type = reply.Type, floor = reply.Floor,
+                    name=z.NickName});
+                }
             }
 
-            int attitude = x.Type;
+            //var x = dbContext.Marks.Where(n => n.UserId.Equals(userId)).ToList().FirstOrDefault();
+            //if (x == null)
+            //{
+            //    return Ok(new
+            //    {
+            //        status = true,
+            //        data1 = list,
+            //        data2 = replyid,
+            //        data3 = 0,
+            //        msg = "查看数据成功"
+            //    });
+            //}
+
+            //int attitude = x.Type;
             return Ok(new
             {
                 status = true,
                 data1 = list,
-                data2 = info,
-                data3 = attitude,
+                data2 = y.NickName,
+                data3=replyid,
+                //data3 = attitude,
                 msg = "查看数据成功"
             });
         }
@@ -114,13 +122,19 @@ namespace TJSpace.Controllers
         //GET
         [HttpGet]
         [Route("reply")]
-        public ActionResult<string> showReply(string replyId)
+        public ActionResult<string> showReply(string str)
         {
-            List<Reply> list = dbContext.Replies.Where(n => n.ReplyId.Equals(replyId)).ToList();
+            string[] sArray = str.Split(',');
+            List<List<Reply>> info = new List<List<Reply>>();
+            foreach (string replyId in sArray) 
+            {
+                List<Reply> list = dbContext.Replies.Where(n => n.ReplyId.Equals(replyId)).ToList();
+                info.Add(list);
+            }
             return Ok(new
             {
                 status = true,
-                data = list,
+                data = info,
                 msg = "查看数据成功"
             });
         }
@@ -282,7 +296,7 @@ namespace TJSpace.Controllers
                 var course = dbContext.Courses.Where(u => u.CourseId == k.CourseId).FirstOrDefault();
                 temp.Credit = course.Credits;
                 temp.DeptName = course.DeptName;
-                temp.CourseNumber = k.CourseId;
+                temp.CourseId = k.CourseId;
                 temp.TeacherId = k.TeacherId;
                 temp.TeacherName = dbContext.Teachers.Where(u => u.TeacherId == k.TeacherId).FirstOrDefault().Name;
                 info.Add(temp);

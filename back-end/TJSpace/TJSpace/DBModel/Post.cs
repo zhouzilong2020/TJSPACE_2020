@@ -31,7 +31,7 @@ namespace TJSpace.DBModel
         [JsonProperty("title")]
         [Required]
         [Column("title")]
-        [StringLength(maximumLength: 200)]
+        [StringLength(maximumLength: 100)]
         public string Title { get; set; }
 
         //贴子内容
