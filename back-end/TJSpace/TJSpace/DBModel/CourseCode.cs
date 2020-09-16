@@ -28,6 +28,12 @@ namespace TJSpace.DBModel
         [StringLength(maximumLength: 16)]
         public string Title { get; set; }
 
+        //课程图片
+        [JsonProperty("courseimageurl")]
+        [Required]
+        [Column("course_image_url")]
+        [StringLength(maximumLength: 200)]
+        public string CourseImageUrl { get; set; }
 
     }
 }

@@ -20,7 +20,6 @@ namespace TJSpace.Controllers
         }
 
         //修改个人信息
-        //PUT
         [HttpPost]
         [Route("Info")]
         public ActionResult<string> ModifyInfo(User user)
@@ -30,6 +29,7 @@ namespace TJSpace.Controllers
             info.Gender = user.Gender;
             info.PhoneNumber = user.PhoneNumber;
             info.MajorId = user.MajorId;
+            info.HeadImageUrl = user.HeadImageUrl;
             dbContext.SaveChanges();
             return Ok(new
             {

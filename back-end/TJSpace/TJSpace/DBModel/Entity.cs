@@ -11,15 +11,11 @@ namespace TJSpace.DBModel
         public int CourseCredit { get; set; }
         public string CourseId { get; set; }
         public string CourseIntro { get; set; }
-        public List<SearchCourseInfo> Info { get; set; }
-    }
-
-    public class SearchCourseInfo
-    {
         public string TeacherName { get; set; }
         public int Semester { get; set; }
         public int Year { get; set; }
         public double CourseGrade { get; set; }
+        public string CourseImageUrl { get; set; }
     }
 
     public class SearchPostReturn

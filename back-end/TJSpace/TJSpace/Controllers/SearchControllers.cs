@@ -108,36 +108,32 @@ namespace TJSpace.Controllers
             }
 
             foreach(var r in info1)
-            {
-                SearchCourseReturn s = new SearchCourseReturn();
+            { 
                 var id = r.CourseId;
                 var info2 = dbContext.Courses.Where(u => u.CourseId == r.CourseId).ToList().FirstOrDefault();
                 if (info2 == null)
                 {
                     continue;
                 }
-                s.CourseName = r.Title;
-                s.CourseCredit = info2.Credits;
-                s.CourseId = r.CourseId;
-                s.CourseIntro = info2.Intro;
-
+                
                 var info3 = dbContext.Teaches.Where(u => u.CourseId == r.CourseId).ToList();
-                List<SearchCourseInfo> list1 = new List<SearchCourseInfo>();
                 foreach (var t in info3)
                 {
-                    SearchCourseInfo info4 = new SearchCourseInfo();
+                    SearchCourseReturn s = new SearchCourseReturn();
+                    s.CourseName = r.Title;
+                    s.CourseCredit = info2.Credits;
+                    s.CourseId = r.CourseId;
+                    s.CourseIntro = info2.Intro;
                     var teacherId = t.TeacherId;
                     var info5=dbContext.Teachers.Where(u => u.TeacherId == teacherId).ToList().FirstOrDefault();
-                    info4.TeacherName = info5.Name;
-                    info4.Semester = t.Semester;
-                    info4.Year = t.Year;
+                    s.TeacherName = info5.Name;
+                    s.Semester = t.Semester;
+                    s.Year = t.Year;
                     var info6 = dbContext.CourseGrades.Where(u => u.CourseId == t.CourseId && u.TeacherId == t.TeacherId).ToList().FirstOrDefault();
-                    info4.CourseGrade = info6.AvgScore;
-                    list1.Add(info4);
+                    s.CourseGrade = info6.AvgScore;
+                    s.CourseImageUrl = r.CourseImageUrl;
+                    list.Add(s);
                 }
-                s.Info = list1;
-                list.Add(s);
-
             }
 
             return Ok(new

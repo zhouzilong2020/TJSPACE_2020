@@ -39,7 +39,7 @@ namespace TJSpace.Controllers
                     msg = "昵称重复"
                 });
 
-            dbContext.Users.Add(new DBModel.User { UserId = uuid,NickName = nickname});
+            dbContext.Users.Add(new DBModel.User { UserId = uuid,NickName = nickname,HeadImageUrl= "http://tjspace.cn:8088/headimage/1.jpg" });
             dbContext.SaveChanges();
 
             dbContext.Accounts.Add(new DBModel.Account { UserId = uuid, Email = email, Password = password, State = 1, Type = 0 });
