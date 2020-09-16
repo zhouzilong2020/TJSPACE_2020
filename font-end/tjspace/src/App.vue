@@ -9,25 +9,34 @@
 </template>
 
 <script>
-import layout from "./components/layout/layout"
+import layout from "./components/layout/layout";
+import { checkCookie } from "./utils/utils";
+import {mapState} from 'vuex'
 export default {
-
-
-  name: 'APP',
+  name: "APP",
   components: {
     layout,
   },
-  data () {
-    return{}
+  data() {
+    return {};
   },
-  methods:{
-  }
-}
+  computed:mapState('userInfo', ['userInfo']),
+  methods: {},
+  async beforeCreate() {
+    if (!this.userInfo) {
+      //如果当前用户信息没有，先检查cookie中是否含有信息
+      if (checkCookie()) {
+        await this.$store.dispatch("userInfo/loginUser");
+      }
+    }
+  },
+};
 </script>
 
 <style>
-  @import '~@/styles/global.css';
-  body{
-    background-color: rgb(245, 246, 247);
-  }
+@import "~@/styles/global.css";
+body {
+  background-color: rgb(245, 246, 247);
+}
 </style>
+

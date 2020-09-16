@@ -4,7 +4,9 @@
       <!-- 功能按钮 -->
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="drawer = !drawer" />
-        <q-toolbar-title class="title"> TJSPACE · 同济大学社群 </q-toolbar-title>
+        <q-toolbar-title class="title">
+          TJSPACE · 同济大学社群
+        </q-toolbar-title>
 
         <!-- 登录|注册 -->
         <!-- 三种情况！ -->
@@ -33,8 +35,6 @@
                 />
               </template>
             </q-input>
-            <q-space />
-
             <q-space />
 
             <q-space />
@@ -216,7 +216,7 @@ export default {
   },
   methods: {
     async handleLogout() {
-      console.log("click logout btn");
+      console.log("clicking logout btn");
       await this.$store.dispatch("userInfo/logoutUser");
       // 成功退出
       if (this.token == null) {

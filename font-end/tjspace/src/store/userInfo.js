@@ -1,5 +1,5 @@
-import { loginUser, logoutUser, registerUser, getUserInfo } from "../services/userService"
-import { setCookie, getCookie } from '../utils/utils'
+import { loginUser, registerUser, getUserInfo } from "../services/userService"
+import { setCookie, getCookie, removeCookie } from '../utils/utils'
 /**
  * 用户登录的数据仓库
  */
@@ -54,7 +54,7 @@ export default {
                     userId,
                     token
                 })
-                console.log('after cookie resp',resp)
+                console.log('after cookie resp', resp)
                 if (resp) {
                     //成功获取到了用户信息
                     context.commit("setUserInfo", resp)
@@ -77,7 +77,6 @@ export default {
                     }
                     if (resp2) {
                         context.commit("setUserInfo", resp2)
-
                         setCookie('TJSPACE-token', 'Bearer ' + resp1.data1, 2)
                         setCookie('TJSPACE-userId', resp1.data2)
                     }
@@ -91,15 +90,15 @@ export default {
          */
         async logoutUser(context) {
             console.log("in store logoutUser")
-            context.commit("setIsLoading", true);
-            var resp = await logoutUser()
-            console.log(resp)
-            if (resp) {
-                context.commit('setToken', null)
-                context.commit('userInfo', null)
-                context.commit("setIsLoading", false);
-            }
-            return resp
+
+            await context.commit('setToken', null)
+            context.commit('setUserInfo', null)
+
+            // 清楚相应的cookie
+            removeCookie('TJSPACE-token')
+            removeCookie('TJSPACE-userId')
+
+            return true
         },
         /**
          * 注册用户

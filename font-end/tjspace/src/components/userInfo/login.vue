@@ -81,12 +81,28 @@ export default {
       warning: false,
     };
   },
+
   computed: {
     ...mapState("userInfo", ["isLoading", "token", "userInfo"]),
     isDisabled() {
       if (this.account.email && this.account.password) return false;
       return true;
     },
+  },
+
+  created() {
+    if (this.userInfo) {
+      this.$router.push({
+        name: "Homepage",
+        params: {
+          userId: this.userInfo.userid,
+        },
+      });
+    }
+    if (localStorage.getItem("TJSPACE-email")) {
+      this.account.email = localStorage.getItem("TJSPACE-email");
+      this.remember = true
+    }
   },
 
   methods: {

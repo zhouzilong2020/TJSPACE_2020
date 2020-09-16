@@ -1,6 +1,6 @@
 <template>
-  <div class="card" style="margin:0 auto; max-width:800pt">
-    <q-card class="my-card" style="margin:0 auto; max-width: 600pt">
+  <div class="card" style="margin: 0 auto; max-width: 800pt">
+    <q-card class="my-card" style="margin: 0 auto; max-width: 600pt">
       <q-card-section>
         <div class="text-h6">个人信息</div>
       </q-card-section>
@@ -23,9 +23,7 @@
       <q-card-section style="margin-top: 20pt">
         <div class="row" style="font-size: 20px">
           <div class="col-6">主修专业: {{ Major }}</div>
-          <div class="col-6" style="text-align: center">
-            学历: {{ Degree }}
-          </div>
+          <div class="col-6" style="text-align: center">学历: {{ Degree }}</div>
         </div>
       </q-card-section>
 
@@ -33,9 +31,14 @@
 
       <q-card-actions>
         <q-btn style="margin: 0 auto">
-          <router-link :to="{ name: 'SelfInfoModify', params: { userid: userInfo.userid } }">
+          <router-link
+            :to="{
+              name: 'SelfInfoModify',
+              params: { userid: userInfo.userid },
+            }"
+          >
             修改个人信息
-          </router-link> 
+          </router-link>
         </q-btn>
       </q-card-actions>
     </q-card>
@@ -53,8 +56,7 @@
 import TeacherInfo from "../components/homepage/TeacherInfo";
 import CourseInfo from "../components/homepage/CourseInfo";
 import CommentInfo from "../components/homepage/CommentInfo";
-import {mapState} from 'vuex'
-import {checkCookie} from '../utils/utils'
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -62,7 +64,6 @@ export default {
     CommentInfo,
     CourseInfo,
   },
-  
 
   data() {
     return {
@@ -72,83 +73,62 @@ export default {
       avatarBGPath: require("../assets/material.png"),
       drawer: false,
       active: -1,
-      Grade: '',
-      Major: '',
-      Gender:'',
-      Degree:''
+      Grade: "",
+      Major: "",
+      Gender: "",
+      Degree: "",
     };
   },
 
-  computed:mapState('userInfo', ['userInfo']),
-  async created(){
-    if(!this.userInfo){
-      //如果当前用户信息没有，先检查cookie中是否含有信息
-      if(checkCookie()){
-        await this.$store.dispatch('userInfo/loginUser')
-      }
-    }
+  computed: mapState("userInfo", ["userInfo"]),
+  created() {
+    console.log("in homepage created", this.userInfo);
 
-
-
-    console.log('in homepage created', this.userInfo)
-
-    switch(this.userInfo.gender)
-    {
-      case 0: 
-        this.Gender='男';
+    switch (this.userInfo.gender) {
+      case 0:
+        this.Gender = "男";
         break;
-      case 1: 
-        this.Gender='女';
+      case 1:
+        this.Gender = "女";
         break;
     }
-    switch(this.userInfo.majorid)
-    {
-      case '1': 
-        this.Major='软件工程';
+    switch (this.userInfo.majorid) {
+      case "1":
+        this.Major = "软件工程";
         break;
-      case '2': 
-        this.Major='土木工程';
+      case "2":
+        this.Major = "土木工程";
         break;
-      case '3': 
-        this.Major='经济与管理';
-        break;
-    }
-    switch(this.userInfo.year)
-    {
-      case 1: 
-        this.Grade='大一';
-        break;
-      case 2: 
-        this.Grade='大二';
-        break;
-      case 3: 
-        this.Grade='大三';
-        break;
-      case 4: 
-        this.Grade='大四';
+      case "3":
+        this.Major = "经济与管理";
         break;
     }
-    switch(this.userInfo.degree)
-    {
-      case 1: 
-        this.Degree='本科生';
+    switch (this.userInfo.year) {
+      case 1:
+        this.Grade = "大一";
         break;
-      case 2: 
-        this.Degree='研究生';
+      case 2:
+        this.Grade = "大二";
         break;
-      case 3: 
-        this.Degreer='博士生';
+      case 3:
+        this.Grade = "大三";
+        break;
+      case 4:
+        this.Grade = "大四";
         break;
     }
-
-    
-
+    switch (this.userInfo.degree) {
+      case 1:
+        this.Degree = "本科生";
+        break;
+      case 2:
+        this.Degree = "研究生";
+        break;
+      case 3:
+        this.Degreer = "博士生";
+        break;
+    }
   },
-
-  
-
-
-
 };
 </script>
 

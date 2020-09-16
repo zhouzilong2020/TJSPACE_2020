@@ -1,6 +1,13 @@
+export function removeCookie(cname) {
+  var d = new Date();
+  d.setTime(d.getTime() - (60 * 60 * 1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=;" + expires + ";"
+}
+
 export function setCookie(cname, cvalue, exhours) {
   var d = new Date();
-  if(!exhours){
+  if (!exhours) {
     exhours = 2
   }
   d.setTime(d.getTime() + (exhours * 60 * 60 * 1000));
@@ -21,6 +28,7 @@ export function getCookie(cname) {
 export function checkCookie() {
   var token = getCookie('TJSPACE-token')
   var userId = getCookie('TJSPACE-userId')
+  console.log('in check cookie:', token, userId)
   if (token && userId) {
     return true
   }
@@ -28,3 +36,4 @@ export function checkCookie() {
     return false
   }
 }
+

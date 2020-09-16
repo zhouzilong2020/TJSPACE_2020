@@ -20,23 +20,11 @@ export async function loginUser(payload) {
   if(resp.data.status && payload.remember){
     localStorage.setItem('TJSPACE-email', payload.account.email)
   }
+  //如果用户没有选择记住用户账号
+  if(resp.data.status && !payload.remember){
+    localStorage.removeItem('TJSPACE-email')
+  }
   return resp.data;
-}
-
-/**
- * 使用浏览器保存的userId和token来获取我是谁，如果token过期则清除本地保存的信息
- */
-export async function whoAmI() {
-  
-}
-
-/**
- * 退出登录，删除本地保存的token和userId信息
- */
-export async function logoutUser() {
-
-
-  return true;
 }
 
 /**
@@ -69,6 +57,7 @@ function getCode(digit) {
   let max = min * 10;
   return Math.floor(Math.random() * (max - min - 1)) + min;
 }
+
 /**
  * 向用户的邮箱发送验证码
  * @param {Object} payload
