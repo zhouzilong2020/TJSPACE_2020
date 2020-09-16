@@ -36,6 +36,7 @@ namespace TJSpace.DBModel
         public int Semester { get; set; }
 
         //开课年份
+        [Key]
         [JsonProperty("year")]
         [Required]
         [Column("year", TypeName = "int(11)")]

@@ -45,7 +45,7 @@ namespace TJSpace
             modelBuilder.Entity<Takes>().HasKey(t => new { t.UserId, t.Year,t.Semester,t.CourseId });
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Teaches>().HasKey(t => new { t.CourseId, t.Semester,t.TeacherId });
+            modelBuilder.Entity<Teaches>().HasKey(t => new { t.CourseId, t.Semester,t.TeacherId,t.Year });
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<CourseGrade>().HasKey(t => new { t.TeacherId, t.CourseId });

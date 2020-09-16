@@ -110,5 +110,58 @@ namespace TJSpace.Controllers
                 });
             }
         }
+
+        //建立授课关系
+        [HttpPost]
+        public ActionResult<string>CreateTeachingRelation(string teacherId,string courseId,int semester,int year)
+        {
+            if(dbContext.Teachers.Where(u=>u.TeacherId==teacherId).ToList().FirstOrDefault()==null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "建立授课关系失败,教师不存在"
+                });
+            }
+
+            if (dbContext.CourseCodes.Where(u => u.CourseId == courseId).ToList().FirstOrDefault() == null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "建立授课关系失败,课程不存在"
+                });
+            }
+
+            var data = dbContext.Teaches.Where(u => u.CourseId == courseId && u.TeacherId == teacherId && u.Semester == semester&&u.Year==year).ToList().FirstOrDefault();
+            if(data!=null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "建立授课关系失败,该关系已存在"
+                });
+            }
+
+            dbContext.Teaches.Add(new DBModel.Teaches { CourseId = courseId, TeacherId = teacherId, Semester = semester, Year = year });
+            dbContext.CourseGrades.Add(new DBModel.CourseGrade { CourseId = courseId, TeacherId = teacherId, AvgScore = 0.0 });
+            
+            if(dbContext.SaveChanges()==2)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    msg = "建立授课关系成功"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "建立授课关系失败"
+                });
+            }
+        }
     }
 }
