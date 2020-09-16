@@ -7,12 +7,12 @@
             <img v-bind:src="headURL" />
           </q-avatar>
         </div>
-        <div class="row justify-center h4">
+        <div class="row justify-center text-subtitle1">
           {{ nickName }}
         </div>
       </div>
       <div class="col q-mx-lg q-my-lg">
-        <div class="row word-wrap:break-word">
+        <div class="row  text-body1" style="word-break:break-all;word-wrap:break-word">
           {{ content }}
         </div>
       </div>

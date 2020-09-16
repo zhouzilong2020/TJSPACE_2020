@@ -220,7 +220,7 @@ export default {
       await this.$store.dispatch("userInfo/logoutUser");
       // 成功退出
       if (this.token == null) {
-        console.log("logout user successfully");
+        console.log("logout user successfully")
         this.$router.push({
           name: "index",
         });

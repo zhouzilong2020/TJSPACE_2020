@@ -111,7 +111,12 @@ export default {
             console.log("reg user resp:", resp)
             // 注册成功
             if (resp.status) {
-                resp = await loginUser(payload);
+                resp = await loginUser({
+                    account: {
+                        email: payload.email,
+                        password: payload.password
+                    }
+                });
                 console.log("login user", resp);
                 if (resp.status) {
                     // 登录成功，记录其token

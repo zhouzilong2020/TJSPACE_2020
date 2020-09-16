@@ -11,21 +11,31 @@
 <script>
 import login from "../components/userInfo/login";
 import indexRotateCard from "../components/indexRotateCard";
+import { mapState } from "vuex";
 
 export default {
   components: {
     login,
     indexRotateCard,
   },
-
+  computed:mapState('userInfo', ['userInfo']),
+  
   data() {
     return {
       bgPath: require("../assets/school.jpeg"),
     };
   },
-  created(){
-    console.log(this.$route.name)
-  }
+  created() {
+    if(this.userInfo){
+      console.log('in index created',this.userInfo)
+      this.$router.push({
+        name:'Homepage',
+        params:{
+          userId:this.userInfo.userId
+        }
+      })
+    }
+  },
 };
 </script>
 

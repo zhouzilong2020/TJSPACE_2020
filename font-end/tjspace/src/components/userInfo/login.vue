@@ -54,11 +54,13 @@
         </q-btn-group>
       </q-form>
     </q-card-section>
+
     <pop-dialog
       :content="'用户名或密码错误'"
       :bgColor="'bg-warning'"
       :show="warning"
     />
+
   </q-card>
 </template>
 

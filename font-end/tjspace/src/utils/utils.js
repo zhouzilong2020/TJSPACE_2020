@@ -2,6 +2,7 @@ export function removeCookie(cname) {
   var d = new Date();
   d.setTime(d.getTime() - (60 * 60 * 1000));
   var expires = "expires=" + d.toGMTString();
+
   document.cookie = cname + "=;" + expires + ";"
 }
 
@@ -11,6 +12,10 @@ export function setCookie(cname, cvalue, exhours) {
     exhours = 2
   }
   d.setTime(d.getTime() + (exhours * 60 * 60 * 1000));
+
+  console.log("now:", d)
+
+  
   var expires = "expires=" + d.toGMTString();
   document.cookie = cname + "=" + cvalue + "; " + expires + ";" + " path=*"
 }

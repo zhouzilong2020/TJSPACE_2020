@@ -8,7 +8,7 @@
       </div>
       <div class="col q-px-sm q-py-sm">
         <div class="row">
-          <div class="word-wrap:break-word">
+          <div class="text-body1" style="word-break:break-all;word-wrap:break-word">
             {{ nickName }}
             <div style="display: inline-block" v-if="!/^回复@/.test(content)">
               :

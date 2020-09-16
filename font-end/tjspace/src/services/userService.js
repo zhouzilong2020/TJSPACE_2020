@@ -7,7 +7,7 @@ import { URL } from "./config";
  * @param {Object} payload payload需要传入account{email，password}, remember
  */
 export async function loginUser(payload) {
-  console.log("in userSevice", payload.account);
+  console.log("in userSevice::login user", payload.account);
   var resp = await axios.get(`${URL}Login/login`, {
     params: {
       email: payload.account.email,
@@ -17,11 +17,11 @@ export async function loginUser(payload) {
   console.log('in login service', resp);
 
   // 登录成功，用户选择记住账号
-  if(resp.data.status && payload.remember){
+  if (resp.data.status && payload.remember) {
     localStorage.setItem('TJSPACE-email', payload.account.email)
   }
   //如果用户没有选择记住用户账号
-  if(resp.data.status && !payload.remember){
+  if (resp.data.status && !payload.remember) {
     localStorage.removeItem('TJSPACE-email')
   }
   return resp.data;
@@ -32,12 +32,9 @@ export async function loginUser(payload) {
  * @param {Object} payload payload需要传入 email，password，nickname，以及邮箱的相关验证码
  */
 export async function registerUser(payload) {
-  console.log("in userSevice", payload);
+  console.log("in userSevice::reg", payload);
   var resp = await axios.post(`${URL}Register/register`, {},
     {
-      headers: {
-        Authorization: payload.token,
-      },
       params: {
         email: payload.email,
         password: payload.password,
@@ -63,30 +60,22 @@ function getCode(digit) {
  * @param {Object} payload
  */
 export async function sentAuthCode(payload) {
-  console.log("in userSevice", payload);
+  console.log("in sending AuthCode", payload);
   let code =
     "TJSPACE-" +
     getCode(3).toString() +
     "-" +
-    getCode(3).toString() +
-    "-" +
-    getCode(3).toString();
+    getCode(3).toString()
   var resp = await axios.get(`${URL}Register/email`, {
     params: {
       email: payload.email,
       code: code,
     },
   });
-  console.log(resp);
-  return resp;
+  console.log('in services after sending authCode:',resp);
+  return { data: {...resp.data, authCode:code} };
 }
-/**
- *验证用户的邮箱信息 
- *@param {Object} payload
- */
-// export async function verifyAuthCode(payload) {
 
-// }
 
 export async function getUserInfo(payload) {
   console.log(payload);

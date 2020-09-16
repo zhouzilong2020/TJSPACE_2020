@@ -1,108 +1,123 @@
 <template>
-
-      <div class="main" style="margin-left:350px;">
-        <q-page-container class="body-right row">
-          <div class="left col-8" style>
-            <div class="q-pa-md" style="max-width: 780px">
-              <div class="q-gutter-md">
-                <div style="text-align:center;">
-                  <span class="word">开启你的</span>
-                  <img :src="path1" style="height:130px;width:130px;margin-left:25px;margin-right:25px;">
-                  <span class="word">奇妙旅程</span>
-                </div>
-                <div class="search-bar">
-                  <input
-                    type="text"
-                    value
-                    id="textId"
-                    class="textClass"
-                    placeholder="请输入希望搜索的课程名称"
-                    name="textName"
-                  />
-                  <button @click="btnclick()" style="border:none;width:70px;max-height:50px;">
-                    <q-icon name="search"></q-icon>
-                  </button>
-                </div>
-              </div>
+  <div class="main" style="margin-left: 350px">
+    <q-page-container class="body-right row">
+      <div class="left col-8" style>
+        <div class="q-pa-md" style="max-width: 780px">
+          <div class="q-gutter-md">
+            <div style="text-align: center">
+              <span class="word">开启你的</span>
+              <img
+                :src="path1"
+                style="
+                  height: 130px;
+                  width: 130px;
+                  margin-left: 25px;
+                  margin-right: 25px;
+                "
+              />
+              <span class="word">奇妙旅程</span>
             </div>
-
-            <div v-if="isShow">
-              <div class="choose">
-                <q-select
-                  standout="bg-teal text-white"
-                  v-model="model"
-                  :options="department"
-                  label="学院"
-                ></q-select>
-              </div>
-              <div
-                class="content"
-                v-for="item in newcourseInfo"
-                :key="item.label"
-                :value="item.value"
+            <div class="search-bar">
+              <input
+                type="text"
+                value
+                id="textId"
+                class="textClass"
+                placeholder="请输入希望搜索的课程名称"
+                name="textName"
+              />
+              <button
+                @click="btnclick()"
+                style="border: none; width: 70px; max-height: 50px"
               >
-                <q-card clickable v-ripple class="my-cardinfo" flat bordered @click="click(item)">
-                  <q-item>
-                    <q-item-section avatar>
-                      <q-avatar>
-                        <img :src="path" />
-                      </q-avatar>
-                    </q-item-section>
-
-                    <q-item-section>
-                      <q-item-label>{{item.courseName}}</q-item-label>
-                      <q-item-label caption>{{item.courseCredit}}</q-item-label>
-                    </q-item-section>
-                  </q-item>
-
-                  <q-separator />
-
-                  <q-card-section horizontal>
-                    <q-card-section>{{item.courseIntro}}</q-card-section>
-
-                    <q-separator vertical />
-
-                    <q-card-section class="col-4">分数：0.0</q-card-section>
-                  </q-card-section>
-                </q-card>
-              </div>
+                <q-icon name="search"></q-icon>
+              </button>
             </div>
+          </div>
+        </div>
 
-            <div v-else>
-              <div class="wordrec">recommendations</div>
+        <div v-if="isShow">
+          <div class="choose">
+            <q-select
+              standout="bg-teal text-white"
+              v-model="model"
+              :options="department"
+              label="学院"
+            ></q-select>
+          </div>
+          <div
+            class="content"
+            v-for="item in newcourseInfo"
+            :key="item.label"
+            :value="item.value"
+          >
+            <q-card
+              clickable
+              v-ripple
+              class="my-cardinfo"
+              flat
+              bordered
+              @click="click(item)"
+            >
+              <q-item>
+                <q-item-section avatar>
+                  <q-avatar>
+                    <img :src="path" />
+                  </q-avatar>
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>{{ item.courseName }}</q-item-label>
+                  <q-item-label caption>{{ item.courseCredit }}</q-item-label>
+                </q-item-section>
+              </q-item>
 
               <q-separator />
 
-              <div
-                class="content"
-                style="margin-top:5px;display:flex;"
-                v-for="item in courseInfo"
-                :key="item.label"
-                :value="item.value"
-              >
-                <div>
-                  <q-card class="my-cardrec" @click="click(item)">
-                    <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" basic>
-                      <div class="absolute-bottom text-h6">{{item.name}}</div>
-                    </q-img>
+              <q-card-section horizontal>
+                <q-card-section>{{ item.courseIntro }}</q-card-section>
 
-                    <q-card-section>{{ item.intro }}</q-card-section>
-                  </q-card>
-                </div>
+                <q-separator vertical />
 
-              </div>
+                <q-card-section class="col-4">分数：0.0</q-card-section>
+              </q-card-section>
+            </q-card>
+          </div>
+        </div>
+
+        <div v-else>
+          <div class="wordrec">recommendations</div>
+
+          <q-separator />
+
+          <div
+            class="content"
+            style="margin-top: 5px; display: flex"
+            v-for="item in courseInfo"
+            :key="item.label"
+            :value="item.value"
+          >
+            <div>
+              <q-card class="my-cardrec" @click="click(item)">
+                <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" basic>
+                  <div class="absolute-bottom text-h6">{{ item.name }}</div>
+                </q-img>
+
+                <q-card-section>{{ item.intro }}</q-card-section>
+              </q-card>
             </div>
           </div>
-        </q-page-container>
+        </div>
       </div>
+    </q-page-container>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { search } from "../services/search";
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
       isShow: 0,
@@ -158,6 +173,7 @@ export default {
   },
   methods: {
     click(data) {
+      console.log('click card', data)
       this.$router.push({
         name: "courseInfo",
         params: {
@@ -238,8 +254,6 @@ export default {
   border-radius: 1px;
 }
 
-
-
 .my-cardrec {
   max-width: 340px;
   max-height: 340px;
@@ -257,14 +271,14 @@ export default {
   font-style: oblique;
   font-size: 50px;
   font-weight: 900;
-  color: rgb(100,149,237);
+  color: rgb(100, 149, 237);
 }
-.wordrec{
+.wordrec {
   font-family: reccom;
-  text-align:center;
+  text-align: center;
   font-style: oblique;
   font-size: 50px;
   font-weight: 900;
-  color: rgb(100,149,237);
+  color: rgb(100, 149, 237);
 }
 </style>

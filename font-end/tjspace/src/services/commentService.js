@@ -1,7 +1,7 @@
 // 获取评论 ！哈哈
 import axios from "axios";
 // import Qs from  'qs'
-import { token, URL } from './config'
+import { URL } from './config'
 /**
  * 获取用户评论评论
  */
@@ -9,7 +9,7 @@ export async function getComment(payload) {
     console.log("in get comment", payload)
     var resp = await axios.get(`${URL}Show/comment`, {
         headers: {
-            Authorization: token,
+            Authorization: payload.token,
         },
         params: {
             courseId: payload.courseId,
@@ -25,13 +25,13 @@ export async function getComment(payload) {
  */
 export async function evaluateComment(payload) {
     console.log("in evaluate comment", payload)
-    var resp = await axios.post(`${URL}Comment/EvaluateComment`,{},
+    var resp = await axios.post(`${URL}Comment/EvaluateComment`, {},
         {
-            headers: { 
-                Authorization: token,
+            headers: {
+                Authorization: payload.token,
                 // 'Content-Type':'application/x-www-form-urlencoded'
             },
-            params:{
+            params: {
                 commentId: payload.commentId,
                 userId: payload.userId,
                 type: payload.type
@@ -50,7 +50,7 @@ export async function getEvaluate(payload) {
     console.log("in getEvaluate ", payload)
     var resp = await axios.get(`${URL}Comment/CanEvaluate`, {
         headers: {
-            Authorization: token,
+            Authorization: payload.token,
         },
         params: {
             userId: payload.userId,
@@ -69,15 +69,15 @@ export async function getEvaluate(payload) {
  */
 export async function cancelEvaluation(payload) {
     console.log("in cancel Evaluation ", payload)
-    var resp = await axios.post(`${URL}Comment/CancelEvaluation`,{},
+    var resp = await axios.post(`${URL}Comment/CancelEvaluation`, {},
         {
-            headers: { 
-                Authorization: token,
-                'Content-Type':'application/json' 
+            headers: {
+                Authorization: payload.token,
+                'Content-Type': 'application/json'
             },
-            params:{
-                commentId : payload.commentId, 
-                userId : payload.userId,
+            params: {
+                commentId: payload.commentId,
+                userId: payload.userId,
             },
         }
     );
