@@ -28,10 +28,9 @@ export default {
       if (checkCookie()) {
         await this.$store.dispatch("userInfo/loginUser");
       } else {
-        // this.$route.push({
-        //   name: "index",
-        // });
-        1+1
+        this.$router.push({
+          name: "index"
+        });
       }
     }
   },

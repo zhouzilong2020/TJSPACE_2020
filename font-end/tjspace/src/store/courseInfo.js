@@ -6,11 +6,15 @@ export default {
     state: {
         courseInfo: null,
         isLoading: false,
+        searchText : '',
         
     },
     mutations: {
       setCourseInfo(state, payload) {
         state.courseInfo = payload
+      },
+      setSearchText(state, payload) {
+        state.searchText = payload
       }
     },
 }

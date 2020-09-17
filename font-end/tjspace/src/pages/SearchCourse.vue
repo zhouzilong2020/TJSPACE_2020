@@ -1,5 +1,7 @@
 <template>
-  <div class="main">
+  <!-- 你的内容将会被插入在这里 -->
+  <q-page-contaner>
+  <div class="main" style="margin-left: 350px">
     <q-page-container class="body-right row">
       <div class="left col-8" style>
         <div class="q-pa-md" style="max-width: 780px">
@@ -18,33 +20,39 @@
               <span class="word">奇妙旅程</span>
             </div>
             <div class="search-bar">
-              <input
-                type="text"
-                value
-                id="textId"
-                class="textClass"
-                placeholder="请输入希望搜索的课程名称"
-                name="textName"
-              />
-              <button
-                @click="btnclick()"
-                style="border: none; width: 70px; max-height: 50px"
-              >
-                <q-icon name="search"></q-icon>
-              </button>
+              <div style="text-align: center">
+                <q-input
+                  class="inputbar"
+                  rounded
+                  outlined
+                  id="textId"
+                  v-model="input"
+                  value
+                  placeholder="请输入需要搜索的课程名"
+                  style="width: 760px"
+                >
+                  <button @click="btnclick()" style="border: none">
+                    <q-icon name="search"></q-icon>
+                  </button>
+                </q-input>
+              </div>
+
+              <!-- <input
+                    type="text"
+                    value
+                    id="textId"
+                    class="textClass"
+                    placeholder="请输入希望搜索的课程名称"
+                    name="textName"
+                  />
+                  <button @click="btnclick()" style="border:none;width:70px;max-height:50px;">
+                    <q-icon name="search"></q-icon>
+                  </button>-->
             </div>
           </div>
         </div>
 
         <div v-if="isShow">
-          <div class="choose">
-            <q-select
-              standout="bg-teal text-white"
-              v-model="model"
-              :options="department"
-              label="学院"
-            ></q-select>
-          </div>
           <div
             class="content"
             v-for="item in newcourseInfo"
@@ -62,24 +70,30 @@
               <q-item>
                 <q-item-section avatar>
                   <q-avatar>
-                    <img :src="path" />
+                    <img :src="item.courseImageUrl" />
                   </q-avatar>
                 </q-item-section>
 
                 <q-item-section>
                   <q-item-label>{{ item.courseName }}</q-item-label>
-                  <q-item-label caption>{{ item.courseCredit }}</q-item-label>
+                  <q-item-label caption>{{ item.teacherName }}</q-item-label>
                 </q-item-section>
               </q-item>
 
               <q-separator />
 
               <q-card-section horizontal>
-                <q-card-section>{{ item.courseIntro }}</q-card-section>
+                <q-card-section style="width: 500px">{{
+                  item.courseIntro
+                }}</q-card-section>
 
                 <q-separator vertical />
 
-                <q-card-section class="col-4">分数：0.0</q-card-section>
+                <q-card-section
+                  class="col-4"
+                  style="text-align: center; color: #e10602"
+                  >分数: {{ item.courseGrade }}</q-card-section
+                >
               </q-card-section>
             </q-card>
           </div>
@@ -90,37 +104,43 @@
 
           <q-separator />
 
-          <div
-            class="content"
-            style="margin-top: 5px; display: flex"
-            v-for="item in courseInfo"
-            :key="item.label"
-            :value="item.value"
-          >
-            <div>
-              <q-card class="my-cardrec" @click="click(item)">
-                <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" basic>
-                  <div class="absolute-bottom text-h6">{{ item.name }}</div>
+          <div class="row">
+            <template
+              class="content"
+              style="margin-top: 5px; display: flex"
+              v-for="(item, index) in courseInfo"
+              :value="item.value"
+            >
+              <q-card
+                class="my-cardrec"
+                :key="index"
+                @click="click(item)"
+                style="margin-left: 45px; margin-top: 15px"
+              >
+                <q-img :src="path1" basic>
+                  <div class="absolute-bottom text-subtitle2 text-center">
+                    {{ item.name }}
+                  </div>
                 </q-img>
-
-                <q-card-section>{{ item.intro }}</q-card-section>
               </q-card>
-            </div>
+            </template>
           </div>
         </div>
       </div>
     </q-page-container>
   </div>
+  </q-page-contaner>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { search } from "../services/search";
 export default {
-  components: {},
+  components: {
+  },
   data() {
     return {
-      model:'',
+      input: "",
       isShow: 0,
       path1: require("../assets/TJU.png"),
       path: require("../assets/zhuzi.jpeg"),
@@ -152,12 +172,6 @@ export default {
           intro:
             "这是还是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
         },
-        {
-          name: "系统分析与设计",
-          teacher: "孙萍",
-          intro:
-            "这是仍然是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
-        },
       ],
       newcourseInfo: [],
       text: "",
@@ -166,6 +180,7 @@ export default {
       logoPath: require("../assets/TJU.png"),
       avatarPath: require("../assets/boy-avatar.png"),
       avatarBGPath: require("../assets/material.png"),
+      str: "",
       userInfo: {
         email: "1",
         nickname: "1",
@@ -174,7 +189,6 @@ export default {
   },
   methods: {
     click(data) {
-      console.log("click card", data);
       this.$router.push({
         name: "courseInfo",
         params: {
@@ -184,15 +198,18 @@ export default {
     },
     btnclick() {
       this.$nextTick(async function () {
-        this.value = document.getElementById("textId").value;
-        console.log("search", this.value);
-
-        console.log('in serach course', this.token)
-        var resp1 = await search({
-          searchKey: this.value,
-          token: this.token,
-        });
+        //       this.value = document.getElementById("textId").value;
+        console.log("search", this.input);
+        var resp1 = await search({ searchKey: this.input });
         this.newcourseInfo = resp1;
+
+        for (var i = 0; i < this.newcourseInfo.length; i++) {
+          if (this.newcourseInfo[i].courseIntro.length > 30) {
+            this.str = this.newcourseInfo[i].courseIntro.slice(0, 29);
+            this.newcourseInfo[i].courseIntro = this.str + "......";
+          }
+        }
+
         this.isShow = 1;
         console.log("result", this.newcourseInfo);
       });
@@ -235,10 +252,6 @@ export default {
   width: 800px;
 }
 
-.choose {
-  max-width: 200px;
-  /* margin-left: 14px; */
-}
 .my-cardinfo {
   width: 100%;
   max-width: 720px;
@@ -252,21 +265,26 @@ export default {
   display: flex;
   width: 1000px;
 }
-.search-bar input {
-  width: 710px;
-  height: 50px;
-  /* margin-left: 0px; */
-  border-color: grey;
-  border-radius: 1px;
+
+.search-bar button {
+  outline: none;
+  height: 60px;
+  width: 80px;
+  border: 3px solid #2932e1;
+  background: white;
+  color: black;
+  border-left: 0;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .my-cardrec {
-  max-width: 340px;
-  max-height: 340px;
+  width: 200px;
+  height: 200px;
 }
 @font-face {
   font-family: maoyeye;
-  src: url("../assets/shufa.ttf");
+  src: url("../assets/xingshu.ttf");
 }
 @font-face {
   font-family: reccom;
@@ -277,7 +295,7 @@ export default {
   font-style: oblique;
   font-size: 50px;
   font-weight: 900;
-  color: rgb(100, 149, 237);
+  color: #e10602;
 }
 .wordrec {
   font-family: reccom;

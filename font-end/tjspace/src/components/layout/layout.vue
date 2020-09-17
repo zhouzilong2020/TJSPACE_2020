@@ -21,6 +21,7 @@
               dense
               standout
               v-model="text"
+              @keydown.13="handleTopSearch()"
               input-class="text-left"
               class="q-ml-md"
               placeholder="发现更多课程"
@@ -35,6 +36,8 @@
                 />
               </template>
             </q-input>
+
+            <!-- 空格间隙 -->
             <q-space />
           </template>
           <q-btn-group class="top-option" flat>
@@ -101,12 +104,11 @@
             </q-avatar>
 
             <template v-if="userInfo">
-              <div class="text-weight-bold"  v-show="!miniState">
-                 {{ "欢迎你！"+userInfo.nickname }}
+              <div class="text-weight-bold" v-show="!miniState">
+                {{ "欢迎你！" + userInfo.nickname }}
               </div>
               <!-- 这个没存user的Email啊 -->
               <!-- <div>{{ userInfo.eMail }}</div> -->
-              <div  v-show="!miniState">{{userInfo.email + '@tongji.edu.cn'}}</div>
             </template>
 
             <template v-else>
@@ -127,6 +129,7 @@
             <template v-if="userInfo">
               <drawer-btn
                 :label="'个人主页'"
+                @click="debug()"
                 :to="{
                   name: 'Homepage',
                   params: { userId: userInfo.userid },
@@ -196,16 +199,28 @@ export default {
   props: {},
   computed: {
     ...mapState("userInfo", ["isLoading", "token", "userInfo"]),
-    ...mapState("route", ["routes"]),
   },
   methods: {
+    debug() {
+      console.log("this", this.userInfo.userId);
+    },
+    handleTopSearch() {
+      // 如果当前页面不是课程搜索页面
+      if (this.$router.name != "SearchCourse") {
+        this.$store.commit("setSearchText", { text: this.text, isSet: true });
+        this.$router.push({
+          name: "SearchCourse",
+        });
+        this.text = "";
+      }
+      console.log("on enter down", this.text);
+    },
     handleRoute(payload) {
       console.log("handle route change", payload);
-      console.log("adjgasludgalsjdhgasldghls");
-      this.$route.push({
+      this.$router.push({
         name: payload,
         params: {
-          userId: payload.userId,
+          userId: payload.userid,
         },
       });
     },

@@ -443,9 +443,9 @@ export default {
   },
   data() {
     return {
-      step: 5,
+      step: 0,
       score: [5, 5, 5, 5],
-      comment: ["1", "1", "1", "1"],
+      comment: ["", "", "", ""],
       selection: [],
       title: [
         "请选择本门课程的相应情况",
