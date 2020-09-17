@@ -45,6 +45,7 @@
 
 <script>
 import { getComment } from "../services/commentService";
+import { getCourseInfo } from "../services/courseService";
 import { mapState } from "vuex";
 import CourseComment from "../components/courseInfo/CourseComment";
 import CourseDetail from "../components/courseInfo/CourseDetail";
@@ -58,7 +59,7 @@ export default {
     CourseHead,
   },
   computed: {
-    ...mapState("userInfo", ["token", "userInfo", "isLoading"]),
+    ...mapState("userInfo", ["token", "userInfo"]),
     commentStatistic() {
       let statistic = {
         reveiwCnt: 0,
@@ -83,36 +84,19 @@ export default {
   },
   data() {
     return {
-      ID: 420244,
-      order: "",
-      dept: "",
-      orderOptions: [],
-      deptsOptions: [],
       text: "",
       logoPath: require("../assets/TJU.png"),
       avatarPath: require("../assets/boy-avatar.png"),
       avatarBGPath: require("../assets/material.png"),
-      drawer: false,
-      active: -1,
 
       courseInfo: {
         title: "数据库原理与应用",
         teacher: "袁时金",
-        id: "420244",
+        courseId: "420244",
         section: "2020 春",
         department: "软件学院",
         credit: "4",
-        sections: [
-          "2017-春",
-          "2017-秋",
-          "2018-春",
-          "2018-秋",
-          "2018-春",
-          "2019-秋",
-          "2019-春",
-          "2019-秋",
-          "2020-春",
-        ],
+        sections: ["2020-春"],
         syllabus:
           "Chapter 1: Introduction Chapter 2: Introducation to the Relational Model Chapter 3: Intoduction to SQL Chapter 4: Intermediate SQLChapter 5: Advanced SQL Sections 5.4 onwards omitted. Chapter 6: Other Relational Languages Section 6.1 (Relational Algebra) covered in brief，Sections 6.2 and 6.3 omitted Chapter 7: Entity-Relationship Model  Chapter 8: Relational Database Design  Chapter 9: Application Design and Development  Chapter 10: Storage and File Structure  Sections 10.3, 10.4 and 10.8 omitted Chapter 11: Indexing and Hashing  Cover only Sections 11.1 through 11.3，with a brief outline of Section 11.5 and 11.6 Chapter 12: Query Processing  Cover only Section 12.1 (Overview)  Chapter 14: Transactions  Transaction Concept, Transaction State, Concurrent Executions, Conflict Serializability Introduction to major database products: Oracle",
       },
@@ -121,15 +105,44 @@ export default {
   },
   async created() {
     if (this.token) {
-      var resp = await getComment({ courseId: this.ID, token: this.token });
-      this.comments = resp.data1;
-      this.commentor = resp.data2;
-      
-      this.$store.commit('courseInfo/setCourseInfo', {
-        courseInfo : this.courseInfo,
-        statistic : this.commentStatistic
-      })
+      // 加载效果
+      this.isLoading = true;
+      this.$q.loading.show();
+      // 设置定时器
+      setTimeout(() => {
+        if (this.isLoading) {
+          // 如果到了时间还没有加载成功
+          this.$q.notify({
+            message: "请求超时，请重试",
+            position: "center",
+            timeout: "2000",
+          });
+          this.$q.loading.hide();
+        }
+      }, 5000);
 
+      getCourseInfo({
+        courseId: this.$route.params.courseId,
+        token: this.token,
+      }).then((resp) => {
+        this.courseInfo = resp;
+      });
+
+      getComment({
+        courseId: this.$route.params.courseId,
+        token: this.token,
+      }).then((resp) => {
+        this.comments = resp.data1;
+        this.commentor = resp.data2;
+        this.$store.commit("courseInfo/setCourseInfo", {
+          courseInfo: this.courseInfo,
+          statistic: this.commentStatistic,
+        });
+      });
+
+      // 加载完成
+      this.isLoading = false;
+      this.$q.loading.hide();
     }
   },
 };

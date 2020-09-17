@@ -101,7 +101,7 @@ export default {
         async logoutUser(context) {
             console.log("in store logoutUser")
 
-            await context.commit('setToken', null)
+            context.commit('setToken', null)
             context.commit('setUserInfo', null)
 
             // 清楚相应的cookie

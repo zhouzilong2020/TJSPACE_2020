@@ -81,8 +81,8 @@
 
     <q-separator />
     <!-- 课程的一些作业情况 -->
-    <q-item class="course-requirement">
-      <ul class="col-3">
+    <q-item class="course-requirement q-gutter-sm q-px-sm q-my-sm">
+      <ul class="">
         <li :class="[commentInfo.courseDetail.midterm == true ? 'active' : '']">
           <span
             class="iconfont"
@@ -117,7 +117,7 @@
           >课堂小测
         </li>
       </ul>
-      <ul class="col-3">
+      <ul class="">
         <li
           :class="[commentInfo.courseDetail.assignment == true ? 'active' : '']"
         >
@@ -154,7 +154,7 @@
           >课程项目
         </li>
       </ul>
-      <ul class="col-3">
+      <ul class="">
         <li
           :class="[commentInfo.courseDetail.attendance == true ? 'active' : '']"
         >

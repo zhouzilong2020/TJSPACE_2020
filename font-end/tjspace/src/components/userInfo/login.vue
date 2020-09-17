@@ -125,10 +125,11 @@ export default {
         });
       } else {
         //密码错误
+        console.log("密码错误")
         this.warning = true;
-        setTimeout(() => {
-          this.warning = false;
-        }, 2000);
+        // setTimeout(() => {
+        //   this.warning = false;
+        // }, 2000);
       }
     },
   },

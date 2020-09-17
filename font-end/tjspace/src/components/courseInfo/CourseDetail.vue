@@ -32,7 +32,7 @@
 
           <q-item-section>
             <q-item-label>课程编号</q-item-label>
-            <q-item-label caption>{{ courseInfo.id }}</q-item-label>
+            <q-item-label caption>{{ courseInfo.courseId }}</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -43,7 +43,7 @@
 
           <q-item-section>
             <q-item-label>开课时间</q-item-label>
-            <q-item-label caption>{{ courseInfo.section }}</q-item-label>
+            <q-item-label caption>{{ openTime  }}</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -70,7 +70,7 @@
           name: 'MakeComment',
           params: {
             userId: this.userInfo.userid,
-            courseId: this.courseInfo.id,
+            courseId: this.courseInfo.courseId,
           },
         }"
         label="撰写评论"
@@ -87,7 +87,7 @@
           name: 'MakeComment',
           params: {
             userId: this.userInfo.userid,
-            courseId: this.courseInfo.id,
+            courseId: this.courseInfo.courseId,
           },
         }"
         unelevated
@@ -108,6 +108,10 @@ export default {
   },
   computed: {
     ...mapState("userInfo", ["userInfo"]),
+    openTime(){
+      let index = this.courseInfo.section.length-1
+      return this.courseInfo.section[index].year + ` ${this.courseInfo.section[index].semester == 0 ? '春' : '秋'}`
+    },
   },
   props: {
     courseInfo: {
@@ -132,7 +136,7 @@ export default {
     };
   },
   created(){
-    console.log(this.userInfo)
+    // console.log(this.userInfo)
   }
 };
 </script>

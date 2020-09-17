@@ -1,379 +1,347 @@
 <template>
-
-    <div class="commentCard">
-      <q-stepper
-        header-nav
-        class=" "
-        v-model="step"
-        vertical
-        color="primary"
-        animated
+  <div class="commentCard">
+    <q-stepper
+      header-nav
+      class=" "
+      v-model="step"
+      vertical
+      color="primary"
+      animated
+    >
+      <!-- 课程选项 -->
+      <q-step
+        :name="0"
+        :title="title[0]"
+        icon="settings"
+        @click="console.log('onclick')"
+        :done="step > 0"
       >
-        <!-- 课程选项 -->
-        <q-step
-          :name="0"
-          :title="title[0]"
-          icon="settings"
-          @click="console.log('onclick')"
-          :done="step > 0"
-        >
-          <q-item-label class="text-overline">{{ content[0] }}</q-item-label>
-          <div class="q-gutter-sm">
-            <q-item
-              v-for="(dimention, i) in dimentions"
-              :key="i"
-              tag="label"
-              v-ripple
-            >
-              <q-item-section avatar>
-                <q-checkbox
-                  v-model="selection"
-                  :val="dimention.apiName"
-                  color="primary"
-                />
-              </q-item-section>
-              <q-item-section>
-                <q-item-label text-h6 text-weight-bold>{{
-                  dimention.title
-                }}</q-item-label>
-                <q-item-label caption>{{ dimention.content }}</q-item-label>
-              </q-item-section>
-            </q-item>
-          </div>
+        <q-item-label class="text-overline">{{ content[0] }}</q-item-label>
+        <div class="q-gutter-sm">
+          <q-item
+            v-for="(dimention, i) in dimentions"
+            :key="i"
+            tag="label"
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-checkbox
+                v-model="selection"
+                :val="dimention.apiName"
+                color="primary"
+              />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label text-h6 text-weight-bold>{{
+                dimention.title
+              }}</q-item-label>
+              <q-item-label caption>{{ dimention.content }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </div>
 
-          <q-stepper-navigation class="q-gutter-sm">
-            <q-item-label caption
-              >如果没有上述情况可以直接点击继续</q-item-label
-            >
-            <q-btn
-              @click="step = 1"
-              color="primary"
-              label="继续进行下一步评价"
-            />
-          </q-stepper-navigation>
-        </q-step>
+        <q-stepper-navigation class="q-gutter-sm">
+          <q-item-label caption>如果没有上述情况可以直接点击继续</q-item-label>
+          <q-btn @click="step = 1" color="primary" label="继续进行下一步评价" />
+        </q-stepper-navigation>
+      </q-step>
 
-        <!-- 课程内容 -->
-        <q-step
-          :name="1"
-          :title="title[1]"
-          icon="assignment"
-          :done="comment[0] != ''"
-        >
-          <q-item-label class="text-overline">{{ content[1][0] }}</q-item-label>
-          <div>
-            <div class="q-pa-md">
-              <div class="q-gutter-y-md column">
-                <q-rating
-                  v-model="score[0]"
-                  size="2.5em"
-                  :max="10"
-                  color="gold"
-                  icon="star_border"
-                  icon-selected="star"
-                />
-                <q-item-label class="text-body2 text-weight-bold"
-                  >当前评分{{ score[0] }}
-                </q-item-label>
-              </div>
+      <!-- 课程内容 -->
+      <q-step
+        :name="1"
+        :title="title[1]"
+        icon="assignment"
+        :done="comment[0] != ''"
+      >
+        <q-item-label class="text-overline">{{ content[1][0] }}</q-item-label>
+        <div>
+          <div class="q-pa-md">
+            <div class="q-gutter-y-md column">
+              <q-rating
+                v-model="score[0]"
+                size="2.5em"
+                :max="10"
+                color="gold"
+                icon="star_border"
+                icon-selected="star"
+              />
+              <q-item-label class="text-body2 text-weight-bold"
+                >当前评分{{ score[0] }}
+              </q-item-label>
             </div>
           </div>
+        </div>
 
-          <q-item-label class="q-py-sm text-overline">{{
-            content[1][1]
-          }}</q-item-label>
-          <div class="q-gutter-sm">
-            <q-editor
-              v-model="comment[0]"
-              placeholder="请进一步解释说明"
-              ref="editor"
-              toolbar-text-color="white"
-              toolbar-toggle-color="yellow-8"
-              toolbar-bg="primary"
-              :toolbar="[
-                ['bold', 'italic', 'underline'],
-                [
-                  {
-                    label: $q.lang.editor.formatting,
-                    icon: $q.iconSet.editor.formatting,
-                    list: 'no-icons',
-                    options: ['p', 'h3', 'h4', 'h5', 'h6', 'code'],
-                  },
-                ],
-              ]"
-            >
-            </q-editor>
+        <q-item-label class="q-py-sm text-overline">{{
+          content[1][1]
+        }}</q-item-label>
+        <div class="q-gutter-sm">
+          <q-editor
+            v-model="comment[0]"
+            placeholder="请进一步解释说明"
+            ref="editor"
+            toolbar-text-color="white"
+            toolbar-toggle-color="yellow-8"
+            toolbar-bg="primary"
+            :toolbar="[
+              ['bold', 'italic', 'underline'],
+              [
+                {
+                  label: $q.lang.editor.formatting,
+                  icon: $q.iconSet.editor.formatting,
+                  list: 'no-icons',
+                  options: ['p', 'h3', 'h4', 'h5', 'h6', 'code'],
+                },
+              ],
+            ]"
+          >
+          </q-editor>
+        </div>
+
+        <q-stepper-navigation class="q-gutter-sm">
+          <q-item-label caption>如果没有上述情况可以直接点击继续</q-item-label>
+          <q-btn @click="step = 2" color="primary" label="继续进行下一步评价" />
+          <q-btn
+            flat
+            @click="step = 0"
+            color="primary"
+            label="返回上一步"
+            class="q-ml-sm"
+          />
+        </q-stepper-navigation>
+      </q-step>
+
+      <!-- 教学水平 -->
+      <q-step
+        :name="2"
+        :title="title[2]"
+        icon="assignment"
+        :done="comment[1] != ''"
+      >
+        <q-item-label class="text-overline">{{ content[2][0] }}</q-item-label>
+        <div>
+          <div class="q-pa-md">
+            <div class="q-gutter-y-md column">
+              <q-rating
+                v-model="score[1]"
+                size="2.5em"
+                :max="10"
+                color="green-10"
+                icon="star_border"
+                icon-selected="star"
+              />
+              <q-item-label class="text-body2 text-weight-bold"
+                >当前评分{{ score[1] }}
+              </q-item-label>
+            </div>
           </div>
+        </div>
 
-          <q-stepper-navigation class="q-gutter-sm">
-            <q-item-label caption
-              >如果没有上述情况可以直接点击继续</q-item-label
-            >
+        <q-item-label class="q-py-sm text-overline">{{
+          content[2][1]
+        }}</q-item-label>
+        <div class="q-gutter-sm">
+          <q-editor
+            v-model="comment[1]"
+            placeholder="请进一步解释说明"
+            ref="editor"
+            toolbar-text-color="white"
+            toolbar-toggle-color="yellow-8"
+            toolbar-bg="primary"
+            :toolbar="[
+              ['bold', 'italic', 'underline'],
+              [
+                {
+                  label: $q.lang.editor.formatting,
+                  icon: $q.iconSet.editor.formatting,
+                  list: 'no-icons',
+                  options: ['p', 'h3', 'h4', 'h5', 'h6', 'code'],
+                },
+              ],
+            ]"
+          >
+          </q-editor>
+        </div>
+
+        <q-stepper-navigation class="q-gutter-sm">
+          <q-item-label caption>如果没有上述情况可以直接点击继续</q-item-label>
+          <q-btn @click="step = 3" color="primary" label="继续进行下一步评价" />
+          <q-btn
+            flat
+            @click="step = 1"
+            color="primary"
+            label="返回上一步"
+            class="q-ml-sm"
+          />
+        </q-stepper-navigation>
+      </q-step>
+
+      <!-- 评分情况 -->
+      <q-step
+        :name="3"
+        :title="title[3]"
+        icon="assignment"
+        :done="comment[2] != ''"
+      >
+        <q-item-label class="text-overline">{{ content[3][0] }}</q-item-label>
+        <div>
+          <div class="q-pa-md">
+            <div class="q-gutter-y-md column">
+              <q-rating
+                v-model="score[2]"
+                size="2.5em"
+                :max="10"
+                color="green-10"
+                icon="star_border"
+                icon-selected="star"
+              />
+              <q-item-label class="text-body2 text-weight-bold"
+                >当前评分{{ score[2] }}
+              </q-item-label>
+            </div>
+          </div>
+        </div>
+
+        <q-item-label class="q-py-sm text-overline">{{
+          content[3][1]
+        }}</q-item-label>
+        <div class="q-gutter-sm">
+          <q-editor
+            v-model="comment[2]"
+            placeholder="请进一步解释说明"
+            ref="editor"
+            toolbar-text-color="white"
+            toolbar-toggle-color="yellow-8"
+            toolbar-bg="primary"
+            :toolbar="[
+              ['bold', 'italic', 'underline'],
+              [
+                {
+                  label: $q.lang.editor.formatting,
+                  icon: $q.iconSet.editor.formatting,
+                  list: 'no-icons',
+                  options: ['p', 'h3', 'h4', 'h5', 'h6', 'code'],
+                },
+              ],
+            ]"
+          >
+          </q-editor>
+        </div>
+
+        <q-stepper-navigation class="q-gutter-sm">
+          <q-item-label caption>如果没有上述情况可以直接点击继续</q-item-label>
+          <q-btn @click="step = 4" color="primary" label="继续进行下一步评价" />
+          <q-btn
+            flat
+            @click="step = 2"
+            color="primary"
+            label="返回上一步"
+            class="q-ml-sm"
+          />
+        </q-stepper-navigation>
+      </q-step>
+
+      <!-- 课程作业 -->
+      <q-step
+        :name="4"
+        :title="title[4]"
+        icon="assignment"
+        :done="comment[3] != ''"
+      >
+        <q-item-label class="text-overline">{{ content[4][0] }}</q-item-label>
+        <div>
+          <div class="q-pa-md">
+            <div class="q-gutter-y-md column">
+              <q-rating
+                v-model="score[3]"
+                size="2.5em"
+                :max="10"
+                color="green-10"
+                icon="star_border"
+                icon-selected="star"
+              />
+              <q-item-label class="text-body2 text-weight-bold"
+                >当前评分{{ score[3] }}
+              </q-item-label>
+            </div>
+          </div>
+        </div>
+
+        <q-item-label class="q-py-sm text-overline">{{
+          content[4][1]
+        }}</q-item-label>
+        <div class="q-gutter-sm">
+          <q-editor
+            v-model="comment[3]"
+            placeholder="请进一步解释说明"
+            ref="editor"
+            toolbar-text-color="white"
+            toolbar-toggle-color="yellow-8"
+            toolbar-bg="primary"
+            :toolbar="[
+              ['bold', 'italic', 'underline'],
+              [
+                {
+                  label: $q.lang.editor.formatting,
+                  icon: $q.iconSet.editor.formatting,
+                  list: 'no-icons',
+                  options: ['p', 'h3', 'h4', 'h5', 'h6', 'code'],
+                },
+              ],
+            ]"
+          >
+          </q-editor>
+        </div>
+
+        <q-stepper-navigation class="q-gutter-sm">
+          <q-item-label caption>如果没有上述情况可以直接点击继续</q-item-label>
+          <q-btn @click="step = 5" color="primary" label="继续进行下一步评价" />
+          <q-btn
+            flat
+            @click="step = 3"
+            color="primary"
+            label="返回上一步"
+            class="q-ml-sm"
+          />
+        </q-stepper-navigation>
+      </q-step>
+
+      <!-- 预览 -->
+      <q-step :name="5" :title="title[5]" icon="assignment">
+        <q-item-label v-if="isFinish" class="text-overline q-pa-md">{{
+          content[5][0]
+        }}</q-item-label>
+        <q-item-label v-else class="text-overline q-pa-md">{{
+          content[5][1]
+        }}</q-item-label>
+
+        <course-comment
+          v-if="isFinish"
+          :apiData="apiInterface"
+          :taker="userInfo"
+          :needGetEva="false"
+        />
+
+        <q-stepper-navigation class="q-gutter-sm">
+          <div class="row flex-center">
             <q-btn
-              @click="step = 2"
+              @click="handleSubmit()"
+              :disable="!isFinish"
               color="primary"
-              label="继续进行下一步评价"
+              label="提交"
             />
             <q-btn
               flat
-              @click="step = 0"
-              color="primary"
-              label="返回上一步"
-              class="q-ml-sm"
-            />
-          </q-stepper-navigation>
-        </q-step>
-
-        <!-- 教学水平 -->
-        <q-step
-          :name="2"
-          :title="title[2]"
-          icon="assignment"
-          :done="comment[1] != ''"
-        >
-          <q-item-label class="text-overline">{{ content[2][0] }}</q-item-label>
-          <div>
-            <div class="q-pa-md">
-              <div class="q-gutter-y-md column">
-                <q-rating
-                  v-model="score[1]"
-                  size="2.5em"
-                  :max="10"
-                  color="green-10"
-                  icon="star_border"
-                  icon-selected="star"
-                />
-                <q-item-label class="text-body2 text-weight-bold"
-                  >当前评分{{ score[1] }}
-                </q-item-label>
-              </div>
-            </div>
-          </div>
-
-          <q-item-label class="q-py-sm text-overline">{{
-            content[2][1]
-          }}</q-item-label>
-          <div class="q-gutter-sm">
-            <q-editor
-              v-model="comment[1]"
-              placeholder="请进一步解释说明"
-              ref="editor"
-              toolbar-text-color="white"
-              toolbar-toggle-color="yellow-8"
-              toolbar-bg="primary"
-              :toolbar="[
-                ['bold', 'italic', 'underline'],
-                [
-                  {
-                    label: $q.lang.editor.formatting,
-                    icon: $q.iconSet.editor.formatting,
-                    list: 'no-icons',
-                    options: ['p', 'h3', 'h4', 'h5', 'h6', 'code'],
-                  },
-                ],
-              ]"
-            >
-            </q-editor>
-          </div>
-
-          <q-stepper-navigation class="q-gutter-sm">
-            <q-item-label caption
-              >如果没有上述情况可以直接点击继续</q-item-label
-            >
-            <q-btn
-              @click="step = 3"
-              color="primary"
-              label="继续进行下一步评价"
-            />
-            <q-btn
-              flat
-              @click="step = 1"
-              color="primary"
-              label="返回上一步"
-              class="q-ml-sm"
-            />
-          </q-stepper-navigation>
-        </q-step>
-
-        <!-- 评分情况 -->
-        <q-step
-          :name="3"
-          :title="title[3]"
-          icon="assignment"
-          :done="comment[2] != ''"
-        >
-          <q-item-label class="text-overline">{{ content[3][0] }}</q-item-label>
-          <div>
-            <div class="q-pa-md">
-              <div class="q-gutter-y-md column">
-                <q-rating
-                  v-model="score[2]"
-                  size="2.5em"
-                  :max="10"
-                  color="green-10"
-                  icon="star_border"
-                  icon-selected="star"
-                />
-                <q-item-label class="text-body2 text-weight-bold"
-                  >当前评分{{ score[2] }}
-                </q-item-label>
-              </div>
-            </div>
-          </div>
-
-          <q-item-label class="q-py-sm text-overline">{{
-            content[3][1]
-          }}</q-item-label>
-          <div class="q-gutter-sm">
-            <q-editor
-              v-model="comment[2]"
-              placeholder="请进一步解释说明"
-              ref="editor"
-              toolbar-text-color="white"
-              toolbar-toggle-color="yellow-8"
-              toolbar-bg="primary"
-              :toolbar="[
-                ['bold', 'italic', 'underline'],
-                [
-                  {
-                    label: $q.lang.editor.formatting,
-                    icon: $q.iconSet.editor.formatting,
-                    list: 'no-icons',
-                    options: ['p', 'h3', 'h4', 'h5', 'h6', 'code'],
-                  },
-                ],
-              ]"
-            >
-            </q-editor>
-          </div>
-
-          <q-stepper-navigation class="q-gutter-sm">
-            <q-item-label caption
-              >如果没有上述情况可以直接点击继续</q-item-label
-            >
-            <q-btn
               @click="step = 4"
               color="primary"
-              label="继续进行下一步评价"
-            />
-            <q-btn
-              flat
-              @click="step = 2"
-              color="primary"
               label="返回上一步"
               class="q-ml-sm"
             />
-          </q-stepper-navigation>
-        </q-step>
-
-        <!-- 课程作业 -->
-        <q-step
-          :name="4"
-          :title="title[4]"
-          icon="assignment"
-          :done="comment[3] != ''"
-        >
-          <q-item-label class="text-overline">{{ content[4][0] }}</q-item-label>
-          <div>
-            <div class="q-pa-md">
-              <div class="q-gutter-y-md column">
-                <q-rating
-                  v-model="score[3]"
-                  size="2.5em"
-                  :max="10"
-                  color="green-10"
-                  icon="star_border"
-                  icon-selected="star"
-                />
-                <q-item-label class="text-body2 text-weight-bold"
-                  >当前评分{{ score[3] }}
-                </q-item-label>
-              </div>
-            </div>
           </div>
-
-          <q-item-label class="q-py-sm text-overline">{{
-            content[4][1]
-          }}</q-item-label>
-          <div class="q-gutter-sm">
-            <q-editor
-              v-model="comment[3]"
-              placeholder="请进一步解释说明"
-              ref="editor"
-              toolbar-text-color="white"
-              toolbar-toggle-color="yellow-8"
-              toolbar-bg="primary"
-              :toolbar="[
-                ['bold', 'italic', 'underline'],
-                [
-                  {
-                    label: $q.lang.editor.formatting,
-                    icon: $q.iconSet.editor.formatting,
-                    list: 'no-icons',
-                    options: ['p', 'h3', 'h4', 'h5', 'h6', 'code'],
-                  },
-                ],
-              ]"
-            >
-            </q-editor>
-          </div>
-
-          <q-stepper-navigation class="q-gutter-sm">
-            <q-item-label caption
-              >如果没有上述情况可以直接点击继续</q-item-label
-            >
-            <q-btn
-              @click="step = 5"
-              color="primary"
-              label="继续进行下一步评价"
-            />
-            <q-btn
-              flat
-              @click="step = 3"
-              color="primary"
-              label="返回上一步"
-              class="q-ml-sm"
-            />
-          </q-stepper-navigation>
-        </q-step>
-
-        <!-- 预览 -->
-        <q-step :name="5" :title="title[5]" icon="assignment">
-          <q-item-label v-if="isFinish" class="text-overline q-pa-md">{{
-            content[5][0]
-          }}</q-item-label>
-          <q-item-label v-else class="text-overline q-pa-md">{{
-            content[5][1]
-          }}</q-item-label>
-
-          <course-comment
-            v-if="isFinish"
-            :apiData="apiInterface"
-            :taker="userInfo"
-            :needGetEva="false"
-          />
-
-          <q-stepper-navigation class="q-gutter-sm">
-            <div class="row flex-center">
-              <q-btn
-                @click="handleSubmit()"
-                :disable="!isFinish"
-                color="primary"
-                label="提交"
-              />
-              <q-btn
-                flat
-                @click="step = 4"
-                color="primary"
-                label="返回上一步"
-                class="q-ml-sm"
-              />
-            </div>
-          </q-stepper-navigation>
-        </q-step>
-      </q-stepper>
-    </div>
-
+        </q-stepper-navigation>
+      </q-step>
+    </q-stepper>
+  </div>
 </template>
 
 <script>
@@ -383,6 +351,11 @@ import { mapState } from "vuex";
 export default {
   components: {
     CourseComment,
+  },
+  props: {
+    courseInfo: {
+      type: Object,
+    },
   },
 
   computed: {
@@ -422,30 +395,39 @@ export default {
         workload: this.score[3],
 
         anomymous: 0,
-        userid: "string",
-        courseid: "string",
-        teacherid: "string",
+
+        userId: this.userInfo.userId,
 
         usefulnum: 0,
         uselessnum: 0,
         date: Date(),
+
+        courseId: this.courseInfo.courseId,
+
+        teacherId: this.courseInfo.teacherid,
       };
     },
   },
   methods: {
     async handleSubmit() {
+      console.log("in page::", this.courseInfo.teacherid);
       var resp = await makeComment({
         token: this.token,
         apiInterface: this.apiInterface,
       });
-      console.log('in comment page',resp)
+      console.log("in comment page", resp);
+      // if(resp.status){
+        
+      // }else{
+
+      // }
     },
   },
   data() {
     return {
-      step: 0,
+      step: 5,
       score: [5, 5, 5, 5],
-      comment: ["", "", "", ""],
+      comment: ["1", "1", "1", "1"],
       selection: [],
       title: [
         "请选择本门课程的相应情况",
@@ -530,7 +512,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .commentCard {
   max-width: 800px;
 }

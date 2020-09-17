@@ -125,3 +125,23 @@ export async function makeComment(payload) {
     console.log('after submit:', resp)
     return resp.data
 }
+
+/**
+ * 是否能够评价
+ * @param {*} payload 
+ */
+export async function canMakeComment(payload) {
+    console.log('in commit comment', { ...payload.apiInterface })
+    var resp = await axios.post(`${URL}Comment/PostComment`,
+        {
+            ...payload.apiInterface
+        },
+        {
+            headers: {
+                Authorization: payload.token,
+                "Content-Type": "application/json",
+            },
+        })
+    console.log('after submit:', resp)
+    return resp.data
+}

@@ -1,7 +1,7 @@
 <template>
   <div>
     <img :src="bgPath" alt="" />
-    <div class="container justify-center row">
+    <div class="q-mt-lg q-pt-lg justify-center row">
       <index-rotate-card class="index-card col-7" />
       <login class="login-card" />
     </div>
@@ -50,7 +50,7 @@ img {
 }
 
 .container {
-  margin-top: 100px;
+
 }
 .index-card {
   opacity: 0.9;

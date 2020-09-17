@@ -12,7 +12,7 @@
       >
         <q-banner class="col white">
           <div class="text-h6">{{ title | ellipsis(60) }}</div>
-          <q-tooltip>{{ title }}</q-tooltip>
+          <q-tooltip content-class="text-h6">{{ title }}</q-tooltip>
         </q-banner>
         <div class="col-auto">
           <q-btn
@@ -67,7 +67,7 @@
     </div>
     <div class="col-auto">
       <q-card class="q-ml-xs" id="toTop" style="width: 230px">
-        <q-card class="text-weight-bold q-pt-sm q-ml-md"> 热门推荐 </q-card>
+        <q-card class="text-weight-bold q-pt-sm q-ml-md"> 最新推荐 </q-card>
         <div v-for="(recommend, i) in recommendData" :key="i">
           <template>
             <div class="row items-center">
@@ -85,7 +85,6 @@
                   name: 'Forum',
                   params: { postId: recommend.postId },
                 }"
-                @click.native="Load()"
               >
                 {{ recommend.title | ellipsis(24) }}
                 <q-tooltip>{{ recommend.title }}</q-tooltip>
@@ -105,19 +104,13 @@
         </q-btn>
       </q-card>
     </div>
-    <q-spinner-dots
-      v-if="isLoading"
-      class="fixed-center"
-      color="primary"
-      size="40px"
-    />
   </div>
 </template>
 
 <script>
 import Post from "../components/forum/Post";
 import axios from "axios";
-// import {checkCookie} from '../utils/utils'
+import { URL } from "../services/config";
 import { mapState } from "vuex";
 export default {
   name: "Forum",
@@ -126,198 +119,319 @@ export default {
   },
   data() {
     return {
-      //token: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjkzNTMwMzY3ZDI0OTFiMzQ0MTEzODYwZGUyN2QzNzdlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE2MDAxODI0NjAsImV4cCI6MTYwMDE4NjA2MCwiaXNzIjoiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAiLCJhdWQiOlsiaHR0cDovLzE3NS4yNC4xMTUuMjQwOjUwMDAvcmVzb3VyY2VzIiwiYXBpMSJdLCJjbGllbnRfaWQiOiJjbGllbnQyIiwic3ViIjoiMTExIiwiYXV0aF90aW1lIjoxNjAwMTgyNDYwLCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIl0sImFtciI6WyJjdXN0b20iXX0.F7d2i9TjGSmcNSYfy3jkKjYBkqMyZPGN48HlmkZDMh2g6tRol8LYAHrXncZzFkPNfHkcklC3JYfJJ8Ywp8CKyIJ8FHJb_R7Pv45a0Ybk-Y1GHL5y0pXBVAnuGMqHajd3pzSJUUbNODU3pPkWGRIFCkVA0HvIQLFJHCzDW3zQBIT_wYqYqHHU94whwjjBMkNSMYr8CDuKCODgK9I9cOiwUEsmsMISYjwNU_yyVtg46D2iWYfbG6yzT8oWWzLNOwJgBjaxdyTjAy3kSoT_BP4CZm1kL_AoBlSu9FQGrxYmsqTdz1GM48qBxgW-EZ78MRntkhi4r7f8fmGSGuDFKe6ubA",
-      //userId: "24eaabd9-2e93-402d-a40e-2045948d7835",
       postId: "",
       title: "",
       postData: {},
-      replyData: [],
+      replysData: [],
       masterData: [],
+      recommendData: [],
       displays: [],
       maxPage: 1,
       editorContent: "",
-      active: -1,
       currentPage: 1,
       totalFloor: 1,
       thumbUp: false,
       thumbDown: false,
       thumbUpNum: 0,
-      recommendData: [],
       onlyMaster: false,
       onlyMasterText: "只看楼主",
       jump: false,
       isLoading: 0,
+      readyCount: 0,
     };
   },
-  computed: mapState("userInfo", ["userInfo", "token"]),
-  methods: {
-    Load() {
-      this.replyData = [];
-      this.masterData = [];
-
+  computed: {
+    ...mapState("userInfo", ["userInfo", "token"]),
+  },
+  watch: {
+    $route() {
       this.postId = this.$route.params.postId;
-      //this.postId = '05dfc0d8-9b42-4f4a-947e-a0ac28dfe99b'
-      axios
-        .get("http://175.24.115.240:8080/api/Show/post", {
-          headers: {
-            Authorization: this.token,
-          },
-          params: {
-            postId: this.postId,
-          },
-        })
-        .then((response) => {
-          this.title = response.data.data1[0].title;
-          this.totalFloor = response.data.data1[0].floor;
-          this.thumbUpNum = response.data.data1[0].usefulnum;
-          this.postData = {
-            userId: response.data.data1[0].userid,
-            content: response.data.data1[0].content,
-            date: response.data.data1[0].date,
-            nickName: response.data.data2,
-            replys: [],
-          };
-          response.data.data3.sort(function (a, b) {
-            if (a.floor !== b.floor) {
-              return a.floor - b.floor;
-            } else if (a.type !== b.type) {
-              return a.type - b.type;
-            }
+      this.Load();
+    },
+    displays() {
+      this.readyCount = 0;
+    },
+  },
+  methods: {
+    Get(api, params) {
+      this.SetLoading();
+      return new Promise((resolve) => {
+        axios
+          .get(`${URL}` + api, {
+            headers: {
+              Authorization: this.token,
+            },
+            params: params,
+          })
+          .then((response) => {
+            resolve(response.data);
+            this.UnsetLoading();
+          })
+          .catch(async () => {
+            await this.$store.dispatch("userInfo/logoutUser");
+            this.$router.push({
+              name: "index",
+            });
           });
-          response.data.data3.forEach((data) => {
-            if (data.type === 0) {
-              this.replyData.push({
-                replyId: data.replyId,
-                nickName: data.name,
-                replys: [],
-              });
-            } else {
-              this.replyData[data.floor - 1].replys.push({
-                replyId: data.replyId,
-                nickName: data.name,
-              });
+      });
+    },
+    Post(api, params) {
+      this.SetLoading();
+      return new Promise((resolve, reject) => {
+        axios
+          .post(
+            `${URL}` + api,
+            {},
+            {
+              headers: {
+                Authorization: this.token,
+              },
+              params: params,
             }
+          )
+          .then((response) => {
+            resolve(response.data);
+            this.UnsetLoading();
+          })
+          .catch((error) => {
+            reject(error.data);
           });
-
-          this.replyData.forEach((data) => {
-            if (data.nickName == this.postData.nickName) {
-              this.masterData.push(data);
-            }
-          });
-          this.maxPage = Math.ceil((this.replyData.length + 1) / 10);
-          this.ShiftPage();
-        });
-
-      axios
-        .get("http://175.24.115.240:8080/api/Post/CanEvaluate", {
-          headers: {
-            Authorization: this.token,
-          },
-          params: {
-            userId: this.userInfo.userId,
-            postId: this.postId,
-          },
-        })
-        .then((response) => {
-          if (!response.data.canEvaluate) {
-            if (response.data.type) {
-              this.thumbUp = true;
-            } else {
-              this.thumbDown = true;
-            }
+      });
+    },
+    SetLoading() {
+      if (this.isLoading == 0) {
+        this.$q.loading.show();
+        this.timer = setTimeout(() => {
+          if (this.isLoading > 0) {
+            this.$q.notify({
+              message: "请求超时，请重试",
+              position: "center",
+              timeout: "2000",
+            });
+            this.isLoading = 0;
+          }
+          this.$q.loading.hide();
+          this.timer = void 0;
+        }, 5000);
+      }
+      this.isLoading++;
+    },
+    UnsetLoading() {
+      this.isLoading--;
+      if (this.isLoading <= 0) {
+        this.$q.loading.hide();
+        this.isLoading = 0;
+        if (this.timer !== void 0) {
+          clearTimeout(this.timer);
+          this.$q.loading.hide();
+        }
+      }
+    },
+    Load() {
+      this.jump = true;
+      window.scrollTo({
+        top: 0,
+      });
+      this.replysData = [];
+      this.masterData = [];
+      if (!this.postId) {
+        this.$router.push("/BBSHomepage");
+      }
+      this.Get("Show/post", {
+        postId: this.postId,
+      }).then((response) => {
+        this.title = response.data1[0].title;
+        this.totalFloor = response.data1[0].floor;
+        this.thumbUpNum = response.data1[0].usefulnum;
+        this.postData = {
+          userId: response.data1[0].userid,
+          content: response.data1[0].content,
+          date: response.data1[0].date,
+          nickName: response.data2,
+          replys: [],
+        };
+        response.data3.sort((a, b) => {
+          if (a.floor !== b.floor) {
+            return a.floor - b.floor;
+          } else {
+            return a.type - b.type;
           }
         });
-    },
-    ShiftPage() {
-      this.displays = [];
-      var data = [];
-      if (!this.onlyMaster) {
-        if (this.currentPage == 1) {
-          this.displays.push({
-            userId: this.postData.userId,
-            content: this.postData.content,
-            date: this.postData.date,
-            nickName: this.postData.nickName,
-            replys: [],
-          });
-          data = this.replyData.slice(0, 9);
-        } else {
-          data = this.replyData.slice(
-            this.currentPage * 10 - 11,
-            this.currentPage * 10 - 1
-          );
-        }
-      } else {
-        if (this.currentPage == 1) {
-          this.displays.push({
-            userId: this.postData.userId,
-            content: this.postData.content,
-            date: this.postData.date,
-            nickName: this.postData.nickName,
-            replys: [],
-          });
-          data = this.masterData.slice(0, 9);
-        } else {
-          data = this.masterData.slice(
-            this.currentPage * 10 - 11,
-            this.currentPage * 10 - 1
-          );
-        }
-      }
-      var str = "";
-      data.forEach((reply) => {
-        str += reply.replyId + ",";
-        reply.replys.forEach((r) => {
-          str += r.replyId + ",";
-        });
-      });
-      str = str.slice(0, -1);
-      if (str === "") {
-        return;
-      }
-      axios
-        .get("http://175.24.115.240:8080/api/Show/reply", {
-          headers: {
-            Authorization: this.token,
-          },
-          params: {
-            str: str,
-          },
-        })
-        .then((response) => {
-          var map = [];
-          response.data.data.forEach((reply) => {
-            map[reply[0].replyid] = {
-              userId: reply[0].userid,
-              content: reply[0].content,
-              date: reply[0].date,
-            };
-          });
-          data.forEach((reply) => {
-            this.displays.push({
-              userId: map[reply.replyId].userId,
-              content: map[reply.replyId].content,
-              date: map[reply.replyId].date,
-              nickName: reply.nickName,
+        response.data3.forEach((data) => {
+          if (data.type === 0) {
+            this.replysData.push({
+              replyId: data.replyId,
+              nickName: data.name,
               replys: [],
             });
-            reply.replys.forEach((r) => {
-              this.displays[this.displays.length - 1].replys.push({
-                userId: map[r.replyId].userId,
-                content: map[r.replyId].content,
-                date: map[r.replyId].date,
-                nickName: r.nickName,
-              });
+          } else {
+            this.replysData[data.floor - 1].replys.push({
+              replyId: data.replyId,
+              nickName: data.name,
             });
-            this.displays[this.displays.length - 1].replys.sort(function (
-              a,
-              b
-            ) {
-              return a.date > b.date ? 1 : -1;
+          }
+        });
+        this.replysData.forEach((data) => {
+          if (data.nickName == this.postData.nickName) {
+            this.masterData.push(data);
+          }
+        });
+        this.maxPage = Math.ceil((this.replysData.length + 1) / 10);
+        this.currentPage = 1;
+        this.ShiftPage();
+      });
+
+      this.Get("Post/CanEvaluate", {
+        userId: this.userInfo.userid,
+        postId: this.postId,
+      }).then((response) => {
+        if (!response.canEvaluate) {
+          this.thumbUp = Boolean(response.type);
+          this.thumbDown = !this.thumbUp;
+        } else {
+          this.thumbUp = false;
+          this.thumbDown = false;
+        }
+      });
+    },
+    ShiftPage() {
+      this.jump = true;
+      window.scrollTo({
+        top: 0,
+      });
+      var temp = [];
+      var index = 0;
+      var data;
+      var fullData;
+      if (!this.onlyMaster) {
+        fullData = this.replysData;
+      } else {
+        fullData = this.masterData;
+      }
+
+      if (this.currentPage == 1) {
+        temp[index] = {
+          userId: this.postData.userId,
+          content: this.postData.content,
+          date: this.postData.date,
+          nickName: this.postData.nickName,
+          replys: [],
+        };
+        index++;
+        data = fullData.slice(0, 9);
+      } else {
+        data = fullData.slice(
+          this.currentPage * 10 - 11,
+          this.currentPage * 10 - 1
+        );
+      }
+      var replyIds = "";
+      data.forEach((reply) => {
+        replyIds += reply.replyId + ",";
+        reply.replys.forEach((replyToReply) => {
+          replyIds += replyToReply.replyId + ",";
+        });
+      });
+      replyIds = replyIds.slice(0, -1);
+      if (replyIds === "") {
+        this.displays = temp.slice(0, index);
+        return;
+      }
+      this.Get("Show/reply", {
+        str: replyIds,
+      }).then((response) => {
+        var replyIdMap = [];
+        response.data.forEach((reply) => {
+          replyIdMap[reply[0].replyid] = {
+            userId: reply[0].userid,
+            content: reply[0].content,
+            date: reply[0].date,
+          };
+        });
+        data.forEach((reply) => {
+          var replyData = replyIdMap[reply.replyId];
+          temp[index] = {
+            userId: replyData.userId,
+            content: replyData.content,
+            date: replyData.date,
+            nickName: reply.nickName,
+            replys: [],
+          };
+          reply.replys.forEach((replyToReply) => {
+            var replyToReplyData = replyIdMap[replyToReply.replyId];
+            temp[index].replys.push({
+              userId: replyToReplyData.userId,
+              content: replyToReplyData.content,
+              date: replyToReplyData.date,
+              nickName: replyToReply.nickName,
             });
           });
-          this.ToTop();
+          temp[index].replys.sort(function (a, b) {
+            return a.date > b.date ? 1 : -1;
+          });
+          index++;
         });
+        this.displays = temp.slice(0, index);
+      });
+    },
+    Publish(content, floor, type) {
+      this.Post("Post/reply", {
+        content: content,
+        userId: this.userInfo.userid,
+        postId: this.postId,
+        floor: floor,
+        type: type,
+      }).then(() => {
+        this.$q.notify({
+          message: "回帖成功",
+          position: "center",
+          timeout: "2000",
+        });
+        this.Load();
+      });
+    },
+    DoEvaluate(type) {
+      this.Post("Post/evaluate", {
+        userId: this.userInfo.userid,
+        postId: this.postId,
+        type: type,
+      }).then((response) => {
+        if (response.status) {
+          if (type) {
+            this.thumbUp = true;
+            this.thumbUpNum++;
+          } else {
+            this.thumbDown = true;
+          }
+        }
+      });
+    },
+    Evaluate(type) {
+      this.Get("Post/CanEvaluate", {
+        userId: this.userInfo.userid,
+        postId: this.postId,
+      }).then((evaluateInfo) => {
+        if (!evaluateInfo.canEvaluate || evaluateInfo.type !== type) {
+          this.Post("Post/CancelEvaluation", {
+            userId: this.userInfo.userid,
+            postId: this.postId,
+          }).then((response) => {
+            if (response.status) {
+              if (evaluateInfo.type) {
+                this.thumbUp = false;
+                this.thumbUpNum--;
+              } else {
+                this.thumbDown = false;
+              }
+            }
+            if (evaluateInfo.type !== type) {
+              this.DoEvaluate(type);
+            }
+          });
+        } else {
+          this.DoEvaluate(type);
+        }
+      });
     },
     OnlyMaster() {
       this.onlyMaster = !this.onlyMaster;
@@ -325,46 +439,29 @@ export default {
         this.maxPage = Math.ceil((this.masterData.length + 1) / 10);
         this.onlyMasterText = "取消只看楼主";
       } else {
-        this.maxPage = Math.ceil((this.replyData.length + 1) / 10);
+        this.maxPage = Math.ceil((this.replysData.length + 1) / 10);
         this.onlyMasterText = "只看楼主";
       }
       this.currentPage = 1;
       this.ShiftPage();
     },
     ToBottom() {
-      this.jump = true;
-      document.documentElement.scrollTo(
-        undefined,
-        document.documentElement.offsetHeight
-      );
-      this.refs.bottom.focus();
-      document.getElementById("title").style.top =
-        document.documentElement.scrollTop - 50 + "px";
-      document.getElementById("toTop").style.top =
-        document.documentElement.scrollTop +
-        document.documentElement.clientHeight -
-        document.getElementById("toTop").offsetHeight -
-        100 +
-        "px";
+      window.scrollTo({
+        top: document.documentElement.offsetHeight,
+        behavior: "smooth",
+      });
     },
     ToTop() {
-      this.jump = true;
-      document.documentElement.scrollTo(undefined, 0);
-      document.getElementById("title").style.top = 0;
-      document.getElementById("toTop").style.top =
-        document.documentElement.clientHeight -
-        document.getElementById("toTop").offsetHeight -
-        100 +
-        "px";
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     },
     Follow(position) {
-      if (this.jump) {
-        this.jump = false;
-        return;
-      }
       var title = document.getElementById("title");
       var toTop = document.getElementById("toTop");
       if (
+        !this.jump &&
         document
           .getElementsByTagName("header")[0]
           .getAttribute("class")
@@ -394,169 +491,31 @@ export default {
           100 +
           "px";
       }
-    },
-    Publish(content, floor, type) {
-      axios
-        .post(
-          "http://175.24.115.240:8080/api/Post/reply",
-          {},
-          {
-            headers: {
-              Authorization: this.token,
-            },
-            params: {
-              content: content,
-              userId: this.userInfo.userId,
-              postId: this.postId,
-              floor: floor,
-              type: type,
-            },
-          }
-        )
-        .then((response) => {
-          alert(response.data.msg);
-          if (response.data.status) {
-            this.Load();
-          }
-        });
-    },
-    Evaluate(type) {
-      axios
-        .get("http://175.24.115.240:8080/api/Post/CanEvaluate", {
-          headers: {
-            Authorization: this.token,
-          },
-          params: {
-            userId: this.userInfo.userId,
-            postId: this.postId,
-          },
-        })
-        .then((evaluateInfo) => {
-          if (
-            !evaluateInfo.data.canEvaluate ||
-            evaluateInfo.data.type !== type
-          ) {
-            axios
-              .post(
-                "http://175.24.115.240:8080/api/Post/CancelEvaluation",
-                {},
-                {
-                  headers: {
-                    Authorization: this.token,
-                  },
-                  params: {
-                    userId: this.userInfo.userId,
-                    postId: this.postId,
-                  },
-                }
-              )
-              .then((response) => {
-                if (response.data.status) {
-                  if (evaluateInfo.data.type) {
-                    this.thumbUp = false;
-                    this.thumbUpNum--;
-                  } else {
-                    this.thumbDown = false;
-                  }
-                }
-                if (evaluateInfo.data.type !== type) {
-                  axios
-                    .post(
-                      "http://175.24.115.240:8080/api/Post/evaluate",
-                      {},
-                      {
-                        headers: {
-                          Authorization: this.token,
-                        },
-                        params: {
-                          userId: this.userInfo.userId,
-                          postId: this.postId,
-                          type: type,
-                        },
-                      }
-                    )
-                    .then((response) => {
-                      if (response.data.status) {
-                        if (type) {
-                          this.thumbUp = true;
-                          this.thumbUpNum++;
-                        } else {
-                          this.thumbDown = true;
-                        }
-                      }
-                    });
-                }
-              });
-          } else {
-            axios
-              .post(
-                "http://175.24.115.240:8080/api/Post/evaluate",
-                {},
-                {
-                  headers: {
-                    Authorization: this.token,
-                  },
-                  params: {
-                    userId: this.userInfo.userId,
-                    postId: this.postId,
-                    type: type,
-                  },
-                }
-              )
-              .then((response) => {
-                console.log(response);
-                if (response.data.status) {
-                  if (type) {
-                    this.thumbUp = true;
-                    this.thumbUpNum++;
-                  } else {
-                    this.thumbDown = true;
-                  }
-                }
-              });
-          }
-        });
+      this.jump = false;
     },
   },
   mounted() {
-    /*    if(!this.userInfo){
-          //如果当前用户信息没有，先检查cookie中是否含有信息
-          if(checkCookie()){
-            await this.$store.dispatch('userInfo/loginUser')
-          }
-        }
-        while(!this.userInfo){
-            console.log('loading')
-        }*/
-    console.log(this.$q.loading.show());
+    this.postId = this.$route.params.postId;
     this.Load();
-
-    axios
-      .get("http://175.24.115.240:8080/api/Show/getPosts", {
-        headers: {
-          Authorization: this.token,
-        },
-        params: {
-          orderType: 3,
-          startPosition: 0,
-          userId: "",
-        },
-      })
-      .then((response) => {
-        response.data.posts.slice(0, 10).forEach((post) => {
-          this.recommendData.push({
-            title: post.title,
-            postId: post.postId,
-            color: "background:#C0C0C0",
-          });
-        });
-        this.recommendData[0]["color"] = "background:#FFD700";
-        this.recommendData[1]["color"] = "background:#F5F5F5";
-        this.recommendData[2]["color"] = "background:#D2691E";
-        this.$nextTick(() => {
-          this.ToTop();
+    this.Get("Show/getPosts", {
+      orderType: 3,
+      startPosition: 0,
+      userId: "",
+    }).then((response) => {
+      response.posts.slice(0, 10).forEach((post) => {
+        this.recommendData.push({
+          title: post.title,
+          postId: post.postId,
+          color: "background:#C0C0C0",
         });
       });
+      this.recommendData[0]["color"] = "background:#FFD700";
+      this.recommendData[1]["color"] = "background:#F5F5F5";
+      this.recommendData[2]["color"] = "background:#D2691E";
+      /*this.$nextTick(() => {
+                this.ToTop();
+            });*/
+    });
   },
   filters: {
     ellipsis(string, length) {
@@ -572,6 +531,12 @@ export default {
       }
       return string;
     },
+  },
+  beforeDestroy() {
+    if (this.timer !== void 0) {
+      clearTimeout(this.timer);
+      this.$q.loading.hide();
+    }
   },
 };
 </script>
