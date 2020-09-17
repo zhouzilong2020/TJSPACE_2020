@@ -98,7 +98,7 @@ namespace TJSpace.Controllers
             List<SearchCourseReturn> list = new List<SearchCourseReturn>();
 
             var info1 = dbContext.CourseCodes.Where(u => u.Title.Contains(keywords)).ToList();
-            if (info1.Count()==0)
+            if (info1.Count() == 0)
             {
                 return Ok(new
                 {
@@ -107,15 +107,15 @@ namespace TJSpace.Controllers
                 });
             }
 
-            foreach(var r in info1)
-            { 
+            foreach (var r in info1)
+            {
                 var id = r.CourseId;
                 var info2 = dbContext.Courses.Where(u => u.CourseId == r.CourseId).ToList().FirstOrDefault();
                 if (info2 == null)
                 {
                     continue;
                 }
-                
+
                 var info3 = dbContext.Teaches.Where(u => u.CourseId == r.CourseId).ToList();
                 foreach (var t in info3)
                 {
@@ -125,7 +125,7 @@ namespace TJSpace.Controllers
                     s.CourseId = r.CourseId;
                     s.CourseIntro = info2.Intro;
                     var teacherId = t.TeacherId;
-                    var info5=dbContext.Teachers.Where(u => u.TeacherId == teacherId).ToList().FirstOrDefault();
+                    var info5 = dbContext.Teachers.Where(u => u.TeacherId == teacherId).ToList().FirstOrDefault();
                     s.TeacherName = info5.Name;
                     s.Semester = t.Semester;
                     s.Year = t.Year;
@@ -173,6 +173,44 @@ namespace TJSpace.Controllers
                 status = true,
                 msg = "查找帖子成功"
             });
+        }
+
+        //根据courseId搜索课程信息
+        [HttpGet]
+        public ActionResult<string> SearchCourseByCourseId(string courseId)
+        {
+            var info1 = dbContext.CourseCodes.Where(u => u.CourseId == courseId).ToList().FirstOrDefault();
+            if(info1==null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "查找课程失败，课程不存在"
+                });
+            }
+            
+            var info2 = dbContext.Courses.Where(u => u.CourseId == courseId).ToList().FirstOrDefault();
+            var info3 = dbContext.Teaches.Where(u => u.CourseId == courseId).ToList();
+            var info4 = dbContext.Teachers.Where(u => u.TeacherId == info3[0].TeacherId).ToList().FirstOrDefault();
+
+            List<section> list = new List<section>();
+
+            foreach(var v in info3)
+            {
+                list.Add(new section { Year = v.Year, Semester = v.Semester });
+            }
+
+            return Ok(new
+            {
+                status = true,               
+                title = info1.Title,
+                teacher=info4.Name,
+                courseId = info1.CourseId,
+                section=list,
+                department = info2.DeptName,
+                url = info1.CourseImageUrl,
+                msg = "查找课程成功"
+            }) ;
         }
 
     }

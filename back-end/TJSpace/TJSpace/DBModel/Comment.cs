@@ -83,10 +83,10 @@ namespace TJSpace.DBModel
         public int Project { get; set; }
 
         //有无点名
-        [JsonProperty("attendence")]
+        [JsonProperty("attendance")]
         [Required]
-        [Column("attendence", TypeName = "int(11)")]
-        public int Attendence { get; set; }
+        [Column("attendance", TypeName = "int(11)")]
+        public int Attendance { get; set; }
 
         //有无阅读材料
         [JsonProperty("reading")]

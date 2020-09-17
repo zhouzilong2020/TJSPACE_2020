@@ -65,4 +65,10 @@ namespace TJSpace.DBModel
         public string TeacherName { get; set; }
         public string TeacherId { get; set; }
     }
+
+    public class section
+    {
+        public int Year { get; set; }
+        public int Semester { get; set; }
+    }
 }
