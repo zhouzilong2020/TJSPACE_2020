@@ -12,6 +12,7 @@ namespace TJSpace.DBModel
         public string CourseId { get; set; }
         public string CourseIntro { get; set; }
         public string TeacherName { get; set; }
+        public string TeacherId { get; set; }
         public int Semester { get; set; }
         public int Year { get; set; }
         public double CourseGrade { get; set; }

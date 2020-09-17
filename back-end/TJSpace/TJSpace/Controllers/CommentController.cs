@@ -26,10 +26,13 @@ namespace TJSpace.Controllers
 
         //发布对课程评价
         [HttpPost]
-        public ActionResult<string>PostComment(Comment comment)
+        public ActionResult<string>PostComment(string content,string teaching,string grade,string homework
+            ,int midterm,int final,int quiz,int assignment,int essay,int project,int attendance,int reading
+            ,int presentation,int overall,int instructor,int grading,int workload,string userId,int anonymous
+            ,string courseId,string teacherId)
         {
             //检查教师id是否存在
-            var list1 = dbContext.Teachers.Where(u => u.TeacherId == comment.TeacherId).FirstOrDefault();
+            var list1 = dbContext.Teachers.Where(u => u.TeacherId == teacherId).FirstOrDefault();
             if(list1 == null)
             {
                 return Ok(new
@@ -40,7 +43,7 @@ namespace TJSpace.Controllers
             }
 
             //检查课程id是否存在
-            var list2 = dbContext.Courses.Where(u => u.CourseId == comment.CourseId).FirstOrDefault();
+            var list2 = dbContext.Courses.Where(u => u.CourseId == courseId).FirstOrDefault();
             if (list2 == null)
             {
                 return Ok(new
@@ -51,7 +54,7 @@ namespace TJSpace.Controllers
             }
 
             //检查用户id是否存在
-            var list3 = dbContext.Users.Where(u => u.UserId == comment.UserId).FirstOrDefault();
+            var list3 = dbContext.Users.Where(u => u.UserId == userId).FirstOrDefault();
             if (list3  == null)
             {
                 return Ok(new
@@ -61,12 +64,7 @@ namespace TJSpace.Controllers
                 });
             }
 
-            comment.CommentId = Guid.NewGuid().ToString();
-            comment.Date = DateTime.Now;
-            comment.UsefulNum = 0;
-            comment.UselessNum = 0;
-
-            var data1 = dbContext.CourseGrades.Where(u => u.CourseId == comment.CourseId && u.TeacherId == comment.TeacherId).ToList().FirstOrDefault();
+            var data1 = dbContext.CourseGrades.Where(u => u.CourseId == courseId && u.TeacherId == teacherId).ToList().FirstOrDefault();
             if(data1==null)
             {
                 return Ok(new
@@ -75,7 +73,36 @@ namespace TJSpace.Controllers
                     msg = "评价失败，课程关系不存在！"
                 });
             }
-            if(data1.AvgScore==0)
+
+            Comment comment = new Comment();
+
+            comment.CommentId = Guid.NewGuid().ToString();
+            comment.Content = content;
+            comment.Teaching = teaching;
+            comment.Grade = grade;
+            comment.Homework = homework;
+            comment.Midterm = midterm;
+            comment.Final = final;
+            comment.Quiz = quiz;
+            comment.Assignment = assignment;
+            comment.Essay = essay;
+            comment.Project = project;
+            comment.Attendance = attendance;
+            comment.Reading = reading;
+            comment.Presentation = presentation;
+            comment.Overrall = overall;
+            comment.Instructor = instructor;
+            comment.Grading = grading;
+            comment.Workload = workload;
+            comment.Date = DateTime.Now;
+            comment.UsefulNum = 0;
+            comment.UselessNum = 0;
+            comment.UserId = userId;
+            comment.Anonymous = anonymous;
+            comment.CourseId = courseId;
+            comment.TeacherId = teacherId;
+
+            if (data1.AvgScore==0)
             {
                 data1.AvgScore = comment.Overrall*1.0;
             }

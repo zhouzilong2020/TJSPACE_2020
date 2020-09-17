@@ -125,6 +125,7 @@ namespace TJSpace.Controllers
                     s.CourseId = r.CourseId;
                     s.CourseIntro = info2.Intro;
                     var teacherId = t.TeacherId;
+                    s.TeacherId = teacherId;
                     var info5 = dbContext.Teachers.Where(u => u.TeacherId == teacherId).ToList().FirstOrDefault();
                     s.TeacherName = info5.Name;
                     s.Semester = t.Semester;
@@ -209,6 +210,7 @@ namespace TJSpace.Controllers
                 section=list,
                 department = info2.DeptName,
                 url = info1.CourseImageUrl,
+                teacherid=info4.TeacherId,
                 msg = "查找课程成功"
             }) ;
         }
