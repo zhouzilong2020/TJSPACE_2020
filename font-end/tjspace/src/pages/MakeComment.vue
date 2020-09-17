@@ -1,6 +1,6 @@
 <template>
-  <div class="row q-gutter-lg q-pa-md flex-center no-wrap items-stretch">
-    <course-detail :courseInfo="courseInfo.courseInfo" :commentStatistic="courseInfo.statistic" class="detail q-gutter-sm"/>
+  <div class="row q-gutter-md  q-pa-md flex-center no-wrap items-stretch">
+    <course-detail :courseInfo="courseInfo.courseInfo" :commentStatistic="courseInfo.statistic" class="detail "/>
     <make-comment :courseInfo="courseInfo.courseInfo" class="makeComment"/>
   </div>
 </template>

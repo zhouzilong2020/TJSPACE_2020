@@ -128,20 +128,21 @@ export async function makeComment(payload) {
 
 /**
  * 是否能够评价
- * @param {*} payload 
+ * @param {*} payload{userId, courseId, teacherId}
  */
 export async function canMakeComment(payload) {
-    console.log('in commit comment', { ...payload.apiInterface })
-    var resp = await axios.post(`${URL}Comment/PostComment`,
-        {
-            ...payload.apiInterface
-        },
+    console.log('in canMakeComment ', payload)
+    var resp = await axios.get(`${URL}Comment/CanPostComment`,
         {
             headers: {
                 Authorization: payload.token,
-                "Content-Type": "application/json",
             },
+            params: {
+                userId: payload.userId,
+                courseId: payload.courseId,
+                teacherId: payload.teacherId
+            }
         })
-    console.log('after submit:', resp)
+    console.log('after canMakeComment', resp)
     return resp.data
 }

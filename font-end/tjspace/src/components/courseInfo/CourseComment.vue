@@ -14,7 +14,7 @@
           </q-item-label>
 
           <q-item-label class="grade text-center" caption>
-            {{ commentInfo.userInfo.grade }}
+            {{ commentInfo.userInfo.grade +'年级'}}
           </q-item-label>
           <q-item-label class="major text-center" caption>
             {{ commentInfo.userInfo.major }}
@@ -415,6 +415,7 @@ export default {
     // console.log(this.apiData)
     // var resp = await getUserInfo({userID:this.apiData.userId})
     // console.log(resp)
+    console.log("inasifdgaksdyfgsdfgasd", this.taker)
     this.commentInfo = {
       commentId: this.apiData.commentid,
       courseStatistic: {

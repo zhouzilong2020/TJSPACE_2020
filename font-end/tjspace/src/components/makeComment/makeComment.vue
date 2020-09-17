@@ -318,7 +318,11 @@
         <course-comment
           v-if="isFinish"
           :apiData="apiInterface"
-          :taker="userInfo"
+          :taker="{
+            nickname: userInfo.nickname,
+            grade: userInfo.degree,
+            major: userInfo.majorid,
+          }"
           :needGetEva="false"
         />
 
@@ -410,21 +414,56 @@ export default {
   },
   methods: {
     async handleSubmit() {
+      // 加载效果
+      this.isLoading = true;
+      this.$q.loading.show();
+      // 设置定时器
+      setTimeout(() => {
+        if (this.isLoading) {
+          // 如果到了时间还没有加载成功
+          this.$q.notify({
+            message: "请求超时，请重试",
+            position: "center",
+            timeout: "2000",
+          });
+          this.$q.loading.hide();
+        }
+      }, 5000);
+
       console.log("in page::", this.courseInfo.teacherid);
       var resp = await makeComment({
         token: this.token,
         apiInterface: this.apiInterface,
       });
       console.log("in comment page", resp);
-      // if(resp.status){
-        
-      // }else{
-
-      // }
+      if (resp.status) {
+        this.isLoading = false;
+        this.$q.loading.hide();
+        this.$q.notify({
+          message: "评价成功",
+          position: "center",
+          timeout: "1000",
+        });
+        this.$router.push({
+          name: "courseInfo",
+          params: {
+            courseId: this.courseInfo.courseId,
+          },
+        });
+      } else {
+        this.isLoading = false;
+        this.$q.loading.hide();
+        this.$q.notify({
+          message: "评价失败，请稍后再试",
+          position: "center",
+          timeout: "1000",
+        });
+      }
     },
   },
   data() {
     return {
+      isLoading: false,
       step: 5,
       score: [5, 5, 5, 5],
       comment: ["1", "1", "1", "1"],

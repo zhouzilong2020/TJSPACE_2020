@@ -3,6 +3,7 @@
     <!-- <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 detail body-left"> -->
     <div class="detail body-left q-gutter-sm">
       <course-detail
+        refs="courseDeatil"
         :courseInfo="courseInfo"
         :commentStatistic="commentStatistic"
       />
@@ -121,28 +122,50 @@ export default {
         }
       }, 5000);
 
-      getCourseInfo({
+      var info = await getCourseInfo({
         courseId: this.$route.params.courseId,
         token: this.token,
-      }).then((resp) => {
-        this.courseInfo = resp;
       });
+      if (info.status) {
+        this.courseInfo = {
+          teacher: info.teacher[0].teacherName,
+          teacherId: info.teacher[0].teacherid,
+          section: 
+              [{
+                year: info.teacher[0].year,
+                semester: info.teacher.semester
+                }
+              ]
+            ,
+          department: info.teacher[0].department,
+          courseId: info.courseId,
+          title: info.title,
 
-      getComment({
+          ...info.teacher[0],
+        };
+      }
+
+      console.log(
+        "asdaskjldbasliufgasduofgasdiufgasdpiufbasldjhfbasldjhf",
+        info
+      );
+
+      var resp = await getComment({
         courseId: this.$route.params.courseId,
         token: this.token,
-      }).then((resp) => {
-        this.comments = resp.data1;
-        this.commentor = resp.data2;
-        this.$store.commit("courseInfo/setCourseInfo", {
-          courseInfo: this.courseInfo,
-          statistic: this.commentStatistic,
-        });
+      });
+      this.comments = resp.data1;
+      this.commentor = resp.data2;
+      this.$store.commit("courseInfo/setCourseInfo", {
+        courseInfo: this.courseInfo,
+        statistic: this.commentStatistic,
       });
 
       // 加载完成
       this.isLoading = false;
       this.$q.loading.hide();
+
+      console.log(this.isLoading);
     }
   },
 };

@@ -43,7 +43,7 @@
 
           <q-item-section>
             <q-item-label>开课时间</q-item-label>
-            <q-item-label caption>{{ openTime  }}</q-item-label>
+            <q-item-label caption>{{ openTime }}</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -66,6 +66,7 @@
         class="full-width btn gt-sm"
         color="primary"
         icon-right="comment"
+        :disable="!canMakeComment"
         :to="{
           name: 'MakeComment',
           params: {
@@ -76,13 +77,15 @@
         label="撰写评论"
         unelevated
       >
-        <q-tooltip content-class="bg-accent">现在就撰写你的评论吧！</q-tooltip>
+        <q-tooltip content-class="bg-accent">{{canMakeComment ? '现在就撰写你的评论吧！' : '你已经评价过该课程！'}}</q-tooltip>
       </q-btn>
+
       <q-btn
         stretch
         class="full-width btn lt-md"
         color="primary"
         icon-right="comment"
+        :disable="!canMakeComment"
         :to="{
           name: 'MakeComment',
           params: {
@@ -92,14 +95,16 @@
         }"
         unelevated
       >
-        <q-tooltip content-class="bg-accent">现在就撰写你的评论吧！</q-tooltip>
+        <q-tooltip content-class="bg-accent">{{canMakeComment ? '现在就撰写你的评论吧！' : '你已经评价过该课程！'}}</q-tooltip>
       </q-btn>
+
     </q-card-section>
   </q-card>
 </template>
 
 <script>
 import CourseStatistic from "./CourseStatistic";
+import { canMakeComment } from "../../services/commentService";
 import { mapState } from "vuex";
 export default {
   name: "CourseDetail",
@@ -107,10 +112,13 @@ export default {
     CourseStatistic,
   },
   computed: {
-    ...mapState("userInfo", ["userInfo"]),
-    openTime(){
-      let index = this.courseInfo.section.length-1
-      return this.courseInfo.section[index].year + ` ${this.courseInfo.section[index].semester == 0 ? '春' : '秋'}`
+    ...mapState("userInfo", ["userInfo", "token"]),
+    openTime() {
+      let index = this.courseInfo.section.length - 1;
+      return (
+        this.courseInfo.section[index].year +
+        ` ${this.courseInfo.section[index].semester == 0 ? "春" : "秋"}`
+      );
     },
   },
   props: {
@@ -120,7 +128,8 @@ export default {
         return {
           title: "数据库原理与应用",
           teacher: "袁时金",
-          id: "420244",
+          teacherId: "0001",
+          courseId: "420244",
           section: "2020 春",
           department: "软件学院",
         };
@@ -133,11 +142,24 @@ export default {
   data() {
     return {
       path: require("../../assets/TJU.png"),
+      canMakeComment: false,
     };
   },
-  created(){
-    // console.log(this.userInfo)
-  }
+  watch: {
+    async courseInfo() {
+      console.log(this.courseInfo.teacherid);
+      var resp = await canMakeComment({
+        token: this.token,
+        userId: this.userInfo.userid,
+        teacherId: this.courseInfo.teacherid,
+      });
+      if (resp.status) {
+        this.canMakeComment = resp.canPostComment;
+        console.log(this.canMakeComment)
+      }
+    },
+  },
+  async mounted() {},
 };
 </script>
 
