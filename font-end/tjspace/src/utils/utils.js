@@ -9,7 +9,7 @@ export function removeCookie(cname) {
 export function setCookie(cname, cvalue, exhours) {
   var d = new Date();
   if (!exhours) {
-    exhours = 2
+    exhours = 1
   }
   d.setTime(d.getTime() + (exhours * 60 * 60 * 1000));
 

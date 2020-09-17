@@ -129,7 +129,7 @@
                 :label="'个人主页'"
                 :to="{
                   name: 'Homepage',
-                  params: { userId: userInfo.userId },
+                  params: { userId: userInfo.userid },
                 }"
                 :icon="'home'"
               />

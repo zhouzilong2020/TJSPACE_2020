@@ -14,7 +14,7 @@
         <course-head :courseInfo="courseInfo" />
       </div>
       <!-- 搜索栏 -->
-      <div class="option-group row justify-start q-gutter-sm">
+      <!-- <div class="option-group row justify-start q-gutter-sm">
         <q-select
           v-model="order"
           label="选择排序方式"
@@ -29,7 +29,7 @@
           style="width: 250px"
           behavior="menu"
         />
-      </div>
+      </div> -->
 
       <div class="course-comment">
         <course-comment
@@ -124,6 +124,12 @@ export default {
       var resp = await getComment({ courseId: this.ID, token: this.token });
       this.comments = resp.data1;
       this.commentor = resp.data2;
+      
+      this.$store.commit('courseInfo/setCourseInfo', {
+        courseInfo : this.courseInfo,
+        statistic : this.commentStatistic
+      })
+
     }
   },
 };

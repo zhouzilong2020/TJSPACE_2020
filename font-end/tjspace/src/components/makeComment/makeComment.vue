@@ -1,10 +1,22 @@
 <template>
-  <div>
-    <div class="q-pa-lg commentCard">
-      <q-stepper class=" " v-model="step" vertical color="primary" animated>
 
+    <div class="commentCard">
+      <q-stepper
+        header-nav
+        class=" "
+        v-model="step"
+        vertical
+        color="primary"
+        animated
+      >
         <!-- 课程选项 -->
-        <q-step :name="0" :title="title[0]" icon="settings" :done="step > 0">
+        <q-step
+          :name="0"
+          :title="title[0]"
+          icon="settings"
+          @click="console.log('onclick')"
+          :done="step > 0"
+        >
           <q-item-label class="text-overline">{{ content[0] }}</q-item-label>
           <div class="q-gutter-sm">
             <q-item
@@ -46,7 +58,7 @@
           :name="1"
           :title="title[1]"
           icon="assignment"
-          :done="step > 1 && comment[0] != ''"
+          :done="comment[0] != ''"
         >
           <q-item-label class="text-overline">{{ content[1][0] }}</q-item-label>
           <div>
@@ -117,7 +129,7 @@
           :name="2"
           :title="title[2]"
           icon="assignment"
-          :done="step > 2 && comment[1] != ''"
+          :done="comment[1] != ''"
         >
           <q-item-label class="text-overline">{{ content[2][0] }}</q-item-label>
           <div>
@@ -188,7 +200,7 @@
           :name="3"
           :title="title[3]"
           icon="assignment"
-          :done="step > 3 && comment[2] != ''"
+          :done="comment[2] != ''"
         >
           <q-item-label class="text-overline">{{ content[3][0] }}</q-item-label>
           <div>
@@ -259,7 +271,7 @@
           :name="4"
           :title="title[4]"
           icon="assignment"
-          :done="step > 4 && comment[3] != ''"
+          :done="comment[3] != ''"
         >
           <q-item-label class="text-overline">{{ content[4][0] }}</q-item-label>
           <div>
@@ -326,36 +338,55 @@
         </q-step>
 
         <!-- 预览 -->
-        <q-step :name="5" :title="title[5]" icon="assignment"  :done="1>1">
-          <q-item-label class="text-overline">{{ content[5] }}</q-item-label>
-           <course-comment v-if="isFinish" :apiData="apiInterface" :taker="userInfo" />
+        <q-step :name="5" :title="title[5]" icon="assignment">
+          <q-item-label v-if="isFinish" class="text-overline q-pa-md">{{
+            content[5][0]
+          }}</q-item-label>
+          <q-item-label v-else class="text-overline q-pa-md">{{
+            content[5][1]
+          }}</q-item-label>
+
+          <course-comment
+            v-if="isFinish"
+            :apiData="apiInterface"
+            :taker="userInfo"
+            :needGetEva="false"
+          />
 
           <q-stepper-navigation class="q-gutter-sm">
-            <q-item-label caption>如果没有任何问题请直接点击提交</q-item-label>
-            <q-btn @click="handleSubmit()" color="primary" label="提交" />
-            <q-btn
-              flat
-              @click="step = 4"
-              color="primary"
-              label="返回上一步"
-              class="q-ml-sm"
-            />
+            <div class="row flex-center">
+              <q-btn
+                @click="handleSubmit()"
+                :disable="!isFinish"
+                color="primary"
+                label="提交"
+              />
+              <q-btn
+                flat
+                @click="step = 4"
+                color="primary"
+                label="返回上一步"
+                class="q-ml-sm"
+              />
+            </div>
           </q-stepper-navigation>
         </q-step>
-
       </q-stepper>
     </div>
-  </div>
+
 </template>
 
 <script>
-import CourseComment from "../components/courseInfo/CourseComment";
-// import mapState from "vuex";
+import CourseComment from "../courseInfo/CourseComment";
+import { makeComment } from "../../services/commentService";
+import { mapState } from "vuex";
 export default {
   components: {
     CourseComment,
   },
+
   computed: {
+    ...mapState("userInfo", ["userInfo", "token"]),
     isFinish() {
       if (
         this.comment[0] != "" &&
@@ -367,14 +398,7 @@ export default {
       }
       return false;
     },
-    // ...mapState("userInfo", ["userInfo"]),
-    userInfo() {
-      return {
-        nickname: "asd",
-        grade: "asd",
-        major: "asd",
-      };
-    },
+
     apiInterface() {
       return {
         content: this.comment[0],
@@ -388,7 +412,7 @@ export default {
         assignment: this.selection.includes("assignment") ? 1 : 0,
         essay: this.selection.includes("essay") ? 1 : 0,
         project: this.selection.includes("project") ? 1 : 0,
-        attendence: this.selection.includes("attendence") ? 1 : 0,
+        attendance: this.selection.includes("attendance") ? 1 : 0,
         reading: this.selection.includes("reading") ? 1 : 0,
         presentation: this.selection.includes("presentation") ? 1 : 0,
 
@@ -402,16 +426,27 @@ export default {
         courseid: "string",
         teacherid: "string",
 
-        date:Date()
+        usefulnum: 0,
+        uselessnum: 0,
+        date: Date(),
       };
+    },
+  },
+  methods: {
+    async handleSubmit() {
+      var resp = await makeComment({
+        token: this.token,
+        apiInterface: this.apiInterface,
+      });
+      console.log('in comment page',resp)
     },
   },
   data() {
     return {
       step: 5,
-      score: [9, 6, 8, 9],
+      score: [5, 5, 5, 5],
       comment: ["1", "1", "1", "1"],
-      selection: ['midterm'],
+      selection: [],
       title: [
         "请选择本门课程的相应情况",
         "课程内容评价",
@@ -438,7 +473,7 @@ export default {
           "请根据你的个人体验，对该门课程的课程作业量进行评价（1作业量较多--10作业量比较少）",
           "请进行进一步的解释说明",
         ],
-        "这将会是你的的评价发表在TJSPACE后的效果",
+        ["这将会是你的的评价发表在TJSPACE后的效果", "你还有未完成的内容！"],
       ],
       dimentions: [
         {
@@ -475,7 +510,7 @@ export default {
             "该门课程需要完成课程项目，项目相对于作业以及论文而言更加复杂",
         },
         {
-          apiName: "attendence",
+          apiName: "attendance",
           title: "课堂考勤",
           content: "该门课程老师会在上课期间进行考勤",
         },

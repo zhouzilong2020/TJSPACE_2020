@@ -1,52 +1,37 @@
 <template>
-  <div>
-      <q-page-container class="body-right">
-          <div class="course-comment">
-          <course-comment />
-          </div>
-      </q-page-container>
+  <div class="row q-gutter-lg q-pa-md flex-center no-wrap items-stretch">
+    <course-detail :courseInfo="courseInfo.courseInfo" :commentStatistic="courseInfo.statistic" class="detail q-gutter-sm"/>
+    <make-comment class="makeComment col-8"/>
   </div>
 </template>
 
 <script>
-
-import CourseComment from '../components/sfz/CourseComment'
+import makeComment from "../components/makeComment/makeComment";
+import CourseDetail from "../components/courseInfo/CourseDetail";
+import {mapState} from 'vuex'
 export default {
-  components:{
-    CourseComment,
+  components: {
+    makeComment,
+    CourseDetail,
   },
-  data () {
+  computed:mapState('courseInfo' ,['courseInfo']),
+  data() {
     return {
-      inputSearch:'',
-      logoPath : require("../assets/TJU.png"),
-      avatarPath: require("../assets/boy-avatar.png"),
-      avatarBGPath: require("../assets/material.png"),
-      drawer : false,
-      active : -1,
-      courseInfo:{
-        
-      },
-      userInfo:{
-        nickName: "lili",
-        eMail:"1888888@tongji.edu.cn",
-      },
-      
-    }
+    };
   },
 
-  mounted () {
-
-  }
-}
+  mounted() {
+    console.log("in mounted", this.courseInfo)
+  },
+};
 </script>
 
 <style>
-.body{width: 100%;}
-.body .body-left{position: fixed; left:15px; top:15px;}
-.body .body-right{position: absolute; right:15px; top:0; padding:0; left:245px; }
-
-.body .body-right .course-head{margin-top:15px;}
-.body .body-right .course-comment{margin-top:15px;}
-.body .body-right .option-group{margin-top:15px}
+.detail{
+  height:100%;
+}
+.makeComment{
+  max-width: 800px;
+}
 </style>
 

@@ -47,7 +47,7 @@
           label="修改个人信息"
           type="修改个人信息"
           color="primary"
-          :to="{ name: 'SelfInfoModify', params: { userid: userInfo.userid } }"
+          :to="{ name: 'SelfInfoModify', params: { userId: userInfo.userid } }"
           style="width:100%"
         />
 

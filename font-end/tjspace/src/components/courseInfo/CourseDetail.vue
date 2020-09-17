@@ -69,7 +69,7 @@
         :to="{
           name: 'MakeComment',
           params: {
-            userId: this.userInfo.userId,
+            userId: this.userInfo.userid,
             courseId: this.courseInfo.id,
           },
         }"
@@ -83,6 +83,13 @@
         class="full-width btn lt-md"
         color="primary"
         icon-right="comment"
+        :to="{
+          name: 'MakeComment',
+          params: {
+            userId: this.userInfo.userid,
+            courseId: this.courseInfo.id,
+          },
+        }"
         unelevated
       >
         <q-tooltip content-class="bg-accent">现在就撰写你的评论吧！</q-tooltip>
@@ -99,8 +106,8 @@ export default {
   components: {
     CourseStatistic,
   },
-  computed:{
-    ...mapState('userInfo', ['userInfo'])
+  computed: {
+    ...mapState("userInfo", ["userInfo"]),
   },
   props: {
     courseInfo: {
@@ -124,6 +131,9 @@ export default {
       path: require("../../assets/TJU.png"),
     };
   },
+  created(){
+    console.log(this.userInfo)
+  }
 };
 </script>
 

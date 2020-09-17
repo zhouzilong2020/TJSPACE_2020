@@ -83,11 +83,11 @@
     <!-- 课程的一些作业情况 -->
     <q-item class="course-requirement">
       <ul class="col-3">
-        <li :class="[commentInfo.courseDetail.midTerm == true ? 'active' : '']">
+        <li :class="[commentInfo.courseDetail.midterm == true ? 'active' : '']">
           <span
             class="iconfont"
             :class="[
-              commentInfo.courseDetail.midTerm == true
+              commentInfo.courseDetail.midterm == true
                 ? 'icon-duigou'
                 : 'icon-icon_wrong',
             ]"
@@ -201,7 +201,7 @@
 
     <!-- 具体内容 -->
     <q-item class="course-review-body" horizontal>
-      <div class="col-6">
+      <div class="col-6 q-gutter-sm">
         <q-card-section>
           <div class="text-h6">课程内容</div>
           <p class="tetx-body2">{{ commentInfo.commentDetail.content }}</p>
@@ -212,7 +212,7 @@
           <p class="tetx-body2">{{ commentInfo.commentDetail.teaching }}</p>
         </q-card-section>
       </div>
-      <div class="col-6">
+      <div class="col-6 q-gutter-sm">
         <q-card-section>
           <div class="text-h6">评分情况</div>
           <p class="tetx-body2">{{ commentInfo.commentDetail.grading }}</p>
@@ -283,6 +283,10 @@ export default {
   props: {
     apiData: null,
     taker: null,
+    needGetEva: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapState("userInfo", ["userInfo", "token"]),
@@ -352,55 +356,57 @@ export default {
   },
   methods: {
     async handleEvaluate(type) {
-      console.log(type);
-      var resp;
-      // 如果没有评价则开始评价
-      if (this.isEvaluated.canEvaluate) {
-        // 按钮显示加载中
-        this.btnLoading[type] = true;
+      if (this.needGetEva) {
+        console.log(type);
+        var resp;
+        // 如果没有评价则开始评价
+        if (this.isEvaluated.canEvaluate) {
+          // 按钮显示加载中
+          this.btnLoading[type] = true;
 
-        resp = await evaluateComment({
-          userId: this.userInfo.userid,
-          token: this.token,
-          commentId: this.commentInfo.commentId,
-        });
-        console.log("in vue page handel rvaluate", resp);
-        if (resp.status) {
-          this.isEvaluated.canEvaluate = false;
-          this.isEvaluated.type = type;
-          // 评论总数减1
-          if (type == 1) {
-            this.commentInfo.commentDetail.useful += 1;
-          } else {
-            this.commentInfo.commentDetail.useless += 1;
+          resp = await evaluateComment({
+            userId: this.userInfo.userid,
+            token: this.token,
+            commentId: this.commentInfo.commentId,
+          });
+          console.log("in vue page handel rvaluate", resp);
+          if (resp.status) {
+            this.isEvaluated.canEvaluate = false;
+            this.isEvaluated.type = type;
+            // 评论总数减1
+            if (type == 1) {
+              this.commentInfo.commentDetail.useful += 1;
+            } else {
+              this.commentInfo.commentDetail.useless += 1;
+            }
           }
+          // 按钮加载完成
+          this.btnLoading[type] = false;
         }
-        // 按钮加载完成
-        this.btnLoading[type] = false;
-      }
-      // 如果已经评价则取消评价
-      else if (this.isEvaluated.type == type) {
-        // 按钮显示加载中
-        this.btnLoading[type] = true;
-        console.log(this.userInfo);
-        resp = await cancelEvaluation({
-          userId: this.userInfo.userid,
-          token: this.token,
-          commentId: this.commentInfo.commentId,
-        });
-        console.log("in vue page handel cancel valuate", resp);
-        if (resp.status) {
-          this.isEvaluated.canEvaluate = true;
-          this.isEvaluated.type = null;
-          // 评论总数减1
-          if (type == 1) {
-            this.commentInfo.commentDetail.useful -= 1;
-          } else {
-            this.commentInfo.commentDetail.useless -= 1;
+        // 如果已经评价则取消评价
+        else if (this.isEvaluated.type == type) {
+          // 按钮显示加载中
+          this.btnLoading[type] = true;
+          console.log(this.userInfo);
+          resp = await cancelEvaluation({
+            userId: this.userInfo.userid,
+            token: this.token,
+            commentId: this.commentInfo.commentId,
+          });
+          console.log("in vue page handel cancel valuate", resp);
+          if (resp.status) {
+            this.isEvaluated.canEvaluate = true;
+            this.isEvaluated.type = null;
+            // 评论总数减1
+            if (type == 1) {
+              this.commentInfo.commentDetail.useful -= 1;
+            } else {
+              this.commentInfo.commentDetail.useless -= 1;
+            }
           }
+          // 按钮显示加载中
+          this.btnLoading[type] = false;
         }
-        // 按钮显示加载中
-        this.btnLoading[type] = false;
       }
     },
   },
@@ -425,7 +431,7 @@ export default {
       courseDetail: {
         // year:"2020-2021",
         // semester:"春",
-        midTerm: this.apiData.midTerm,
+        midterm: this.apiData.midterm,
         final: this.apiData.final,
         quiz: this.apiData.quiz,
         assignment: this.apiData.assignment,
@@ -445,11 +451,13 @@ export default {
         useless: this.apiData.uselessnum,
       },
     };
-    this.isEvaluated = await getEvaluate({
-      token: this.token,
-      userId: this.userInfo.userid,
-      commentId: this.commentInfo.commentId,
-    });
+    if (this.needGetEva) {
+      this.isEvaluated = await getEvaluate({
+        token: this.token,
+        userId: this.userInfo.userid,
+        commentId: this.commentInfo.commentId,
+      });
+    }
     // console.log(this.isEvaluated)
   },
 };

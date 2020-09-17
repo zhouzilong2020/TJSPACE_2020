@@ -87,8 +87,8 @@ export default {
                     }
                     if (resp2) {
                         context.commit("setUserInfo", resp2)
-                        setCookie('TJSPACE-token', 'Bearer ' + resp1.data1, 2)
-                        setCookie('TJSPACE-userId', resp1.data2)
+                        setCookie('TJSPACE-token', 'Bearer ' + resp1.data1, 1)
+                        setCookie('TJSPACE-userId', resp1.data2, 1)
                     }
                 }
             }

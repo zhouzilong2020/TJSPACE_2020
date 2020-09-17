@@ -3,7 +3,7 @@ export default {
         {
             path: "/",
             name: 'test',
-            component: () => import("@/components/makeComment"),
+            component: () => import("@/pages/MakeComment"),
         }, 
         {
             path: "/courseInfo/:courseId",
@@ -38,7 +38,7 @@ export default {
             name: 'SelfInfoModify',
             component: () => import("@/pages/SelfInfoModify"),
         }, {
-            path: "/MakeComment/:userId/:courseId",
+            path: "/makeComment/:userId/:courseId",
             name:'MakeComment',
             component: () => import("@/pages/MakeComment"),
         }, {
