@@ -1,9 +1,5 @@
 export function removeCookie(cname) {
-  var d = new Date();
-  d.setTime(d.getTime() - (60 * 60 * 1000));
-  var expires = "expires=" + d.toGMTString();
-
-  document.cookie = cname + "=;" + expires + ";"
+  setCookie(cname,"",-1)
 }
 
 export function setCookie(cname, cvalue, exhours) {
