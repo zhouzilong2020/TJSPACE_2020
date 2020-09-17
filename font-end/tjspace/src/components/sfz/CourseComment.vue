@@ -1,15 +1,11 @@
 <template>
-    <q-card class="course-review" flat bordered>
+    <q-card class="course-review">
         <q-item :class="topColor">
             <div class="user-infro col-auto row inline justify-evenly">
-                <q-item-section class="avatar" avatar>
-                    <q-avatar>
-                        <img :src="reviewInfro.teacherInfro.photoPath">
-                    </q-avatar>
+                <q-item-section class="avatar">
                     <q-item-label class="nickname" horizontal>{{reviewInfro.teacherInfro.nickname}}</q-item-label>
                 </q-item-section>
                 <q-item-section class="user-infro-detail">
-
                     <q-item-label class="major" caption>
                         {{reviewInfro.teacherInfro.major}}
                     </q-item-label>
@@ -26,9 +22,9 @@
                 </q-item-label>
             </q-item-section>
             <q-separator vertical/>
-            <!-- 课程评分情况 -->
+            <!-- 当前使用用户 -->
             <q-item-section class="user-infro-detail">
-                    <q-item-label class="nickname" horizontal>current user:<b>{{reviewInfro.userInfro.nickname}}</b></q-item-label>
+                    <q-item-label class="nickname" horizontal>当前用户：<b>{{reviewInfro.userInfro.nickname}}</b></q-item-label>
                 </q-item-section>
             <q-item-section class="course-review-statistic">    
             </q-item-section>
@@ -42,45 +38,44 @@
                 <div class="col-5">
                     <q-label class="text-h6">课程测验</q-label>
                     <div class="q-gutter-sm">   
-                        <q-checkbox dense v-model="test1" label="期中考试" color="teal" />
-                        <q-checkbox dense v-model="test2" label="期末考试" color="orange" />
-                        <q-checkbox dense v-model="test3" label="课堂小测" color="red" />
+                        <q-checkbox dense v-model="test1" label="期中考试" color="primary"/>
+                        <q-checkbox dense v-model="test2" label="期末考试" color="primary"/>
+                        <q-checkbox dense v-model="test3" label="课堂小测" color="primary"/>
                     </div>
                 </div>
                 <div class="col-5">
                     <q-label class="text-h6">课程任务</q-label>
                     <div class="q-gutter-sm">   
-                        <q-checkbox dense v-model="task1" label="课程作业" color="teal" />
-                        <q-checkbox dense v-model="task2" label="课程论文" color="orange" />
-                        <q-checkbox dense v-model="task3" label="课程项目" color="red" />
+                        <q-checkbox dense v-model="task1" label="课程作业" color="primary"/>
+                        <q-checkbox dense v-model="task2" label="课程论文" color="primary"/>
+                        <q-checkbox dense v-model="task3" label="课程项目" color="primary"/>
                     </div>
                 </div>
                 <div class="col-5">
                     <q-label class="text-h6">其他课程内容</q-label>
                     <div class="q-gutter-sm">   
-                        <q-checkbox dense v-model="other1" label="课堂考勤" color="teal" />
-                        <q-checkbox dense v-model="other2" label="阅读材料" color="orange" />
-                        <q-checkbox dense v-model="other3" label="个人展示" color="red" />
+                        <q-checkbox dense v-model="other1" label="课堂考勤" color="primary"/>
+                        <q-checkbox dense v-model="other2" label="阅读材料" color="primary"/>
+                        <q-checkbox dense v-model="other3" label="个人展示" color="primary"/>
                     </div>
                 </div>
             </q-item>
         </q-item>
+
+
         <q-item class="course-review-body" horizontal>
             <div class="col-6">
                 <q-item class="course-review-body" horizontal>
-                    <q-label class="text-h6">课程质量</q-label>
+                    <q-label class="text-h6">对教师评分</q-label>
                 </q-item>
                 <q-item class="course-review-body" horizontal>
-                <div class="col-8">
-                <q-slider
-                        v-model="value1"
-                        :min="0"
+                <div class="col-9">
+                    <q-rating
+                        v-model="ratingMode1"
+                        size="2em"
                         :max="10"
-                        :step="1"
-                        snap
-                        label
-                        color="blue"
-                />
+                        color="primary"
+                    />                
                 </div>
                 </q-item>
 
@@ -88,99 +83,107 @@
                 <q-label class="text-h6">课程难度</q-label>
                 </q-item>
                 <q-item class="course-review-body" horizontal>
-                <div class="col-8">
-                    <q-slider
-                        v-model="value2"
-                        :min="0"
+                <div class="col-9">
+                    <q-rating
+                        v-model="ratingMode2"
+                        size="2em"
                         :max="10"
-                        :step="1"
-                        snap
-                        label
-                        color="blue"
-                    />
+                        color="primary"
+                    />                
                 </div>
                 </q-item>
             </div>
 
             <div class="col-6">
                 <q-item class="course-review-body" horizontal>
-                    <q-label class="text-h6">教学水平</q-label>
+                    <q-label class="text-h6">课程工作量</q-label>
                 </q-item>
                 <q-item class="course-review-body" horizontal>
-                <div class="col-8">
-                        <q-slider
-                         v-model="value3"
-                        :min="0"
+                <div class="col-9">
+                     <q-rating
+                        v-model="ratingMode3"
+                        size="2em"
                         :max="10"
-                        :step="1"
-                         snap
-                         label
-                        color="blue"
-                      />
-                </div>
+                        color="primary"
+                    />                
+               </div>
                 </q-item>
 
                 <q-item class="course-review-body" horizontal>
                     <q-label class="text-h6">总体评价</q-label>
                 </q-item>
                 <q-item class="course-review-body" horizontal>
-                <div class="col-8">
-                     <q-slider
-                        v-model="value4"
-                        :min="0"
+                <div class="col-9">
+                    <q-rating
+                        v-model="ratingMode4"
+                        size="2em"
                         :max="10"
-                        :step="1"
-                        snap
-                        label
-                        color="blue"
-                    />
+                        color="primary"
+                    />                
                 </div>
                 </q-item>
             </div>
         </q-item>
+
         <!-- 具体内容 -->
         <q-item class="course-review-body" horizontal>
-            <div class="col-6">
+            <div class="col-4">
                 <q-card-section>
-                    <q-label class="text-h6">课程内容</q-label>
-                    <q-input filled v-model="text1" label="课程质量" />
+                    <q-label class="text-h6">课程总体评价</q-label>
+                    <q-input
+                    v-model="text1"
+                    filled
+                    type="textarea"
+                    />
                 </q-card-section>
 
                 <q-card-section>
                     <q-label class="text-h6">教学水平</q-label>
-                    <q-input filled v-model="text2" label="教学水平" />
+                    <q-input
+                    v-model="text2"
+                    filled
+                    type="textarea"
+                    />
                 </q-card-section>
             </div>
-            <div class="col-6">
+
+            <div class="col-2"></div>
+
+            <div class="col-4">
                 <q-card-section>
-                    <q-label class="text-h6"> 评分情况</q-label>
-                    <q-input filled v-model="text3" label="评分情况" />
+                    <q-label class="text-h6"> 课程给分情况</q-label>
+                    <q-input
+                    v-model="text3"
+                    filled
+                    type="textarea"
+                    />
                 </q-card-section>
                 <q-card-section>
                     <q-label class="text-h6">课程作业</q-label>
-                    <q-input filled v-model="text4" label="课程作业" />
+                    <q-input
+                    v-model="text4"
+                    filled
+                    type="textarea"
+                    />
                 </q-card-section>
             </div>
         </q-item>
 
-        <q-item class="course-review-body" horizontal>
-            <q-btn color="blue" class="full-width" label="提交" />
+        <q-item class="course-review-submit">
+            <q-btn color="blue" class="full-width" label="提交" @click="submit()" />
         </q-item>
        
     </q-card>
 </template>
 
 <script>
+import {mapState} from 'vuex'
+import {token} from '../../services/config'
 export default {
     components:{
     },
     data:()=>{
         return {
-            zan:require('../../assets/zan.png'),
-            zanFocus:require('../../assets/zan-focus.png'),
-            cai:require('../../assets/cai.png'),
-            caiFocus:require('../../assets/cai-focus.png'),
-            inputText:'请在此输入对该评价的看法',
             expanded:false,  
             test1:false,
             test2:false,
@@ -191,14 +194,41 @@ export default {
             other1:false,
             other2:false,
             other3:false,
-            value1:5,
-            value2:5,
-            value3:5,
-            value4:5,
+            ratingMode1:5,
+            ratingMode2:5,
+            ratingMode3:5,
+            ratingMode4:5,
             text1:'',
             text2:'',
             text3:'',
-            text4:''
+            text4:'',
+            commentInfo:{
+                commentId:'',
+                content:'',
+                teaching:'',
+                grade:'',
+                homework:'',
+                midterm:0,
+                final:0,
+                quiz:0,
+                assignment:0,
+                essay:0,
+                project:0,
+                attendence:0,
+                reading:0,
+                presentation:0,
+                overall:0,
+                instructor:0,
+                grading:0,
+                workload:0,
+                date:new Date(),
+                usefulNum:0,
+                uselessNum:0,
+                userId:'',
+                anonymous:1,
+                courseId:'',
+                teacherId:'',
+            }
         }
     },
     props:{
@@ -207,11 +237,6 @@ export default {
             default: ()=>{
                 return {
                     courseStatistic:{
-                        reveiwCnt:100,
-                        content:"A+",
-                        teaching:"A+",
-                        grading:"A+",
-                        workload:"A+",
                     },
                     teacherInfro:{
                         nickname:"袁时金",
@@ -227,21 +252,8 @@ export default {
                         name: "数据库原理与应用",
                         year:"2020-2021",
                         semester:"春",
-                        midTerm: false,
-                        final: true,
-                        quiz: false,
-                        assignment:true,
-                        essay: false,
-                        project: false,
-                        attendance: true,
-                        reading: false,
-                        presentation: false,
                     },
                     commentDetail:{
-                        content:"这是我上过的最好的一门课，上课内容有趣，生动丰富，不知道为什么我们学校竟然有这么好的一门课，我收获良多，无论是理论还是应用都让我获益匪浅;",
-                        teaching:"袁时金老师的教学水平真的太强啦，上课的时候风趣幽默，讲解知识到位，理论体系完善丰富，极大的开阔了学生们的视野，让我们领会到了世界一流大学一流老师的教学水平，早在高考的时候就久闻袁时金老师的大名，这是我来同济大学的重要原因之一，不然我就去清华了",
-                        grading:"这门课太容易了，导致我随随便便就拿了个优",
-                        workload:"这门课的作业一点也不多，我一下子就能写完",
                         date:"2020.08.06",
                         useful:230,
                         useless:7
@@ -265,9 +277,46 @@ export default {
                 }
             }
         },
+        ...mapState('userInfo',['token'])
     },
     methods: {
-        
+        submit(){
+            console.log('token: ',token)
+            this.getComment()
+            this.submitComment()
+            console.log('comment',this.commentInfo)
+        },
+        getComment(){
+            this.commentInfo.commentId=this.token
+            this.commentInfo.content=this.test1
+            this.commentInfo.teaching=this.text2
+            this.commentInfo.grade=this.text3
+            this.commentInfo.homework=this.text4
+            this.commentInfo.midterm=(this.test1==false)?0:1
+            this.commentInfo.final=(this.test2==false)?0:1
+            this.commentInfo.quiz=(this.test3==false)?0:1
+            this.commentInfo.assignment=(this.task1==false)?0:1
+            this.commentInfo.essay=(this.task2==false)?0:1
+            this.commentInfo.project=(this.task3==false)?0:1
+            this.commentInfo.attendence=(this.other1==false)?0:1
+            this.commentInfo.reading=(this.other2==false)?0:1
+            this.commentInfo.presentation=(this.other3==false)?0:1
+            this.commentInfo.overall=this.ratingMode4
+            this.commentInfo.instructor=this.ratingMode1
+            this.commentInfo.grading=this.ratingMode2
+            this.commentInfo.workload=this.ratingMode3
+            this.commentInfo.date=new Date()
+            this.commentInfo.usefulNum=0
+            this.commentInfo.uselessNum=0
+            this.commentInfo.userId='string'
+            this.commentInfo.anonymous=1//设置非匿名测试
+            this.commentInfo.courseId='420244'//测试设置courseid为420244
+            this.commentInfo.teacherId='string'
+        },
+        async submitComment(){
+            await this.$store.dispatch("makeComment/makeComment",this.commentInfo)
+        }
+
     }
 
 }
@@ -275,11 +324,14 @@ export default {
 
 <style>
 
-.course-review{margin-bottom: 20px; }
+.course-review{margin-bottom: 100px;margin-right:0 auto;margin-left:0 auto;width:1500px;margin-top:50px;font-size: 20px; }
 
-.course-review-body{ padding:0px; margin : 0px; border:0px;}
-.nickname{ margin-top:10px}
-.user-infro-detail{ margin-right: 10px;}
+.course-review-body{ padding:0px; margin : 20px; border:0px;}
+.course-review-submit{ padding:0px; margin-left:50px;margin-right: 300px;margin-bottom: 100px; border:0px;}
+
+.nickname{ margin-top:0px}
+.user-infro-detail{ margin-right: 10px; margin-top:10px}
+.major{font-size: 20px;}
 
 .course-detail{margin:0 auto; }
 .course-detail .course-year{text-align: center; margin: 0 auto; padding:8px}
@@ -305,7 +357,7 @@ export default {
 .rating-4 {background: #afc732;}
 .rating-5 {background: #5a5;}
 
-
+/* #f1f8f1 */
 .top-rating-5{background: #f1f8f1;}
 .top-rating-4{background: #f7faea;}
 .top-rating-3{background: #ffe59e;}
@@ -328,4 +380,5 @@ export default {
 
 
 .review-for-comment q-editor{background-color: wight;}
+/* 新 */
 </style>

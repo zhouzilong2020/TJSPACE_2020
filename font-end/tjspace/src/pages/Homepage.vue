@@ -1,66 +1,80 @@
 <template>
-  <div class="card" style="margin: 0 auto; max-width: 800pt">
-    <q-card class="my-card" style="margin: 0 auto; max-width: 600pt">
-      <q-card-section>
-        <div class="text-h6">个人信息</div>
-      </q-card-section>
+  <div class="row  flex-center items-stretch no-wrap">
+    <div class="card  col-4" style=" max-width: 250pt; margin-top:50pt;">
+      <!-- <q-card class="my-card text-white" style="background: radial-gradient(circle, #00FFFF 0%, #1E90FF 100%)"  > -->
+      <q-card class="my-card">
+        <q-card-section style="background:#315ca1">
+          <div class="text-white">个人信息</div>
+        </q-card-section>
 
-      <q-separator />
+        <q-separator />
 
-      <q-card-section style="margin-top: 20pt">
-        <div class="row" style="font-size: 20px">
-          <div class="col-6">昵称: {{ userInfo.nickname }}</div>
-          <div class="col-6" style="text-align: center">性别: {{ Gender }}</div>
-        </div>
-      </q-card-section>
+        <q-card-section style="margin-top: 10pt; ">
+          <div class="row" style="font-size: 20px; height:0pt">
+            <div>昵称: {{ userInfo.nickname }}</div>
+          </div>
+        </q-card-section>
+        <q-card-section style="margin-top: 10pt">
+          <div class="row" style="font-size: 20px; height:0pt">
+            <div>性别: {{ Gender }}</div>
+          </div>
+        </q-card-section>
 
-      <q-card-section style="margin-top: 20pt">
-        <div class="row" style="font-size: 20px">
-          <div class="col-6">手机号: {{ userInfo.phonenumber }}</div>
-          <div class="col-6" style="text-align: center">年级: {{ Grade }}</div>
-        </div>
-      </q-card-section>
-      <q-card-section style="margin-top: 20pt">
-        <div class="row" style="font-size: 20px">
-          <div class="col-6">主修专业: {{ Major }}</div>
-          <div class="col-6" style="text-align: center">学历: {{ Degree }}</div>
-        </div>
-      </q-card-section>
+        <q-card-section style="margin-top: 10pt">
+          <div class="row" style="font-size: 20px; height:0pt">
+            <div>手机号: {{ userInfo.phonenumber }}</div>
+          </div>
+        </q-card-section>
+        <q-card-section style="margin-top: 10pt">
+          <div class="row" style="font-size: 20px; height:0pt">
+            <div>年级: {{ Grade }}</div>
+          </div>
+        </q-card-section>
+        <q-card-section style="margin-top: 10pt">
+          <div class="row" style="font-size: 20px; height:0pt">
+            <div>主修专业: {{ Major }}</div>
+          </div>
+        </q-card-section>
+        <q-card-section style="margin-top: 10pt">
+          <div class="row" style="font-size: 20px; height:0pt; margin-bottom:30pt">
+            <div>学历: {{ Degree }}</div>
+          </div>
+        </q-card-section>
 
-      <q-separator />
+        <q-separator />
 
-      <q-card-actions>
-        <q-btn style="margin: 0 auto">
-          <router-link
-            :to="{
-              name: 'SelfInfoModify',
-              params: { userid: userInfo.userid },
-            }"
-          >
+        <q-btn
+          label="修改个人信息"
+          type="修改个人信息"
+          color="primary"
+          :to="{ name: 'SelfInfoModify', params: { userid: userInfo.userid } }"
+          style="width:100%"
+        />
+
+        <!-- <q-btn style="margin: 0 auto">
+          <router-link :to="{ name: 'SelfInfoModify', params: { userid: userInfo.userid } }">
             修改个人信息
-          </router-link>
-        </q-btn>
-      </q-card-actions>
-    </q-card>
-    <CourseInfo />
-    <TeacherInfo />
-    <CommentInfo />
-    <br />
-    <br />
-    <br />
-    <br />
+          </router-link> 
+        </q-btn>-->
+      </q-card>
+    </div>
+    <div class="column col-8 q-gutter-sm" style="max-width:600pt; ">
+      <CourseInfo />
+      <!-- <TeacherInfo /> -->
+      <CommentInfo />
+    </div>
   </div>
 </template>
 
 <script>
-import TeacherInfo from "../components/homepage/TeacherInfo";
+// import TeacherInfo from "../components/homepage/TeacherInfo";
 import CourseInfo from "../components/homepage/CourseInfo";
 import CommentInfo from "../components/homepage/CommentInfo";
 import { mapState } from "vuex";
 
 export default {
   components: {
-    TeacherInfo,
+    // TeacherInfo,
     CommentInfo,
     CourseInfo,
   },
@@ -133,20 +147,4 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  margin-top: 50pt;
-  height: 400pt;
-}
-.text-subtitle2 {
-  margin-top: 40pt;
-  margin-left: 50pt;
-}
-.Information {
-  display: inline-block;
-}
-.button {
-  margin-top: 20pt;
-  margin-left: 50pt;
-  margin-bottom: 50pt;
-}
 </style>

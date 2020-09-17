@@ -9,6 +9,7 @@ export default {
         userInfo: null,
         token: null,
         isLoading: false,
+        favoriteCourse:null,
     },
     mutations: {
         /**
@@ -34,6 +35,15 @@ export default {
          */
         setToken(state, payload) {
             state.token = payload;
+        },
+
+        /**
+         * 设置favoriteCourse
+         * @param {*} state 
+         * @param {*} payload 
+         */
+        setFavoriteCourse(state, payload) {
+            state.favoriteCourse = payload;
         }
     },
 

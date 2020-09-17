@@ -11,7 +11,7 @@
 <script>
 import layout from "./components/layout/layout";
 import { checkCookie } from "./utils/utils";
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 export default {
   name: "APP",
   components: {
@@ -20,13 +20,18 @@ export default {
   data() {
     return {};
   },
-  computed:mapState('userInfo', ['userInfo']),
+  computed: mapState("userInfo", ["userInfo"]),
   methods: {},
   async beforeCreate() {
     if (!this.userInfo) {
       //如果当前用户信息没有，先检查cookie中是否含有信息
       if (checkCookie()) {
         await this.$store.dispatch("userInfo/loginUser");
+      } else {
+        // this.$route.push({
+        //   name: "index",
+        // });
+        1+1
       }
     }
   },

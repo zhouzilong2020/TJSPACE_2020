@@ -1,6 +1,8 @@
 <template>
-    <div class="course-comment-statistics">
-		<p>共{{commentStatistic.reveiwCnt}}条评论</p>
+    <div class="course-comment-statistics ">
+		<p class="gt-sm">共{{commentStatistic.reveiwCnt}}条评论</p>
+        <p class="lt-md">共{{commentStatistic.reveiwCnt}}条</p>
+        
 		<ul class="rating-container row">
 			<li>
                 <div class="column">

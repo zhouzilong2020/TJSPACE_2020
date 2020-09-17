@@ -1,5 +1,5 @@
 <template>
-  <div class="main" style="margin-left: 350px">
+  <div class="main">
     <q-page-container class="body-right row">
       <div class="left col-8" style>
         <div class="q-pa-md" style="max-width: 780px">
@@ -120,6 +120,7 @@ export default {
   components: {},
   data() {
     return {
+      model:'',
       isShow: 0,
       path1: require("../assets/TJU.png"),
       path: require("../assets/zhuzi.jpeg"),
@@ -173,7 +174,7 @@ export default {
   },
   methods: {
     click(data) {
-      console.log('click card', data)
+      console.log("click card", data);
       this.$router.push({
         name: "courseInfo",
         params: {
@@ -185,7 +186,12 @@ export default {
       this.$nextTick(async function () {
         this.value = document.getElementById("textId").value;
         console.log("search", this.value);
-        var resp1 = await search({ searchKey: this.value });
+
+        console.log('in serach course', this.token)
+        var resp1 = await search({
+          searchKey: this.value,
+          token: this.token,
+        });
         this.newcourseInfo = resp1;
         this.isShow = 1;
         console.log("result", this.newcourseInfo);
@@ -230,7 +236,7 @@ export default {
 }
 
 .choose {
-  width: 200px;
+  max-width: 200px;
   /* margin-left: 14px; */
 }
 .my-cardinfo {

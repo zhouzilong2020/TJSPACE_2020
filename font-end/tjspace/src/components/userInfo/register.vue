@@ -227,7 +227,7 @@ export default {
           // console.log("get user token")
           console.log(this.userInfo);
           this.$router.push({
-            name: "Homepage",
+            name: "SelfInfoModify",
             params: {
               userId: this.userInfo.userid,
             },

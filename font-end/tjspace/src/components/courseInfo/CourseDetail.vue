@@ -60,13 +60,29 @@
     </q-card-section>
 
     <q-card-section>
-      <course-statistic :commentStatistic="commentStatistic" />
+      <course-statistic class="q-my-sm" :commentStatistic="commentStatistic" />
       <q-btn
         stretch
-        class="full-width btn"
+        class="full-width btn gt-sm"
         color="primary"
         icon-right="comment"
+        :to="{
+          name: 'MakeComment',
+          params: {
+            userId: this.userInfo.userId,
+            courseId: this.courseInfo.id,
+          },
+        }"
         label="撰写评论"
+        unelevated
+      >
+        <q-tooltip content-class="bg-accent">现在就撰写你的评论吧！</q-tooltip>
+      </q-btn>
+      <q-btn
+        stretch
+        class="full-width btn lt-md"
+        color="primary"
+        icon-right="comment"
         unelevated
       >
         <q-tooltip content-class="bg-accent">现在就撰写你的评论吧！</q-tooltip>
@@ -77,10 +93,14 @@
 
 <script>
 import CourseStatistic from "./CourseStatistic";
+import { mapState } from "vuex";
 export default {
   name: "CourseDetail",
   components: {
     CourseStatistic,
+  },
+  computed:{
+    ...mapState('userInfo', ['userInfo'])
   },
   props: {
     courseInfo: {

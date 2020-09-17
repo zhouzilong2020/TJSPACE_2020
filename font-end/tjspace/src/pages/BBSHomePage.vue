@@ -6,7 +6,7 @@
         <q-img :src="bgPath" style="width: 100%">
           <div class="absolute-bottom-left">
             <p>
-              <q-img :src="tjuLogo" style="width:100%" />
+              <q-img :src="tjuLogo" style="width: 100%" />
               TJ SPACE-BBS
             </p>
           </div>
@@ -29,8 +29,8 @@
           </q-input>
         </div>
         <!-- 交互控件 -->
-        <div style="height:3rem">
-          <div style="float:right">
+        <div style="height: 3rem">
+          <div style="float: right">
             <q-btn-group v-if="isMakingPost">
               <q-btn color="primary" label="取消" @click="cancelPost" />
               <q-btn color="primary" label="确定" @click="submitPost" />
@@ -159,23 +159,23 @@ export default {
     ...mapState("userInfo", ["token", "userInfo"]),
   },
   methods: {
-    initUserInfo: function() {
+    initUserInfo: function () {
       this.userId = this.userInfo.userid;
     },
-    jumpWhileNotRegister: function() {
+    jumpWhileNotRegister: function () {
       if (this.userId == "") {
         console.log("adaaasda");
         //this.$router.push('index');
       }
     },
-    makeNewPost: function() {
+    makeNewPost: function () {
       this.isMakingPost = true;
     },
-    cancelPost: function() {
+    cancelPost: function () {
       this.isMakingPost = false;
       this.postContent = "";
     },
-    submitPost: async function() {
+    submitPost: async function () {
       var resp = await axios.post(
         URL + `Post/post`,
         {},
@@ -184,7 +184,7 @@ export default {
             Authorization: this.token,
           },
           params: {
-            title: this.postContent.substr(0,40),
+            title: this.postContent.substr(0, 40),
             content: this.postContent,
             userId: this.userId,
           },
@@ -198,13 +198,13 @@ export default {
       this.getPosts(this.orderType, this.currPage);
       this.currPage++;
     },
-    jumpToPost: function(index) {
+    jumpToPost: function (index) {
       this.$router.push({
         name: "Forum",
         params: { postId: this.postInfo[index].postId },
       });
     },
-    thumbUp: async function(index) {
+    thumbUp: async function (index) {
       var evaluatable = true;
       await axios
         .get(URL + `Post/CanEvaluate`, {
@@ -243,7 +243,7 @@ export default {
       this.postInfo[index].agreeAccount++;
       this.postInfo[index].canThumb = 0;
     },
-    thumbDown: async function(index) {
+    thumbDown: async function (index) {
       var evaluatable = true;
       await axios
         .get(URL + `Post/CanEvaluate`, {
@@ -282,12 +282,12 @@ export default {
       this.postInfo[index].agreeAccount--;
       this.postInfo[index].canStep = 0;
     },
-    cleanPage: function() {
+    cleanPage: function () {
       this.postInfo.length = 0;
       this.currPage = 0;
       this.isBottom = false;
     },
-    getPosts: async function(type, page) {
+    getPosts: async function (type, page) {
       console.log(page);
       await axios
         .get(URL + `Show/getPosts`, {

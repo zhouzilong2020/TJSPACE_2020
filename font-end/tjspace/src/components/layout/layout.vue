@@ -36,8 +36,6 @@
               </template>
             </q-input>
             <q-space />
-
-            <q-space />
           </template>
           <q-btn-group class="top-option" flat>
             <q-btn
@@ -103,13 +101,14 @@
             </q-avatar>
 
             <template v-if="userInfo">
-              <div class="text-weight-bold">
-                欢迎你！ {{ userInfo.nickname }}
+              <div class="text-weight-bold"  v-show="!miniState">
+                 {{ "欢迎你！"+userInfo.nickname }}
               </div>
               <!-- 这个没存user的Email啊 -->
               <!-- <div>{{ userInfo.eMail }}</div> -->
-              <div>这里我觉得要有邮箱？</div>
+              <div  v-show="!miniState">{{userInfo.email + '@tongji.edu.cn'}}</div>
             </template>
+
             <template v-else>
               <div class="text-weight-bold">请先登录</div>
             </template>
@@ -126,29 +125,14 @@
           <q-list>
             <!-- 用户登录后显示 -->
             <template v-if="userInfo">
-              <q-item clickable v-ripple>
-                <q-item-section avatar>
-                  <q-icon name="home" />
-                </q-item-section>
-                <q-item-section>
-                  <!-- TODO 改成真实的用户！ -->
-                  <router-link
-                    :to="{ name: 'Homepage', params: { userid: 'lutianyi' } }"
-                    >个人主页</router-link
-                  >
-                </q-item-section>
-              </q-item>
-              <q-item clickable v-ripple>
-                <q-item-section avatar>
-                  <q-icon name="star" />
-                </q-item-section>
-                <q-item-section>
-                  <router-link
-                    :to="{ name: 'Homepage', params: { userid: 'lutianyi' } }"
-                    >我的收藏</router-link
-                  >
-                </q-item-section>
-              </q-item>
+              <drawer-btn
+                :label="'个人主页'"
+                :to="{
+                  name: 'Homepage',
+                  params: { userId: userInfo.userId },
+                }"
+                :icon="'home'"
+              />
             </template>
 
             <!-- 用户不登录显示 -->
@@ -175,7 +159,7 @@
 
     <q-page-container class="body">
       <!-- 你的内容将会被插入在这里 -->
-      <slot name="main"></slot>
+      <slot v-if="!isLoading" name="main"></slot>
     </q-page-container>
 
     <!-- footer -->
@@ -215,12 +199,22 @@ export default {
     ...mapState("route", ["routes"]),
   },
   methods: {
+    handleRoute(payload) {
+      console.log("handle route change", payload);
+      console.log("adjgasludgalsjdhgasldghls");
+      this.$route.push({
+        name: payload,
+        params: {
+          userId: payload.userId,
+        },
+      });
+    },
     async handleLogout() {
       console.log("clicking logout btn");
       await this.$store.dispatch("userInfo/logoutUser");
       // 成功退出
       if (this.token == null) {
-        console.log("logout user successfully")
+        console.log("logout user successfully");
         this.$router.push({
           name: "index",
         });

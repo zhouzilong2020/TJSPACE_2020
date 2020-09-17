@@ -1,12 +1,6 @@
 <template>
   <div>
-      <q-page-container class="detail body-left">
-          <course-detail   />
-      </q-page-container>
       <q-page-container class="body-right">
-          <div class="course-head" >
-          <course-head />
-          </div>      
           <div class="course-comment">
           <course-comment />
           </div>
@@ -15,14 +9,11 @@
 </template>
 
 <script>
-import CourseHead from '../components/courseInfo/CourseHead'
-import CourseDetail from '../components/courseInfo/CourseDetail'
+
 import CourseComment from '../components/sfz/CourseComment'
 export default {
   components:{
-    CourseDetail,
     CourseComment,
-    CourseHead,
   },
   data () {
     return {

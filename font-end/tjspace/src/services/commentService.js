@@ -85,3 +85,22 @@ export async function cancelEvaluation(payload) {
     return resp.data;
 
 }
+
+
+/**
+ * 
+ * @param {Object} payload payload传入token，userId
+ */
+export async function getCommentInfo(payload) {
+    var resp = await axios.get(`${URL}Comment/CancelEvaluation`,
+        {
+            headers: {
+                Authorization: payload.token,
+            },
+            params: {
+                userId: payload.userId,
+            }
+        })
+    console.log('data in commentinfo:', this.commentInfo)
+    return resp.data
+}

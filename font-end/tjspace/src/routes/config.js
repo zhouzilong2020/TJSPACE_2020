@@ -1,6 +1,11 @@
 export default {
     routes: [
         {
+            path: "/",
+            name: 'test',
+            component: () => import("@/components/makeComment"),
+        }, 
+        {
             path: "/courseInfo/:courseId",
             name: 'courseInfo',
             component: () => import("@/pages/CourseInfo"),
@@ -33,7 +38,8 @@ export default {
             name: 'SelfInfoModify',
             component: () => import("@/pages/SelfInfoModify"),
         }, {
-            path: "/makecomment/:userid/:courseId",
+            path: "/MakeComment/:userId/:courseId",
+            name:'MakeComment',
             component: () => import("@/pages/MakeComment"),
         }, {
             path: "/",  //表示匹配所有路径

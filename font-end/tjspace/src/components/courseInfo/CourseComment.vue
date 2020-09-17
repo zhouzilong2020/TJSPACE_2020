@@ -285,7 +285,7 @@ export default {
     taker: null,
   },
   computed: {
-    ...mapState("userInfo", ["userInfo"]),
+    ...mapState("userInfo", ["userInfo", "token"]),
     topColor() {
       if (this.commentInfo) {
         let total = 0;
@@ -360,9 +360,9 @@ export default {
         this.btnLoading[type] = true;
 
         resp = await evaluateComment({
-          userId: "u1001",
+          userId: this.userInfo.userid,
+          token: this.token,
           commentId: this.commentInfo.commentId,
-          type: type,
         });
         console.log("in vue page handel rvaluate", resp);
         if (resp.status) {
@@ -382,8 +382,10 @@ export default {
       else if (this.isEvaluated.type == type) {
         // 按钮显示加载中
         this.btnLoading[type] = true;
+        console.log(this.userInfo);
         resp = await cancelEvaluation({
-          userId: "u1001",
+          userId: this.userInfo.userid,
+          token: this.token,
           commentId: this.commentInfo.commentId,
         });
         console.log("in vue page handel cancel valuate", resp);
@@ -444,8 +446,8 @@ export default {
       },
     };
     this.isEvaluated = await getEvaluate({
-      // TODO:记得修改
-      userId: "u1001",
+      token: this.token,
+      userId: this.userInfo.userid,
       commentId: this.commentInfo.commentId,
     });
     // console.log(this.isEvaluated)
