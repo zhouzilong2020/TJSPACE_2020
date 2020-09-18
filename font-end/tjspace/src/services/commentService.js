@@ -107,7 +107,7 @@ export async function getCommentInfo(payload) {
 
 /**
  * 
- * 
+ * 发表对课程的评价
  * @param {*} payload  
  */
 export async function makeComment(payload) {
@@ -127,8 +127,8 @@ export async function makeComment(payload) {
 }
 
 /**
- * 是否能够评价
- * @param {*} payload{userId, courseId, teacherId}
+ * 是否能够评价某一个课程信息
+ * @param {*} payload {userId, courseId, teacherId}
  */
 export async function canMakeComment(payload) {
     console.log('in canMakeComment ', payload)
@@ -144,5 +144,43 @@ export async function canMakeComment(payload) {
             }
         })
     console.log('after canMakeComment', resp)
+    return resp.data
+}
+
+/**
+ * 返回历史评论信息
+ * @param {Object}} payload {token, userId}
+ */
+export async function getHistoryComment(payload) {
+    console.log('in get history comment', payload)
+    let resp = await axios.get(`${URL}Show/personalcomment`, {
+        headers: {
+            Authorization: payload.token,
+        },
+        params: {
+            userId: payload.userId
+        }
+    })
+    console.log('after getting history comment ', resp)
+    return resp.data
+}
+
+
+/**
+ * 删除用户评价
+ * @param {Object} payload {token, commentId}
+ */
+export async function deleteComment(payload) {
+    console.log('in get delete comment', payload)
+    let resp = await axios.post(`${URL}Show/personalcomment`, {},
+        {
+            headers: {
+                Authorization: payload.token,
+            },
+            params: {
+                userId: payload.commentId
+            }
+        })
+    console.log('after delete history comment ', resp)
     return resp.data
 }

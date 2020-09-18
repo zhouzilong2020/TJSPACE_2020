@@ -97,8 +97,6 @@ export default {
   computed: mapState("userInfo", ["userInfo"]),
   created() {
     console.log("in homepage created", this.userInfo);
-    
-
     switch (this.userInfo.gender) {
       case 0:
         this.Gender = "男";
@@ -143,15 +141,19 @@ export default {
         this.Degreer = "博士生";
         break;
     }
+
+
     //这一块加不加好像都没用
-    this.$store.commit('userInfo/setUserInfo', { 
-        userid: this.userInfo.userid,
-        nickname: this.userInfo.nickname,
-        phonenumber:this.userInfo.phonenumber,
-        gender:this.userInfo.gender,
-        year:this.userInfo.year,
-        degree:this.userInfo.degree
-    })  
+    // this.$store.commit('userInfo/setUserInfo', { 
+    //     userid: this.userInfo.userid,
+    //     nickname: this.userInfo.nickname,
+    //     phonenumber:this.userInfo.phonenumber,
+    //     gender:this.userInfo.gender,
+    //     year:this.userInfo.year,
+    //     degree:this.userInfo.degree
+    // })  
+
+
   },
 };
 </script>

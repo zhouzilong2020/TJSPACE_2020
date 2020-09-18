@@ -128,7 +128,7 @@ export default {
           this.$q.loading.hide();
         }
       }, 5000);
-
+      
       var courseResp = await getCourseInfo({
         courseId: this.$route.params.courseId,
         teacherId: this.$route.params.teacherId,

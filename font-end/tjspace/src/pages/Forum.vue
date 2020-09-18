@@ -5,30 +5,36 @@
     </div>
     <div class="col-auto">
         <q-card class="row q-mb-xs z-top" style="width: 750px" id="title" v-scroll="Follow">
+            <!--帖子标题-->
             <q-banner class="col white">
                 <div class="text-h6">{{ title | ellipsis(60) }}</div>
                 <q-tooltip content-class="text-h6">{{ title }}</q-tooltip>
             </q-banner>
+            <!--只看楼主按钮-->
             <div class="col-auto">
                 <q-btn class="column-auto q-ma-md shadow-2" flat dense size="md" color="white" text-color="black" :label="onlyMasterText" @click="OnlyMaster()" />
             </div>
         </q-card>
         <div style="width: 750px">
+             <!--帖子楼层-->
             <div v-for="(post, i) in displays" :key="i">
-                <Post :userId="post.userId" :nickName="post.nickName" :thumbUpNum="thumbUpNum" :thumbUp="thumbUp" :thumbDown="thumbDown" :date="post.date" :floor="(currentPage - 1) * 10 + i + 1" :content="post.content" :replys="post.replys" @focusBottom="ToBottom" @publish="Publish" @evaluate="Evaluate" />
+                <Post :userId="post.userId" :nickName="post.nickName" :thumbUpNum="thumbUpNum" :thumbUp="thumbUp" :thumbDown="thumbDown" :date="post.date" :floor="post.floor" :content="post.content" :replys="post.replys" @focusBottom="ToBottom" @publish="Publish" @evaluate="ChangeEvaluate" />
             </div>
+             <!--回复文本框-->
             <q-card class="q-my-lg">
                 <q-editor ref="bottom" v-model="editorContent" min-height="5rem" />
                 <div class="row justify-end">
-                    <q-btn class="q-ma-sm" text-color="black" label="发表" @click="Publish(editorContent, totalFloor + 1, 0)" />
+                    <q-btn class="q-ma-sm" text-color="black" label="发表" @click="Publish(editorContent, totalFloor + 1, 0);editorContent=''" />
                 </div>
             </q-card>
+             <!--分页-->
             <div class="row justify-start q-pb-lg">
                 <q-pagination v-model="currentPage" @click="ShiftPage()" :max="maxPage" :direction-links="true"></q-pagination>
             </div>
         </div>
     </div>
     <div class="col-auto">
+         <!--推荐栏-->
         <q-card class="q-ml-xs" id="toTop" style="width: 230px">
             <q-card class="text-weight-bold q-pt-sm q-ml-md"> 最新推荐 </q-card>
             <div v-for="(recommend, i) in recommendData" :key="i">
@@ -47,6 +53,7 @@
                     </div>
                 </template>
             </div>
+             <!--返回顶部按钮-->
             <q-btn @click="ToTop" class="q-py-sm" style="width: 230px" color="black" icon="keyboard_arrow_up" flat>
                 <q-tooltip>返回顶部</q-tooltip>
             </q-btn>
@@ -61,7 +68,7 @@ import {
     mapState
 } from "vuex";
 import {
-    get,post,requestCancel
+    RequestCancel,GetPost,GetReply,PostReply,CanEvaluate,Evaluate,GetPosts,CancelEvaluation
 } from "../services/forum"
 export default {
     name: "Forum",
@@ -86,8 +93,7 @@ export default {
             thumbUpNum: 0,
             onlyMaster: false,
             onlyMasterText: "只看楼主",
-            jump: false,
-            isLoading: 0
+            jump: false
         };
     },
     computed: {
@@ -100,6 +106,7 @@ export default {
         }
     },
     methods: {
+        //加载必要数据
         Load() {
             this.jump = true;
             window.scrollTo({
@@ -107,10 +114,8 @@ export default {
             })
             this.replysData = [];
             this.masterData = [];
-            if (!this.postId) {
-                this.$router.push("/BBSHomepage");
-            }
-            get('Show/post', {
+            //加载帖子id、回复id
+            GetPost({
                 postId: this.postId
             }).then((response) => {
                 this.title = response.data1[0].title;
@@ -152,9 +157,11 @@ export default {
                 this.maxPage = Math.ceil((this.replysData.length + 1) / 10);
                 this.currentPage = 1;
                 this.ShiftPage();
+            }).catch(()=>{
+                this.$router.push("/BBSHomepage");
             })
-
-            get('Post/CanEvaluate', {
+            //加载点赞数据
+            CanEvaluate({
                 userId: this.userInfo.userid,
                 postId: this.postId,
             }).then((response) => {
@@ -167,6 +174,7 @@ export default {
                 }
             })
         },
+        //切换分页
         ShiftPage() {
             this.jump = true;
             window.scrollTo({
@@ -189,6 +197,7 @@ export default {
                     date: this.postData.date,
                     nickName: this.postData.nickName,
                     replys: [],
+                    floor:1
                 };
                 index++;
                 data = fullData.slice(0, 9);
@@ -206,11 +215,8 @@ export default {
                 });
             });
             replyIds = replyIds.slice(0, -1);
-            if (replyIds === "") {
-                this.displays = temp.slice(0, index)
-                return;
-            }
-            get('Show/reply', {
+            //加载该页详细数据
+            GetReply({
                 str: replyIds
             }).then((response) => {
                 var replyIdMap = [];
@@ -219,6 +225,7 @@ export default {
                         userId: reply[0].userid,
                         content: reply[0].content,
                         date: reply[0].date,
+                        floor: reply[0].floor
                     };
                 });
                 data.forEach((reply) => {
@@ -229,6 +236,7 @@ export default {
                         date: replyData.date,
                         nickName: reply.nickName,
                         replys: [],
+                        floor:replyData.floor-1
                     };
                     reply.replys.forEach((replyToReply) => {
                         var replyToReplyData = replyIdMap[replyToReply.replyId]
@@ -248,10 +256,13 @@ export default {
                     index++;
                 });
                 this.displays = temp.slice(0, index)
+            }).catch(()=>{
+                this.displays = temp.slice(0, index)
             })
         },
+        //发表回复
         Publish(content, floor, type) {
-            post('Post/reply', {
+            PostReply({
                 content: content,
                 userId: this.userInfo.userid,
                 postId: this.postId,
@@ -261,13 +272,14 @@ export default {
                 this.$q.notify({
                     message: '回帖成功',
                     position: 'center',
-                    timeout: '2000'
+                    timeout: '1000'
                 });
                 this.Load()
             })
         },
+        //进行点赞
         DoEvaluate(type) {
-            post('Post/evaluate', {
+            Evaluate({
                 userId: this.userInfo.userid,
                 postId: this.postId,
                 type: type
@@ -282,8 +294,9 @@ export default {
                 }
             });
         },
-        Evaluate(type) {
-            get('Post/CanEvaluate', {
+        //根据点赞情况点赞或取消点赞
+        ChangeEvaluate(type) {
+            CanEvaluate({
                 userId: this.userInfo.userid,
                 postId: this.postId,
             }).then((evaluateInfo) => {
@@ -291,7 +304,7 @@ export default {
                     !evaluateInfo.canEvaluate ||
                     evaluateInfo.type !== type
                 ) {
-                    post('Post/CancelEvaluation', {
+                    CancelEvaluation({
                         userId: this.userInfo.userid,
                         postId: this.postId,
                     }).then((response) => {
@@ -313,6 +326,7 @@ export default {
                 }
             })
         },
+        //切换只看楼主或取消只看楼主
         OnlyMaster() {
             this.onlyMaster = !this.onlyMaster;
             if (this.onlyMaster) {
@@ -325,18 +339,21 @@ export default {
             this.currentPage = 1;
             this.ShiftPage();
         },
+        //页面滚动至底部
         ToBottom() {
             window.scrollTo({
                 top: document.documentElement.offsetHeight,
                 behavior: "smooth"
             });
         },
+        //页面滚动至顶部
         ToTop() {
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
             });
         },
+        //帖子标题和推荐栏随页面滚动
         Follow(position) {
             var title = document.getElementById("title");
             var toTop = document.getElementById("toTop");
@@ -376,7 +393,8 @@ export default {
     mounted() {
         this.postId = this.$route.params.postId
         this.Load();
-        get('Show/getPosts', {
+        //加载推荐栏数据
+        GetPosts({
             orderType: 3,
             startPosition: 0,
             userId: "",
@@ -388,12 +406,17 @@ export default {
                     color: "background:#C0C0C0",
                 });
             });
-            this.recommendData[0]["color"] = "background:#FFD700";
-            this.recommendData[1]["color"] = "background:#F5F5F5";
-            this.recommendData[2]["color"] = "background:#D2691E";
+            try{
+                this.recommendData[0]["color"] = "background:#FFD700";
+                this.recommendData[1]["color"] = "background:#F5F5F5";
+                this.recommendData[2]["color"] = "background:#D2691E";
+            }catch(error){
+                /*empty*/
+            }   
         })
     },
     filters: {
+        //截断帖子标题
         ellipsis(string, length) {
             for (var i = 0; i < string.length; i++) {
                 if (string.charCodeAt(i) > 127 || string.charCodeAt(i) < 0) {
@@ -409,7 +432,8 @@ export default {
         },
     },
     beforeDestroy() {
-        requestCancel()
+        //切换页面时取消请求
+        RequestCancel()
         if (this.timer !== void 0) {
             clearTimeout(this.timer)
             this.$q.loading.hide()

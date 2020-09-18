@@ -72,8 +72,8 @@ export async function sentAuthCode(payload) {
       code: code,
     },
   });
-  console.log('in services after sending authCode:',resp);
-  return { data: {...resp.data, authCode:code} };
+  console.log('in services after sending authCode:', resp);
+  return { data: { ...resp.data, authCode: code } };
 }
 
 
@@ -105,4 +105,30 @@ export async function getFavoriteCourse(payload) {
     },
   });
   return resp;
+}
+
+/**
+ * 修改个人信息
+ * @param {*} payload {token, userId, nickname, gender, phonenumber, majorid, year, degree}
+ */
+export async function modifyUserInfo(payload) {
+  console.log('in modifyUserInfo', payload)
+  let resp = await axios({
+    method: "post",
+    url: `${URL}Modify/Info`,
+    headers: {
+      Authorization: payload.token,
+    },
+    data: {
+      userid: payload.userId,
+      nickname: payload.nickname,
+      gender: payload.gender,
+      phonenumber: payload.phoneNumber,
+      majorid: payload.majorId,
+      year: payload.year,
+      degree: payload.degree,
+    },
+  });
+  console.log("after modifyUserInfo", resp);
+  return resp.data
 }

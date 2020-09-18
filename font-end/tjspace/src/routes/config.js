@@ -21,6 +21,10 @@ export default {
             path: "/Forum/:postId",
             name: "Forum",
             component: () => import("@/pages/Forum"),
+        },{
+            path: "/Forum",
+            name: "EmptyForum",
+            component: () => import("@/pages/Forum"),
         }, {
             path: "/SearchCourse/:keyword",
             name: "SearchCourse",

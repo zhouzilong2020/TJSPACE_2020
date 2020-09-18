@@ -1,11 +1,13 @@
 <template>
+  <!-- 你的内容将会被插入在这里 -->
+
   <div class="main" style="margin-left: 350px">
-    <q-page-container class="body-right row">
-      <div class="left col-8" style>
-        <div class="q-pa-md" style="max-width: 780px">
+    <div class="body-right row">
+      <div class="left col-8">
+        <div class="q-pa-md">
           <div class="q-gutter-md">
             <div style="text-align: center">
-              <span class="word">发现更多</span>
+              <span class="word">同心同德</span>
               <img
                 :src="path1"
                 style="
@@ -15,7 +17,7 @@
                   margin-right: 25px;
                 "
               />
-              <span class="word">优质课程</span>
+              <span class="word">济人济世</span>
             </div>
             <div class="search-bar">
               <div style="text-align: center">
@@ -27,7 +29,7 @@
                   v-model="input"
                   value
                   placeholder="请输入需要搜索的课程名"
-                  style="width: 760px"
+                  style="width: 780px"
                 >
                   <button @click="btnclick()" style="border: none">
                     <q-icon name="search"></q-icon>
@@ -51,6 +53,12 @@
               class="my-cardinfo"
               bordered
               @click="click(item)"
+              @mouseenter="mouseEnter(item.courseId, item.teacherId)"
+              @mouseleave="mouseLeave()"
+              :class="{
+                itemHover:
+                  itemIndex == item.courseId && itemName == item.teacherId,
+              }"
             >
               <q-item>
                 <q-item-section avatar>
@@ -100,14 +108,14 @@
         </div>
 
         <div v-else>
-          <div class="wordrec">recommendations</div>
+          <div class="wordrec" style="text-align: center">recommendations</div>
 
-          <q-separator />
+          <q-separator style="width: 820px" />
 
-          <div class="row">
+          <div class="row" style="margin-left: 0px">
             <template
               class="content"
-              style="margin-top: 5px; display: flex"
+              style="margin-top: 5px"
               v-for="(item, index) in courseInfo"
               :value="item.value"
             >
@@ -116,6 +124,9 @@
                 :key="index"
                 @click="click(item)"
                 style="margin-left: 45px; margin-top: 15px"
+                @mouseenter="mouseEnter(index)"
+                @mouseleave="mouseLeave()"
+                :class="{ itemHover: itemIndex == index }"
               >
                 <div v-if="index % 3 == 0">
                   <q-img
@@ -155,7 +166,7 @@
           </div>
         </div>
       </div>
-    </q-page-container>
+    </div>
   </div>
 </template>
 
@@ -164,20 +175,15 @@ import { mapState } from "vuex";
 import { search } from "../services/search";
 export default {
   components: {},
-
-  
-  created(){
-    console.log('in search course created:' , this.$route.params.keyword)
-  },
-
-
   data() {
     return {
+      itemIndex: null,
+      itemName: null,
       input: "",
       isShow: 0,
       path11: require("../assets/sjk.jpg"),
       path12: require("../assets/xtjg.jpg"),
-      path13: require("../assets/czxt.jpg"),
+      path13: require("../assets/java.jpg"),
       path1: require("../assets/TJU.png"),
       path: require("../assets/zhuzi.jpeg"),
       inputSearch: "",
@@ -185,24 +191,28 @@ export default {
         {
           name: "数据库原理与应用",
           teacher: "袁时金",
-          teacherId: "0001",
           intro:
             "这是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
           courseId: "420244",
+          teacherId: "0002",
           imagePath: "../assets/sjk.jpg",
         },
         {
-          name: "计算机系统结构",
-          teacher: "张晨曦",
+          name: "Jave EE",
+          teacher: "范鸿飞",
           intro:
             "这是仍然是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
-          imagePath: "../assets/xtjg.jpg",
+          courseId: "420300",
+          teacherId: "0001",
+          imagePath: "../assets/java.jpg",
         },
         {
           name: "操作系统",
           teacher: "张慧娟",
           intro:
             "这是还是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
+          courseId: "420024",
+          teacherId: "0004",
           imagePath: "../assets/czxt.jpg",
         },
       ],
@@ -220,9 +230,19 @@ export default {
       },
     };
   },
+
   methods: {
+    mouseEnter(index, name) {
+      this.itemIndex = index;
+      this.itemName = name;
+      //            console.log("mouseon",this.itemIndex)
+    },
+    mouseLeave() {
+      this.itemIndex = null;
+      this.itemName = null;
+      //            console.log("mouseleave",this.itemIndex)
+    },
     click(data) {
-      console.log("asdasd", data);
       this.$router.push({
         name: "courseInfo",
         params: {
@@ -235,10 +255,76 @@ export default {
       this.$nextTick(async function () {
         //       this.value = document.getElementById("textId").value;
         console.log("search", this.input);
-        var resp1 = await search({ searchKey: this.input });
+        if (this.input != " ") {
+          var resp1 = await search({
+            token: this.token,
+            searchKey: this.input,
+          });
+          this.newcourseInfo = resp1;
+
+          if (this.newcourseInfo.length == 0) {
+            alert("未搜索到相关课程");
+          } else {
+            for (var i = 0; i < this.newcourseInfo.length; i++) {
+              if (this.newcourseInfo[i].courseIntro.length > 30) {
+                this.str = this.newcourseInfo[i].courseIntro.slice(0, 29);
+                this.newcourseInfo[i].courseIntro = this.str + "......";
+              }
+            }
+
+            this.isShow = 1;
+            console.log("result", this.newcourseInfo);
+          }
+        }
+      });
+    },
+  },
+  props: {},
+  computed: {
+    ...mapState("userInfo", ["isLoading", "token"]),
+    keyword() {
+      return this.$route.params.keyword;
+    },
+  },
+  watch: {
+    keyword() {
+      console.log("changed", this.$route.params.keyword);
+      if (this.$route.params.keyword != ' ') {
+        console.log("收到信息", "收到信息");
+        this.$nextTick(async function () {
+          //       this.value = document.getElementById("textId").value;
+          console.log("search", this.$route.params.keyword);
+          var resp1 = await search({ searchKey: this.$route.params.keyword });
+          this.newcourseInfo = resp1;
+
+          if (this.newcourseInfo.length == 0) {
+            alert("未搜索到相关课程");
+          } else {
+            for (var i = 0; i < this.newcourseInfo.length; i++) {
+              if (this.newcourseInfo[i].courseIntro.length > 30) {
+                this.str = this.newcourseInfo[i].courseIntro.slice(0, 29);
+                this.newcourseInfo[i].courseIntro = this.str + "......";
+              }
+            }
+
+            this.isShow = 1;
+            console.log("result", this.newcourseInfo);
+          }
+        });
+      }
+    },
+  },
+  created: function () {
+    console.log("created", this.$route.params.keyword);
+    if (this.$route.params.keyword != null) {
+      console.log("收到信息", "收到信息");
+      this.$nextTick(async function () {
+        //       this.value = document.getElementById("textId").value;
+        console.log("search", this.$route.params.keyword);
+        var resp1 = await search({ searchKey: this.$route.params.keyword });
         this.newcourseInfo = resp1;
 
-        if (!this.newcourseInfo) {
+        if (this.newcourseInfo.length == 0) {
           alert("未搜索到相关课程");
         } else {
           for (var i = 0; i < this.newcourseInfo.length; i++) {
@@ -252,11 +338,7 @@ export default {
           console.log("result", this.newcourseInfo);
         }
       });
-    },
-  },
-  props: {},
-  computed: {
-    ...mapState("userInfo", ["isLoading", "token"]),
+    }
   },
 };
 </script>
@@ -340,5 +422,8 @@ export default {
   font-size: 50px;
   font-weight: 900;
   color: rgb(100, 149, 237);
+}
+.itemHover {
+  background-color: #b0c4de;
 }
 </style>

@@ -13,7 +13,7 @@
         <!-- 1.正在登录中 加载 -->
 
         <!-- 登录成功 -->
-        <template v-if="token">
+        <template v-if="userInfo">
           <template class="flex-left">
             <div class="text-caption">欢迎您！{{ userInfo.nickname }}</div>
             <q-input
@@ -47,7 +47,7 @@
               :to="{
                 name: 'Homepage',
                 params: {
-                  userId: userInfo.userId,
+                  userId: userInfo.userid,
                 },
               }"
               label="个人主页"
@@ -55,7 +55,12 @@
             <q-btn
               class="search-course-btn"
               flat
-              :to="{ name: 'SearchCourse' }"
+              :to="{
+                name: 'SearchCourse',
+                params: {
+                  keyword: '',
+                },
+              }"
               label="搜索课程"
             />
             <q-btn
@@ -143,7 +148,9 @@
                 @click="debug()"
                 :to="{
                   name: 'Homepage',
-                  params: { userId: userInfo.userid },
+                  params: {
+                    userId: userInfo.userid,
+                  },
                 }"
                 :icon="'home'"
               />
@@ -158,7 +165,7 @@
               />
               <drawer-btn
                 :label="'搜索课程'"
-                :to="{ name: 'SearchCourse' }"
+                :to="{ name: 'SearchCourse', params: { keyword: '' } }"
                 :icon="'search'"
               />
             </template>
@@ -217,14 +224,12 @@ export default {
     },
     handleTopSearch() {
       // 如果当前页面不是课程搜索页面
-      if (this.$router.name != "SearchCourse") {
-        this.$store.commit("setSearchText", { text: this.text, isSet: true });
-        this.$router.push({
-          name: "SearchCourse",
-        });
-        this.text = "";
-      }
-      console.log("on enter down", this.text);
+      this.$router.push({
+        name: "SearchCourse",
+        params: {
+          keyword: this.text,
+        },
+      });
     },
     handleRoute(payload) {
       console.log("handle route change", payload);

@@ -2,15 +2,18 @@
   <q-card class="white q-my-md">
     <div class="row">
       <div class="col-auto">
+        <!--头像-->
         <div class="row q-mx-md q-my-md">
           <q-avatar size="100px">
             <img v-bind:src="headURL" />
           </q-avatar>
         </div>
+        <!--昵称-->
         <div class="row justify-center text-subtitle1">
           {{ nickName }}
         </div>
       </div>
+      <!--楼层内容-->
       <div class="col q-mx-lg q-my-lg">
         <div class="row  text-body1" style="word-break:break-all;word-wrap:break-word">
           {{ content }}
@@ -18,6 +21,7 @@
       </div>
     </div>
     <div class="row justify-end items-center">
+      <!--点赞按钮-->
       <div class="col-auto">
         <q-btn
           v-if="floor === 1"
@@ -28,6 +32,7 @@
           flat
           round
         >
+        <!--点踩按钮-->
           <div v-if="thumbUpNum !== 0">{{ thumbUpNum }}</div>
         </q-btn>
         <q-btn
@@ -39,6 +44,7 @@
           flat
           round
         />
+        <!--展开回复/收起回复-->
         <q-btn class="q-mx-md" @click="Expand" :label="buttonText" flat round>
           <div v-if="floor !== 1 && replys.length > 0">
             ({{ replys.length }})
@@ -48,6 +54,7 @@
     </div>
     <div class="row">
       <div class="col">
+      <!--展开内容-->
         <q-expansion-item
           v-model="expanded"
           expand-separator
@@ -56,6 +63,7 @@
           :label="floor + '楼 ' + date"
         >
           <div v-if="floor !== 1">
+          <!--回复-->
             <div v-for="(display, i) in displays" :key="i">
               <Reply
                 :nickName="display.nickName"
@@ -69,6 +77,7 @@
               inline-label
               class="white q-mt-xs shadow-2"
             >
+              <!--回复分页-->
               <q-tab
                 v-for="i in Math.ceil(replys.length / 3)"
                 color="white"
@@ -79,6 +88,7 @@
                 @click="ShiftPage(i)"
               />
             </q-tabs>
+            <!--回复文本框-->
             <q-card class="white q-mt-xs justify-center">
               <div class="row justify-end">
                 <div class="col-10">
@@ -96,7 +106,7 @@
                     text-color="black"
                     label="发表"
                     @click="
-                      $emit('publish', replyPrefix + replyContent, floor - 1, 1)
+                      $emit('publish', replyPrefix + replyContent, floor - 1, 1);replyPrefix='';replyContent=''
                     "
                   />
                 </div>
@@ -118,7 +128,7 @@ export default {
   props: {
     headURL: {
       type: String,
-      default: "https://cdn.quasar.dev/img/avatar.png",
+      default: require("../../assets/boy-avatar.png"),
     },
     nickName: {
       type: String,
@@ -172,10 +182,12 @@ export default {
     },
   },
   methods: {
+    //修改回复前缀
     ChangePrefix(nickName) {
       this.replyPrefix = "回复@" + nickName + ":";
       this.$refs.reply.focus();
     },
+    //展开回复/收起回复
     Expand() {
       this.expanded = !this.expanded;
       if (this.floor === 1) {
@@ -192,6 +204,7 @@ export default {
         this.replyPrefix = "";
       }
     },
+    //切换回复分页
     ShiftPage(index) {
       this.displays = this.replys.slice((index - 1) * 3, index * 3);
     },
