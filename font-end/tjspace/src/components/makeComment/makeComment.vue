@@ -400,7 +400,7 @@ export default {
 
         anomymous: 0,
 
-        userId: this.userInfo.userId,
+        userId: this.userInfo.userid,
 
         usefulnum: 0,
         uselessnum: 0,
@@ -408,7 +408,7 @@ export default {
 
         courseId: this.courseInfo.courseId,
 
-        teacherId: this.courseInfo.teacherid,
+        teacherId: this.courseInfo.teacherId,
       };
     },
   },
@@ -430,12 +430,14 @@ export default {
         }
       }, 5000);
 
-      console.log("in page::", this.courseInfo.teacherid);
+      console.log("before commenting userInfo", this.userInfo);
+
       var resp = await makeComment({
         token: this.token,
         apiInterface: this.apiInterface,
       });
-      console.log("in comment page", resp);
+      console.log("after making comment ", resp);
+
       if (resp.status) {
         this.isLoading = false;
         this.$q.loading.hide();

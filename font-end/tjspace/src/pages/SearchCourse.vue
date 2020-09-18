@@ -1,13 +1,11 @@
 <template>
-  <!-- 你的内容将会被插入在这里 -->
-  <q-page-contaner>
   <div class="main" style="margin-left: 350px">
     <q-page-container class="body-right row">
       <div class="left col-8" style>
         <div class="q-pa-md" style="max-width: 780px">
           <div class="q-gutter-md">
             <div style="text-align: center">
-              <span class="word">开启你的</span>
+              <span class="word">发现更多</span>
               <img
                 :src="path1"
                 style="
@@ -17,7 +15,7 @@
                   margin-right: 25px;
                 "
               />
-              <span class="word">奇妙旅程</span>
+              <span class="word">优质课程</span>
             </div>
             <div class="search-bar">
               <div style="text-align: center">
@@ -36,18 +34,6 @@
                   </button>
                 </q-input>
               </div>
-
-              <!-- <input
-                    type="text"
-                    value
-                    id="textId"
-                    class="textClass"
-                    placeholder="请输入希望搜索的课程名称"
-                    name="textName"
-                  />
-                  <button @click="btnclick()" style="border:none;width:70px;max-height:50px;">
-                    <q-icon name="search"></q-icon>
-                  </button>-->
             </div>
           </div>
         </div>
@@ -63,7 +49,6 @@
               clickable
               v-ripple
               class="my-cardinfo"
-              flat
               bordered
               @click="click(item)"
             >
@@ -74,18 +59,33 @@
                   </q-avatar>
                 </q-item-section>
 
-                <q-item-section>
-                  <q-item-label>{{ item.courseName }}</q-item-label>
-                  <q-item-label caption>{{ item.teacherName }}</q-item-label>
+                <q-item-section style="margin-top: 5px">
+                  <div class="row">
+                    <q-item-label>{{ item.courseName }}</q-item-label>
+                    <q-item-label
+                      style="position: absolute; left: 600px; margin-top: 0px"
+                      >课程号： {{ item.courseId }}</q-item-label
+                    >
+                  </div>
+                  <div class="row" style="margin-top: 5px">
+                    <q-item-label caption
+                      >授课老师： {{ item.teacherName }}</q-item-label
+                    >
+                    <q-item-label
+                      caption
+                      style="margin-left: 50px; margin-top: 0px"
+                      >课程学分： {{ item.courseCredit }}</q-item-label
+                    >
+                  </div>
                 </q-item-section>
               </q-item>
 
               <q-separator />
 
               <q-card-section horizontal>
-                <q-card-section style="width: 500px">{{
-                  item.courseIntro
-                }}</q-card-section>
+                <q-card-section style="width: 500px">
+                  {{ item.courseIntro }}
+                </q-card-section>
 
                 <q-separator vertical />
 
@@ -117,11 +117,39 @@
                 @click="click(item)"
                 style="margin-left: 45px; margin-top: 15px"
               >
-                <q-img :src="path1" basic>
-                  <div class="absolute-bottom text-subtitle2 text-center">
-                    {{ item.name }}
-                  </div>
-                </q-img>
+                <div v-if="index % 3 == 0">
+                  <q-img
+                    :src="path11"
+                    basic
+                    style="width: 200px; height: 200px"
+                  >
+                    <div class="absolute-bottom text-subtitle2 text-center">
+                      {{ item.name }}
+                    </div>
+                  </q-img>
+                </div>
+                <div v-if="index % 3 == 1">
+                  <q-img
+                    :src="path12"
+                    basic
+                    style="width: 200px; height: 200px"
+                  >
+                    <div class="absolute-bottom text-subtitle2 text-center">
+                      {{ item.name }}
+                    </div>
+                  </q-img>
+                </div>
+                <div v-if="index % 3 == 2">
+                  <q-img
+                    :src="path13"
+                    basic
+                    style="width: 200px; height: 200px"
+                  >
+                    <div class="absolute-bottom text-subtitle2 text-center">
+                      {{ item.name }}
+                    </div>
+                  </q-img>
+                </div>
               </q-card>
             </template>
           </div>
@@ -129,48 +157,53 @@
       </div>
     </q-page-container>
   </div>
-  </q-page-contaner>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { search } from "../services/search";
 export default {
-  components: {
+  components: {},
+
+  
+  created(){
+    console.log('in search course created:' , this.$route.params.keyword)
   },
+
+
   data() {
     return {
       input: "",
       isShow: 0,
+      path11: require("../assets/sjk.jpg"),
+      path12: require("../assets/xtjg.jpg"),
+      path13: require("../assets/czxt.jpg"),
       path1: require("../assets/TJU.png"),
       path: require("../assets/zhuzi.jpeg"),
       inputSearch: "",
-      department: [
-        "软件学院",
-        "电信学院",
-        "汽车学院",
-        "交运学院",
-        "还有什么学院",
-      ],
       courseInfo: [
         {
           name: "数据库原理与应用",
           teacher: "袁时金",
+          teacherId: "0001",
           intro:
             "这是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
           courseId: "420244",
+          imagePath: "../assets/sjk.jpg",
         },
         {
           name: "计算机系统结构",
           teacher: "张晨曦",
           intro:
             "这是仍然是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
+          imagePath: "../assets/xtjg.jpg",
         },
         {
           name: "操作系统",
           teacher: "张慧娟",
           intro:
             "这是还是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
+          imagePath: "../assets/czxt.jpg",
         },
       ],
       newcourseInfo: [],
@@ -189,10 +222,12 @@ export default {
   },
   methods: {
     click(data) {
+      console.log("asdasd", data);
       this.$router.push({
         name: "courseInfo",
         params: {
           courseId: data.courseId,
+          teacherId: data.teacherId,
         },
       });
     },
@@ -203,15 +238,19 @@ export default {
         var resp1 = await search({ searchKey: this.input });
         this.newcourseInfo = resp1;
 
-        for (var i = 0; i < this.newcourseInfo.length; i++) {
-          if (this.newcourseInfo[i].courseIntro.length > 30) {
-            this.str = this.newcourseInfo[i].courseIntro.slice(0, 29);
-            this.newcourseInfo[i].courseIntro = this.str + "......";
+        if (!this.newcourseInfo) {
+          alert("未搜索到相关课程");
+        } else {
+          for (var i = 0; i < this.newcourseInfo.length; i++) {
+            if (this.newcourseInfo[i].courseIntro.length > 30) {
+              this.str = this.newcourseInfo[i].courseIntro.slice(0, 29);
+              this.newcourseInfo[i].courseIntro = this.str + "......";
+            }
           }
-        }
 
-        this.isShow = 1;
-        console.log("result", this.newcourseInfo);
+          this.isShow = 1;
+          console.log("result", this.newcourseInfo);
+        }
       });
     },
   },
@@ -254,10 +293,11 @@ export default {
 
 .my-cardinfo {
   width: 100%;
-  max-width: 720px;
+  max-width: 750px;
   margin-top: 50px;
+  margin-left: 18px;
   background-color: rgb(245, 245, 245);
-  box-shadow: darkgrey 10px 10px 30px 5px;
+  box-shadow: darkgrey 10px 10px 15px 5px;
   /* margin-left: 70px; */
 }
 
@@ -271,17 +311,13 @@ export default {
   height: 60px;
   width: 80px;
   border: 3px solid #2932e1;
-  background: white;
+  background: #f5f6f7;
   color: black;
   border-left: 0;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
 
-.my-cardrec {
-  width: 200px;
-  height: 200px;
-}
 @font-face {
   font-family: maoyeye;
   src: url("../assets/xingshu.ttf");

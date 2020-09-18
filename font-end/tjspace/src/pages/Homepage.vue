@@ -9,34 +9,34 @@
 
         <q-separator />
 
-        <q-card-section style="margin-top: 10pt; ">
-          <div class="row" style="font-size: 20px; height:0pt">
+        <q-card-section style="margin-top: 8pt; ">
+          <div class="row" style="font-size: 15px; height:0pt">
             <div>昵称: {{ userInfo.nickname }}</div>
           </div>
         </q-card-section>
-        <q-card-section style="margin-top: 10pt">
-          <div class="row" style="font-size: 20px; height:0pt">
+        <q-card-section style="margin-top: 8pt">
+          <div class="row" style="font-size: 15px; height:0pt">
             <div>性别: {{ Gender }}</div>
           </div>
         </q-card-section>
 
-        <q-card-section style="margin-top: 10pt">
-          <div class="row" style="font-size: 20px; height:0pt">
+        <q-card-section style="margin-top: 8pt">
+          <div class="row" style="font-size: 15px; height:0pt">
             <div>手机号: {{ userInfo.phonenumber }}</div>
           </div>
         </q-card-section>
-        <q-card-section style="margin-top: 10pt">
-          <div class="row" style="font-size: 20px; height:0pt">
+        <q-card-section style="margin-top: 8pt">
+          <div class="row" style="font-size: 15px; height:0pt">
             <div>年级: {{ Grade }}</div>
           </div>
         </q-card-section>
-        <q-card-section style="margin-top: 10pt">
-          <div class="row" style="font-size: 20px; height:0pt">
+        <q-card-section style="margin-top: 8pt">
+          <div class="row" style="font-size: 15px; height:0pt">
             <div>主修专业: {{ Major }}</div>
           </div>
         </q-card-section>
-        <q-card-section style="margin-top: 10pt">
-          <div class="row" style="font-size: 20px; height:0pt; margin-bottom:30pt">
+        <q-card-section style="margin-top: 8pt">
+          <div class="row" style="font-size: 15px; height:0pt; margin-bottom:30pt">
             <div>学历: {{ Degree }}</div>
           </div>
         </q-card-section>
@@ -58,7 +58,7 @@
         </q-btn>-->
       </q-card>
     </div>
-    <div class="column col-8 q-gutter-sm" style="max-width:600pt; ">
+    <div class="column col-8 q-gutter-sm" style="max-width:600pt; margin-left:20pt">
       <CourseInfo />
       <!-- <TeacherInfo /> -->
       <CommentInfo />
@@ -97,6 +97,7 @@ export default {
   computed: mapState("userInfo", ["userInfo"]),
   created() {
     console.log("in homepage created", this.userInfo);
+    
 
     switch (this.userInfo.gender) {
       case 0:
@@ -142,6 +143,15 @@ export default {
         this.Degreer = "博士生";
         break;
     }
+    //这一块加不加好像都没用
+    this.$store.commit('userInfo/setUserInfo', { 
+        userid: this.userInfo.userid,
+        nickname: this.userInfo.nickname,
+        phonenumber:this.userInfo.phonenumber,
+        gender:this.userInfo.gender,
+        year:this.userInfo.year,
+        degree:this.userInfo.degree
+    })  
   },
 };
 </script>

@@ -33,12 +33,19 @@
       </div> -->
 
       <div class="course-comment">
-        <course-comment
-          v-for="(comment, i) in comments"
-          :key="comment.commentid"
-          :apiData="comment"
-          :taker="commentor[i]"
-        />
+        <template v-if="comments.length > 0">
+          <course-comment
+            v-for="(comment, i) in comments"
+            :key="comment.commentid"
+            :apiData="comment"
+            :taker="commentor[i]"
+          />
+        </template>
+        <template v-else>
+          <div class="text-h6">
+            暂时还没有人评价该课程哦！
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -122,34 +129,26 @@ export default {
         }
       }, 5000);
 
-      var info = await getCourseInfo({
+      var courseResp = await getCourseInfo({
         courseId: this.$route.params.courseId,
+        teacherId: this.$route.params.teacherId,
         token: this.token,
       });
-      if (info.status) {
+      console.log('in receiving courseResp ', courseResp)
+      if (courseResp.status) {
         this.courseInfo = {
-          teacher: info.teacher[0].teacherName,
-          teacherId: info.teacher[0].teacherid,
-          section: 
-              [{
-                year: info.teacher[0].year,
-                semester: info.teacher.semester
-                }
-              ]
-            ,
-          department: info.teacher[0].department,
-          courseId: info.courseId,
-          title: info.title,
-
-          ...info.teacher[0],
+          teacher: courseResp.teacherName,
+          teacherId: this.$route.params.teacherId,
+          section: courseResp.section,
+          department: courseResp.department,
+          courseId: this.$route.params.courseId,
+          title: courseResp.courseName,
+          intro: courseResp.intro,
+          imgPath: courseResp.courseImageUrl,
         };
       }
 
-      console.log(
-        "asdaskjldbasliufgasduofgasdiufgasdpiufbasldjhfbasldjhf",
-        info
-      );
-
+      // 服务器没了！！
       var resp = await getComment({
         courseId: this.$route.params.courseId,
         token: this.token,

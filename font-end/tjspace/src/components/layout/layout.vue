@@ -44,6 +44,17 @@
             <q-btn
               class="search-course-btn"
               flat
+              :to="{
+                name: 'Homepage',
+                params: {
+                  userId: userInfo.userId,
+                },
+              }"
+              label="个人主页"
+            />
+            <q-btn
+              class="search-course-btn"
+              flat
               :to="{ name: 'SearchCourse' }"
               label="搜索课程"
             />

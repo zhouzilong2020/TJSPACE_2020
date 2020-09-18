@@ -89,7 +89,7 @@
         :to="{
           name: 'MakeComment',
           params: {
-            userId: this.userInfo.userid,
+            teacherId: this.courseInfo.teacherId,
             courseId: this.courseInfo.courseId,
           },
         }"
@@ -151,7 +151,8 @@ export default {
       var resp = await canMakeComment({
         token: this.token,
         userId: this.userInfo.userid,
-        teacherId: this.courseInfo.teacherid,
+        teacherId: this.$route.params.teacherId,
+        courseId : this.$route.params.courseId
       });
       if (resp.status) {
         this.canMakeComment = resp.canPostComment;

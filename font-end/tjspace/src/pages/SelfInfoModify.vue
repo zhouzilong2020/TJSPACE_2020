@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="width:600pt; margin:0 auto; margin-top:50pt">
+  <div class="card" style="width:400pt; margin:0 auto; margin-top:50pt">
     <q-card class="my-card" >
       <q-card-section>
         <div class="text-h6">个人信息</div>
@@ -7,57 +7,63 @@
 
       <q-separator />
 
-      <q-card-section>
-        
-        <div class="text-subtitle2">
-          <div class='row items-center'>
-            <div class="col-6 justify-evenly" style="text-align: center">昵称</div>
-            <div class="col-6 justify-evenly" style="text-align: center"><q-input rounded outlined v-model="Nickname" label="Nickname" value="Nickname" style="width:150pt"/></div>
-          </div>
-        </div>
-        
-        <div class="text-subtitle2" >
-          <div class='row items-center'>
-            <div class="col-6 justify-evenly" style="text-align: center">性别</div>
-            <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Gender" :options="OptionGender" label="Gender" style="width:150pt"/></div>
-          </div>
-        </div>
+      <q-card-section  class='background'>
+        <!-- <div class='background' style="z-index:-1; ">
+          <img :src="LogoImg" width="100%" height="100%" alt="" />
+        </div> -->
 
-        <div class="text-subtitle2" >
-          <div class='row items-center'>
-            <div class="col-6 justify-evenly" style="text-align: center">手机号</div>
-            <div class="col-6 justify-evenly" style="text-align: center"><q-input rounded outlined v-model="phoneNumber" :options="phoneNumber" label="phoneNumber" style="width:150pt"/></div>
-          </div>
-        </div>
 
-        <div class="text-subtitle2" >
-          <div class='row items-center'>
-            <div class="col-6 justify-evenly" style="text-align: center">年级</div>
-            <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Grade" :options="OptionGrade" label="Grade" style="width:150pt"/></div>
+        <div style="z-index:1; ">
+          <div class="text-subtitle2" style="height:20pt; margin-top:10pt">
+            <div class='row items-center'>
+              <div class="col-6 justify-evenly" style="text-align: center">昵称</div>
+              <div class="col-6 justify-evenly" style="text-align: center"><q-input rounded outlined v-model="Nickname" label="Nickname" value="Nickname" style="width:150pt"/></div>
+            </div>
           </div>
-        </div>
+          
+          <div class="text-subtitle2" style="height:20pt">
+            <div class='row items-center'>
+              <div class="col-6 justify-evenly" style="text-align: center">性别</div>
+              <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Gender" :options="OptionGender" label="Gender" style="width:150pt"/></div>
+            </div>
+          </div>
 
-        <div class="text-subtitle2" >
-          <div class='row items-center'>
-            <div class="col-6 justify-evenly" style="text-align: center">主修专业</div>
-            <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Major" :options="OptionMajor" label="Major" style="width:150pt" value="OptionMajor"/></div>
+          <div class="text-subtitle2" style="height:20pt">
+            <div class='row items-center'>
+              <div class="col-6 justify-evenly" style="text-align: center">手机号</div>
+              <div class="col-6 justify-evenly" style="text-align: center"><q-input rounded outlined v-model="phoneNumber" :options="phoneNumber" label="phoneNumber" style="width:150pt"/></div>
+            </div>
           </div>
-        </div>
 
-        <div class="text-subtitle2" >
-          <div class='row items-center'>
-            <div class="col-6 justify-evenly" style="text-align: center">学历</div>
-            <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Degree" :options="OptionDegree" label="Degree" style="width:150pt"/></div>
+          <div class="text-subtitle2" style="height:20pt">
+            <div class='row items-center'>
+              <div class="col-6 justify-evenly" style="text-align: center">年级</div>
+              <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Grade" :options="OptionGrade" label="Grade" style="width:150pt"/></div>
+            </div>
           </div>
-        </div>
-      
+
+          <div class="text-subtitle2" style="height:20pt">
+            <div class='row items-center'>
+              <div class="col-6 justify-evenly" style="text-align: center">主修专业</div>
+              <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Major" :options="OptionMajor" label="Major" style="width:150pt" value="OptionMajor"/></div>
+            </div>
+          </div>
+
+          <div class="text-subtitle2" style="height:20pt; margin-bottom:30pt" >
+            <div class='row items-center'>
+              <div class="col-6 justify-evenly" style="text-align: center">学历</div>
+              <div class="col-6 justify-evenly" style="text-align: center"><q-select rounded outlined v-model="Degree" :options="OptionDegree" label="Degree" style="width:150pt"/></div>
+            </div>
+          </div>
+        </div>     
       </q-card-section>
 
-      <q-separator />
 
+      <q-separator />
+      <!-- 这里跳转回主页之后主页的信息不会刷新 -->
       <div class='row'>
-        <q-btn label="Submit"  color="primary" class='col-6' @click='submit()'  />
-        <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm col-5" />
+        <q-btn label="Submit" type="submit" color="primary" class='col-6' @click=submit() :to="{ name: 'Homepage' }" />
+        <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm col-5" @click=reset() />
       </div>
       
     </q-card>
@@ -76,6 +82,7 @@
 <script>
 import {mapState} from 'vuex'
 import { token  } from '../services/config'
+import axios from 'axios'
 // import axios from 'axios'
 export default {
     components:{
@@ -93,6 +100,8 @@ export default {
     },
     data () {
     return {
+        LogoImg:require('../assets/TJU.png'),
+        
         OptionGender:['男','女'],
         OptionGrade:['大一','大二','大三','大四','研一','研二','博士'],
         OptionMajor:['软件工程','土木工程','经济与管理'],
@@ -106,11 +115,11 @@ export default {
         information:{
           userId:'',
           nickname:'',
-          gender:'',
+          gender:-1,
           phoneNumber:'',
           majorId:'',
-          year:'',
-          degree:'',
+          year:-1,
+          degree:-1,
         }
     }
   },
@@ -122,8 +131,11 @@ export default {
       console.log('in selfinfo',this.information)
       alert('Information Modified!')
     },
+    reset(){
+      this.InitInfo()
+    },
     getInfo(){
-      this.information.userId = this.userInfo.userid
+      this.information.userId=this.userInfo.userid
       this.information.nickname=this.Nickname
       switch(this.Gender)
       {
@@ -175,31 +187,11 @@ export default {
           break;
 
       }
+      
     },
-    async changeInfo() {
-      await this.$store.dispatch("infoModify/infoModify", this.information);
-    },
-    // async changeInfo() {
-    //     let res = await axios.put("http://175.24.115.240:8080/api/Modify/Info", {
-    //         headers: {
-    //           Authorization: token,
-    //         },
-    //         params: {
-    //            userId:this.information.userId,
-    //            nickname:this.information.nickname,
-    //            gender:this.information.gender,
-    //            phoneNumber:this.information.phoneNumber,
-    //            majorId:this.information.majorId,
-    //            year:this.information.year,
-    //            degree:this.information.degree,
-    //         }
-    //     })
-    //     this.researchList = res.data.retData.list
-    // },
-  },
-  computed:mapState('userInfo', ['userInfo']),
-  created(){
-    this.Nickname=this.userInfo.nickname
+    InitInfo()
+    {
+        this.Nickname=this.userInfo.nickname
     switch(this.userInfo.gender)
     {
       case 0: 
@@ -249,9 +241,31 @@ export default {
         this.Degreer='博士生';
         break;
     }
-
-    
-
+    },
+    async changeInfo() {
+        let res = await axios({
+            method:'post',
+            url:'http://175.24.115.240:8080/api/Modify/Info',
+            headers: {
+              Authorization: token,
+            },
+            data:{
+              userid:this.information.userId,
+              nickname:this.information.nickname,
+              gender:this.information.gender,
+              phonenumber:this.information.phoneNumber,
+              majorid:this.information.majorId,
+              year:this.information.year,
+              degree:this.information.degree,
+            }
+        })
+        console.log('new phone:',this.information.phoneNumber)
+        console.log('put action' , res)
+    }
+  },
+  computed:mapState('userInfo', ['userInfo']),
+  created(){
+    this.InitInfo()
   },
 
 
@@ -265,5 +279,11 @@ export default {
 .text-subtitle2{
   margin-top: 40pt;
 }
-
+.background{
+  background: url('../assets/TJU_2.png');
+  background-size:300px 300px;
+  background-repeat:no-repeat;
+  background-position:center;
+  
+}
 </style>

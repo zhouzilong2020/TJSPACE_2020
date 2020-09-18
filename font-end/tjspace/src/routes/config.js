@@ -2,7 +2,7 @@ export default {
     routes: [
 
         {
-            path: "/courseInfo/:courseId",
+            path: "/courseInfo/:courseId/:teacherId",
             name: 'courseInfo',
             component: () => import("@/pages/CourseInfo"),
         }, {
@@ -22,7 +22,7 @@ export default {
             name: "Forum",
             component: () => import("@/pages/Forum"),
         }, {
-            path: "/SearchCourse",
+            path: "/SearchCourse/:keyword",
             name: "SearchCourse",
             component: () => import("@/pages/SearchCourse"),
         }, {
@@ -34,7 +34,7 @@ export default {
             name: 'SelfInfoModify',
             component: () => import("@/pages/SelfInfoModify"),
         }, {
-            path: "/makeComment/:userId/:courseId",
+            path: "/makeComment/:courseId/:teacherId",
             name: 'MakeComment',
             component: () => import("@/pages/MakeComment"),
         }, {
