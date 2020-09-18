@@ -34,7 +34,10 @@
           <q-item-section class="justify-evenly col-4" style="text-align: left">
             <q-btn
               flat
-              :to="{ name: 'courseInfo', params: { courseId: i.courseId } }"
+              :to="{
+                name: 'courseInfo',
+                params: { courseId: i.courseId, teacherId: i.teacherId },
+              }"
               style="text-align: left"
             >
               {{ i.courseName }}
@@ -68,9 +71,7 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
-import { token } from "../../services/config";
 export default {
   data() {
     return {
@@ -84,7 +85,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("userInfo", ["userInfo", "collectedCourse"]),
+    ...mapState("userInfo", ["userInfo", "collectedCourse", "token"]),
     collectedcourse() {
       return this.collectedCourse;
     },
@@ -93,32 +94,17 @@ export default {
     click() {
       alert("ok!");
     },
-
-    async cancelCollect(courseId, teacherId) {
-      let res = await axios.post(
-        "http://175.24.115.240:8080/api/Course/CancelCollectCourse",
-        {},
-        {
-          headers: {
-            Authorization: token,
-          },
-          params: {
-            userId: this.userInfo.userid,
-            courseId: courseId,
-            teacherId: teacherId,
-          },
-        }
-      );
-      this.msg = res.data;
-      console.log("data in courseInfo:", this.msg);
-      // this.getCollectedCourse();
-      //  console.log('data in courseInfo:' , this.userInfo.userid,courseId,teacherId)
+    cancelCollect(courseId, teacherId) {
+      this.$store.dispatch("userInfo/cancelCollect", {
+        token: this.token,
+        courseId,
+        teacherId,
+        userId : this.userInfo.userid,
+      });
     },
   },
 
-  created() {
-    
-  },
+  created() {},
 };
 </script>
 

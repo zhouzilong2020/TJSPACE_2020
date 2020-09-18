@@ -1,6 +1,6 @@
 import { loginUser, registerUser, getUserInfo, modifyUserInfo } from "../services/userService"
 import { getHistoryComment } from '../services/commentService'
-import { getCollectedCourse } from '../services/courseService'
+import { collectCourse, getCollectedCourse, cancelCollect } from '../services/courseService'
 import { setCookie, getCookie, removeCookie } from '../utils/utils'
 /**
  * 用户登录的数据仓库
@@ -62,16 +62,6 @@ export default {
         },
 
         /**
-         * 设置favoriteCourse
-         * @param {*} state 
-         * @param {*} payload 
-         */
-        setFavoriteCourse(state, payload) {
-            state.favoriteCourse = payload;
-        },
-
-
-        /**
          * 设置历史评价
          * @param {*} state 
          * @param {*} payload 
@@ -96,7 +86,26 @@ export default {
          */
         setCollectedCourse(state, payload) {
             state.collectedCourse = payload;
+        },
+
+        /**
+         * 新加收藏课程
+         * @param {*} state 
+         * @param {*} payload 
+         */
+        collectCourse(state, payload){
+            state.collectedCourse.push(payload)
         }
+
+        /**
+         * 取消收藏课程
+         * @param {*} state 
+         * @param {*} payload 
+         */
+        // cancelCollect(state, payload){
+            
+        // }
+        
     },
 
     actions: {
@@ -134,7 +143,7 @@ export default {
                     if (colCourse.status == false) {
                         context.commit('setCollectedCourse', [])
                     } else {
-                        context.commit('setCollectedCourse', colCourse.data)
+                        context.commit('setCollectedCourse', colCourse.collectedcourse)
                     }
                     context.commit("setUserInfo", resp)
                     context.commit("setToken", token)
@@ -172,7 +181,7 @@ export default {
                         if (colCourse1.status == false) {
                             context.commit('setCollectedCourse', [])
                         } else {
-                            context.commit('setCollectedCourse', colCourse1.data)
+                            context.commit('setCollectedCourse', colCourse1.collectedcourse)
                         }
                         setCookie('TJSPACE-token', 'Bearer ' + resp1.data1, 1)
                         setCookie('TJSPACE-userId', resp1.data2, 1)
@@ -252,7 +261,44 @@ export default {
             }
             context.commit("setIsLoading", false);
             return resp
-        }
+        },
+
+        async collectCourse(context, payload) {
+            // context.commit("setIsLoading", true);
+            console.log('in store collect course', payload)
+            var resp = await collectCourse(payload)
+            if (resp.status) {
+                //添加了课程
+                var colCourse = await getCollectedCourse(payload)
+                // 获取的收藏信息为空
+                if (colCourse.status == false) {
+                    context.commit('setCollectedCourse', [])
+                } else {
+                    context.commit('setCollectedCourse', colCourse.collectedcourse)
+                }
+            }
+            // context.commit("setIsLoading", false);
+            return resp
+        },
+
+        async cancelCollect(context, payload) {
+            // context.commit("setIsLoading", true);
+            console.log('in store cancel course ', payload)
+            var resp = await cancelCollect(payload)
+            console.log('asdasdasd', resp)
+            if (resp.status) {
+                //删除了课程
+                var colCourse = await getCollectedCourse(payload)
+                // 获取的收藏信息为空
+                if (colCourse.status == false) {
+                    context.commit('setCollectedCourse', [])
+                } else {
+                    context.commit('setCollectedCourse', colCourse.collectedcourse)
+                }
+            }
+            // context.commit("setIsLoading", false);
+            return resp
+        }, 
 
 
     },

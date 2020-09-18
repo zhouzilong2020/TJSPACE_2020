@@ -56,10 +56,8 @@
               class="search-course-btn"
               flat
               :to="{
-                name: 'SearchCourse',
-                params: {
-                  keyword: '',
-                },
+                name: 'SearchCourseNoKeyword',
+                
               }"
               label="搜索课程"
             />
@@ -165,7 +163,7 @@
               />
               <drawer-btn
                 :label="'搜索课程'"
-                :to="{ name: 'SearchCourse', params: { keyword: '' } }"
+                :to="{ name: 'SearchCourseNoKeyword'}"
                 :icon="'search'"
               />
             </template>

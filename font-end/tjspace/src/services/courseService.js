@@ -33,7 +33,7 @@ export async function getCollectedCourse(payload) {
             Authorization: payload.token,
         },
         params: {
-            courseId: payload.courseId,
+            userId: payload.userId,
         },
     });
     console.log("after get collected course", resp);

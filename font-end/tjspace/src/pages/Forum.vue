@@ -236,7 +236,7 @@ export default {
                         date: replyData.date,
                         nickName: reply.nickName,
                         replys: [],
-                        floor:replyData.floor-1
+                        floor:replyData.floor+1
                     };
                     reply.replys.forEach((replyToReply) => {
                         var replyToReplyData = replyIdMap[replyToReply.replyId]

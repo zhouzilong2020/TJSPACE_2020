@@ -41,10 +41,8 @@
             :taker="commentor[i]"
           />
         </template>
-        <template v-else>
-          <div class="text-h6">
-            暂时还没有人评价该课程哦！
-          </div>
+        <template v-else class="row justify-between">
+          <div class="text-h6">暂时还没有人评价该课程哦！</div>
         </template>
       </div>
     </div>
@@ -128,13 +126,13 @@ export default {
           this.$q.loading.hide();
         }
       }, 5000);
-      
+
       var courseResp = await getCourseInfo({
         courseId: this.$route.params.courseId,
         teacherId: this.$route.params.teacherId,
         token: this.token,
       });
-      console.log('in receiving courseResp ', courseResp)
+      console.log("in receiving courseResp ", courseResp);
       if (courseResp.status) {
         this.courseInfo = {
           teacher: courseResp.teacherName,
@@ -144,6 +142,7 @@ export default {
           courseId: this.$route.params.courseId,
           title: courseResp.courseName,
           intro: courseResp.intro,
+          credit: courseResp.credit,
           imgPath: courseResp.courseImageUrl,
         };
       }

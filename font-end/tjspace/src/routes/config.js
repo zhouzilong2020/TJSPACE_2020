@@ -30,6 +30,10 @@ export default {
             name: "SearchCourse",
             component: () => import("@/pages/SearchCourse"),
         }, {
+            path: "/SearchCourse",
+            name: "SearchCourseNoKeyword",
+            component: () => import("@/pages/SearchCourse"),
+        }, {
             path: "/Homepage/:userId",
             name: "Homepage",
             component: () => import("@/pages/Homepage"),

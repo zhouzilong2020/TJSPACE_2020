@@ -35,7 +35,8 @@
         class="btn full-width"
         flat
         round
-        color="red"
+        @click="handleClick()"
+        :color="isCollected"
         icon="favorite"
       />
       <q-btn
@@ -43,6 +44,7 @@
         class="btn full-width"
         flat
         round
+        disable
         color="accent"
         icon="bookmark"
       />
@@ -51,6 +53,7 @@
         class="btn full-width"
         flat
         round
+        disable
         color="primary"
         icon="share"
       />
@@ -73,10 +76,49 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "CourseHead",
   created() {
-    console.log("asdasd", this.courseInfo);
+    // console.log("asdasd", this.courseInfo);
+  },
+  computed: {
+    ...mapState("userInfo", ["collectedCourse", "token", "userInfo"]),
+    isCollected() {
+      let that = this;
+      let res = this.collectedCourse.filter((obj) => {
+        return (
+          obj.courseId == that.$route.params.courseId &&
+          obj.teacherId == that.$route.params.teacherId
+        );
+      });
+      if (res.length > 0) {
+        return "red";
+      } else {
+        return "grey";
+      }
+    },
+  },
+  methods: {
+    handleClick() {
+      if (this.isCollected == "red") {
+        //如果收藏了则取消收藏
+        this.$store.dispatch("userInfo/cancelCollect", {
+          courseId: this.$route.params.courseId,
+          teacherId: this.$route.params.teacherId,
+          userId: this.userInfo.userid,
+          token: this.token,
+        });
+      } else {
+        //没有收藏则收藏
+        this.$store.dispatch("userInfo/collectCourse", {
+          courseId: this.$route.params.courseId,
+          teacherId: this.$route.params.teacherId,
+          userId: this.userInfo.userid,
+          token: this.token,
+        });
+      }
+    },
   },
   props: {
     courseInfo: {
@@ -123,3 +165,4 @@ export default {
   width: 90%;
 }
 </style>
+

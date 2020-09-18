@@ -261,8 +261,8 @@ export default {
             searchKey: this.input,
           });
           this.newcourseInfo = resp1;
-
-          if (this.newcourseInfo.length == 0) {
+          console.log('asdasdasdasdas',resp1)
+          if (!this.newcourseInfo) {
             alert("未搜索到相关课程");
           } else {
             for (var i = 0; i < this.newcourseInfo.length; i++) {
@@ -271,7 +271,6 @@ export default {
                 this.newcourseInfo[i].courseIntro = this.str + "......";
               }
             }
-
             this.isShow = 1;
             console.log("result", this.newcourseInfo);
           }
@@ -289,15 +288,19 @@ export default {
   watch: {
     keyword() {
       console.log("changed", this.$route.params.keyword);
-      if (this.$route.params.keyword != ' ') {
+      if (this.$route.params.keyword != "") {
         console.log("收到信息", "收到信息");
+        this.input = this.$route.params.keyword;
         this.$nextTick(async function () {
           //       this.value = document.getElementById("textId").value;
           console.log("search", this.$route.params.keyword);
-          var resp1 = await search({ searchKey: this.$route.params.keyword });
+          var resp1 = await search({
+            searchKey: this.$route.params.keyword,
+            token: this.token,
+          });
           this.newcourseInfo = resp1;
 
-          if (this.newcourseInfo.length == 0) {
+          if (!this.newcourseInfo) {
             alert("未搜索到相关课程");
           } else {
             for (var i = 0; i < this.newcourseInfo.length; i++) {
@@ -306,7 +309,6 @@ export default {
                 this.newcourseInfo[i].courseIntro = this.str + "......";
               }
             }
-
             this.isShow = 1;
             console.log("result", this.newcourseInfo);
           }
@@ -321,10 +323,13 @@ export default {
       this.$nextTick(async function () {
         //       this.value = document.getElementById("textId").value;
         console.log("search", this.$route.params.keyword);
-        var resp1 = await search({ searchKey: this.$route.params.keyword });
+        var resp1 = await search({
+          searchKey: this.$route.params.keyword,
+          token: this.token,
+        });
         this.newcourseInfo = resp1;
 
-        if (this.newcourseInfo.length == 0) {
+        if (!this.newcourseInfo) {
           alert("未搜索到相关课程");
         } else {
           for (var i = 0; i < this.newcourseInfo.length; i++) {

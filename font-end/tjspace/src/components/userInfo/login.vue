@@ -60,7 +60,6 @@
       :bgColor="'bg-warning'"
       :show="warning"
     />
-
   </q-card>
 </template>
 
@@ -103,33 +102,35 @@ export default {
     }
     if (localStorage.getItem("TJSPACE-email")) {
       this.account.email = localStorage.getItem("TJSPACE-email");
-      this.remember = true
+      this.remember = true;
     }
   },
 
   methods: {
     async handleLogin() {
-      await this.$store.dispatch("userInfo/loginUser", {
+      this.$store.dispatch("userInfo/loginUser", {
         account: this.account,
         remember: this.remember,
       });
       if (this.token) {
         // 成功获取token 表示成功登录
         // console.log("get user token")
-        console.log("in login page", this.userInfo);
-        this.$router.push({
-          name: "Homepage",
-          params: {
-            userId: this.userInfo.userid,
-          },
-        });
+        setTimeout(() => {
+          console.log("in login page", this.userInfo);
+          this.$router.push({
+            name: "Homepage",
+            params: {
+              userId: this.userInfo.userid,
+            },
+          });
+        }, 2000);
       } else {
         //密码错误
-        console.log("密码错误")
+        console.log("密码错误");
         this.warning = true;
-        // setTimeout(() => {
-        //   this.warning = false;
-        // }, 2000);
+        setTimeout(() => {
+          this.warning = false;
+        }, 2000);
       }
     },
   },
