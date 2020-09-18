@@ -146,10 +146,27 @@ namespace TJSpace.Controllers
         public ActionResult<string> showPersonalComment(string userId)
         {
             List<Comment> list = dbContext.Comments.Where(n => n.UserId.Equals(userId)).ToList();
+            List<showPersonalCommentReturn> list1 = new List<showPersonalCommentReturn>();
+
+            foreach(var v in list)
+            {
+                showPersonalCommentReturn s = new showPersonalCommentReturn();
+                var info = dbContext.CourseCodes.Where(u => u.CourseId == v.CourseId).ToList().FirstOrDefault();
+                s.CourseName = info.Title;
+                s.CommentId = v.CommentId;
+                s.CourseId = info.CourseId;
+                s.UsefulNum = v.UsefulNum;
+                s.UselessNum = v.UselessNum;
+                s.Date = v.Date;
+                s.Overall = v.Overrall;
+                
+                list1.Add(s);
+            }
+            
             return Ok(new
             {
                 status = true,
-                data = list,
+                data = list1,
                 msg = "查看数据成功"
             });
         }

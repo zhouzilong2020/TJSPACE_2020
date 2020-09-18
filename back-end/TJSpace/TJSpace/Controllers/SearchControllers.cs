@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using TJSpace.DBModel;
+using System.Collections;
 
 namespace TJSpace.Controllers
 {
@@ -117,20 +118,29 @@ namespace TJSpace.Controllers
                 }
 
                 var info3 = dbContext.Teaches.Where(u => u.CourseId == r.CourseId).ToList();
-                foreach (var t in info3)
+                List<string> copyList = new List<string>();
+                Hashtable hash = new Hashtable();
+
+                foreach (var temp in info3)
+                {
+                    if (!hash.ContainsKey(temp.CourseId))
+                    {
+                        hash.Add(temp.CourseId, temp.CourseId);
+                        copyList.Add(temp.CourseId);
+                    }
+                }
+                foreach (var t in copyList)
                 {
                     SearchCourseReturn s = new SearchCourseReturn();
                     s.CourseName = r.Title;
                     s.CourseCredit = info2.Credits;
                     s.CourseId = r.CourseId;
                     s.CourseIntro = info2.Intro;
-                    var teacherId = t.TeacherId;
-                    s.TeacherId = teacherId;
-                    var info5 = dbContext.Teachers.Where(u => u.TeacherId == teacherId).ToList().FirstOrDefault();
+                    var info7 = dbContext.Teaches.Where(u => u.CourseId == t).ToList().FirstOrDefault();
+                    s.TeacherId = info7.TeacherId;
+                    var info5 = dbContext.Teachers.Where(u => u.TeacherId == s.TeacherId).ToList().FirstOrDefault();
                     s.TeacherName = info5.Name;
-                    s.Semester = t.Semester;
-                    s.Year = t.Year;
-                    var info6 = dbContext.CourseGrades.Where(u => u.CourseId == t.CourseId && u.TeacherId == t.TeacherId).ToList().FirstOrDefault();
+                    var info6 = dbContext.CourseGrades.Where(u => u.CourseId == s.CourseId && u.TeacherId == s.TeacherId).ToList().FirstOrDefault();
                     s.CourseGrade = info6.AvgScore;
                     s.CourseImageUrl = r.CourseImageUrl;
                     list.Add(s);
@@ -190,30 +200,91 @@ namespace TJSpace.Controllers
                 });
             }
             
-            var info2 = dbContext.Courses.Where(u => u.CourseId == courseId).ToList().FirstOrDefault();
-            var info3 = dbContext.Teaches.Where(u => u.CourseId == courseId).ToList();
-            var info4 = dbContext.Teachers.Where(u => u.TeacherId == info3[0].TeacherId).ToList().FirstOrDefault();
-
-            List<section> list = new List<section>();
-
-            foreach(var v in info3)
+            List<SearchCourseByCourseIdReturn> list = new List<SearchCourseByCourseIdReturn>();
+            
+            var info2 = dbContext.Teaches.Where(u => u.CourseId == courseId).ToList();
+            List<string> copyList = new List<string>(); 
+            Hashtable hash = new Hashtable();
+            
+            foreach (var temp in info2)
             {
-                list.Add(new section { Year = v.Year, Semester = v.Semester });
+                if(!hash.ContainsKey(temp.TeacherId))
+                {
+                    hash.Add(temp.TeacherId,temp.TeacherId);
+                    copyList.Add(temp.TeacherId);
+                }
+            }
+
+            foreach (var v in copyList)
+            {
+                SearchCourseByCourseIdReturn s = new SearchCourseByCourseIdReturn();
+                List<section> sect = new List<section>();
+
+                var info3 = dbContext.Courses.Where(u => u.CourseId == courseId).ToList().FirstOrDefault();
+                var info4 = dbContext.Teachers.Where(u => u.TeacherId == v).ToList().FirstOrDefault();
+                s.Department = info3.DeptName;
+                s.TeacherName = info4.Name;
+                s.TeacherId = v;
+                var info5 = dbContext.Teaches.Where(u => u.TeacherId == v).ToList();
+                foreach(var temp in info5)
+                {
+                    sect.Add(new section { Year = temp.Year, Semester = temp.Semester });
+                    s.Section = sect;
+                }
+                
+                list.Add(s);
             }
 
             return Ok(new
             {
                 status = true,               
                 title = info1.Title,
-                teacher=info4.Name,
                 courseId = info1.CourseId,
-                section=list,
-                department = info2.DeptName,
                 url = info1.CourseImageUrl,
-                teacherid=info4.TeacherId,
+                teacher=list,
                 msg = "查找课程成功"
             }) ;
         }
 
+        //唯一确定一门课程
+        [HttpGet]
+        public ActionResult<string>SearchCourseUnique(string teacherId,string courseId)
+        {
+            var info1 = dbContext.Teaches.Where(u => u.TeacherId == teacherId && u.CourseId == courseId).ToList();
+            if(info1==null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "查找课程失败"
+                });
+            }
+
+            var info2 = dbContext.Courses.Where(u => u.CourseId == courseId).ToList().FirstOrDefault();
+            var info3 = dbContext.CourseCodes.Where(u => u.CourseId == courseId).ToList().FirstOrDefault();
+            var info4 = dbContext.CourseGrades.Where(u => u.CourseId == courseId && u.TeacherId == teacherId).ToList().FirstOrDefault();
+            var info5 = dbContext.Teachers.Where(u => u.TeacherId == teacherId).ToList().FirstOrDefault();
+
+            List<section> list = new List<section>();
+
+            foreach(var v in info1)
+            {
+                list.Add(new section { Semester = v.Semester, Year = v.Year });
+            }
+
+            return Ok(new
+            {
+                status = true,
+                courseName=info3.Title,
+                department=info2.DeptName,
+                credit=info2.Credits,
+                intro=info2.Intro,
+                avgScore=info4.AvgScore,
+                courseImageUrl=info3.CourseImageUrl,
+                teacherName=info5.Name,
+                section=list,
+                msg = "查找课程成功"
+            });
+        }
     }
 }

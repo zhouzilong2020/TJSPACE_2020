@@ -13,8 +13,6 @@ namespace TJSpace.DBModel
         public string CourseIntro { get; set; }
         public string TeacherName { get; set; }
         public string TeacherId { get; set; }
-        public int Semester { get; set; }
-        public int Year { get; set; }
         public double CourseGrade { get; set; }
         public string CourseImageUrl { get; set; }
     }
@@ -71,5 +69,24 @@ namespace TJSpace.DBModel
     {
         public int Year { get; set; }
         public int Semester { get; set; }
+    }
+
+    public class SearchCourseByCourseIdReturn
+    {
+        public string TeacherName { get; set; }
+        public string Department { get; set; }
+        public string TeacherId{ get; set; }
+        public List<section> Section { get; set; }
+    }
+
+    public class showPersonalCommentReturn
+    {
+        public string CourseName { get; set; }
+        public string CommentId { get; set; }
+        public string CourseId { get; set; }
+        public int UsefulNum { get; set; }
+        public int UselessNum { get; set; }
+        public DateTime Date { get; set; }
+        public int Overall { get; set; }
     }
 }
