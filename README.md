@@ -12,7 +12,7 @@
 搜索结果  |  lili
 个人主页  |  czj
 登录 注册 index  | zxl
-课程/教师页面  |  zzl
+课程/页面  |  zzl
 评价  |  sfz
 论坛首页  |  wwz
 帖子页面  | lf
