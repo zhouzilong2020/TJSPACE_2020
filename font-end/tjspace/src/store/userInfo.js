@@ -93,7 +93,7 @@ export default {
          * @param {*} state 
          * @param {*} payload 
          */
-        collectCourse(state, payload){
+        collectCourse(state, payload) {
             state.collectedCourse.push(payload)
         }
 
@@ -103,9 +103,9 @@ export default {
          * @param {*} payload 
          */
         // cancelCollect(state, payload){
-            
+
         // }
-        
+
     },
 
     actions: {
@@ -202,6 +202,8 @@ export default {
 
             context.commit('setToken', null)
             context.commit('setUserInfo', null)
+            context.commit('setHistoryComment', null)
+            context.commit('setCollectedCourse', null)
 
             // 清楚相应的cookie
             removeCookie('TJSPACE-token')
@@ -298,7 +300,7 @@ export default {
             }
             // context.commit("setIsLoading", false);
             return resp
-        }, 
+        },
 
 
     },
