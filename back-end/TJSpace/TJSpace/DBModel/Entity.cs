@@ -84,6 +84,7 @@ namespace TJSpace.DBModel
         public string CourseName { get; set; }
         public string CommentId { get; set; }
         public string CourseId { get; set; }
+        public string TeacherId { get; set; }
         public int UsefulNum { get; set; }
         public int UselessNum { get; set; }
         public DateTime Date { get; set; }

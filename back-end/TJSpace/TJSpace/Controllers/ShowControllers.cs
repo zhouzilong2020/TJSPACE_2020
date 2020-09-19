@@ -159,7 +159,7 @@ namespace TJSpace.Controllers
                 s.UselessNum = v.UselessNum;
                 s.Date = v.Date;
                 s.Overall = v.Overrall;
-                
+                s.TeacherId = v.TeacherId;
                 list1.Add(s);
             }
             

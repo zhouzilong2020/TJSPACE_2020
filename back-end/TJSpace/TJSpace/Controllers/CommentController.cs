@@ -31,6 +31,17 @@ namespace TJSpace.Controllers
             ,int presentation,int overall,int instructor,int grading,int workload,string userId,int anonymous
             ,string courseId,string teacherId)
         {
+            //检查评价是否存在
+            var data2 = dbContext.Comments.Where(u => u.UserId == userId && u.CourseId == courseId && u.TeacherId == teacherId).ToList().FirstOrDefault();
+            if(data2!=null)
+            {
+                return Ok(new
+                {
+                    status = false,
+                    msg = "评价失败，不能重复评价！"
+                });
+            }
+
             //检查教师id是否存在
             var list1 = dbContext.Teachers.Where(u => u.TeacherId == teacherId).FirstOrDefault();
             if(list1 == null)
@@ -250,8 +261,13 @@ namespace TJSpace.Controllers
                     msg = "删除失败,评论不存在"
                 });
             }
+
+            var data = dbContext.CourseGrades.Where(u => u.CourseId == comment.CourseId && u.TeacherId == comment.TeacherId).ToList().FirstOrDefault();
+
+            data.AvgScore = data.AvgScore * 2 - comment.Overrall;
             dbContext.Comments.Remove(comment);
-            if (dbContext.SaveChanges() == 1)
+
+            if (dbContext.SaveChanges() == 2)
             {
                 return Ok(new
                 {

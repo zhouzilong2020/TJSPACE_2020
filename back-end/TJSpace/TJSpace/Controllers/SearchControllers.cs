@@ -123,10 +123,10 @@ namespace TJSpace.Controllers
 
                 foreach (var temp in info3)
                 {
-                    if (!hash.ContainsKey(temp.CourseId))
+                    if (!hash.ContainsKey(temp.TeacherId))
                     {
-                        hash.Add(temp.CourseId, temp.CourseId);
-                        copyList.Add(temp.CourseId);
+                        hash.Add(temp.TeacherId, temp.TeacherId);
+                        copyList.Add(temp.TeacherId);
                     }
                 }
                 foreach (var t in copyList)
@@ -136,8 +136,8 @@ namespace TJSpace.Controllers
                     s.CourseCredit = info2.Credits;
                     s.CourseId = r.CourseId;
                     s.CourseIntro = info2.Intro;
-                    var info7 = dbContext.Teaches.Where(u => u.CourseId == t).ToList().FirstOrDefault();
-                    s.TeacherId = info7.TeacherId;
+                    var info7 = dbContext.Teaches.Where(u => u.CourseId == s.CourseId).ToList().FirstOrDefault();
+                    s.TeacherId = t;
                     var info5 = dbContext.Teachers.Where(u => u.TeacherId == s.TeacherId).ToList().FirstOrDefault();
                     s.TeacherName = info5.Name;
                     var info6 = dbContext.CourseGrades.Where(u => u.CourseId == s.CourseId && u.TeacherId == s.TeacherId).ToList().FirstOrDefault();
