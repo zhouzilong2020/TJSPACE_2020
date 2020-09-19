@@ -125,7 +125,7 @@ export default {
       },
       // 计时器
       timer: null,
-      downCnt: 5,
+      downCnt: 60,
 
       verified: false,
       accept: false,

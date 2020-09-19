@@ -112,19 +112,19 @@ export async function getCommentInfo(payload) {
  */
 export async function makeComment(payload) {
     console.log('in commit comment', { ...payload.apiInterface })
-    var resp = await axios.post(`${URL}Comment/PostComment`,
-        {
-            ...payload.apiInterface
+    var resp = await axios.post(`${URL}Comment/PostComment`, {}, {
+        headers: {
+            Authorization: payload.token
         },
-        {
-            headers: {
-                Authorization: payload.token,
-                "Content-Type": "application/json",
-            },
-        })
+        params: {
+            ...payload.apiInterface
+        }
+
+    })
     console.log('after submit:', resp)
     return resp.data
 }
+
 
 /**
  * 是否能够评价某一个课程信息

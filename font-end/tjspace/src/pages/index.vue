@@ -26,15 +26,15 @@ export default {
     };
   },
   created() {
-    if(this.userInfo){
-      console.log('in index created',this.userInfo)
-      this.$router.push({
-        name:'Homepage',
-        params:{
-          userId:this.userInfo.userId
-        }
-      })
-    }
+    // if(this.userInfo){
+    //   console.log('in index created',this.userInfo)
+    //   this.$router.push({
+    //     name:'Homepage',
+    //     params:{
+    //       userId:this.userInfo.userId
+    //     }
+    //   })
+    // }
   },
 };
 </script>

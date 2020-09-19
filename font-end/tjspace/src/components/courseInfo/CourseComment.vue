@@ -244,7 +244,7 @@
           flat
           round
           :loading="btnLoading[1]"
-          icon="iconfont icon-dianzan"
+          icon="thumb_up"
         ></q-btn>
         <q-btn
           :color="userlessColor"
@@ -253,7 +253,7 @@
           flat
           round
           :loading="btnLoading[0]"
-          icon="iconfont icon-cai"
+          icon="thumb_down"
         ></q-btn>
       </span>
     </q-card-section>
@@ -468,6 +468,7 @@ export default {
 .course-review {
   margin-bottom: 20px;
   max-width: 800px;
+  min-width: 400px;
 }
 
 .course-review-body {

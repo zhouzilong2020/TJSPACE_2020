@@ -9,8 +9,11 @@ import {
 } from 'quasar'
 var isLoading = 0
 var timer
-const cancelToken = axios.CancelToken
-const source = cancelToken.source();
+const CancelToken = axios.CancelToken
+var cancel
+var cancelToken = new CancelToken(function executor(c){
+    cancel = c;
+})
 
 /**
  * 增加一个加载中的请求，有加载中的请求时显示Loading
@@ -25,7 +28,7 @@ function SetLoading(){
                     position: 'center',
                     timeout: '2000'
                 })
-                source.cancel()
+                cancel('TimeOut')
             }
         },5000) 
     }
@@ -55,7 +58,7 @@ function get(api, params) {
     SetLoading()
     return new Promise((resolve,reject) => {
         axios.get(`${URL}` + api, {
-            cancelToken :source.token,
+            cancelToken :cancelToken,
             headers: {
                 Authorization: store.state.token
             },
@@ -78,7 +81,7 @@ function post(api, params) {
     SetLoading()
     return new Promise((resolve,reject) => {
         axios.post(`${URL}` + api, {}, {
-            cancelToken :source.token,
+            cancelToken :cancelToken,
             headers: {
                 Authorization: store.state.token
             },
@@ -97,7 +100,10 @@ function post(api, params) {
  */
 export function RequestCancel(){
     if(isLoading>0){
-        source.cancel()
+        cancel('cancel')
+        cancelToken = new CancelToken(function executor(c){
+            cancel = c;
+        })
     }
     clearTimeout(timer)
     timer = void 0

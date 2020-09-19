@@ -193,7 +193,7 @@ export default {
           teacher: "袁时金",
           intro:
             "这是一门辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡辣鸡课程",
-          courseId: "420244",
+          courseId: "420023",
           teacherId: "0002",
           imagePath: "../assets/sjk.jpg",
         },

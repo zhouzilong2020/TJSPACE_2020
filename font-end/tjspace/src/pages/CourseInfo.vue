@@ -85,6 +85,13 @@ export default {
       statistic.teaching /= statistic.reveiwCnt;
       statistic.grading /= statistic.reveiwCnt;
       statistic.workload /= statistic.reveiwCnt;
+
+
+      statistic.content = statistic.content.toFixed(1)
+      statistic.teaching = statistic.teaching.toFixed(1)
+      statistic.grading = statistic.grading.toFixed(1)
+      statistic.workload = statistic.workload.toFixed(1)
+
       return statistic;
     },
   },
@@ -145,6 +152,7 @@ export default {
           credit: courseResp.credit,
           imgPath: courseResp.courseImageUrl,
         };
+        this.$store.commit('courseInfo/setCourseInfo', this.courseInfo)
       }
 
       // 服务器没了！！
@@ -173,10 +181,14 @@ export default {
 .body-right .course-comment {
   margin-top: 15px;
 }
+.body-right{
+  min-width: 60%;
+}
+
 
 .body-right .option-group {
   margin-top: 15px;
-  max-width: 800px;
+  max-width: 80px;
 }
 
 .body-right .option-group .btn {

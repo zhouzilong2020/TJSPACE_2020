@@ -35,7 +35,7 @@
             >
               <q-btn
                 flat
-                :to="{ name: 'courseInfo', params: { courseId: i.courseId } }"
+                :to="{ name: 'courseInfo', params: { courseId: i.courseId, teacherId: i.teacherId } }"
                 style="text-align: left"
               >
                 {{ i.courseName }}
@@ -84,7 +84,9 @@ export default {
     },
   },
 
-  created() {},
+  created() {
+    console.log('sadgbasdkjhfghiuwdhjlsaoghfuhsdijhfpuijksadbfiubjlnio',this.commentInfo)
+  },
 };
 </script>
 

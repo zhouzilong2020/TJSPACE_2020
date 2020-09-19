@@ -13,7 +13,7 @@
         :name="0"
         :title="title[0]"
         icon="settings"
-        @click="console.log('onclick')"
+        
         :done="step > 0"
       >
         <q-item-label class="text-overline">{{ content[0] }}</q-item-label>
@@ -61,7 +61,7 @@
                 v-model="score[0]"
                 size="2.5em"
                 :max="10"
-                color="gold"
+                color="green-10"
                 icon="star_border"
                 icon-selected="star"
               />
@@ -436,6 +436,8 @@ export default {
         token: this.token,
         apiInterface: this.apiInterface,
       });
+
+
       console.log("after making comment ", resp);
 
       if (resp.status) {
@@ -466,9 +468,9 @@ export default {
   data() {
     return {
       isLoading: false,
-      step: 5,
+      step: 0,
       score: [5, 5, 5, 5],
-      comment: ["1", "1", "1", "1"],
+      comment: ["", "", "", ""],
       selection: [],
       title: [
         "请选择本门课程的相应情况",

@@ -52,13 +52,13 @@ export default {
           content: "学长学姐“过来人”的经验，帮助你在选课季避免“踩雷“",
           icon: "iconfont icon-kecheng",
           // TODO
-          img: require("../assets/index_img/courseInfo_index.png"),
+          img: require("../assets/index_img/comment_index.png"),
         },
         {
           title: "来自学生最真实的课程反馈",
           content: "教师可以通过本系统获取反馈,及时对课程进行调整优化",
           icon: "iconfont icon-fankui",
-          img: require("../assets/index_img/courseInfo_index.png"),
+          img: require("../assets/index_img/makeComment_index.png"),
         },
         {
           title: "更专业、更具体的报考指导",
@@ -78,7 +78,7 @@ export default {
           content: "从4m3上每学期收录5000余条课程记录，并不断更新中...",
           icon: "get_app",
           // TODO
-          img: require("../assets/index_img/courseInfo_index.png"),
+          img: require("../assets/index_img/courses_index.png"),
         },
         {
           title: "需要帮助？论坛解决你的所有问题",

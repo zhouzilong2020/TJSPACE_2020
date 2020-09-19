@@ -157,8 +157,10 @@ export default {
                 this.maxPage = Math.ceil((this.replysData.length + 1) / 10);
                 this.currentPage = 1;
                 this.ShiftPage();
-            }).catch(()=>{
-                this.$router.push("/BBSHomepage");
+            }).catch((error)=>{
+                if(error.message!='TimeOut'){
+                    this.$router.push("/BBSHomepage");
+                }
             })
             //加载点赞数据
             CanEvaluate({
@@ -431,7 +433,7 @@ export default {
             return string;
         },
     },
-    beforeDestroy() {
+    destroyed() {
         //切换页面时取消请求
         RequestCancel()
         if (this.timer !== void 0) {
